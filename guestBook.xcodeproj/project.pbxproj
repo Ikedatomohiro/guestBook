@@ -76,6 +76,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E56E1853254D664200205FCE /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				E59D9EF1254848F1000F7C45 /* eventListViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		E56E1854254D665400205FCE /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		E56E1855254D665D00205FCE /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		E59D9EE1254848F1000F7C45 = {
 			isa = PBXGroup;
 			children = (
@@ -99,10 +121,12 @@
 		E59D9EEC254848F1000F7C45 /* guestBook */ = {
 			isa = PBXGroup;
 			children = (
+				E56E1854254D665400205FCE /* Model */,
+				E56E1855254D665D00205FCE /* View */,
+				E56E1853254D664200205FCE /* Controller */,
 				E59D9F2F25484DC4000F7C45 /* Extensions */,
 				E59D9EED254848F1000F7C45 /* AppDelegate.swift */,
 				E59D9EEF254848F1000F7C45 /* SceneDelegate.swift */,
-				E59D9EF1254848F1000F7C45 /* eventListViewController.swift */,
 				E59D9EF6254848F3000F7C45 /* Assets.xcassets */,
 				E59D9EF8254848F3000F7C45 /* LaunchScreen.storyboard */,
 				E59D9EFB254848F3000F7C45 /* Info.plist */,
