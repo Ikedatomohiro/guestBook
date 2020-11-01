@@ -42,6 +42,7 @@ class eventListViewController: UIViewController {
     @objc private func createEvent() {
         let eventName = eventNameTextField.text
         db.collection("users").addDocument(data: ["eventName": eventName!])
+        eventNameTextField.text = ""
     }
     
     func setUpEventNameTextFeild() {
