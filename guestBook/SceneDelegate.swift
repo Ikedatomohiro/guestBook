@@ -13,15 +13,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-//        let eventListController: eventListViewController = eventListViewController()
+//        let eventListController: EventListViewController = EventListViewController()
 //        navigationController = UINavigationController(rootViewController: eventListController)
-        let eventListVC: eventListViewController = eventListViewController()
+        let eventListVC: EventListViewController = EventListViewController()
         navigationController = UINavigationController(rootViewController: eventListVC)
         
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-//        window?.rootViewController = eventListViewController()
+//        window?.rootViewController = EventListViewController()
         window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 

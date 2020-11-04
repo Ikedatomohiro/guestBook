@@ -1,5 +1,5 @@
 //
-//  guestCardViewController.swift
+//  GuestCardViewController.swift
 //  guestBook
 //
 //  Created by 池田友宏 on 2020/11/04.
@@ -7,7 +7,7 @@
 
 import UIKit
 
-class guestCardViewController: UIViewController {
+class GuestCardViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

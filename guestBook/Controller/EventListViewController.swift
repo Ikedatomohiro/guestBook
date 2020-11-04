@@ -1,5 +1,5 @@
 //
-//  eventListViewController.swift
+//  EventListViewController.swift
 //  guestBook
 //
 //  Created by 池田友宏 on 2020/10/27.
@@ -8,7 +8,7 @@
 import UIKit
 import FirebaseFirestore
 
-class eventListViewController: UIViewController {
+class EventListViewController: UIViewController {
     fileprivate let titleLabel = UILabel()
     fileprivate let createEventButton = UIButton()
     fileprivate let db = Firestore.firestore()
@@ -81,13 +81,13 @@ class eventListViewController: UIViewController {
     }
 }
 
-extension eventListViewController:UITableViewDelegate {
+extension EventListViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
     }
 }
 
-extension eventListViewController:UITableViewDataSource {
+extension EventListViewController:UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
