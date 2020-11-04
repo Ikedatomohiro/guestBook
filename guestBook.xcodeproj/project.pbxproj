@@ -11,6 +11,9 @@
 		4DE1A7692E097183D6E9A4C8 /* Pods_guestBook_guestBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA5201B5EAA1EF1D56470FF /* Pods_guestBook_guestBookUITests.framework */; };
 		7A0425D19E6E0903CB6D2D10 /* Pods_guestBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C3A7464FBD829774DCCE33 /* Pods_guestBookTests.framework */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
+		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
+		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
+		E573F42A25504A2B0000C955 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F42925504A2B0000C955 /* NSObject.swift */; };
 		E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9EED254848F1000F7C45 /* AppDelegate.swift */; };
 		E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9EEF254848F1000F7C45 /* SceneDelegate.swift */; };
 		E59D9EF2254848F1000F7C45 /* eventListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9EF1254848F1000F7C45 /* eventListViewController.swift */; };
@@ -49,6 +52,9 @@
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		E573F41F254FD5630000C955 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		E573F424255047330000C955 /* EventNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameCell.swift; sourceTree = "<group>"; };
+		E573F42925504A2B0000C955 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		E59D9EEA254848F1000F7C45 /* guestBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guestBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E59D9EED254848F1000F7C45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E59D9EEF254848F1000F7C45 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -127,6 +133,8 @@
 		E56E1854254D665400205FCE /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				E573F41F254FD5630000C955 /* Event.swift */,
+				E573F424255047330000C955 /* EventNameCell.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -199,6 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				E59D9F3025484DE4000F7C45 /* Anchor.swift */,
+				E573F42925504A2B0000C955 /* NSObject.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -442,9 +451,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E59D9EF2254848F1000F7C45 /* eventListViewController.swift in Sources */,
+				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
+				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
+				E573F420254FD5630000C955 /* Event.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
