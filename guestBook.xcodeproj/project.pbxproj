@@ -23,6 +23,7 @@
 		E59D9F10254848F4000F7C45 /* guestBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */; };
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
 		E5B3C9122552B27400509757 /* GuestCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestCardViewController.swift */; };
+		E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -71,6 +72,7 @@
 		E59D9F11254848F4000F7C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 		E5B3C9112552B27400509757 /* GuestCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCardViewController.swift; sourceTree = "<group>"; };
+		E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +131,7 @@
 			children = (
 				E59D9EF1254848F1000F7C45 /* EventListViewController.swift */,
 				E5B3C9112552B27400509757 /* GuestCardViewController.swift */,
+				E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -457,6 +460,7 @@
 				E5B3C9122552B27400509757 /* GuestCardViewController.swift in Sources */,
 				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
+				E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */,
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
