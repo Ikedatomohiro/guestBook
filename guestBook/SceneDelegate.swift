@@ -10,17 +10,19 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    var navigationController: UINavigationController?
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
 //        let eventListController: eventListViewController = eventListViewController()
 //        navigationController = UINavigationController(rootViewController: eventListController)
-
+        let eventListVC: eventListViewController = eventListViewController()
+        navigationController = UINavigationController(rootViewController: eventListVC)
+        
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(frame: windowScene.coordinateSpace.bounds)
         window?.windowScene = windowScene
-        window?.rootViewController = eventListViewController()
-
+//        window?.rootViewController = eventListViewController()
+        window?.rootViewController = navigationController
         window?.makeKeyAndVisible()
 
     }

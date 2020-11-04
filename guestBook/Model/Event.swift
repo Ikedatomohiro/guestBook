@@ -13,6 +13,5 @@ struct Event {
     init(document: QueryDocumentSnapshot) {
         let dictionary = document.data()
         self.eventName = dictionary["eventName"] as? String ?? ""
-        print(self.eventName)
     }
 }
