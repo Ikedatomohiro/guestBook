@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import PencilKit
 
 class GuestCardViewController: UIViewController {
     
@@ -23,6 +24,19 @@ class GuestCardViewController: UIViewController {
         super.viewDidLoad()
 
         self.view.backgroundColor = .purple
+        
+        let canvas = PKCanvasView(frame: view.frame)
+        view.addSubview(canvas)
+        canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
+        
+        // PKToolPicker: ドラッグして移動できるツールパレット (ペンや色などを選択できるツール)
+        if let window = UIApplication.shared.windows.first {
+            if let toolPicker = PKToolPicker.shared(for: window) {
+                toolPicker.addObserver(canvas)
+                toolPicker.setVisible(true, forFirstResponder: canvas)
+                canvas.becomeFirstResponder()
+            }
+        }
     }
 
 }
