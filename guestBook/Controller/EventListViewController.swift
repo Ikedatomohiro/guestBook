@@ -83,7 +83,9 @@ class EventListViewController: UIViewController {
 
 extension EventListViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
+        let guestCardVC = GuestCardViewController(event: events[indexPath.row])
+        guestCardVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(guestCardVC, animated: true)
     }
 }
 
