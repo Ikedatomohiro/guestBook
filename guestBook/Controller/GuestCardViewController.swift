@@ -33,7 +33,6 @@ class GuestCardViewController: UIViewController {
         super.viewDidLoad()
 
         self.initPageViewController()
-        setCanvas()
         
 
     }
@@ -75,6 +74,10 @@ class GuestCardViewController: UIViewController {
     }
     
     fileprivate func initPageViewController() {
+
+        // 描画ツールのセット
+        setCanvas()
+
         let backColor: [ UIColor ] = [ .systemIndigo, .systemOrange, .systemGreen ]
 
         for i in 0 ... 2 {
@@ -89,6 +92,7 @@ class GuestCardViewController: UIViewController {
         
         self.addChild(self.pageviewController)
         self.view.addSubview(self.pageviewController.view!)
+        
     }
 
     
@@ -126,7 +130,7 @@ extension GuestCardViewController: UIPageViewControllerDataSource {
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         if let index = self.controllers.firstIndex(of: viewController),
-            index < 0 {
+            index > 0 {
             return self.controllers[index - 1]
         } else {
             return nil
@@ -136,10 +140,10 @@ extension GuestCardViewController: UIPageViewControllerDataSource {
 
 extension GuestCardViewController: UIPageViewControllerDelegate {
 
-    // ④ アニメーション終了後処理 追加
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         let currentPage = pageViewController.viewControllers![0]
         self.pageControl.currentPage = self.controllers.firstIndex(of: currentPage)!
+
     }
 
 }
