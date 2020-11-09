@@ -29,17 +29,17 @@ class EventListViewController: UIViewController {
 
     func setupTitleLabel() {
         view.addSubview(titleLabel)
-        titleLabel.backgroundColor = .blue
-        titleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 80, left: 30, bottom: 0, right: 0))
+        titleLabel.backgroundColor = .systemYellow
+        titleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0))
         titleLabel.text = "芳名帳アプリ"
     }
     
     func setupCreateEventButton() {
         view.addSubview(createEventButton)
-        createEventButton.anchor(top: nil, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 100, left: 0, bottom: 0, right: 30), size: .init(width: 150, height: 50))
+        createEventButton.anchor(top: titleLabel.layoutMarginsGuide.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 30), size: .init(width: 200, height: 50))
         createEventButton.setTitle("イベント新規作成", for: UIControl.State.normal)
         createEventButton.backgroundColor = .systemGray
-        createEventButton.layer.cornerRadius = 20
+        createEventButton.layer.cornerRadius = 5
         createEventButton.addTarget(self, action: #selector(createEvent), for: .touchUpInside)
     }
     
@@ -54,17 +54,19 @@ class EventListViewController: UIViewController {
     fileprivate func setupEventNameTextFeild() {
         view.addSubview(eventNameTextField)
         eventNameTextField.anchor(top: createEventButton.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 70))
+        eventNameTextField.borderStyle = .bezel
     }
     fileprivate func setupEventNameTableView() {
         view.addSubview(eventNameTableView)
-        eventNameTableView.anchor(top: titleLabel.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        eventNameTableView.anchor(top: eventNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         eventNameTableView.delegate = self
         eventNameTableView.dataSource = self
         eventNameTableView.register(EventNameCell.self, forCellReuseIdentifier: EventNameCell.className)
     }
+
+    // Firestoreからイベント名リストを取得
     func fetchEventNameList() {
         events = []
-        print("データ取ります")
         db.collection("eventName").getDocuments() { (querySnapshot, err) in
             guard let documents = querySnapshot?.documents else { return }
             self.events = documents.map{ (document) -> Event in
@@ -76,8 +78,6 @@ class EventListViewController: UIViewController {
                 return
             }
         }
-        
-        
     }
 }
 

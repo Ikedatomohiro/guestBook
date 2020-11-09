@@ -40,20 +40,20 @@ class EventMenuViewController: UIViewController {
         view.addSubview(showGuestCardButton)
         showGuestCardButton.setTitle("参加者入力画面へ", for: .normal)
         showGuestCardButton.backgroundColor = .systemGreen
-        showGuestCardButton.layer.cornerRadius = 10
+        showGuestCardButton.layer.cornerRadius = 5
         eventMenuList.addArrangedSubview(showGuestCardButton)
         showGuestCardButton.addTarget(self, action: #selector(showGuestCard), for: .touchUpInside)
         
         view.addSubview(showGuestDetailButton)
         showGuestDetailButton.setTitle("参加者一覧", for: .normal)
         showGuestDetailButton.backgroundColor = .systemBlue
-        showGuestDetailButton.layer.cornerRadius = 10
+        showGuestDetailButton.layer.cornerRadius = 5
         eventMenuList.addArrangedSubview(showGuestDetailButton)
         
         view.addSubview(showSettingButton)
         showSettingButton.setTitle("設定", for: .normal)
         showSettingButton.backgroundColor = .systemTeal
-        showSettingButton.layer.cornerRadius = 10
+        showSettingButton.layer.cornerRadius = 5
         eventMenuList.addArrangedSubview(showSettingButton)
     }
     
