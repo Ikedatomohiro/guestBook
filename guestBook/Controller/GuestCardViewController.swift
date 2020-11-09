@@ -86,7 +86,8 @@ class GuestCardViewController: UIViewController {
             myViewController.view.frame = self.view.frame
             self.controllers.append(myViewController)
         }
-        self.pageviewController = UIPageViewController(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: nil)
+        self.pageviewController = UIPageViewController(transitionStyle: .scroll, navigationOrientation: .horizontal, options: nil)
+        // self.controllers[0]に変数を入れて任意のページをスタートにする
         self.pageviewController.setViewControllers([self.controllers[0]], direction: .forward, animated: true, completion: nil)
         self.pageviewController.dataSource = self
         
