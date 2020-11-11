@@ -10,6 +10,8 @@
 		465D82723094FF9256765A8C /* Pods_guestBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FB0D844AA0551D91DFEF5F6 /* Pods_guestBook.framework */; };
 		4DE1A7692E097183D6E9A4C8 /* Pods_guestBook_guestBookUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3AA5201B5EAA1EF1D56470FF /* Pods_guestBook_guestBookUITests.framework */; };
 		7A0425D19E6E0903CB6D2D10 /* Pods_guestBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C3A7464FBD829774DCCE33 /* Pods_guestBookTests.framework */; };
+		C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25EB255B7BCF0037825B /* GuestController.swift */; };
+		C52C25F1255B7DCA0037825B /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25F0255B7DCA0037825B /* Guest.swift */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
 		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
 		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
@@ -22,7 +24,7 @@
 		E59D9F05254848F4000F7C45 /* guestBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F04254848F4000F7C45 /* guestBookTests.swift */; };
 		E59D9F10254848F4000F7C45 /* guestBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */; };
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
-		E5B3C9122552B27400509757 /* GuestCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestCardViewController.swift */; };
+		E5B3C9122552B27400509757 /* GuestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestsController.swift */; };
 		E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +53,8 @@
 		7B459FC541B8A667CDE17CA8 /* Pods-guestBook-guestBookUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.debug.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		88C3A7464FBD829774DCCE33 /* Pods_guestBookTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_guestBookTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9FB0D844AA0551D91DFEF5F6 /* Pods_guestBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_guestBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C52C25EB255B7BCF0037825B /* GuestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestController.swift; sourceTree = "<group>"; };
+		C52C25F0255B7DCA0037825B /* Guest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -71,7 +75,7 @@
 		E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guestBookUITests.swift; sourceTree = "<group>"; };
 		E59D9F11254848F4000F7C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
-		E5B3C9112552B27400509757 /* GuestCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCardViewController.swift; sourceTree = "<group>"; };
+		E5B3C9112552B27400509757 /* GuestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsController.swift; sourceTree = "<group>"; };
 		E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -130,7 +134,8 @@
 			isa = PBXGroup;
 			children = (
 				E59D9EF1254848F1000F7C45 /* EventListViewController.swift */,
-				E5B3C9112552B27400509757 /* GuestCardViewController.swift */,
+				E5B3C9112552B27400509757 /* GuestsController.swift */,
+				C52C25EB255B7BCF0037825B /* GuestController.swift */,
 				E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */,
 			);
 			path = Controller;
@@ -140,7 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				E573F41F254FD5630000C955 /* Event.swift */,
-				E573F424255047330000C955 /* EventNameCell.swift */,
+				C52C25F0255B7DCA0037825B /* Guest.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -148,6 +153,7 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E573F424255047330000C955 /* EventNameCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -457,9 +463,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E59D9EF2254848F1000F7C45 /* EventListViewController.swift in Sources */,
-				E5B3C9122552B27400509757 /* GuestCardViewController.swift in Sources */,
+				C52C25F1255B7DCA0037825B /* Guest.swift in Sources */,
+				E5B3C9122552B27400509757 /* GuestsController.swift in Sources */,
 				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
+				C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */,
 				E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */,
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
