@@ -33,7 +33,7 @@ class GuestController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLabels()
-//        setupCanvas()
+        setupCanvas()
     }
     
     fileprivate func setupLabels() {
@@ -77,7 +77,7 @@ class GuestController: UIViewController {
         let canvas = PKCanvasView(frame: view.frame)
         self.view.addSubview(canvas)
         canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
-        
+
         // PKToolPicker: ドラッグして移動できるツールパレット (ペンや色などを選択できるツール)
         if let window = UIApplication.shared.windows.first {
             if let toolPicker = PKToolPicker.shared(for: window) {
