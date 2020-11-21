@@ -49,6 +49,7 @@ class EventMenuViewController: UIViewController {
         showGuestDetailButton.backgroundColor = .systemBlue
         showGuestDetailButton.layer.cornerRadius = 5
         eventMenuList.addArrangedSubview(showGuestDetailButton)
+        showGuestDetailButton.addTarget(self, action: #selector(showGuestList), for: .touchUpInside)
         
         view.addSubview(showSettingButton)
         showSettingButton.setTitle("設定", for: .normal)
@@ -61,5 +62,11 @@ class EventMenuViewController: UIViewController {
         let guestCardVC = GuestsController(event: event)
         guestCardVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestCardVC, animated: true)
+    }
+    
+    @objc private func showGuestList() {
+        let guestListVC = GuestListViewController(event: event)
+        guestListVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(guestListVC, animated: true)
     }
 }
