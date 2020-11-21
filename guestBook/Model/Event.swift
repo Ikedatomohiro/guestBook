@@ -9,9 +9,15 @@ import FirebaseFirestore
 
 struct Event {
     let eventName: String
-
+    let eventId: String
+    let createdTime: Date
+    
+    
+    
     init(document: QueryDocumentSnapshot) {
         let dictionary = document.data()
         self.eventName = dictionary["eventName"] as? String ?? ""
+        self.eventId   = document.documentID
+        self.createdTime = dictionary["createdTime"] as? Date ?? Date()
     }
 }

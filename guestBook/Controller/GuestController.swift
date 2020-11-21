@@ -47,7 +47,7 @@ class GuestController: UIViewController {
         
         view.addSubview(guestNameLabel)
         guestNameLabel.fillSuperview()
-        guestNameLabel.text = guest.name
+        guestNameLabel.text = guest.guestName
         guestNameLabel.textColor = .black
         guestNameLabel.font = .systemFont(ofSize: 50, weight: .bold)
         guestNameLabel.textAlignment = .center

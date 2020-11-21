@@ -7,36 +7,59 @@
 
 import UIKit
 import PencilKit
+import FirebaseFirestore
 
 class GuestsController: UIPageViewController {
 
     fileprivate let retualArray:[String] = ["通夜", "告別式"]
-
-//    private var pageControl: UIPageControl!
+    fileprivate let event: Event
     
     fileprivate var guests: [Guest] = []
+    fileprivate var guestId: String = ""
+    fileprivate var guestName: String = ""
+    fileprivate var createdAt: Date = Date()
     fileprivate var currentIndex: Int = 0
-
+    fileprivate var db = Firestore.firestore()
     
+    init(event: Event) {
+        self.event = event
+//        super.init(nibName: nil, bundle: nil)
+        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+    }
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(event.eventId)
+
         fetchData()
         setupPageViewController()
     }
     
     fileprivate func fetchData() {
-        guests = [Guest(id: "aa", name: "A"),
-                  Guest(id: "bb", name: "B"),
-                  Guest(id: "cc", name: "C")]
+        db.collection("eventName").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, err) in
+            guard let docments = querySnapshot?.documents else { return }
+            self.guests = docments.map({ (document) -> Guest in
+                return Guest(document: document)
+            })
+        }
         if guests.count > 0 {
             let lastIndex = guests.count - 1
             currentIndex = lastIndex
             let guestController = GuestController(guest: guests[lastIndex])
             setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
         } else {
-            let newGuest = Guest(id: "", name: "NEW")
+//            let newGuest = Guest(id: "", name: "NEW")
+//            guests.append(newGuest)
+            let newGuest = guests[0]  // 空のguestを設定したいが、やり方がわからない。ビルドできるがここで落ちる。
             guests.append(newGuest)
             currentIndex = 0
+
+            db.collection("eventName").document(event.eventId).collection("guests").addDocument(data: ["guestName": ""," createdAt": Timestamp.self])
+//            guests.append(newGuest)
+//            currentIndex = 0
             let guestController = GuestController(guest: newGuest)
             setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
             view.layoutIfNeeded()
@@ -59,9 +82,11 @@ extension GuestsController: UIPageViewControllerDataSource {
         if nextIndex <= guests.count - 1 {
             return GuestController(guest: guests[nextIndex])
         } else {
-            let newGuest = Guest(id: "", name: "NEW")
-            guests.append(newGuest)
-            return GuestController(guest: newGuest)
+//            let newGuest = Guest(id: "", name: "NEW")
+//            guests.append(newGuest)
+//            return GuestController(guest: newGuest)
+            return nil
+
         }
     }
     
