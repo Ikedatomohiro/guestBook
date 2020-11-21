@@ -45,8 +45,10 @@ class EventListViewController: UIViewController {
     
     @objc private func createEvent() {
         let eventName = eventNameTextField.text
-        db.collection("eventName").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
-        eventNameTextField.text = ""
+        if eventName != nil {
+            db.collection("eventName").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
+            eventNameTextField.text = ""
+        }
         // テーブル再読み込み
         fetchEventNameList()
     }
