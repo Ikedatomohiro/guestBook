@@ -9,6 +9,7 @@ target 'guestBook' do
 	pod 'Firebase/Auth'
 	pod 'Firebase/Firestore'
 	pod 'FirebaseFirestoreSwift'
+	pod 'GoogleSignIn'
 	pod 'lottie-ios'
 	pod 'ChameleonFramework'
   pod 'SnapKit'

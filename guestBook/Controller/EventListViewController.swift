@@ -10,6 +10,7 @@ import FirebaseFirestore
 
 class EventListViewController: UIViewController {
     fileprivate let titleLabel = UILabel()
+    fileprivate let logInButton = UIButton()
     fileprivate let createEventButton = UIButton()
     fileprivate let db = Firestore.firestore()
     fileprivate let eventNameTextField = UITextField()
@@ -21,6 +22,7 @@ class EventListViewController: UIViewController {
 
         view.backgroundColor = .white
         setupTitleLabel()
+        setLogInButton()
         setupCreateEventButton()
         setupEventNameTextFeild()
         setupEventNameTableView()
@@ -67,7 +69,7 @@ class EventListViewController: UIViewController {
     }
 
     // Firestoreからイベント名リストを取得
-    func fetchEventNameList() {
+    fileprivate func fetchEventNameList() {
         events = []
         db.collection("eventName").getDocuments() { (querySnapshot, err) in
             guard let documents = querySnapshot?.documents else { return }
@@ -80,6 +82,21 @@ class EventListViewController: UIViewController {
                 return
             }
         }
+    }
+    
+    fileprivate func setLogInButton() {
+        view.addSubview(logInButton)
+        logInButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 0), size: .init(width: 200, height: 50))
+        logInButton.setTitle("ログインする", for: UIControl.State.normal)
+        logInButton.backgroundColor = .systemGreen
+        logInButton.layer.cornerRadius = 5
+        logInButton.addTarget(self, action: #selector(showLogInPage), for: .touchUpInside)
+    }
+    
+    @objc private func showLogInPage() {
+        let logInVC = LogInViewController()
+        logInVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(logInVC, animated: true)
     }
 }
 
