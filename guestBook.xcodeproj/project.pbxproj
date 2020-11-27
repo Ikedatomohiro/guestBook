@@ -12,6 +12,7 @@
 		7A0425D19E6E0903CB6D2D10 /* Pods_guestBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C3A7464FBD829774DCCE33 /* Pods_guestBookTests.framework */; };
 		C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25EB255B7BCF0037825B /* GuestController.swift */; };
 		C52C25F1255B7DCA0037825B /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25F0255B7DCA0037825B /* Guest.swift */; };
+		C565EBA725711C36005E61AD /* SampleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565EBA625711C36005E61AD /* SampleCollectionViewController.swift */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
 		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
 		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
@@ -58,6 +59,7 @@
 		9FB0D844AA0551D91DFEF5F6 /* Pods_guestBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_guestBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52C25EB255B7BCF0037825B /* GuestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestController.swift; sourceTree = "<group>"; };
 		C52C25F0255B7DCA0037825B /* Guest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
+		C565EBA625711C36005E61AD /* SampleCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleCollectionViewController.swift; sourceTree = "<group>"; };
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -145,6 +147,7 @@
 				E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */,
 				E57444DB25694D2E001D4774 /* GuestListViewController.swift */,
 				E577B759256BECA4007E6BFC /* LogInViewController.swift */,
+				C565EBA625711C36005E61AD /* SampleCollectionViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -517,6 +520,7 @@
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
 				E57444E125694EAE001D4774 /* GuestCell.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
+				C565EBA725711C36005E61AD /* SampleCollectionViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
 				E573F420254FD5630000C955 /* Event.swift in Sources */,
@@ -691,7 +695,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3FKHKT7W58;
+				DEVELOPMENT_TEAM = FP9CY3NG95;
 				INFOPLIST_FILE = guestBook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -713,7 +717,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 3FKHKT7W58;
+				DEVELOPMENT_TEAM = FP9CY3NG95;
 				INFOPLIST_FILE = guestBook/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

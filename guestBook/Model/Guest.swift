@@ -19,4 +19,9 @@ struct Guest {
         self.createdAt = dictionary["createdTime"] as? Date ?? Date()
     }
     
+    init() {
+        self.id = ""
+        self.guestName = ""
+        self.createdAt = Date()
+    }
 }

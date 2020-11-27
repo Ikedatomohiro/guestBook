@@ -11,9 +11,10 @@ import PencilKit
 class GuestController: UIViewController {
     
     var guest: Guest
+
     
     fileprivate let cardTitleLabel = UILabel()
-    fileprivate let selectRitualLabel = UILabel()
+    fileprivate let retualCollectionView = RetualCollectionView()
     fileprivate let guestNameLabel = UILabel()
     fileprivate let companyNameLabel = UILabel()
     fileprivate let zipCodeLabel = UILabel()
@@ -41,8 +42,9 @@ class GuestController: UIViewController {
         cardTitleLabel.text = "ご芳名カード"
         
         
-        view.addSubview(selectRitualLabel)
-        
+        view.addSubview(retualCollectionView)
+        retualCollectionView.dataSource = self
+        retualCollectionView.delegate = self
         
         
         view.addSubview(guestNameLabel)
@@ -86,5 +88,22 @@ class GuestController: UIViewController {
                 canvas.becomeFirstResponder()
             }
         }
+    }
+}
+
+extension GuestController: UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        <#code#>
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        <#code#>
+    }
+    
+    
+}
+extension GuestController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        <#code#>
     }
 }

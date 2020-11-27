@@ -12,7 +12,7 @@ struct Event {
     let eventId: String
     let createdTime: Date
     
-    
+    let retuals: [String]
     
     init(document: QueryDocumentSnapshot) {
         let dictionary = document.data()

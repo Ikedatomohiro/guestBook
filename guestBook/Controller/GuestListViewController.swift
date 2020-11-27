@@ -47,12 +47,12 @@ class GuestListViewController: UITableViewController {
         guests = []
 
         
-//        guests = db.collection("eventName").document(event.eventId).collection("guest").getDocuments() { (querySnapshot, err) in
-//            guard let documents = querySnapshot?.documents else { return }
-                // データ取ろうとするとエラーになる。
-//        }
+        db.collection("eventName").document(event.eventId).collection("guest").getDocuments() { (querySnapshot, err) in
+            guard let documents = querySnapshot?.documents else { return }
+//                 データ取ろうとするとエラーになる。
+            self.guests = documents.map{Guest(document: $0)}
+        }
     }
-    
     
     // MARK: - Table view data source
 
