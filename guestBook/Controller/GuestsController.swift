@@ -23,7 +23,7 @@ class GuestsController: UIPageViewController {
     init(event: Event) {
         self.event = event
 //        super.init(nibName: nil, bundle: nil)
-        super.init(transitionStyle: .scroll, navigationOrientation: .horizontal, options: .none)
+        super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -38,43 +38,26 @@ class GuestsController: UIPageViewController {
     }
     
     fileprivate func fetchData() {
-        db.collection("eventName").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, err) in
+        db.collection("events").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
                 return Guest(document: document)
             })
-            
-//            let newGuest = Guest()
-//            self.guests.append(newGuest)
-            
-            
-            
-            if self.guests.isEmpty {
-                let lastIndex = self.guests.count - 1
-                self.currentIndex = lastIndex
-                let guestController = GuestController(guest: self.guests[lastIndex])
-                self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
-            } else {
-    //            let newGuest = Guest(id: "", name: "NEW")
-    //            guests.append(newGuest)
-                let newGuest = Guest()  // 空のguestを設定したいが、やり方がわからない。ビルドできるがここで落ちる。
-                self.guests.append(newGuest)
-                self.currentIndex = 0
-                self.db.collection("eventName").document(self.event.eventId).collection("guests").addDocument(data: ["guestName": ""," createdAt": Timestamp.self])
-    //            guests.append(newGuest)
-    //            currentIndex = 0
-                let guestController = GuestController(guest: newGuest)
-                self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
-                self.view.layoutIfNeeded()
-            }
+            // 開くときは白紙のページを1つ追加して白紙ページを表示する
+            let newGuest = Guest()
+            // 配列に加える
+            self.guests.append(newGuest)
+            // Firestoreに空の情報を登録
+            self.db.collection("events").document(self.event.eventId).collection("guests").addDocument(data: ["guestName": "", "id": "", "createdAt": Date()])
+            let lastIndex = self.guests.count - 1
+            self.currentIndex = lastIndex
+            let guestController = GuestController(guest: self.guests[lastIndex])
+            self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
+            self.view.layoutIfNeeded()
         }
-        
-        db.collection("events").document(event.eventId)
-        
-        
     }
     fileprivate func setupPageViewController() {
-//        let guestController = GuestController(guest: Guest(id: "", name: ""))
+//        let guestController = GuestController(guest: Guest())
 //        setViewControllers([guestController], direction: .forward, animated: false, completion: nil)
         view.backgroundColor = .white
         dataSource = self
@@ -90,11 +73,9 @@ extension GuestsController: UIPageViewControllerDataSource {
         if nextIndex <= guests.count - 1 {
             return GuestController(guest: guests[nextIndex])
         } else {
-//            let newGuest = Guest(id: "", name: "NEW")
-//            guests.append(newGuest)
-//            return GuestController(guest: newGuest)
-            return nil
-
+            let newGuest = Guest()
+            guests.append(newGuest)
+            return GuestController(guest: newGuest)
         }
     }
     

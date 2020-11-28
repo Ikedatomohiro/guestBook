@@ -14,7 +14,7 @@ class GuestController: UIViewController {
 
     
     fileprivate let cardTitleLabel = UILabel()
-    fileprivate let retualCollectionView = RetualCollectionView()
+//    fileprivate let retualCollectionView = RetualCollectionView()
     fileprivate let guestNameLabel = UILabel()
     fileprivate let companyNameLabel = UILabel()
     fileprivate let zipCodeLabel = UILabel()
@@ -42,9 +42,9 @@ class GuestController: UIViewController {
         cardTitleLabel.text = "ご芳名カード"
         
         
-        view.addSubview(retualCollectionView)
-        retualCollectionView.dataSource = self
-        retualCollectionView.delegate = self
+//        view.addSubview(retualCollectionView)
+//        retualCollectionView.dataSource = self
+//        retualCollectionView.delegate = self
         
         
         view.addSubview(guestNameLabel)
@@ -91,19 +91,19 @@ class GuestController: UIViewController {
     }
 }
 
-extension GuestController: UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        <#code#>
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        <#code#>
-    }
-    
-    
-}
-extension GuestController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        <#code#>
-    }
-}
+//extension GuestController: UICollectionViewDataSource {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//
+//    }
+//
+//
+//}
+//extension GuestController: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//
+//    }
+//}

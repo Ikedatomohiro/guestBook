@@ -26,11 +26,7 @@ class GuestListViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         fetchGuestList()
-        
-        
-        
         
         self.view.addSubview(guestNameLabel)
         guestNameLabel.text = event.eventName
@@ -44,10 +40,7 @@ class GuestListViewController: UITableViewController {
     }
 
     func fetchGuestList() {
-        guests = []
-
-        
-        db.collection("eventName").document(event.eventId).collection("guest").getDocuments() { (querySnapshot, err) in
+        db.collection("events").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, err) in
             guard let documents = querySnapshot?.documents else { return }
 //                 データ取ろうとするとエラーになる。
             self.guests = documents.map{Guest(document: $0)}

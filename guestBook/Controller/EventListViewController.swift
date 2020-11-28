@@ -48,7 +48,7 @@ class EventListViewController: UIViewController {
     @objc private func createEvent() {
         let eventName = eventNameTextField.text
         if eventName != nil {
-            db.collection("eventName").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
+            db.collection("events").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
             eventNameTextField.text = ""
         }
         // テーブル再読み込み
@@ -71,14 +71,14 @@ class EventListViewController: UIViewController {
     // Firestoreからイベント名リストを取得
     fileprivate func fetchEventNameList() {
         events = []
-        db.collection("eventName").getDocuments() { (querySnapshot, err) in
+        db.collection("events").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.events = documents.map{ (document) -> Event in
                 return Event(document: document)
             }
             self.eventNameTableView.reloadData()
-            if let err = err {
-                print(err)
+            if let error = error {
+                print(error)
                 return
             }
         }
