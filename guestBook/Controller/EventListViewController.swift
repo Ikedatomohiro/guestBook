@@ -50,6 +50,9 @@ class EventListViewController: UIViewController {
         if eventName != nil {
             db.collection("events").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
             eventNameTextField.text = ""
+            // 儀式のデフォルト値を登録
+//            let defaultRetuals = 
+            
         }
         // テーブル再読み込み
         fetchEventNameList()

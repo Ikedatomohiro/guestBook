@@ -11,7 +11,6 @@ struct Event {
     let eventName: String
     let eventId: String
     let createdAt: Date
-    
 //    let retuals: [String]
     
     init(document: QueryDocumentSnapshot) {
@@ -19,5 +18,6 @@ struct Event {
         self.eventName = dictionary["eventName"] as? String ?? ""
         self.eventId   = document.documentID
         self.createdAt = dictionary["createdAt"] as? Date ?? Date()
+//        self.retuals   = dictionary["retuals"] as Any as! [String]
     }
 }

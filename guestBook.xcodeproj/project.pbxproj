@@ -19,6 +19,7 @@
 		E573F42A25504A2B0000C955 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F42925504A2B0000C955 /* NSObject.swift */; };
 		E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444DB25694D2E001D4774 /* GuestListViewController.swift */; };
 		E57444E125694EAE001D4774 /* GuestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444E025694EAE001D4774 /* GuestCell.swift */; };
+		E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577604825737D0600DD2F81 /* SettingViewController.swift */; };
 		E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577B759256BECA4007E6BFC /* LogInViewController.swift */; };
 		E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9EED254848F1000F7C45 /* AppDelegate.swift */; };
 		E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9EEF254848F1000F7C45 /* SceneDelegate.swift */; };
@@ -30,6 +31,7 @@
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
 		E5B3C9122552B27400509757 /* GuestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestsController.swift */; };
 		E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */; };
+		E5CB0E7225721A3E0087193F /* RetualCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,7 @@
 		E573F42925504A2B0000C955 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		E57444DB25694D2E001D4774 /* GuestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewController.swift; sourceTree = "<group>"; };
 		E57444E025694EAE001D4774 /* GuestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCell.swift; sourceTree = "<group>"; };
+		E577604825737D0600DD2F81 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		E577B759256BECA4007E6BFC /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
 		E59D9EEA254848F1000F7C45 /* guestBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guestBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E59D9EED254848F1000F7C45 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -85,6 +88,7 @@
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 		E5B3C9112552B27400509757 /* GuestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsController.swift; sourceTree = "<group>"; };
 		E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuViewController.swift; sourceTree = "<group>"; };
+		E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -148,6 +152,7 @@
 				E57444DB25694D2E001D4774 /* GuestListViewController.swift */,
 				E577B759256BECA4007E6BFC /* LogInViewController.swift */,
 				C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */,
+				E577604825737D0600DD2F81 /* SettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -166,6 +171,7 @@
 			children = (
 				E573F424255047330000C955 /* EventNameCell.swift */,
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
+				E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -515,6 +521,7 @@
 				E5B3C9122552B27400509757 /* GuestsController.swift in Sources */,
 				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
+				E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */,
 				C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */,
 				E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */,
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
@@ -523,6 +530,7 @@
 				C565EBA725711C36005E61AD /* RetualCollectionViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
+				E5CB0E7225721A3E0087193F /* RetualCollectionViewCell.swift in Sources */,
 				E573F420254FD5630000C955 /* Event.swift in Sources */,
 				E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */,
 			);
