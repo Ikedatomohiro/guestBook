@@ -38,22 +38,25 @@ class GuestsController: UIPageViewController {
     }
     
     fileprivate func fetchData() {
-        db.collection("events").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, error) in
+        db.collection("events").document(event.eventId).collection("guests").order(by:"updatedAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
                 return Guest(document: document)
             })
-            // 開くときは白紙のページを1つ追加して白紙ページを表示する
-            let newGuest = Guest()
-            // 配列に加える
-            self.guests.append(newGuest)
-            // Firestoreに空の情報を登録
-            self.db.collection("events").document(self.event.eventId).collection("guests").addDocument(data: ["guestName": "", "id": "", "createdAt": Date()])
+            // 初めて入力が麺に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
+            if self.guests.count == 0 || self.guests.last?.guestName != "" {
+                let newGuest = Guest()
+                // 配列に加える
+                self.guests.append(newGuest)
+                // Firestoreに空の情報を登録
+                self.createEmptyGuest()
+            }
             let lastIndex = self.guests.count - 1
             self.currentIndex = lastIndex
             let guestController = GuestController(guest: self.guests[lastIndex])
             self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
             self.view.layoutIfNeeded()
+
         }
     }
     fileprivate func setupPageViewController() {
@@ -62,6 +65,11 @@ class GuestsController: UIPageViewController {
         view.backgroundColor = .white
         dataSource = self
         delegate = self
+    }
+    
+    fileprivate func createEmptyGuest() {
+        print("Create New Page")
+        self.db.collection("events").document(self.event.eventId).collection("guests").addDocument(data: ["guestName": "", "createdAt": Date(), "updatedAt": Date()])
     }
 }
 extension GuestsController: UIPageViewControllerDataSource {
@@ -75,6 +83,7 @@ extension GuestsController: UIPageViewControllerDataSource {
         } else {
             let newGuest = Guest()
             guests.append(newGuest)
+            createEmptyGuest()
             return GuestController(guest: newGuest)
         }
     }
