@@ -9,21 +9,33 @@ import FirebaseFirestore
 
 struct Guest {
     let id: String
-    let guestName: String
+    var guestName: String
+    let eventId  : String
     let createdAt: Date
-    let updatedAt: Date
+    var updatedAt: Date
     
     init(document: QueryDocumentSnapshot) {
         let dictionary = document.data()
         self.id = document.documentID
         self.guestName = dictionary["guestName"] as? String ?? ""
+        self.eventId   = dictionary["eventId"]   as? String ?? ""
         self.createdAt = dictionary["createdAt"] as? Date ?? Date()
         self.updatedAt = dictionary["updatedAt"] as? Date ?? Date()
     }
     
+    init(document: DocumentSnapshot) {
+        let dictionary = document.data()
+        self.id = document.documentID
+        self.guestName = dictionary!["guestName"] as? String ?? ""
+        self.eventId   = dictionary!["eventId"]   as? String ?? ""
+        self.createdAt = dictionary!["createdAt"] as? Date ?? Date()
+        self.updatedAt = dictionary!["updatedAt"] as? Date ?? Date()
+    }
+
     init() {
-        self.id = ""
+        self.id        = ""
         self.guestName = ""
+        self.eventId   = ""
         self.createdAt = Date()
         self.updatedAt = Date()
     }

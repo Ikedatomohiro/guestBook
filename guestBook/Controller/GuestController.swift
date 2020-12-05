@@ -7,6 +7,7 @@
 
 import UIKit
 import PencilKit
+import FirebaseFirestore
 
 class GuestController: UIViewController {
     
@@ -15,7 +16,10 @@ class GuestController: UIViewController {
 //    fileprivate let retualCollectionView = RetualCollectionView()
     fileprivate var retualCollectionView: UICollectionView!
 
-    fileprivate let guestNameLabel = UILabel()
+    fileprivate let guestNameTitleLabel = UILabel()
+    fileprivate let guestNameLabel      = UILabel()
+    fileprivate let guestNameTextField  = UITextField()
+    
     fileprivate let companyNameLabel = UILabel()
     fileprivate let zipCodeLabel = UILabel()
     fileprivate let telLabel = UILabel()
@@ -26,7 +30,7 @@ class GuestController: UIViewController {
     fileprivate let selectRelationLabel = UILabel()
     
     fileprivate let retuals: [String] = ["通夜", "告別式"]
-
+    fileprivate let db = Firestore.firestore().collection("events")
     
     
     
@@ -60,7 +64,7 @@ class GuestController: UIViewController {
         
         
 
-        
+        // 参加儀式選択
         let flowLayout = UICollectionViewFlowLayout()
 //        flowLayout.itemSize = CGSize(
 //            width: self.view.frame.width / 10,
@@ -84,20 +88,26 @@ class GuestController: UIViewController {
         retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 200, height: 50))
 
 
-        
-        
-        
-        
-        
-        
+        // 参加者名前
+        view.addSubview(guestNameTitleLabel)
+        guestNameTitleLabel.anchor(top: retualCollectionView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))
+        guestNameTitleLabel.text = "御芳名"
+
+        view.addSubview(guestNameTextField)
+        guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
+        guestNameTextField.layer.borderWidth = 1.0
+        guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
+        guestNameTextField.text = guest.guestName
+        print(guest.guestName)
+        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
         
         
         view.addSubview(guestNameLabel)
         guestNameLabel.fillSuperview()
         guestNameLabel.text = guest.guestName
         guestNameLabel.textColor = .black
-        guestNameLabel.font = .systemFont(ofSize: 50, weight: .bold)
-        guestNameLabel.textAlignment = .center
+//        guestNameLabel.font = .systemFont(ofSize: 50, weight: .bold)
+//        guestNameLabel.textAlignment = .center
         
         
         
@@ -144,6 +154,13 @@ class GuestController: UIViewController {
             }
         }
     }
+    
+    @objc private func textFieldDidChange() {
+        print("名前が変更されました。")
+        let name = guestNameTextField.text!
+        guest.guestName = name
+        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
+    }
 }
 
 extension GuestController: UICollectionViewDataSource {
@@ -156,7 +173,7 @@ extension GuestController: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RetualCollectionViewCell.className, for: indexPath)
         let cellText = retuals[indexPath.item]
-        print(cellText)
+//        print(cellText)
         
         
 

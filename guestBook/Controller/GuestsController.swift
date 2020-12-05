@@ -14,6 +14,7 @@ class GuestsController: UIPageViewController {
     fileprivate let event: Event
     
     fileprivate var guests: [Guest] = []
+    fileprivate var newGuest = Guest()
     fileprivate var guestId: String = ""
     fileprivate var guestName: String = ""
     fileprivate var createdAt: Date = Date()
@@ -31,19 +32,19 @@ class GuestsController: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(event.eventId)
 
         fetchData()
         setupPageViewController()
     }
     
     fileprivate func fetchData() {
-        db.collection("events").document(event.eventId).collection("guests").order(by:"updatedAt").getDocuments() { (querySnapshot, error) in
+        db.collection("events").document(event.eventId).collection("guests").order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
                 return Guest(document: document)
             })
-            // 初めて入力が麺に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
+            // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
+            // ページが使われていない判定は仮で名前が空のとき。
             if self.guests.count == 0 || self.guests.last?.guestName != "" {
                 let newGuest = Guest()
                 // 配列に加える
@@ -67,10 +68,24 @@ class GuestsController: UIPageViewController {
         delegate = self
     }
     
+    // 空のデータをFirestoreに保存する
     fileprivate func createEmptyGuest() {
         print("Create New Page")
-        self.db.collection("events").document(self.event.eventId).collection("guests").addDocument(data: ["guestName": "", "createdAt": Date(), "updatedAt": Date()])
+        self.db.collection("events").document(event.eventId).collection("guests").addDocument(data: ["guestName": "", "eventId": event.eventId, "createdAt": Date(), "updatedAt": Date()])
     }
+    
+    // 変更されたデータを更新する
+    fileprivate func updateGuestData(index: Int) {
+        db.collection("events").document(event.eventId).collection("guests").document(guests[index].id).getDocument { (document, error) in
+            self.guests[index] = Guest(document: document!)
+            if let document = document, document.exists {
+                print(document.data()?["guestName"] as! String)
+            } else {
+                print("Document does not exist")
+            }
+        }
+    }
+
 }
 extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
@@ -79,21 +94,41 @@ extension GuestsController: UIPageViewControllerDataSource {
         let nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
+            // 変更されたデータを更新する
+            self.updateGuestData(index: nextIndex)
+            
             return GuestController(guest: guests[nextIndex])
         } else {
-            let newGuest = Guest()
-            guests.append(newGuest)
+
             createEmptyGuest()
-            return GuestController(guest: newGuest)
+            db.collection("events").document(event.eventId).collection("guests").addSnapshotListener { (querySnapshot, error) in
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                snapshot.documentChanges.forEach { diff in
+                    if (diff.type == .added) {
+                        print("New guest: \(diff.document.documentID)")
+                        self.newGuest = Guest(document: diff.document)
+                        self.guests.append(self.newGuest)
+                    }
+                }
+            }
+            // 新しいページを作ったときにそのページのDocumentIDがguestsに持たせられていないので、落ちる。
+            return GuestController(guest: self.newGuest)
         }
     }
     
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
+
         let prevIndex = currentIndex - 1
         guard prevIndex >= 0 else { return nil }
         currentIndex = prevIndex
+        // 変更されたデータを更新する
+        self.updateGuestData(index: prevIndex)
+        print(self.guests[prevIndex].guestName)
         return GuestController(guest: guests[prevIndex])
     }
 }
