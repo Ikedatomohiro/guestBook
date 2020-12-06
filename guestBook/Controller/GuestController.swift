@@ -8,7 +8,7 @@
 import UIKit
 import PencilKit
 import FirebaseFirestore
-
+import FirebaseStorage
 
 class GuestController: UIViewController {
     
@@ -32,7 +32,7 @@ class GuestController: UIViewController {
     
     fileprivate let retuals: [String] = ["通夜", "告別式"]
     fileprivate let db = Firestore.firestore().collection("events")
-    
+    fileprivate let storage = Storage.storage().reference()
     
     
 
