@@ -8,11 +8,11 @@
 import UIKit
 import FirebaseFirestore
 
-class GuestListViewController: UITableViewController {
-    
+    class GuestListViewController: UIViewController {
+
     fileprivate let event: Event
-    fileprivate let guestNameLabel = UILabel()
     fileprivate var guests = [Guest]()
+    fileprivate var guestListTableView = UITableView()
     fileprivate var db = Firestore.firestore()
     
     init(event: Event) {
@@ -27,47 +27,39 @@ class GuestListViewController: UITableViewController {
         super.viewDidLoad()
 
         fetchGuestList()
-        
-        self.view.addSubview(guestNameLabel)
-        guestNameLabel.text = event.eventName
-        guestNameLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 100))
-        
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        setupGuestListTableView()
     }
 
     func fetchGuestList() {
-        db.collection("events").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, err) in
+        db.collection("events").document(event.eventId).collection("guests").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
-//                 データ取ろうとするとエラーになる。
-            self.guests = documents.map{Guest(document: $0)}
+//            self.guests = documents.map{Guest(document: $0)}
+            self.guests = documents.map{ (document) -> Guest in
+                return Guest(document: document)
+            }
+            self.guestListTableView.reloadData()
+            if let error = error {
+                print(error)
+                return
+            }
         }
     }
     
+    fileprivate func setupGuestListTableView() {
+        view.addSubview(guestListTableView)
+        guestListTableView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        guestListTableView.delegate = self
+        guestListTableView.dataSource = self
+        guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
+    }
+    
+        
+        
+
+    
     // MARK: - Table view data source
 
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return guests.count
-    }
-
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestCell.className) as? GuestCell else { fatalError("improper UITableViewCell")}
-        cell.setupGuestData(guest: guests[indexPath.row])
-        cell.selectionStyle = .none
-
-        return cell
-    }
-
-
+    
     /*
     // Override to support conditional editing of the table view.
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -113,4 +105,38 @@ class GuestListViewController: UITableViewController {
     }
     */
 
+}
+
+
+
+extension GuestListViewController:UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("guestName")
+    }
+}
+
+extension GuestListViewController:UITableViewDataSource {
+    func numberOfSections(in tableView: UITableView) -> Int {
+
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return guests.count
+    }
+
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestCell.className) as? GuestCell else { fatalError("improper UITableViewCell")}
+        cell.setupGuestData(guest: guests[indexPath.row])
+        cell.selectionStyle = .none
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        44
+    }
+
+    
+    
 }
