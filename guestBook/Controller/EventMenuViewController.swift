@@ -28,7 +28,7 @@ class EventMenuViewController: UIViewController {
         navigationItem.title = event.eventName
         self.view.backgroundColor = .red
         setupEventMenuList()
-
+        setBackButtonTitle() 
     }
 
     fileprivate func setupEventMenuList() {
@@ -76,5 +76,12 @@ class EventMenuViewController: UIViewController {
         let settingVC = SettingViewController()
         settingVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(settingVC, animated: true)
+    }
+    
+    // 戻るボタンの名称をセット
+    fileprivate func setBackButtonTitle() {
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "メニューに戻る"
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }

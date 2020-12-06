@@ -28,6 +28,7 @@ import FirebaseFirestore
 
         fetchGuestList()
         setupGuestListTableView()
+        setBackButtonTitle()
     }
 
     func fetchGuestList() {
@@ -51,6 +52,13 @@ import FirebaseFirestore
         guestListTableView.delegate = self
         guestListTableView.dataSource = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
+    }
+        
+    // 戻るボタンの名称をセット
+    fileprivate func setBackButtonTitle() {
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "参加者一覧に戻る"
+        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }
 

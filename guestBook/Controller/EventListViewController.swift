@@ -27,6 +27,8 @@ class EventListViewController: UIViewController {
         setupEventNameTextFeild()
         setupEventNameTableView()
         fetchEventNameList()
+        
+        setBackButtonTitle()
     }
 
     func setupTitleLabel() {
@@ -101,6 +103,15 @@ class EventListViewController: UIViewController {
         logInVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(logInVC, animated: true)
     }
+
+    // 戻るボタンの名称をセット
+    fileprivate func setBackButtonTitle() {
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "イベントリストに戻る"
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
+
+
 }
 
 extension EventListViewController:UITableViewDelegate {
