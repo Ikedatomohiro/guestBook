@@ -9,13 +9,13 @@ import UIKit
 import FirebaseFirestore
 
 class EventListViewController: UIViewController {
-    fileprivate let titleLabel = UILabel()
-    fileprivate let logInButton = UIButton()
-    fileprivate let createEventButton = UIButton()
-    fileprivate let db = Firestore.firestore()
+    fileprivate let titleLabel         = UILabel()
+    fileprivate let logInButton        = UIButton()
+    fileprivate let createEventButton  = UIButton()
+    fileprivate let db                 = Firestore.firestore()
     fileprivate let eventNameTextField = UITextField()
     fileprivate let eventNameTableView = UITableView()
-    fileprivate var events = [Event]()
+    fileprivate var events             = [Event]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
