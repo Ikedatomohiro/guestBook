@@ -13,6 +13,8 @@ class GuestsController: UIPageViewController {
     fileprivate let retualArray:[String] = ["通夜", "告別式"]
     fileprivate let event: Event
     
+    fileprivate var listeners = [ListenerRegistration]()
+    
     fileprivate var guests: [Guest] = []
     fileprivate var newGuest = Guest()
     fileprivate var guestId: String = ""
@@ -38,6 +40,28 @@ class GuestsController: UIPageViewController {
     }
     
     fileprivate func fetchData() {
+        db.collection("events").document(event.eventId).collection("guests").getDocuments(source: .cache) { (querySnapshot, error) in
+            ~~
+            ~~
+            ~~
+            
+            let listener = db.collection("events").document(event.eventId).collection("guests").addSnapshotListener { (querySnapshot, error) in
+                
+                guard let snapshot = querySnapshot else {
+                    print("Error fetching snapshots: \(error!)")
+                    return
+                }
+                snapshot.documentChanges.forEach { diff in
+                    if (diff.type == .added) {
+                        print("New guest: \(diff.document.documentID)")
+                        self.newGuest = Guest(document: diff.document)
+                        self.guests.append(self.newGuest)
+                    }
+                }
+            }
+            listeners.append(listener)
+        }
+        
         db.collection("events").document(event.eventId).collection("guests").order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
@@ -71,7 +95,8 @@ class GuestsController: UIPageViewController {
     // 空のデータをFirestoreに保存する
     fileprivate func createEmptyGuest() {
         print("Create New Page")
-        self.db.collection("events").document(event.eventId).collection("guests").addDocument(data: ["guestName": "", "eventId": event.eventId, "createdAt": Date(), "updatedAt": Date()])
+        let documentId = self.db.collection("events").document(event.eventId).collection("guests").addDocument(data: ["guestName": "", "eventId": event.eventId, "createdAt": Date(), "updatedAt": Date()])
+
     }
     
     // 変更されたデータを更新する
@@ -144,7 +169,7 @@ extension GuestsController: UIPageViewControllerDelegate {
             if let index = guests.firstIndex(where: {$0.id == guestController.guest.id}) {
                 currentIndex = index
             } else {
-                fatalError()
+                currentIndex = guests.count
             }
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestController else { return }

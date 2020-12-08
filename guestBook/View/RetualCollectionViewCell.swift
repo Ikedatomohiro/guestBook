@@ -26,6 +26,7 @@ class RetualCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(retualsButton)
+        retualsButton.fillSuperview()
         retualsButton.backgroundColor = .systemGray
     }
 

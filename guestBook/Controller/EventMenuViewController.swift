@@ -28,7 +28,7 @@ class EventMenuViewController: UIViewController {
         navigationItem.title = event.eventName
         self.view.backgroundColor = .red
         setupEventMenuList()
-        setBackButtonTitle() 
+        setBackButtonTitle()
     }
 
     fileprivate func setupEventMenuList() {
