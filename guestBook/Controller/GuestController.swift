@@ -15,7 +15,11 @@ class GuestController: UIViewController {
     var guest: Guest
     fileprivate let cardTitleLabel                       = UILabel()
 //    fileprivate let retualCollectionView = RetualCollectionView()
-    fileprivate var retualCollectionView: UICollectionView!
+//    fileprivate var retualCollectionView: UICollectionView!
+    
+    fileprivate let layout = UICollectionViewLayout()
+    
+    fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
 
     fileprivate let guestNameTitleLabel                  = UILabel()
     fileprivate let guestNameLabel                       = UILabel()
@@ -46,6 +50,7 @@ class GuestController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         setupLabels()
 //        setupCanvas()
     }
@@ -53,7 +58,7 @@ class GuestController: UIViewController {
     fileprivate func setupLabels() {
         view.addSubview(cardTitleLabel)
         cardTitleLabel.text = "ご芳名カード"
-        cardTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 50))
+        cardTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
         
 
         // 参加儀式選択
@@ -62,9 +67,11 @@ class GuestController: UIViewController {
 //            width: self.view.frame.width / 10,
 //            height: self.view.frame.width / 5
 //        )
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        flowLayout.itemSize = CGSize(width: 10, height: 10)
+        
 
         retualCollectionView = UICollectionView(
             frame: self.view.frame ,
@@ -72,6 +79,7 @@ class GuestController: UIViewController {
         )
         retualCollectionView.dataSource = self
         retualCollectionView.delegate = self
+        retualCollectionView.isScrollEnabled = true
 
         retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
         
