@@ -26,7 +26,10 @@ class RetualCollectionViewCell: UICollectionViewCell {
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(retualsButton)
-        retualsButton.backgroundColor = .systemGray
+        retualsButton.fillSuperview()
+        retualsButton.backgroundColor = .white
+        
+//        retualsButton.setTitle(indexPath.item, for: .normal)
     }
 
     required init?(coder aDecoder: NSCoder) {

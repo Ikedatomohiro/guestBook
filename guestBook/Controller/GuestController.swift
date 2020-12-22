@@ -15,8 +15,10 @@ class GuestController: UIViewController {
     var guest: Guest
     fileprivate let cardTitleLabel                       = UILabel()
 //    fileprivate let retualCollectionView = RetualCollectionView()
-    fileprivate var retualCollectionView: UICollectionView!
-
+//    fileprivate var retualCollectionView: UICollectionView!
+    fileprivate let layout = UICollectionViewLayout()
+    fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    
     fileprivate let guestNameTitleLabel                  = UILabel()
     fileprivate let guestNameLabel                       = UILabel()
     fileprivate let guestNameTextField                   = UITextField()
@@ -46,6 +48,8 @@ class GuestController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
+        
         setupLabels()
 //        setupCanvas()
     }
@@ -53,7 +57,7 @@ class GuestController: UIViewController {
     fileprivate func setupLabels() {
         view.addSubview(cardTitleLabel)
         cardTitleLabel.text = "ご芳名カード"
-        cardTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 0, bottom: 0, right: 0), size: .init(width: 200, height: 50))
+        cardTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
         
 
         // 参加儀式選択
@@ -62,22 +66,24 @@ class GuestController: UIViewController {
 //            width: self.view.frame.width / 10,
 //            height: self.view.frame.width / 5
 //        )
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.minimumLineSpacing = 0
+        flowLayout.minimumInteritemSpacing = 10
+        flowLayout.minimumLineSpacing = 10
         flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-
+        flowLayout.itemSize = CGSize(width: 20, height: 10)
+        
         retualCollectionView = UICollectionView(
             frame: self.view.frame ,
             collectionViewLayout:flowLayout
         )
         retualCollectionView.dataSource = self
         retualCollectionView.delegate = self
-
+        retualCollectionView.isScrollEnabled = true
+        
         retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
         
         
         view.addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 200, height: 50))
+        retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 300, height: 50))
 
 
         // 参加者名前
@@ -123,13 +129,6 @@ class GuestController: UIViewController {
         
         
         
-        
-        
-        
-        
-        
-        
-        
     }
     
     fileprivate func setupCanvas() {
@@ -151,6 +150,7 @@ class GuestController: UIViewController {
         print("名前が変更されました。")
         let name = guestNameTextField.text!
         guest.guestName = name
+        print(guest.id)
         db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
     }
 }
@@ -161,16 +161,18 @@ extension GuestController: UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RetualCollectionViewCell.className, for: indexPath)
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RetualCollectionViewCell.className, for: indexPath)
-        let cellText = retuals[indexPath.item]
-//        print(cellText)
+        let retualsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+        retualsButton.setTitle(retuals[indexPath.item], for: .normal)
+//        retualsButton.addTarget(self, action: #selector(retualsButtonTapped), for: .touchUpInside)
+        cell.addSubview(retualsButton)
         
-        
-
-//print(cellText)
         return cell
+    }
+    
+    @objc func retualsButtonTapped() {
+        print("Tapped")
     }
 
 

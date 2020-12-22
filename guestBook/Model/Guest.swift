@@ -32,6 +32,14 @@ struct Guest {
         self.updatedAt = dictionary!["updatedAt"] as? Date ?? Date()
     }
 
+    init(id: String) {
+        self.id        = id
+        self.guestName = ""
+        self.eventId   = ""
+        self.createdAt = Date()
+        self.updatedAt = Date()
+    }
+    
     init() {
         self.id        = ""
         self.guestName = ""
