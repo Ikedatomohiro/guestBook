@@ -8,7 +8,7 @@
 import FirebaseFirestore
 
 struct Guest {
-    let id: String
+    var id: String
     var guestName: String
     let eventId  : String
     let createdAt: Date
@@ -46,5 +46,26 @@ struct Guest {
         self.eventId   = ""
         self.createdAt = Date()
         self.updatedAt = Date()
+    }
+    
+    func create() {
+        [
+            "id": self.id,
+            "guestName": self.guestName
+        ]
+        self.id
+        self.guestName
+    }
+    
+    static func collectionRef(eventId: String) -> CollectionReference {
+        return Firestore.firestore().collection("events").document(eventId).collection("guests")
+    }
+}
+
+extension Guest: Equatable {
+    static func == (lhs: Guest, rhs: Guest) -> Bool {
+        return lhs.id == rhs.id
+            && lhs.guestName == rhs.guestName
+        
     }
 }
