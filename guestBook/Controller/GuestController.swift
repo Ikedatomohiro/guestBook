@@ -10,9 +10,15 @@ import PencilKit
 import FirebaseFirestore
 import FirebaseStorage
 
+protocol GuestUpdateDelegate: class {
+    func update(guest: Guest)
+}
+
 class GuestController: UIViewController {
     
-    var guest: Guest
+    weak var updateDelegate: GuestUpdateDelegate?
+    
+    var guest: Guest // id
     fileprivate let cardTitleLabel                       = UILabel()
 //    fileprivate let retualCollectionView = RetualCollectionView()
 //    fileprivate var retualCollectionView: UICollectionView!
@@ -97,8 +103,8 @@ class GuestController: UIViewController {
         guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
         guestNameTextField.text = guest.guestName
         print(guest.guestName)
-        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-        
+//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+//        guestNameTextField.delegate = self
         
         view.addSubview(guestNameLabel)
         guestNameLabel.fillSuperview()
@@ -145,14 +151,6 @@ class GuestController: UIViewController {
             }
         }
     }
-    
-    @objc private func textFieldDidChange() {
-        print("名前が変更されました。")
-        let name = guestNameTextField.text!
-        guest.guestName = name
-        print(guest.id)
-        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
-    }
 }
 
 extension GuestController: UICollectionViewDataSource {
@@ -177,12 +175,13 @@ extension GuestController: UICollectionViewDataSource {
 
 
 }
-extension GuestController: UICollectionViewDelegate {
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // クリックしたときのアクション
-        print(indexPath.item)
-    }
-}
+//extension GuestController: UICollectionViewDelegate {
+//    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//        // クリックしたときのアクション
+//        print(indexPath.item)
+//        updateDelegate?.update(guest: Guest)
+//    }
+//}
 
 //cellのサイズの設定
 extension GuestController: UICollectionViewDelegateFlowLayout {
@@ -193,3 +192,18 @@ extension GuestController: UICollectionViewDelegateFlowLayout {
       return CGSize(width: 100, height: 50)
   }
 }
+//
+//extension GuestController: UITextFieldDelegate {
+//    func textFieldDidBeginEditing(_ textField: UITextField) {
+//        <#code#>
+//    }
+//
+//    func textFieldDidEndEditing(_ textField: UITextField) {
+//        print("名前が変更されました。")
+//        let name = guestNameTextField.text!
+//        guest.guestName = name
+//        updateDelegate?.update(guest)
+////        print(guest.id)
+////        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
+//    }
+//}
