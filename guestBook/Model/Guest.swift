@@ -8,7 +8,7 @@
 import FirebaseFirestore
 
 struct Guest {
-    let id: String
+    var id: String
     var guestName: String
     let eventId  : String
     let createdAt: Date
@@ -46,5 +46,9 @@ struct Guest {
         self.eventId   = ""
         self.createdAt = Date()
         self.updatedAt = Date()
+    }
+    
+    static func collectionRef(eventId: String) ->CollectionReference {
+        return Firestore.firestore().collection("events").document(eventId).collection("guests")
     }
 }

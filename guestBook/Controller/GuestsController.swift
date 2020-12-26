@@ -15,7 +15,6 @@ class GuestsController: UIPageViewController {
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     
     fileprivate var guests: [Guest] = []
-    fileprivate var newGuest = Guest()
     fileprivate var guestId: String = ""
     fileprivate var guestName: String = ""
     fileprivate var createdAt: Date = Date()
@@ -34,7 +33,6 @@ class GuestsController: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         fetchData()
         setupPageViewController()
     }
@@ -50,7 +48,8 @@ class GuestsController: UIPageViewController {
             // ページが使われていない判定は仮で名前が空のとき。
             if self.guests.count == 0 || self.guests.last?.guestName != "" {
                 // 空の情報を登録
-                self.createEmptyGuest()
+                let newGuest = Guest(id: "new")
+                self.guests.append(newGuest)
             }
             let lastIndex = self.guests.count - 1
             self.currentIndex = lastIndex
@@ -63,20 +62,9 @@ class GuestsController: UIPageViewController {
     
     
     fileprivate func setupPageViewController() {
-//        let guestController = GuestController(guest: Guest())
-//        setViewControllers([guestController], direction: .forward, animated: false, completion: nil)
         view.backgroundColor = .white
         dataSource = self
         delegate = self
-    }
-    
-//     空のデータをFirestoreに保存する
-    fileprivate func createEmptyGuest() {
-        print("Create New Page")
-        let documentRef = self.db.collection("events").document(event.eventId).collection("guests").addDocument(data: ["guestName": "", "eventId": event.eventId, "createdAt": Date(), "updatedAt": Date()])
-        self.newGuest = Guest(id: documentRef.documentID)
-        // 配列に加える
-        self.guests.append(self.newGuest)
     }
     
     
@@ -105,25 +93,8 @@ extension GuestsController: UIPageViewControllerDataSource {
             
             return GuestController(guest: guests[nextIndex])
         } else {
-
-            createEmptyGuest()
-//            db.collection("events").document(event.eventId).collection("guests").addSnapshotListener { (querySnapshot, error) in
-        // 端末のキャッシュを優先的に取得する。キャッシュがなければFirestoreに取りに行く         db.collection("events").document(event.eventId).collection("guests").getDocuments(source: .cache) { (querySnapshot, error) in
-
-//                guard let snapshot = querySnapshot else {
-//                    print("Error fetching snapshots: \(error!)")
-//                    return
-//                }
-//                snapshot.documentChanges.forEach { diff in
-//                    if (diff.type == .added) {
-//                        print("New guest: \(diff.document.documentID)")
-//                        self.newGuest = Guest(document: diff.document)
-//                        self.guests.append(self.newGuest)
-//                    }
-//                }
-//                listeners.append(listener)　　// リスナーを作ったときに変数に入れておく。
-//            }
-            // 新しいページを作ったときにそのページのDocumentIDがguestsに持たせられていないので、落ちる。
+            let newGuest = Guest(id: "new")
+            self.guests.append(newGuest)
             return GuestController(guest: newGuest)
         }
     }
@@ -138,7 +109,11 @@ extension GuestsController: UIPageViewControllerDataSource {
         // 変更されたデータを更新する
         self.updateGuestData(index: prevIndex)
         print(self.guests[prevIndex].guestName)
-        return GuestController(guest: guests[prevIndex])
+        let guestVC = GuestController(guest: guests[prevIndex])
+        guestVC.updateDelegate = self
+        return guestVC
+        
+//        return GuestController(guest: guests[prevIndex])
     }
 }
 
@@ -150,6 +125,19 @@ extension GuestsController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
+            // 新しいページにデータを入力したときの動作
+            
+            
+            // id を"new"で仮作成したGuestに入力された要素を選択
+            let index = guests.firstIndex(where: {$0.id == "new"})
+            // 入力されたguestNameをFirestoreに保存
+            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
+                "guestName": guests[index!].guestName
+            ])
+            // 保存した情報からIDを取得して配列に保存
+            guests[index!].id = documentRef.documentID
+            
+
             guard let guestController = pageViewController.viewControllers?.first as? GuestController else { return }
             if let index = guests.firstIndex(where: {$0.id == guestController.guest.id}) {
                 currentIndex = index

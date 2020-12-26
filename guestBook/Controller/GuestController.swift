@@ -10,9 +10,14 @@ import PencilKit
 import FirebaseFirestore
 import FirebaseStorage
 
+protocol GuestUpdateDelegate: class {
+    func update(guest: Guest)
+}
+
 class GuestController: UIViewController {
     
     var guest: Guest
+    weak var updateDelegate: GuestUpdateDelegate?
     fileprivate let cardTitleLabel                       = UILabel()
 //    fileprivate let retualCollectionView = RetualCollectionView()
 //    fileprivate var retualCollectionView: UICollectionView!
@@ -21,7 +26,7 @@ class GuestController: UIViewController {
     
     fileprivate let guestNameTitleLabel                  = UILabel()
     fileprivate let guestNameLabel                       = UILabel()
-    fileprivate let guestNameTextField                   = UITextField()
+    let guestNameTextField                   = UITextField()
     
     fileprivate let companyNameLabel                     = UILabel()
     fileprivate let zipCodeLabel                         = UILabel()
@@ -97,7 +102,7 @@ class GuestController: UIViewController {
         guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
         guestNameTextField.text = guest.guestName
         print(guest.guestName)
-        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
         
         
         view.addSubview(guestNameLabel)
@@ -151,6 +156,7 @@ class GuestController: UIViewController {
         let name = guestNameTextField.text!
         guest.guestName = name
         print(guest.id)
+//        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
         db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
     }
 }
