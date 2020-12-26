@@ -21,6 +21,9 @@ class GuestsController: UIPageViewController {
     fileprivate var currentIndex: Int = 0
     fileprivate var db = Firestore.firestore()
     
+    lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
+    
+    
     init(event: Event) {
         self.event = event
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
@@ -85,6 +88,26 @@ extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
+        // 入力されたデータを更新する
+        if guests[currentIndex].id == "new" {
+            // id を"new"で仮作成したGuestに入力された要素を選択
+            let index = guests.firstIndex(where: {$0.id == "new"})
+            // 入力されたguestNameをFirestoreに保存
+            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
+                "guestName": guests[index!].guestName,
+                "eventId"  : event.eventId,
+                "createdAt": Date(),
+                "updatedAt": Date(),
+            ])
+            // 保存した情報からIDを取得して配列に保存
+            guests[index!].id = documentRef.documentID
+        } else {
+            
+        }
+
+        
+        
+        
         let nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
@@ -127,15 +150,7 @@ extension GuestsController: UIPageViewControllerDelegate {
         if completed {
             // 新しいページにデータを入力したときの動作
             
-            
-            // id を"new"で仮作成したGuestに入力された要素を選択
-            let index = guests.firstIndex(where: {$0.id == "new"})
-            // 入力されたguestNameをFirestoreに保存
-            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
-                "guestName": guests[index!].guestName
-            ])
-            // 保存した情報からIDを取得して配列に保存
-            guests[index!].id = documentRef.documentID
+
             
 
             guard let guestController = pageViewController.viewControllers?.first as? GuestController else { return }
@@ -153,5 +168,11 @@ extension GuestsController: UIPageViewControllerDelegate {
                 fatalError()
             }
         }
+    }
+}
+
+extension GuestsController: GuestUpdateDelegate {
+    func update(guest: Guest) {
+        guests[0] = guest
     }
 }

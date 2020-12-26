@@ -26,10 +26,10 @@ struct Guest {
     init(document: DocumentSnapshot) {
         let dictionary = document.data()
         self.id = document.documentID
-        self.guestName = dictionary!["guestName"] as? String ?? ""
-        self.eventId   = dictionary!["eventId"]   as? String ?? ""
-        self.createdAt = dictionary!["createdAt"] as? Date ?? Date()
-        self.updatedAt = dictionary!["updatedAt"] as? Date ?? Date()
+        self.guestName = dictionary?["guestName"] as? String ?? ""
+        self.eventId   = dictionary?["eventId"]   as? String ?? ""
+        self.createdAt = dictionary?["createdAt"] as? Date ?? Date()
+        self.updatedAt = dictionary?["updatedAt"] as? Date ?? Date()
     }
 
     init(id: String) {

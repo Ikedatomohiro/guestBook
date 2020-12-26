@@ -102,7 +102,7 @@ class GuestController: UIViewController {
         guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
         guestNameTextField.text = guest.guestName
         print(guest.guestName)
-//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
         
         
         view.addSubview(guestNameLabel)
@@ -157,7 +157,7 @@ class GuestController: UIViewController {
         guest.guestName = name
         print(guest.id)
 //        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
-        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
+//        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
     }
 }
 
