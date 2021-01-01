@@ -19,6 +19,8 @@ class GuestsController: UIPageViewController {
     fileprivate var guestName: String = ""
     fileprivate var createdAt: Date = Date()
     fileprivate var currentIndex: Int = 0
+    fileprivate var prevIndex: Int = 0
+    fileprivate var nextIndex: Int = 0
     fileprivate var db = Firestore.firestore()
     
     lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
@@ -42,7 +44,7 @@ class GuestsController: UIPageViewController {
     
     
     fileprivate func fetchData() {
-        db.collection("events").document(event.eventId).collection("guests").order(by:"createdAt").getDocuments() { (querySnapshot, error) in
+        Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
                 return Guest(document: document)
@@ -69,76 +71,55 @@ class GuestsController: UIPageViewController {
         dataSource = self
         delegate = self
     }
-    
-    
-    // 変更されたデータを更新する
-    fileprivate func updateGuestData(index: Int) {
-        db.collection("events").document(event.eventId).collection("guests").document(guests[index].id).getDocument { (document, error) in
-            self.guests[index] = Guest(document: document!)
-            if let document = document, document.exists {
-                print(document.data()?["guestName"] as! String)
-            } else {
-                print("Document does not exist")
-            }
-        }
-    }
 
 }
 extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
-        // 入力されたデータを更新する
-        if guests[currentIndex].id == "new" {
-            // id を"new"で仮作成したGuestに入力された要素を選択
-            let index = guests.firstIndex(where: {$0.id == "new"})
-            // 入力されたguestNameをFirestoreに保存
-            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
-                "guestName": guests[index!].guestName,
-                "eventId"  : event.eventId,
-                "createdAt": Date(),
-                "updatedAt": Date(),
-            ])
-            // 保存した情報からIDを取得して配列に保存
-            guests[index!].id = documentRef.documentID
-        } else {
-            
-        }
-
         
-        
-        
-        let nextIndex = currentIndex + 1
+        nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
             // 変更されたデータを更新する
-            self.updateGuestData(index: nextIndex)
+//            self.updateGuestData(index: nextIndex)
+            let guestVC = GuestController(guest: guests[nextIndex])
+            guestVC.updateDelegate = self
+            return guestVC
+        } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
+            // id を"new"で仮作成したGuestに入力された要素を選択
+            let index = guests.firstIndex(where: {$0.id == "new"})!
             
-            return GuestController(guest: guests[nextIndex])
+            let guestVC = GuestController(guest: guests[index])
+            guestVC.updateDelegate = self
+            return guestVC
         } else {
             let newGuest = Guest(id: "new")
             self.guests.append(newGuest)
-            return GuestController(guest: newGuest)
+            let guestVC = GuestController(guest: newGuest)
+            guestVC.updateDelegate = self
+            return guestVC
         }
+        
     }
     
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
-
-        let prevIndex = currentIndex - 1
-        guard prevIndex >= 0 else { return nil }
+        if currentIndex >= 1 {
+            prevIndex = currentIndex - 1
+        }
         currentIndex = prevIndex
+        guard prevIndex >= 0 else { return nil }
         // 変更されたデータを更新する
-        self.updateGuestData(index: prevIndex)
-        print(self.guests[prevIndex].guestName)
+//        self.updateGuestData(index: prevIndex)
         let guestVC = GuestController(guest: guests[prevIndex])
         guestVC.updateDelegate = self
+
         return guestVC
-        
-//        return GuestController(guest: guests[prevIndex])
     }
-}
+ }
+
 
 extension GuestsController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -148,16 +129,15 @@ extension GuestsController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
-            // 新しいページにデータを入力したときの動作
-            
 
-            
 
+
+    
+            
             guard let guestController = pageViewController.viewControllers?.first as? GuestController else { return }
             if let index = guests.firstIndex(where: {$0.id == guestController.guest.id}) {
                 currentIndex = index
             } else {
-                
                 currentIndex = guests.count
             }
         } else {
@@ -173,6 +153,28 @@ extension GuestsController: UIPageViewControllerDelegate {
 
 extension GuestsController: GuestUpdateDelegate {
     func update(guest: Guest) {
-        guests[0] = guest
+        if (guest.id == "new") {
+            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
+                "guestName": guest.guestName,
+                "eventId"  : event.eventId,
+                "createdAt": Date(),
+                "updatedAt": Date(),
+            ])
+            let index = guests.firstIndex(where: {$0.id == "new"})
+            if index != nil {
+                guests[index!] = guest
+                guests[index!].id = documentRef.documentID
+//            guest.id = documentRef.documentID   // idを変更できない。どこでletになっているかわからない。
+            }
+        } else {
+            Guest.collectionRef(eventId: event.eventId).document(guest.id).updateData([
+                "guestName": guest.guestName,
+                "updatedAt": Date(),
+                ])
+            let index = guests.firstIndex(where: {$0.id == guest.id})
+            if index != nil {
+                guests[index!] = guest
+            }
+        }
     }
 }

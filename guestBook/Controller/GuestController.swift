@@ -103,11 +103,12 @@ class GuestController: UIViewController {
         guestNameTextField.text = guest.guestName
         print(guest.guestName)
         guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-        
+//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+
         
         view.addSubview(guestNameLabel)
         guestNameLabel.fillSuperview()
-        guestNameLabel.text = guest.guestName
+        guestNameLabel.text = guest.id
         guestNameLabel.textColor = .black
 //        guestNameLabel.font = .systemFont(ofSize: 50, weight: .bold)
 //        guestNameLabel.textAlignment = .center
@@ -156,8 +157,9 @@ class GuestController: UIViewController {
         let name = guestNameTextField.text!
         guest.guestName = name
         print(guest.id)
-//        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
-//        db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
+
+        updateDelegate?.update(guest: guest)
+        
     }
 }
 
