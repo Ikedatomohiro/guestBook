@@ -11,24 +11,28 @@ import FirebaseFirestore
 import FirebaseStorage
 
 protocol GuestUpdateDelegate: class {
-    func update(guest: Guest)
+    func update(guest: Guest) -> String
 }
 
 class GuestController: UIViewController {
     
     var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
+    
     fileprivate let cardTitleLabel                       = UILabel()
+    fileprivate let cardHeaderLabel                      = UILabel()
+    fileprivate let pageLabel                            = UILabel()
+    
 //    fileprivate let retualCollectionView = RetualCollectionView()
 //    fileprivate var retualCollectionView: UICollectionView!
     fileprivate let layout = UICollectionViewLayout()
     fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
     fileprivate let guestNameTitleLabel                  = UILabel()
-    fileprivate let guestNameLabel                       = UILabel()
-    let guestNameTextField                   = UITextField()
+    fileprivate let guestNameTextField                   = UITextField()
     
-    fileprivate let companyNameLabel                     = UILabel()
+    fileprivate let companyNameTitleLabel                     = UILabel()
+    fileprivate let companyNameTextField                   = UITextField()
     fileprivate let zipCodeLabel                         = UILabel()
     fileprivate let telLabel                             = UILabel()
     fileprivate let addressLabel                         = UILabel()
@@ -37,12 +41,19 @@ class GuestController: UIViewController {
     fileprivate let selectRelationQuestionLabel          = UILabel()
     fileprivate let selectRelationLabel                  = UILabel()
     fileprivate let retuals: [String] = ["通夜", "告別式"]
+    
+    fileprivate let headerStackView                      = UIStackView()
+    fileprivate let guestNameStackVirew                       = UIStackView()
+    fileprivate let companyNameStackVirew                       = UIStackView()
+
     fileprivate let db                                   = Firestore.firestore().collection("events")
     fileprivate let storage                              = Storage.storage().reference()
 
 
+    
+    
     //スクリーンサイズの取得
-//    let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+    let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
     
     
     init(guest: Guest) {
@@ -60,41 +71,44 @@ class GuestController: UIViewController {
     }
     
     fileprivate func setupLabels() {
+        view.addSubview(cardHeaderLabel)
+        cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜 \(guest.id)"
+        cardHeaderLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
+        cardHeaderLabel.layer.borderWidth = 1
+//        cardTitleLabel.adjustsFontSizeToFitWidth = true
+//        cardHeaderLabel.frame.size.width = screenSize.width
+//        cardHeaderLabel.frame.size.height = screenSize.height / 7
+//        cardHeaderLabel.frame.size.height = 100
+        
+        
+        view.addSubview(headerStackView)
+        headerStackView.spacing = 5.0
+        headerStackView.axis    = .horizontal
+        headerStackView.anchor(top: cardHeaderLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 10))
+
         view.addSubview(cardTitleLabel)
-        cardTitleLabel.text = "ご芳名カード"
-        cardTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
-        
+        cardTitleLabel.text = "御芳名カード"
+        cardTitleLabel.anchor(top: headerStackView.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 100))
+        cardTitleLabel.layer.borderWidth = 1
+        headerStackView.addArrangedSubview(cardTitleLabel)
 
-        // 参加儀式選択
-        let flowLayout = UICollectionViewFlowLayout()
-//        flowLayout.itemSize = CGSize(
-//            width: self.view.frame.width / 10,
-//            height: self.view.frame.width / 5
-//        )
-        flowLayout.minimumInteritemSpacing = 10
-        flowLayout.minimumLineSpacing = 10
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        flowLayout.itemSize = CGSize(width: 20, height: 10)
-        
-        retualCollectionView = UICollectionView(
-            frame: self.view.frame ,
-            collectionViewLayout:flowLayout
-        )
-        retualCollectionView.dataSource = self
-        retualCollectionView.delegate = self
-        retualCollectionView.isScrollEnabled = true
-        
-        retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
-        
-        
-        view.addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 300, height: 50))
+        view.addSubview(pageLabel)
+        pageLabel.text = "No."
+        pageLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: headerStackView.trailingAnchor, size: .init(width: 100, height: 100))
+        pageLabel.layer.borderWidth = 1
+        headerStackView.addArrangedSubview(pageLabel)
 
-
-        // 参加者名前
+        // 御芳名
+        view.addSubview(guestNameStackVirew)
+        guestNameStackVirew.spacing = 5.0
+        guestNameStackVirew.axis    = .vertical
+        guestNameStackVirew.anchor(top: headerStackView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
+        guestNameStackVirew.layer.borderWidth = 1
+        
         view.addSubview(guestNameTitleLabel)
-        guestNameTitleLabel.anchor(top: retualCollectionView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))
+        guestNameTitleLabel.anchor(top: guestNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))
         guestNameTitleLabel.text = "御芳名"
+        guestNameStackVirew.addArrangedSubview(guestNameTitleLabel)
 
         view.addSubview(guestNameTextField)
         guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
@@ -103,35 +117,72 @@ class GuestController: UIViewController {
         guestNameTextField.text = guest.guestName
         print(guest.guestName)
         guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingChanged)
+        guestNameStackVirew.addArrangedSubview(guestNameTextField)
 
+        // 会社名（団体名）
+        view.addSubview(companyNameStackVirew)
+        companyNameStackVirew.spacing = 5.0
+        companyNameStackVirew.axis = .vertical
+        companyNameStackVirew.anchor(top: headerStackView.bottomAnchor, leading: guestNameStackVirew.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width * 2 / 5, height: screenSize.height / 5))
+            
+        view.addSubview(companyNameTitleLabel)
+        companyNameTitleLabel.anchor(top: companyNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 300, height: 40))
+        companyNameTitleLabel.text = "会社名(団体名)"
+        companyNameStackVirew.addArrangedSubview(companyNameTitleLabel)
         
-        view.addSubview(guestNameLabel)
-        guestNameLabel.fillSuperview()
-        guestNameLabel.text = guest.id
-        guestNameLabel.textColor = .black
-//        guestNameLabel.font = .systemFont(ofSize: 50, weight: .bold)
-//        guestNameLabel.textAlignment = .center
+        view.addSubview(companyNameTextField)
+        companyNameTextField.anchor(top: companyNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
+        companyNameTextField.layer.borderWidth = 1.0
+        companyNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
+        companyNameTextField.text = guest.companyName
+        print(guest.guestName)
+        companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        companyNameStackVirew.addArrangedSubview(companyNameTextField)
         
         
         
-        view.addSubview(companyNameLabel)
-        
-        
-        
-        view.addSubview(zipCodeLabel)
-        
-        
-        
-        view.addSubview(telLabel)
-        
-        
-        
-        view.addSubview(addressLabel)
-        view.addSubview(selectAcuaintanceQuestionLabel)
-        view.addSubview(selectAcuaintanceLabel)
-        view.addSubview(selectRelationQuestionLabel)
-        view.addSubview(selectRelationLabel)
+//        // 参加儀式選択
+//        let flowLayout = UICollectionViewFlowLayout()
+////        flowLayout.itemSize = CGSize(
+////            width: self.view.frame.width / 10,
+////            height: self.view.frame.width / 5
+////        )
+//        flowLayout.minimumInteritemSpacing = 10
+//        flowLayout.minimumLineSpacing = 10
+//        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+//        flowLayout.itemSize = CGSize(width: 20, height: 10)
+//
+//        retualCollectionView = UICollectionView(
+//            frame: self.view.frame ,
+//            collectionViewLayout:flowLayout
+//        )
+//        retualCollectionView.dataSource = self
+//        retualCollectionView.delegate = self
+//        retualCollectionView.isScrollEnabled = true
+//
+//        retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
+//
+//
+//        view.addSubview(retualCollectionView)
+//        retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 300, height: 50))
+//
+//
+
+//
+//
+//        view.addSubview(zipCodeLabel)
+//
+//
+//
+//        view.addSubview(telLabel)
+//
+//
+//
+//        view.addSubview(addressLabel)
+//        view.addSubview(selectAcuaintanceQuestionLabel)
+//        view.addSubview(selectAcuaintanceLabel)
+//        view.addSubview(selectRelationQuestionLabel)
+//        view.addSubview(selectRelationLabel)
         
         
         
@@ -155,11 +206,14 @@ class GuestController: UIViewController {
     @objc private func textFieldDidChange() {
         print("名前が変更されました。")
         let name = guestNameTextField.text!
+        let companyName = companyNameTextField.text!
         guest.guestName = name
-        print(guest.id)
+        guest.companyName = companyName
 
-        updateDelegate?.update(guest: guest)
-        
+        let guestId = updateDelegate?.update(guest: guest)
+        if (guest.id == "new") {
+            guest.id = guestId!
+        }
     }
 }
 

@@ -152,29 +152,26 @@ extension GuestsController: UIPageViewControllerDelegate {
 }
 
 extension GuestsController: GuestUpdateDelegate {
-    func update(guest: Guest) {
+    func update(guest: Guest) -> String {
+        
+//        guest == Guest(id: "new")  使い所がない
         if (guest.id == "new") {
-            let documentRef = Guest.collectionRef(eventId: event.eventId).addDocument(data: [
-                "guestName": guest.guestName,
-                "eventId"  : event.eventId,
-                "createdAt": Date(),
-                "updatedAt": Date(),
-            ])
+            let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
             let index = guests.firstIndex(where: {$0.id == "new"})
             if index != nil {
                 guests[index!] = guest
                 guests[index!].id = documentRef.documentID
 //            guest.id = documentRef.documentID   // idを変更できない。どこでletになっているかわからない。
             }
+            return documentRef.documentID
         } else {
-            Guest.collectionRef(eventId: event.eventId).document(guest.id).updateData([
-                "guestName": guest.guestName,
-                "updatedAt": Date(),
-                ])
+            Guest.updateGuest(guest: guest, eventId: event.eventId)
             let index = guests.firstIndex(where: {$0.id == guest.id})
             if index != nil {
                 guests[index!] = guest
             }
+            return guests[index!].id
         }
     }
+    
 }
