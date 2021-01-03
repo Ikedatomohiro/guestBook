@@ -205,13 +205,13 @@ class GuestController: UIViewController {
     
     @objc private func textFieldDidChange() {
         print("名前が変更されました。")
-        let name = guestNameTextField.text!
-        let companyName = companyNameTextField.text!
+        let name = guestNameTextField.text ?? ""
+        let companyName = companyNameTextField.text ?? ""
         guest.guestName = name
         guest.companyName = companyName
 
         let guestId = updateDelegate?.update(guest: guest)
-        if (guest.id == "new") {
+        if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!
         }
     }

@@ -58,6 +58,7 @@ class GuestsController: UIPageViewController {
             let lastIndex = self.guests.count - 1
             self.currentIndex = lastIndex
             let guestController = GuestController(guest: self.guests[lastIndex])
+            guestController.updateDelegate = self
             self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
             self.view.layoutIfNeeded()
 
@@ -128,11 +129,6 @@ extension GuestsController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
-
-
-
-    
-            
             guard let guestController = pageViewController.viewControllers?.first as? GuestController else { return }
             if let index = guests.firstIndex(where: {$0.id == guestController.guest.id}) {
                 currentIndex = index
