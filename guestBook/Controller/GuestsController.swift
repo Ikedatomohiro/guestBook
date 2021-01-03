@@ -38,31 +38,32 @@ class GuestsController: UIPageViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        fetchData()
+        setGuestData()
         setupPageViewController()
     }
     
     
-    fileprivate func fetchData() {
+    fileprivate func setGuestData() {
         Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
                 return Guest(document: document)
             })
             // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-            if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
-                // 空のguestを配列に追加
-                let newGuest = Guest(id: "new")
-                self.guests.append(newGuest)
-            }
-            let lastIndex = self.guests.count - 1
-            self.currentIndex = lastIndex
-            let guestController = GuestController(guest: self.guests[lastIndex])
-            guestController.updateDelegate = self
-            self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
-            self.view.layoutIfNeeded()
-
+             if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
+                 // 空のguestを配列に追加
+                 let newGuest = Guest(id: "new")
+                 self.guests.append(newGuest)
+             }
+             let lastIndex = self.guests.count - 1
+             self.currentIndex = lastIndex
+             let guestController = GuestController(guest: self.guests[lastIndex])
+             // 参加者情報登録用のdelegateをセット
+             guestController.updateDelegate = self
+             self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
+             self.view.layoutIfNeeded()
         }
+
     }
     
     
@@ -70,6 +71,7 @@ class GuestsController: UIPageViewController {
         view.backgroundColor = .white
         dataSource = self
         delegate = self
+ 
     }
 
 }
@@ -77,19 +79,15 @@ extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
-        
         nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
-            // 変更されたデータを更新する
-//            self.updateGuestData(index: nextIndex)
             let guestVC = GuestController(guest: guests[nextIndex])
             guestVC.updateDelegate = self
             return guestVC
         } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
             // id を"new"で仮作成したGuestに入力された要素を選択
             let index = guests.firstIndex(where: {$0.id == "new"})!
-            
             let guestVC = GuestController(guest: guests[index])
             guestVC.updateDelegate = self
             return guestVC
@@ -100,19 +98,19 @@ extension GuestsController: UIPageViewControllerDataSource {
             guestVC.updateDelegate = self
             return guestVC
         }
-        
     }
     
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
-        if currentIndex >= 1 {
-            prevIndex = currentIndex - 1
+        prevIndex = currentIndex - 1
+        guard prevIndex >= 0 else {
+            // 1ページ目のときはページを戻す動作をしない
+            prevIndex = 0
+            return nil
         }
         currentIndex = prevIndex
-        guard prevIndex >= 0 else { return nil }
-        // 変更されたデータを更新する
-//        self.updateGuestData(index: prevIndex)
+
         let guestVC = GuestController(guest: guests[prevIndex])
         guestVC.updateDelegate = self
 
