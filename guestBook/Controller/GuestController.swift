@@ -74,7 +74,7 @@ class GuestController: UIViewController {
         view.addSubview(cardHeaderLabel)
         cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜 \(guest.id)"
         cardHeaderLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
-        cardHeaderLabel.layer.borderWidth = 1
+        cardHeaderLabel.textAlignment = .center
 //        cardTitleLabel.adjustsFontSizeToFitWidth = true
 //        cardHeaderLabel.frame.size.width = screenSize.width
 //        cardHeaderLabel.frame.size.height = screenSize.height / 7
@@ -84,18 +84,17 @@ class GuestController: UIViewController {
         view.addSubview(headerStackView)
         headerStackView.spacing = 5.0
         headerStackView.axis    = .horizontal
-        headerStackView.anchor(top: cardHeaderLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 10))
+        headerStackView.anchor(top: cardHeaderLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 10, bottom: 10, right: 10), size: .init(width: screenSize.width, height: screenSize.height / 10))
 
         view.addSubview(cardTitleLabel)
         cardTitleLabel.text = "御芳名カード"
         cardTitleLabel.anchor(top: headerStackView.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 100))
-        cardTitleLabel.layer.borderWidth = 1
+        cardTitleLabel.font = .systemFont(ofSize: 36)
         headerStackView.addArrangedSubview(cardTitleLabel)
 
         view.addSubview(pageLabel)
         pageLabel.text = "No."
         pageLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: headerStackView.trailingAnchor, size: .init(width: 100, height: 100))
-        pageLabel.layer.borderWidth = 1
         headerStackView.addArrangedSubview(pageLabel)
 
         // 御芳名
