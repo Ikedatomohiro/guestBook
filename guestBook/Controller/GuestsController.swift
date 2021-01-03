@@ -50,9 +50,8 @@ class GuestsController: UIPageViewController {
                 return Guest(document: document)
             })
             // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-            // ページが使われていない判定は仮で名前が空のとき。
-            if self.guests.count == 0 || self.guests.last?.guestName != "" {
-                // 空の情報を登録
+            if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
+                // 空のguestを配列に追加
                 let newGuest = Guest(id: "new")
                 self.guests.append(newGuest)
             }
@@ -153,8 +152,6 @@ extension GuestsController: UIPageViewControllerDelegate {
 
 extension GuestsController: GuestUpdateDelegate {
     func update(guest: Guest) -> String {
-        
-//        guest == Guest(id: "new")  使い所がない
         if (guest.id == "new") {
             let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
             let index = guests.firstIndex(where: {$0.id == "new"})
