@@ -30,9 +30,8 @@ class GuestController: UIViewController {
     
     fileprivate let guestNameTitleLabel                  = UILabel()
     fileprivate let guestNameTextField                   = UITextField()
-    
-    fileprivate let companyNameTitleLabel                     = UILabel()
-    fileprivate let companyNameTextField                   = UITextField()
+    fileprivate let companyNameTitleLabel                = UILabel()
+    fileprivate let companyNameTextField                 = UITextField()
     fileprivate let zipCodeLabel                         = UILabel()
     fileprivate let telLabel                             = UILabel()
     fileprivate let addressLabel                         = UILabel()
@@ -40,22 +39,21 @@ class GuestController: UIViewController {
     fileprivate let selectAcuaintanceLabel               = UILabel()
     fileprivate let selectRelationQuestionLabel          = UILabel()
     fileprivate let selectRelationLabel                  = UILabel()
-    fileprivate let retuals: [String] = ["通夜", "告別式"]
-    
+    fileprivate let retuals: [String]                    = ["通夜", "告別式"]
+    fileprivate let relationLabel                        = UILabel()
+    fileprivate let relations: [String]                  = ["故人様", "喪主様", "ご家族", "その他"]
+    fileprivate let group: [String]                      = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
+    fileprivate let description1                         = UILabel()
+    fileprivate let description2                         = UILabel()
     fileprivate let headerStackView                      = UIStackView()
-    fileprivate let guestNameStackVirew                       = UIStackView()
-    fileprivate let companyNameStackVirew                       = UIStackView()
-
+    fileprivate let guestNameStackVirew                  = UIStackView()
+    fileprivate let companyNameStackVirew                = UIStackView()
     fileprivate let db                                   = Firestore.firestore().collection("events")
     fileprivate let storage                              = Storage.storage().reference()
 
-
-    
-    
     //スクリーンサイズの取得
     let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-    
-    
+        
     init(guest: Guest) {
         self.guest = guest
         super.init(nibName: nil, bundle: nil)
@@ -189,9 +187,10 @@ class GuestController: UIViewController {
     
     fileprivate func setupCanvas() {
         let canvas = PKCanvasView(frame: view.frame)
-        self.view.addSubview(canvas)
+        view.addSubview(canvas)
         canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
-
+        canvas.isOpaque = false
+        
         // PKToolPicker: ドラッグして移動できるツールパレット (ペンや色などを選択できるツール)
         if let window = UIApplication.shared.windows.first {
             if let toolPicker = PKToolPicker.shared(for: window) {

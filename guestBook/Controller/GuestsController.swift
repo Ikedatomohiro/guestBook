@@ -14,14 +14,14 @@ class GuestsController: UIPageViewController {
     fileprivate let event: Event
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     
-    fileprivate var guests: [Guest] = []
-    fileprivate var guestId: String = ""
+    fileprivate var guests: [Guest]   = []
+    fileprivate var guestId: String   = ""
     fileprivate var guestName: String = ""
-    fileprivate var createdAt: Date = Date()
+    fileprivate var createdAt: Date   = Date()
     fileprivate var currentIndex: Int = 0
-    fileprivate var prevIndex: Int = 0
-    fileprivate var nextIndex: Int = 0
-    fileprivate var db = Firestore.firestore()
+    fileprivate var prevIndex: Int    = 0
+    fileprivate var nextIndex: Int    = 0
+    fileprivate var db                = Firestore.firestore()
     
     lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
     
