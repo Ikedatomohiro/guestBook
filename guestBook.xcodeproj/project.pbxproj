@@ -32,7 +32,7 @@
 		E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B06533257C6D870010916C /* GuestDetailViewController.swift */; };
 		E5B3C9122552B27400509757 /* GuestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestsController.swift */; };
 		E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */; };
-		E5CB0E7225721A3E0087193F /* RetualCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */; };
+		E5CB0E7225721A3E0087193F /* CheckBoxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -90,7 +90,7 @@
 		E5B06533257C6D870010916C /* GuestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewController.swift; sourceTree = "<group>"; };
 		E5B3C9112552B27400509757 /* GuestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsController.swift; sourceTree = "<group>"; };
 		E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuViewController.swift; sourceTree = "<group>"; };
-		E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionViewCell.swift; sourceTree = "<group>"; };
+		E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckBoxCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -174,7 +174,7 @@
 			children = (
 				E573F424255047330000C955 /* EventNameCell.swift */,
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
-				E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */,
+				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -534,7 +534,7 @@
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
-				E5CB0E7225721A3E0087193F /* RetualCollectionViewCell.swift in Sources */,
+				E5CB0E7225721A3E0087193F /* CheckBoxCell.swift in Sources */,
 				E573F420254FD5630000C955 /* Event.swift in Sources */,
 				E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */,
 			);
