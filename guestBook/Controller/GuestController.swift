@@ -91,7 +91,7 @@ class GuestController: UIViewController {
         headerStackView.addArrangedSubview(cardTitleLabel)
 
         view.addSubview(pageLabel)
-        pageLabel.text = "No."
+        pageLabel.text = "No. \(guest.pageNumber)"
         pageLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: headerStackView.trailingAnchor, size: .init(width: 100, height: 100))
         headerStackView.addArrangedSubview(pageLabel)
 
@@ -100,7 +100,6 @@ class GuestController: UIViewController {
         guestNameStackVirew.spacing = 5.0
         guestNameStackVirew.axis    = .vertical
         guestNameStackVirew.anchor(top: headerStackView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
-        guestNameStackVirew.layer.borderWidth = 1
         
         view.addSubview(guestNameTitleLabel)
         guestNameTitleLabel.anchor(top: guestNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))

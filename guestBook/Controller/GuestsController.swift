@@ -21,6 +21,8 @@ class GuestsController: UIPageViewController {
     fileprivate var currentIndex: Int = 0
     fileprivate var prevIndex: Int    = 0
     fileprivate var nextIndex: Int    = 0
+    fileprivate var pageNumber: Int   = 1
+
     fileprivate var db                = Firestore.firestore()
     
     lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
@@ -47,13 +49,17 @@ class GuestsController: UIPageViewController {
         Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
             self.guests = docments.map({ (document) -> Guest in
-                return Guest(document: document)
+                var guest = Guest(document: document)
+                guest.pageNumber = self.pageNumber
+                self.pageNumber += 1
+                return guest
             })
             // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
              if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
-                 // 空のguestを配列に追加
-                 let newGuest = Guest(id: "new")
-                 self.guests.append(newGuest)
+                // 空のguestを配列に追加
+                var newGuest = Guest(id: "new")
+                newGuest.pageNumber = self.guests.count + 1
+                self.guests.append(newGuest)
              }
              let lastIndex = self.guests.count - 1
              self.currentIndex = lastIndex
@@ -92,7 +98,8 @@ extension GuestsController: UIPageViewControllerDataSource {
             guestVC.updateDelegate = self
             return guestVC
         } else {
-            let newGuest = Guest(id: "new")
+            var newGuest = Guest(id: "new")
+            newGuest.pageNumber = guests.count + 1
             self.guests.append(newGuest)
             let guestVC = GuestController(guest: newGuest)
             guestVC.updateDelegate = self

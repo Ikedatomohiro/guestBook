@@ -12,6 +12,7 @@ struct Guest {
     let eventId    : String
     var guestName  : String
     var companyName: String
+    var pageNumber : Int
     let createdAt  : Date
     var updatedAt  : Date
     
@@ -21,6 +22,7 @@ struct Guest {
         self.eventId     = dictionary["eventId"]     as? String ?? ""
         self.guestName   = dictionary["guestName"]   as? String ?? ""
         self.companyName = dictionary["companyName"] as? String ?? ""
+        self.pageNumber  = 0
         self.createdAt   = dictionary["createdAt"]   as? Date   ?? Date()
         self.updatedAt   = dictionary["updatedAt"]   as? Date   ?? Date()
     }
@@ -30,6 +32,7 @@ struct Guest {
         self.eventId     = ""
         self.guestName   = ""
         self.companyName = ""
+        self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
     }
@@ -39,6 +42,7 @@ struct Guest {
         self.eventId     = ""
         self.guestName   = ""
         self.companyName = ""
+        self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
     }
