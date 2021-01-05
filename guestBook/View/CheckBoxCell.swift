@@ -1,5 +1,5 @@
 //
-//  RetualCollectionViewCell.swift
+//  CheckBoxCell.swift
 //  guestBook
 //
 //  Created by 池田友宏 on 2020/11/28.
@@ -7,12 +7,13 @@
 
 import UIKit
 
-class RetualCollectionViewCell: UICollectionViewCell {
+class CheckBoxCell: UICollectionViewCell {
 
     //スクリーンサイズの取得
     let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
 
-    fileprivate let retualsButton = UIButton()
+    fileprivate let checkBox = UIButton()
+    fileprivate let label = UILabel()
 
     
     //    private let retualNameLabel: UILabel = {
@@ -25,11 +26,11 @@ class RetualCollectionViewCell: UICollectionViewCell {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.addSubview(retualsButton)
-        retualsButton.fillSuperview()
-        retualsButton.backgroundColor = .white
+        self.contentView.addSubview(checkBox)
+        checkBox.fillSuperview()
+        checkBox.backgroundColor = .white
         
-//        retualsButton.setTitle(indexPath.item, for: .normal)
+//        checkBox.setTitle(indexPath.item, for: .normal)
     }
 
     required init?(coder aDecoder: NSCoder) {
@@ -38,8 +39,15 @@ class RetualCollectionViewCell: UICollectionViewCell {
     
     func setupContents(cellText: String) {
 //        retualNameLabel.text = textName
-    retualsButton.setTitle(cellText, for: .normal)
+        checkBox.setTitle(cellText, for: .normal)
 
     }
     
+    func setup(retual: String) {
+        
+    }
+    
+    func activate(isActivate: Bool) {
+//        isActivate ? on() : off()
+    }
 }

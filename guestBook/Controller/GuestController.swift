@@ -26,7 +26,7 @@ class GuestController: UIViewController {
 //    fileprivate let retualCollectionView = RetualCollectionView()
 //    fileprivate var retualCollectionView: UICollectionView!
     fileprivate let layout = UICollectionViewLayout()
-    fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+    fileprivate lazy var retualCollectionView = SelectCollectionView()
     
     fileprivate let guestNameTitleLabel                  = UILabel()
     fileprivate let guestNameTextField                   = UITextField()
@@ -63,10 +63,24 @@ class GuestController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
-        setupLabels()
+        setupRetualCollectionView()
+//        setupLabels()
 //        setupCanvas()
     }
+    
+    fileprivate func setupRetualCollectionView() {
+        view.addSubview(retualCollectionView)
+        retualCollectionView.backgroundColor = .blue
+        retualCollectionView.fillSuperview()
+        retualCollectionView.dataSource = self
+        retualCollectionView.delegate = self
+        retualCollectionView.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
+    }
+    
+    
+    
+    
+    
     
     fileprivate func setupLabels() {
         view.addSubview(cardHeaderLabel)
@@ -156,7 +170,7 @@ class GuestController: UIViewController {
 //        retualCollectionView.delegate = self
 //        retualCollectionView.isScrollEnabled = true
 //
-//        retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
+//        retualCollectionView.register(CheckBoxCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
 //
 //
 //        view.addSubview(retualCollectionView)
@@ -215,17 +229,23 @@ class GuestController: UIViewController {
 }
 
 extension GuestController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return retuals.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RetualCollectionViewCell.className, for: indexPath)
-        let retualsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        retualsButton.setTitle(retuals[indexPath.item], for: .normal)
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as? CheckBoxCell else { fatalError() }
+//        let cell = UICollectionViewCell()
+        cell.setup(retual: retuals[indexPath.row])
+        cell.backgroundColor = .white
+//        let retualsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
+//        retualsButton.setTitle(retuals[indexPath.item], for: .normal)
 //        retualsButton.addTarget(self, action: #selector(retualsButtonTapped), for: .touchUpInside)
-        cell.addSubview(retualsButton)
+//        cell.addSubview(retualsButton)
         
         return cell
     }
@@ -240,6 +260,8 @@ extension GuestController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
         print(indexPath.item)
+        collectionView.cellForItem(at: indexPath)
+        collectionView.reloadData()
     }
 }
 
@@ -247,8 +269,19 @@ extension GuestController: UICollectionViewDelegate {
 extension GuestController: UICollectionViewDelegateFlowLayout {
 
   func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
       //ここでは画面の横サイズの半分の大きさのcellサイズを指定
       return CGSize(width: 100, height: 50)
   }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }
