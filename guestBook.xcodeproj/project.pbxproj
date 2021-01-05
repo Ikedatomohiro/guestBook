@@ -13,6 +13,8 @@
 		C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25EB255B7BCF0037825B /* GuestController.swift */; };
 		C52C25F1255B7DCA0037825B /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25F0255B7DCA0037825B /* Guest.swift */; };
 		C565EBA725711C36005E61AD /* RetualCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */; };
+		C5AF848325A4872900168394 /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF848225A4872900168394 /* GuestNameView.swift */; };
+		C5AF848825A48A6100168394 /* SelectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5AF848725A48A6100168394 /* SelectView.swift */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
 		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
 		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
@@ -63,6 +65,8 @@
 		C52C25EB255B7BCF0037825B /* GuestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestController.swift; sourceTree = "<group>"; };
 		C52C25F0255B7DCA0037825B /* Guest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
 		C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionViewController.swift; sourceTree = "<group>"; };
+		C5AF848225A4872900168394 /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
+		C5AF848725A48A6100168394 /* SelectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectView.swift; sourceTree = "<group>"; };
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -175,6 +179,8 @@
 				E573F424255047330000C955 /* EventNameCell.swift */,
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
 				E5CB0E7125721A3E0087193F /* RetualCollectionViewCell.swift */,
+				C5AF848225A4872900168394 /* GuestNameView.swift */,
+				C5AF848725A48A6100168394 /* SelectView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -519,6 +525,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C5AF848325A4872900168394 /* GuestNameView.swift in Sources */,
 				E59D9EF2254848F1000F7C45 /* EventListViewController.swift in Sources */,
 				C52C25F1255B7DCA0037825B /* Guest.swift in Sources */,
 				E5B3C9122552B27400509757 /* GuestsController.swift in Sources */,
@@ -528,6 +535,7 @@
 				C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */,
 				E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */,
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
+				C5AF848825A48A6100168394 /* SelectView.swift in Sources */,
 				E57444E125694EAE001D4774 /* GuestCell.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				C565EBA725711C36005E61AD /* RetualCollectionViewController.swift in Sources */,

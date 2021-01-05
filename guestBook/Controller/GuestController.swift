@@ -27,9 +27,9 @@ class GuestController: UIViewController {
 //    fileprivate var retualCollectionView: UICollectionView!
     fileprivate let layout = UICollectionViewLayout()
     fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    
-    fileprivate let guestNameTitleLabel                  = UILabel()
-    fileprivate let guestNameTextField                   = UITextField()
+
+    fileprivate let guestNameView = GuestNameView()
+    fileprivate let selectView = SelectView()
     fileprivate let companyNameTitleLabel                = UILabel()
     fileprivate let companyNameTextField                 = UITextField()
     fileprivate let zipCodeLabel                         = UILabel()
@@ -62,12 +62,22 @@ class GuestController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
+        setupBasic()
+        setupGuestNameView()
+        setupSelectView()
         setupLabels()
 //        setupCanvas()
     }
     
+    fileprivate func setupBasic() {
+        
+    }
+    fileprivate func setupGuestNameView() {
+        view.addSubview(guestNameView)
+    }
+    fileprivate func setupSelectView() {
+        selectView.setup()
+    }
     fileprivate func setupLabels() {
         view.addSubview(cardHeaderLabel)
         cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜 \(guest.id)"
