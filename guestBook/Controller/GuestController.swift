@@ -19,19 +19,18 @@ class GuestController: UIViewController {
     var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
     
-    fileprivate let cardTitleLabel                       = UILabel()
-    fileprivate let cardHeaderLabel                      = UILabel()
-    fileprivate let pageLabel                            = UILabel()
     
 //    fileprivate let retualCollectionView = RetualCollectionView()
 //    fileprivate var retualCollectionView: UICollectionView!
     fileprivate let layout = UICollectionViewLayout()
     fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
-    fileprivate let guestNameTitleLabel                  = UILabel()
+    fileprivate let cardHeaderView = CardHeaderView()
+    fileprivate let cardTitleView = CardTitleView()
+    fileprivate let guestNameView = GuestNameView()
+    fileprivate let companyNameView = CompanyNameView()
     fileprivate let guestNameTextField                   = UITextField()
-    fileprivate let companyNameTitleLabel                = UILabel()
-    fileprivate let companyNameTextField                 = UITextField()
+    fileprivate let companyNameTextField                   = UITextField()
     fileprivate let zipCodeLabel                         = UILabel()
     fileprivate let telLabel                             = UILabel()
     fileprivate let addressLabel                         = UILabel()
@@ -62,80 +61,52 @@ class GuestController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        
-        setupLabels()
-//        setupCanvas()
+        setupBasic()
+//        setupLabels()
+        setupCardHeaderView()
+        setupCardTitleView()
+        setupGuestNameView()
+        setupCompanyNameView()
+        setupSelectView()
     }
+    fileprivate func setupBasic() {
+        view.backgroundColor = .white
+
+     }
+    fileprivate func setupCardHeaderView() {
+        view.addSubview(cardHeaderView)
+        cardHeaderView.setupView(guestId: guest.id)
+        cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
+    }
+    fileprivate func setupCardTitleView() {
+        view.addSubview(cardTitleView)
+        cardTitleView.setupView(pageNumber: guest.pageNumber)
+        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 10))
+    }
+    fileprivate func setupGuestNameView() {
+        view.addSubview(guestNameView)
+        guestNameView.setupView(guestName: guest.guestName)
+        guestNameView.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
+        guestNameView.layer.borderWidth = 1.0
+     }
+    fileprivate func setupCompanyNameView() {
+        view.addSubview(companyNameView)
+        companyNameView.setupView(companyName: guest.companyName)
+        companyNameView.anchor(top: cardTitleView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
+        companyNameView.layer.borderWidth = 2
+    }
+     fileprivate func setupSelectView() {
+//         selectView.setup()
+     }
+    
     
     fileprivate func setupLabels() {
-        view.addSubview(cardHeaderLabel)
-        cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜 \(guest.id)"
-        cardHeaderLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
-        cardHeaderLabel.textAlignment = .center
-//        cardTitleLabel.adjustsFontSizeToFitWidth = true
-//        cardHeaderLabel.frame.size.width = screenSize.width
-//        cardHeaderLabel.frame.size.height = screenSize.height / 7
-//        cardHeaderLabel.frame.size.height = 100
-        
-        
-        view.addSubview(headerStackView)
-        headerStackView.spacing = 5.0
-        headerStackView.axis    = .horizontal
-        headerStackView.anchor(top: cardHeaderLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 10, bottom: 10, right: 10), size: .init(width: screenSize.width, height: screenSize.height / 10))
+     
 
-        view.addSubview(cardTitleLabel)
-        cardTitleLabel.text = "御芳名カード"
-        cardTitleLabel.anchor(top: headerStackView.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 100))
-        cardTitleLabel.font = .systemFont(ofSize: 36)
-        headerStackView.addArrangedSubview(cardTitleLabel)
-
-        view.addSubview(pageLabel)
-        pageLabel.text = "No. \(guest.pageNumber)"
-        pageLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: headerStackView.trailingAnchor, size: .init(width: 100, height: 100))
-        headerStackView.addArrangedSubview(pageLabel)
-
-        // 御芳名
-        view.addSubview(guestNameStackVirew)
-        guestNameStackVirew.spacing = 5.0
-        guestNameStackVirew.axis    = .vertical
-        guestNameStackVirew.anchor(top: headerStackView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
-        
-        view.addSubview(guestNameTitleLabel)
-        guestNameTitleLabel.anchor(top: guestNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))
-        guestNameTitleLabel.text = "御芳名"
-        guestNameStackVirew.addArrangedSubview(guestNameTitleLabel)
-
-        view.addSubview(guestNameTextField)
-        guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        guestNameTextField.layer.borderWidth = 1.0
-        guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
-        guestNameTextField.text = guest.guestName
-        print(guest.guestName)
-        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-        guestNameStackVirew.addArrangedSubview(guestNameTextField)
-
-        // 会社名（団体名）
-        view.addSubview(companyNameStackVirew)
-        companyNameStackVirew.spacing = 5.0
-        companyNameStackVirew.axis = .vertical
-        companyNameStackVirew.anchor(top: headerStackView.bottomAnchor, leading: guestNameStackVirew.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width * 2 / 5, height: screenSize.height / 5))
-            
-        view.addSubview(companyNameTitleLabel)
-        companyNameTitleLabel.anchor(top: companyNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 300, height: 40))
-        companyNameTitleLabel.text = "会社名(団体名)"
-        companyNameStackVirew.addArrangedSubview(companyNameTitleLabel)
-        
-        view.addSubview(companyNameTextField)
-        companyNameTextField.anchor(top: companyNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        companyNameTextField.layer.borderWidth = 1.0
-        companyNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
-        companyNameTextField.text = guest.companyName
-        print(guest.guestName)
-        companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-        companyNameStackVirew.addArrangedSubview(companyNameTextField)
         
         
+        
+         
         
 //        // 参加儀式選択
 //        let flowLayout = UICollectionViewFlowLayout()
@@ -184,23 +155,7 @@ class GuestController: UIViewController {
         
     }
     
-    fileprivate func setupCanvas() {
-        let canvas = PKCanvasView(frame: view.frame)
-        view.addSubview(canvas)
-        canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
-        canvas.isOpaque = false
-        
-        // PKToolPicker: ドラッグして移動できるツールパレット (ペンや色などを選択できるツール)
-        if let window = UIApplication.shared.windows.first {
-            if let toolPicker = PKToolPicker.shared(for: window) {
-                toolPicker.addObserver(canvas)
-                toolPicker.setVisible(true, forFirstResponder: canvas)
-                canvas.becomeFirstResponder()
-            }
-        }
-    }
-    
-    @objc private func textFieldDidChange() {
+    @objc func textFieldDidChange() {
         print("名前が変更されました。")
         let name = guestNameTextField.text ?? ""
         let companyName = companyNameTextField.text ?? ""
