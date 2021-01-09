@@ -25,8 +25,10 @@ class CheckBoxCell: UICollectionViewCell {
     func setup() {
         contentView.addSubview(label)
         label.fillSuperview()
+        label.layer.cornerRadius = 5
+        label.layer.borderWidth = 1
         label.backgroundColor = .gray
-        
+        label.textAlignment = .center
     }
     
     func setupContents(textName: String) {

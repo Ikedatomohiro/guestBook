@@ -21,40 +21,25 @@ class GuestController: UIViewController {
     
     var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
-    
-    
-//    fileprivate let retualCollectionView = RetualCollectionView()
-    fileprivate let layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        layout.itemSize = CGSize(width: 100, height: 100)
-        return layout
-    }()
-    fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
-    
-    fileprivate let cardHeaderView = CardHeaderView()
-    fileprivate let cardTitleView = CardTitleView()
-    fileprivate let guestNameView = GuestNameView()
-    fileprivate let companyNameView = CompanyNameView()
-    fileprivate let guestNameTextField                   = UITextField()
-    fileprivate let companyNameTextField                   = UITextField()
-    fileprivate let zipCodeLabel                         = UILabel()
-    fileprivate let telLabel                             = UILabel()
-    fileprivate let addressLabel                         = UILabel()
-    fileprivate let selectAcuaintanceQuestionLabel       = UILabel()
-    fileprivate let selectAcuaintanceLabel               = UILabel()
-    fileprivate let selectRelationQuestionLabel          = UILabel()
-    fileprivate let selectRelationLabel                  = UILabel()
-    fileprivate let retuals: [String]                    = ["通夜", "告別式"]
-    fileprivate let relationLabel                        = UILabel()
-    fileprivate let relations: [String]                  = ["故人様", "喪主様", "ご家族", "その他"]
-    fileprivate let group: [String]                      = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
-    fileprivate let description1                         = UILabel()
-    fileprivate let description2                         = UILabel()
-    fileprivate let headerStackView                      = UIStackView()
-    fileprivate let guestNameStackVirew                  = UIStackView()
-    fileprivate let companyNameStackVirew                = UIStackView()
-    fileprivate let db                                   = Firestore.firestore().collection("events")
-    fileprivate let storage                              = Storage.storage().reference()
+    fileprivate let retualCollectionView            = RetualCollectionView()
+    fileprivate let cardHeaderView                  = CardHeaderView()
+    fileprivate let cardTitleView                   = CardTitleView()
+    fileprivate let guestNameView                   = GuestNameView()
+    fileprivate let companyNameView                 = CompanyNameView()
+    fileprivate let guestNameTextField              = UITextField()
+    fileprivate let companyNameTextField            = UITextField()
+    fileprivate let zipCodeLabel                    = UILabel()
+    fileprivate let telLabel                        = UILabel()
+    fileprivate let addressLabel                    = UILabel()
+    fileprivate let selectAcuaintanceQuestionLabel  = UILabel()
+    fileprivate let selectAcuaintanceLabel          = UILabel()
+    fileprivate let selectRelationQuestionLabel     = UILabel()
+    fileprivate let selectRelationLabel             = UILabel()
+    fileprivate let relations: [String]             = ["故人様", "喪主様", "ご家族", "その他"]
+    fileprivate let group: [String]                 = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
+    fileprivate let description1                    = UILabel()
+    fileprivate let description2                    = UILabel()
+    fileprivate let storage                         = Storage.storage().reference()
 
         
     init(guest: Guest) {
@@ -63,7 +48,7 @@ class GuestController: UIViewController {
     }
     required init?(coder: NSCoder){fatalError()}
     
-    // MARK:-
+    // MARK:- layout
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBasic()
@@ -91,12 +76,6 @@ class GuestController: UIViewController {
     }
     fileprivate func setupRetualCollectionView() {
         view.addSubview(retualCollectionView)
-        retualCollectionView.dataSource = self
-        retualCollectionView.delegate = self
-        retualCollectionView.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
-        
-//        retualCollectionView.backgroundColor = .blue
-//        retualCollectionView.fillSuperview()
         retualCollectionView.anchor(top: cardTitleView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
     }
     
@@ -146,7 +125,7 @@ class GuestController: UIViewController {
         
         
     }
-    
+    //MARK:- func
     @objc func textFieldDidChange() {
         print("名前が変更されました。")
         let name = guestNameTextField.text ?? ""
@@ -158,52 +137,5 @@ class GuestController: UIViewController {
         if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!
         }
-    }
-}
-
-extension GuestController: UICollectionViewDataSource {
-    // cellの個数設定
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return retuals.count
-    }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
-        
-        cell.setupContents(textName: retuals[indexPath.item])
-        return cell
-    }
-}
-extension GuestController: UICollectionViewDelegate {
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        // クリックしたときのアクション
-        print(indexPath.item)
-    }
-}
-
-//cellのサイズの設定
-extension GuestController: UICollectionViewDelegateFlowLayout {
-
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        //ここでは画面の横サイズの半分の大きさのcellサイズを指定
-        return CGSize(width: 100, height: 50)
-      }
-    // セルの外周余白
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        return .zero
-    }
-    // セル同士の縦間隔
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    // セル同士の横間隔
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
     }
 }
