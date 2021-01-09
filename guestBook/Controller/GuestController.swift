@@ -26,8 +26,6 @@ class GuestController: UIViewController {
     fileprivate let cardTitleView                   = CardTitleView()
     fileprivate let guestNameView                   = GuestNameView()
     fileprivate let companyNameView                 = CompanyNameView()
-    fileprivate let guestNameTextField              = UITextField()
-    fileprivate let companyNameTextField            = UITextField()
     fileprivate let zipCodeLabel                    = UILabel()
     fileprivate let telLabel                        = UILabel()
     fileprivate let addressLabel                    = UILabel()
@@ -84,12 +82,15 @@ class GuestController: UIViewController {
         guestNameView.setupView(guestName: guest.guestName)
         guestNameView.anchor(top: retualCollectionView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
+        guestNameView.guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+
      }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
         companyNameView.setupView(companyName: guest.companyName)
         companyNameView.anchor(top: retualCollectionView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
         companyNameView.layer.borderWidth = 2
+        companyNameView.companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
      fileprivate func setupSelectView() {
 //         selectView.setup()
@@ -128,8 +129,8 @@ class GuestController: UIViewController {
     //MARK:- func
     @objc func textFieldDidChange() {
         print("名前が変更されました。")
-        let name = guestNameTextField.text ?? ""
-        let companyName = companyNameTextField.text ?? ""
+        let name = guestNameView.guestNameTextField.text ?? ""
+        let companyName = companyNameView.companyNameTextField.text ?? ""
         guest.guestName = name
         guest.companyName = companyName
 

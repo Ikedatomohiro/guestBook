@@ -10,7 +10,7 @@ import PencilKit
 
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel     = UILabel()
-    fileprivate let guestNameTextField      = UITextField()
+    let guestNameTextField      = UITextField()
     fileprivate let guestNameCanvas         = PKCanvasView()
     fileprivate let guestName: String = ""
     
@@ -23,10 +23,24 @@ class GuestNameView: UIView {
     }
     
     func setupView(guestName: String) {
-//        view.addSubview(guestNameTitleLabel)
-//        guestNameTitleLabel.anchor(top: guestNameStackVirew.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 20))
-        
-//        addSubview(guestNameCanvas)
+        setupLabel()
+        setupTextField()
+//        setupCanvas()
+    }
+    fileprivate func setupLabel() {
+        addSubview(guestNameTitleLabel)
+        guestNameTitleLabel.text = "御芳名"
+        guestNameTitleLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 100, height: 100))
+    }
+    fileprivate func setupTextField() {
+        addSubview(guestNameTextField)
+        guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
+        guestNameTextField.layer.borderWidth = 1.0
+        guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
+        guestNameTextField.text = guestName
+    }
+    fileprivate func setupCanvas() {
+        addSubview(guestNameCanvas)
         guestNameCanvas.fillSuperview()
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
@@ -38,24 +52,9 @@ class GuestNameView: UIView {
                 guestNameCanvas.becomeFirstResponder()
             }
         }
-        
-        addSubview(guestNameTitleLabel)
-        guestNameTitleLabel.text = "御芳名"
-        guestNameTitleLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 100, height: 100))
-//        guestNameStackVirew.addArrangedSubview(guestNameTitleLabel)
-
-        addSubview(guestNameTextField)
-        guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        guestNameTextField.layer.borderWidth = 1.0
-        guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
-        guestNameTextField.text = guestName
-//        print(guest.guestName)
-//        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-//        guestNameStackVirew.addArrangedSubview(guestNameTextField)
-
     }
-
 }
+
 
 
 
