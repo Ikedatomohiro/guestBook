@@ -21,7 +21,6 @@ class GuestController: UIViewController {
     
     var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
-    fileprivate let retualCollectionView            = RetualCollectionView()
     fileprivate let cardHeaderView                  = CardHeaderView()
     fileprivate let cardTitleView                   = CardTitleView()
     fileprivate let guestNameView                   = GuestNameView()
@@ -53,7 +52,6 @@ class GuestController: UIViewController {
 //        setupLabels()
         setupCardHeaderView()
         setupCardTitleView()
-        setupRetualCollectionView()
         setupGuestNameView()
         setupCompanyNameView()
 //        setupSelectView()
@@ -64,7 +62,7 @@ class GuestController: UIViewController {
      }
     fileprivate func setupCardHeaderView() {
         view.addSubview(cardHeaderView)
-        cardHeaderView.setupView(guestId: guest.id)
+        cardHeaderView.setupView()
         cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
     }
     fileprivate func setupCardTitleView() {
@@ -72,23 +70,17 @@ class GuestController: UIViewController {
         cardTitleView.setupView(pageNumber: guest.pageNumber)
         cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 10))
     }
-    fileprivate func setupRetualCollectionView() {
-        view.addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: cardTitleView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
-    }
-    
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guestName: guest.guestName)
-        guestNameView.anchor(top: retualCollectionView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
+        guestNameView.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-
      }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
         companyNameView.setupView(companyName: guest.companyName)
-        companyNameView.anchor(top: retualCollectionView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
+        companyNameView.anchor(top: cardTitleView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
         companyNameView.layer.borderWidth = 2
         companyNameView.companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }

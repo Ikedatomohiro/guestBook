@@ -24,15 +24,15 @@ class CompanyNameView: UIView {
     
     func setupView(companyName: String) {
         setupLabel()
-        setupTextField()
+        setupTextField(companyName: companyName)
 //        setupCanvas()
     }
     fileprivate func setupLabel() {
         addSubview(companyNameTitleLabel)
-        companyNameTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 300, height: 40))
+        companyNameTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 300, height: 100))
         companyNameTitleLabel.text = "会社名(団体名)"
     }
-    fileprivate func setupTextField() {
+    fileprivate func setupTextField(companyName: String) {
         addSubview(companyNameTextField)
         companyNameTextField.anchor(top: companyNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         companyNameTextField.layer.borderWidth = 1.0

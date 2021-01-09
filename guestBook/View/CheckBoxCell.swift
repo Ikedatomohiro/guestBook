@@ -9,8 +9,8 @@ import UIKit
 
 class CheckBoxCell: UICollectionViewCell {
 
-    fileprivate let retualsButton = UIButton()
-    fileprivate let label   = UILabel()
+    fileprivate let label          = UILabel()
+    fileprivate let isActive: Bool = false
 
     override init(frame: CGRect) {
         super.init(frame: frame)

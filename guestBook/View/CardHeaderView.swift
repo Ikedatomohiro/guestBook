@@ -20,9 +20,12 @@ class CardHeaderView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(guestId: String) {
+    func setupView() {
+        setupLabel()
+    }
+    fileprivate func setupLabel() {
         addSubview(cardHeaderLabel)
-        cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜 \(guestId)"
+        cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜"
         cardHeaderLabel.textAlignment = .center
         cardHeaderLabel.fillSuperview()
     }

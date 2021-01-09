@@ -184,11 +184,11 @@
 			children = (
 				E573F5C025A972F4008652DD /* CollectionViewCell.swift */,
 				E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */,
+				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
 				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
 				E573F424255047330000C955 /* EventNameCell.swift */,
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
 				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
-				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
 				E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */,
 			);
 			path = View;

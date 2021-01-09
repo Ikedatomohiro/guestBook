@@ -24,7 +24,7 @@ class GuestNameView: UIView {
     
     func setupView(guestName: String) {
         setupLabel()
-        setupTextField()
+        setupTextField(guestName: guestName)
 //        setupCanvas()
     }
     fileprivate func setupLabel() {
@@ -32,11 +32,10 @@ class GuestNameView: UIView {
         guestNameTitleLabel.text = "御芳名"
         guestNameTitleLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 100, height: 100))
     }
-    fileprivate func setupTextField() {
+    fileprivate func setupTextField(guestName: String) {
         addSubview(guestNameTextField)
         guestNameTextField.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         guestNameTextField.layer.borderWidth = 1.0
-        guestNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
         guestNameTextField.text = guestName
     }
     fileprivate func setupCanvas() {
