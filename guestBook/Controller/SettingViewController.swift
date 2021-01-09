@@ -9,35 +9,32 @@ import UIKit
 
 class SettingViewController: UIViewController {
 
-    
-    var collectionTestView: UICollectionView!
+    private let collectionView: UICollectionView = {
+           //セルのレイアウト設計
+           let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
 
+           //各々の設計に合わせて調整
+           layout.scrollDirection = .vertical
+           layout.minimumInteritemSpacing = 0
+           layout.minimumLineSpacing = 0
+
+           let collectionView = UICollectionView( frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height ), collectionViewLayout: layout)
+           collectionView.backgroundColor = UIColor.white
+           //セルの登録
+           collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
+           return collectionView
+       }()
     
-    
+    fileprivate let fruits: [String] = ["apple", "grape", "lemon", "banana", "cherry", "strobery", "peach", "orange"]
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-//        self.view.backgroundColor = .systemBlue
+        //生成したcollectionViewのdataSourceとdelegteを紐づける
+        collectionView.dataSource = self
+        collectionView.delegate = self
 
-
-
-        let flowLayout = UICollectionViewFlowLayout()
-        flowLayout.itemSize = CGSize(
-            width: self.view.frame.width / 5,
-            height: self.view.frame.width / 5
-        )
-        flowLayout.minimumInteritemSpacing = 0
-        flowLayout.minimumLineSpacing = 0
-        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        
-        collectionTestView = UICollectionView(
-            frame: self.view.frame ,
-            collectionViewLayout:flowLayout
-        )
-        collectionTestView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
-        collectionTestView.dataSource = self
-        self.view.addSubview(collectionTestView)
-
+        view.addSubview(collectionView)
 
     }
     
@@ -47,26 +44,34 @@ class SettingViewController: UIViewController {
     
 extension SettingViewController:UICollectionViewDataSource {
     
+    //cellの個数設定
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 2
+        return fruits.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
-        if(indexPath.row % 2 == 0){
-            cell.backgroundColor = .red
-        }else{
-            cell.backgroundColor = .blue
-        }
 
-        
-        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
+
+        let cellText = fruits[indexPath.item]
+        cell.setupContents(textName: cellText)
+
         return cell
     }
-    
-    
-    
+}
+
+//イベントの設定(何もなければ記述の必要なし)
+extension SettingViewController: UICollectionViewDelegate {
+
 }
 
 
+//cellのサイズの設定
+extension SettingViewController: UICollectionViewDelegateFlowLayout {
 
+  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+      //ここでは画面の横サイズの半分の大きさのcellサイズを指定
+      return CGSize(width: screenSize.width / 2.0, height: screenSize.width / 2.0)
+  }
+}

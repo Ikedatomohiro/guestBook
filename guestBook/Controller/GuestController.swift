@@ -10,6 +10,9 @@ import PencilKit
 import FirebaseFirestore
 import FirebaseStorage
 
+//スクリーンサイズの取得
+let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
+
 protocol GuestUpdateDelegate: class {
     func update(guest: Guest) -> String
 }
@@ -21,8 +24,11 @@ class GuestController: UIViewController {
     
     
 //    fileprivate let retualCollectionView = RetualCollectionView()
-//    fileprivate var retualCollectionView: UICollectionView!
-    fileprivate let layout = UICollectionViewLayout()
+    fileprivate let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        layout.itemSize = CGSize(width: 100, height: 100)
+        return layout
+    }()
     fileprivate lazy var retualCollectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
     
     fileprivate let cardHeaderView = CardHeaderView()
@@ -50,8 +56,6 @@ class GuestController: UIViewController {
     fileprivate let db                                   = Firestore.firestore().collection("events")
     fileprivate let storage                              = Storage.storage().reference()
 
-    //スクリーンサイズの取得
-    let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
         
     init(guest: Guest) {
         self.guest = guest
@@ -59,15 +63,17 @@ class GuestController: UIViewController {
     }
     required init?(coder: NSCoder){fatalError()}
     
+    // MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBasic()
 //        setupLabels()
         setupCardHeaderView()
         setupCardTitleView()
+        setupRetualCollectionView()
         setupGuestNameView()
         setupCompanyNameView()
-        setupSelectView()
+//        setupSelectView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -83,22 +89,32 @@ class GuestController: UIViewController {
         cardTitleView.setupView(pageNumber: guest.pageNumber)
         cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 10))
     }
+    fileprivate func setupRetualCollectionView() {
+        view.addSubview(retualCollectionView)
+        retualCollectionView.dataSource = self
+        retualCollectionView.delegate = self
+        retualCollectionView.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
+        
+//        retualCollectionView.backgroundColor = .blue
+//        retualCollectionView.fillSuperview()
+        retualCollectionView.anchor(top: cardTitleView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
+    }
+    
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guestName: guest.guestName)
-        guestNameView.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
+        guestNameView.anchor(top: retualCollectionView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
      }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
         companyNameView.setupView(companyName: guest.companyName)
-        companyNameView.anchor(top: cardTitleView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
+        companyNameView.anchor(top: retualCollectionView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
         companyNameView.layer.borderWidth = 2
     }
      fileprivate func setupSelectView() {
 //         selectView.setup()
      }
-    
     
     fileprivate func setupLabels() {
      
@@ -109,33 +125,9 @@ class GuestController: UIViewController {
          
         
 //        // 参加儀式選択
-//        let flowLayout = UICollectionViewFlowLayout()
-////        flowLayout.itemSize = CGSize(
-////            width: self.view.frame.width / 10,
-////            height: self.view.frame.width / 5
-////        )
-//        flowLayout.minimumInteritemSpacing = 10
-//        flowLayout.minimumLineSpacing = 10
-//        flowLayout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-//        flowLayout.itemSize = CGSize(width: 20, height: 10)
-//
-//        retualCollectionView = UICollectionView(
-//            frame: self.view.frame ,
-//            collectionViewLayout:flowLayout
-//        )
-//        retualCollectionView.dataSource = self
-//        retualCollectionView.delegate = self
-//        retualCollectionView.isScrollEnabled = true
-//
-//        retualCollectionView.register(RetualCollectionViewCell.self, forCellWithReuseIdentifier: RetualCollectionViewCell.className)
-//
-//
-//        view.addSubview(retualCollectionView)
-//        retualCollectionView.anchor(top: cardTitleLabel.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0), size: .init(width: 300, height: 50))
-//
-//
 
-//
+
+        
 //
 //        view.addSubview(zipCodeLabel)
 //
@@ -170,28 +162,24 @@ class GuestController: UIViewController {
 }
 
 extension GuestController: UICollectionViewDataSource {
+    // cellの個数設定
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return retuals.count
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: RetualCollectionViewCell.className, for: indexPath)
-        let retualsButton = UIButton(frame: CGRect(x: 0, y: 0, width: 100, height: 50))
-        retualsButton.setTitle(retuals[indexPath.item], for: .normal)
-//        retualsButton.addTarget(self, action: #selector(retualsButtonTapped), for: .touchUpInside)
-        cell.addSubview(retualsButton)
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
+        cell.setupContents(textName: retuals[indexPath.item])
         return cell
     }
-    
-    @objc func retualsButtonTapped() {
-        print("Tapped")
-    }
-
-
 }
 extension GuestController: UICollectionViewDelegate {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
         print(indexPath.item)
@@ -201,9 +189,21 @@ extension GuestController: UICollectionViewDelegate {
 //cellのサイズの設定
 extension GuestController: UICollectionViewDelegateFlowLayout {
 
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 
-      //ここでは画面の横サイズの半分の大きさのcellサイズを指定
-      return CGSize(width: 100, height: 50)
-  }
+        //ここでは画面の横サイズの半分の大きさのcellサイズを指定
+        return CGSize(width: 100, height: 50)
+      }
+    // セルの外周余白
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        return .zero
+    }
+    // セル同士の縦間隔
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
+    // セル同士の横間隔
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
+    }
 }

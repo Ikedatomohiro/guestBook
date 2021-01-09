@@ -23,8 +23,8 @@ class RetualCollectionView: UICollectionView {
         super.init(frame: CGRect(x: 0, y: 0, width: 100, height: 30), collectionViewLayout: flowLayout)
 //        self.backgroundColor = .cyan
 
-//        self.register(RetualCollectionViewCell.self , forCellWithReuseIdentifier: RetualCollectionViewCell.className)
-//        self.register(UICollectionViewCell.self , forCellWithReuseIdentifier: RetualCollectionViewCell.className)
+//        self.register(CheckBoxCell.self , forCellWithReuseIdentifier: CheckBoxCell.className)
+//        self.register(UICollectionViewCell.self , forCellWithReuseIdentifier: CheckBoxCell.className)
     }
     
     
