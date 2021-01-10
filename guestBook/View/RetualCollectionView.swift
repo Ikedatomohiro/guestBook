@@ -1,22 +1,19 @@
 //
-//  RetualCollectionViewController.swift
+//  RetualCollectionView.swift
 //  guestBook
 //
 //  Created by 杉崎圭 on 2020/11/27.
 //
 
 import UIKit
-import FirebaseFirestore
 
 class RetualCollectionView: UICollectionView {
     fileprivate let retuals: [String]                    = ["通夜", "告別式"]
+    fileprivate let guest: Guest
 
-    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 100, height: 100)
-            return layout
-        }()
+    init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+
+        self.guest = guest
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
     }
@@ -24,6 +21,7 @@ class RetualCollectionView: UICollectionView {
         self.dataSource = self
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
+        
     }
     
     required init?(coder: NSCoder) {
@@ -42,9 +40,27 @@ extension RetualCollectionView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
         cell.setupContents(textName: retuals[indexPath.item])
+        cell.setupButton(isActive: guest.retuals[indexPath.item])
+//        if (cell.backgroundColor == )
+        cell.selectedBackgroundView = CellBgView(num: indexPath.row)
+        
         return cell
     }
 }
+// 背景用のView
+class CellBgView: UIView {
+
+    init(num: Int) {
+        super.init(frame: CGRect.zero)
+        // 偶数と奇数で色変えてみよう
+        backgroundColor = num % 2 == 0 ? .red : .orange
+    }
+
+    required init(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+}
+
 extension RetualCollectionView: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -53,6 +69,10 @@ extension RetualCollectionView: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
         print(indexPath.item)
+        
+        
+        
+        
     }
 }
 extension RetualCollectionView: UICollectionViewDelegateFlowLayout {

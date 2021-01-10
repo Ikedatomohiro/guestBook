@@ -12,6 +12,7 @@ struct Guest {
     let eventId    : String
     var guestName  : String
     var companyName: String
+    var retuals    : Array<Bool>
     var pageNumber : Int
     let createdAt  : Date
     var updatedAt  : Date
@@ -22,6 +23,7 @@ struct Guest {
         self.eventId     = dictionary["eventId"]     as? String ?? ""
         self.guestName   = dictionary["guestName"]   as? String ?? ""
         self.companyName = dictionary["companyName"] as? String ?? ""
+        self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
         self.pageNumber  = 0
         self.createdAt   = dictionary["createdAt"]   as? Date   ?? Date()
         self.updatedAt   = dictionary["updatedAt"]   as? Date   ?? Date()
@@ -32,6 +34,7 @@ struct Guest {
         self.eventId     = ""
         self.guestName   = ""
         self.companyName = ""
+        self.retuals     = [false, false]
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -42,6 +45,7 @@ struct Guest {
         self.eventId     = ""
         self.guestName   = ""
         self.companyName = ""
+        self.retuals     = [false, false]
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -55,6 +59,7 @@ struct Guest {
         let documrntRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
             "guestName"  : guest.guestName,
             "companyName": guest.companyName,
+            "retuals"    : guest.retuals,
             "eventId"    : eventId,
             "createdAt"  : Date(),
             "updatedAt"  : Date(),
@@ -66,6 +71,7 @@ struct Guest {
         Guest.collectionRef(eventId: eventId).document(guest.id).updateData([
             "guestName"  : guest.guestName,
             "companyName": guest.companyName,
+            "retuals"    : guest.retuals,
             "updatedAt"  : Date(),
             ])
     }
@@ -77,5 +83,6 @@ extension Guest: Equatable {
         return lhs.id          == rhs.id
             && lhs.guestName   == rhs.guestName
             && lhs.companyName == rhs.companyName
+            && lhs.retuals     == rhs.retuals
     }
 }

@@ -10,7 +10,6 @@ import UIKit
 class CardTitleView: UIView {
     fileprivate let cardTitleLabel       = UILabel()
     fileprivate let pageLabel            = UILabel()
-    fileprivate let retualCollectionView = RetualCollectionView()
     fileprivate let pageNumber: Int      = 0
     
     override init(frame: CGRect) {
@@ -21,10 +20,10 @@ class CardTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(pageNumber: Int) {
+    func setupView(guest: Guest) {
         setupLabel()
-        setupRetualCollectionView()
-        setupPageLabel(pageNumber: pageNumber)
+        setupRetualCollectionView(guest: guest)
+        setupPageLabel(pageNumber: guest.pageNumber)
     }
     fileprivate func setupLabel() {
         addSubview(cardTitleLabel)
@@ -32,7 +31,14 @@ class CardTitleView: UIView {
         cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil)
         cardTitleLabel.font = .systemFont(ofSize: 36)
     }
-    fileprivate func setupRetualCollectionView() {
+    fileprivate func setupRetualCollectionView(guest: Guest) {
+        let layout: UICollectionViewFlowLayout = {
+            let layout = UICollectionViewFlowLayout()
+            layout.itemSize = CGSize(width: 100, height: 100)
+            return layout
+        }()
+//        let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect(x: 0, y: 0, width: 200, height: 100), collectionViewLayout: layout)
+        let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(retualCollectionView)
         retualCollectionView.anchor(top: nil, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
     }

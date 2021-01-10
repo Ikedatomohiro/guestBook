@@ -67,7 +67,7 @@ class GuestController: UIViewController {
     }
     fileprivate func setupCardTitleView() {
         view.addSubview(cardTitleView)
-        cardTitleView.setupView(pageNumber: guest.pageNumber)
+        cardTitleView.setupView(guest: guest)
         cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 10))
     }
     fileprivate func setupGuestNameView() {

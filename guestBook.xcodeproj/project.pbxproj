@@ -12,7 +12,7 @@
 		7A0425D19E6E0903CB6D2D10 /* Pods_guestBookTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 88C3A7464FBD829774DCCE33 /* Pods_guestBookTests.framework */; };
 		C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25EB255B7BCF0037825B /* GuestController.swift */; };
 		C52C25F1255B7DCA0037825B /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25F0255B7DCA0037825B /* Guest.swift */; };
-		C565EBA725711C36005E61AD /* RetualCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */; };
+		C565EBA725711C36005E61AD /* RetualCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565EBA625711C36005E61AD /* RetualCollectionView.swift */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
 		E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */; };
@@ -67,7 +67,7 @@
 		9FB0D844AA0551D91DFEF5F6 /* Pods_guestBook.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_guestBook.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C52C25EB255B7BCF0037825B /* GuestController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestController.swift; sourceTree = "<group>"; };
 		C52C25F0255B7DCA0037825B /* Guest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Guest.swift; sourceTree = "<group>"; };
-		C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionViewController.swift; sourceTree = "<group>"; };
+		C565EBA625711C36005E61AD /* RetualCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionView.swift; sourceTree = "<group>"; };
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
@@ -164,7 +164,6 @@
 				E5B3C9112552B27400509757 /* GuestsController.swift */,
 				E57444DB25694D2E001D4774 /* GuestListViewController.swift */,
 				E577B759256BECA4007E6BFC /* LogInViewController.swift */,
-				C565EBA625711C36005E61AD /* RetualCollectionViewController.swift */,
 				E577604825737D0600DD2F81 /* SettingViewController.swift */,
 			);
 			path = Controller;
@@ -190,6 +189,7 @@
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
 				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
 				E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */,
+				C565EBA625711C36005E61AD /* RetualCollectionView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -549,7 +549,7 @@
 				E57444E125694EAE001D4774 /* GuestCell.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				E57384D525A74E9100AFA4B5 /* CompanyNameView.swift in Sources */,
-				C565EBA725711C36005E61AD /* RetualCollectionViewController.swift in Sources */,
+				C565EBA725711C36005E61AD /* RetualCollectionView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,

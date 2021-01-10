@@ -17,6 +17,7 @@ class EventListViewController: UIViewController {
     fileprivate let eventNameTableView = UITableView()
     fileprivate var events             = [Event]()
     
+    // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
 

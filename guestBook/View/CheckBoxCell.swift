@@ -27,12 +27,19 @@ class CheckBoxCell: UICollectionViewCell {
         label.fillSuperview()
         label.layer.cornerRadius = 5
         label.layer.borderWidth = 1
-        label.backgroundColor = .gray
         label.textAlignment = .center
     }
     
     func setupContents(textName: String) {
         label.text = textName
     }
+    func setupButton(isActive: Bool) {
+        if isActive == true {
+            label.backgroundColor = .orange
+        } else if isActive == false {
+            label.backgroundColor = .gray
+        }
+    }
+    
     
 }
