@@ -37,7 +37,8 @@ class CardTitleView: UIView {
             layout.itemSize = CGSize(width: 100, height: 100)
             return layout
         }()
-//        let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect(x: 0, y: 0, width: 200, height: 100), collectionViewLayout: layout)
+
+        
         let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(retualCollectionView)
         retualCollectionView.anchor(top: nil, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))

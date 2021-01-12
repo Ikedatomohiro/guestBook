@@ -11,6 +11,7 @@ struct Guest {
     var id: String
     let eventId    : String
     var guestName  : String
+    var guestNameImage = UIImage()
     var companyName: String
     var retuals    : Array<Bool>
     var pageNumber : Int

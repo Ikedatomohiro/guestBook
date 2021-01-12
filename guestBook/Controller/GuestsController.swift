@@ -14,14 +14,14 @@ class GuestsController: UIPageViewController {
     fileprivate let event: Event
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     
-    fileprivate var guests: [Guest]   = []
-    fileprivate var guestId: String   = ""
-    fileprivate var guestName: String = ""
-    fileprivate var createdAt: Date   = Date()
-    fileprivate var currentIndex: Int = 0
-    fileprivate var prevIndex: Int    = 0
-    fileprivate var nextIndex: Int    = 0
-    fileprivate var pageNumber: Int   = 1
+    fileprivate var guests      : [Guest] = []
+    fileprivate var guestId     : String  = ""
+    fileprivate var guestName   : String  = ""
+    fileprivate var createdAt   : Date    = Date()
+    fileprivate var currentIndex: Int     = 0
+    fileprivate var prevIndex   : Int     = 0
+    fileprivate var nextIndex   : Int     = 0
+    fileprivate var pageNumber  : Int     = 1
 
     fileprivate var db                = Firestore.firestore()
     
@@ -90,12 +90,14 @@ extension GuestsController: UIPageViewControllerDataSource {
         if nextIndex <= guests.count - 1 {
             let guestVC = GuestController(guest: guests[nextIndex])
             guestVC.updateDelegate = self
+//            guestVC.updateRetualDelegate = self
             return guestVC
         } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
             // id を"new"で仮作成したGuestに入力された要素を選択
             let index = guests.firstIndex(where: {$0.id == "new"})!
             let guestVC = GuestController(guest: guests[index])
             guestVC.updateDelegate = self
+//            guestVC.updateRetualDelegate = self
             return guestVC
         } else {
             var newGuest = Guest(id: "new")
@@ -103,7 +105,8 @@ extension GuestsController: UIPageViewControllerDataSource {
             self.guests.append(newGuest)
             let guestVC = GuestController(guest: newGuest)
             guestVC.updateDelegate = self
-            return guestVC
+//            guestVC.updateRetualDelegate = self
+           return guestVC
         }
     }
     
@@ -173,3 +176,25 @@ extension GuestsController: GuestUpdateDelegate {
     }
     
 }
+//extension GuestsController: UpdateRetualDelegate {
+//    func updateRetual(guest: Guest) -> String {
+//        if (guest.id == "new") {
+//            let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
+//            let index = guests.firstIndex(where: {$0.id == "new"})
+//            if index != nil {
+//                guests[index!] = guest
+//                guests[index!].id = documentRef.documentID
+////            guest.id = documentRef.documentID   // idを変更できない。どこでletになっているかわからない。
+//            }
+//            return documentRef.documentID
+//        } else {
+//            Guest.updateGuest(guest: guest, eventId: event.eventId)
+//            let index = guests.firstIndex(where: {$0.id == guest.id})
+//            if index != nil {
+//                guests[index!] = guest
+//            }
+//            return guests[index!].id
+//        }
+//    }
+//
+//}

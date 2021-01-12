@@ -9,7 +9,9 @@ import UIKit
 
 class RetualCollectionView: UICollectionView {
     fileprivate let retuals: [String]                    = ["通夜", "告別式"]
-    fileprivate let guest: Guest
+    fileprivate var guest: Guest
+    weak var updateDelegate: GuestUpdateDelegate?
+//    weak var updateRetualDelegate: UpdateRetualDelegate?
 
     init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
 
@@ -41,23 +43,8 @@ extension RetualCollectionView: UICollectionViewDataSource {
         
         cell.setupContents(textName: retuals[indexPath.item])
         cell.setupButton(isActive: guest.retuals[indexPath.item])
-//        if (cell.backgroundColor == )
-        cell.selectedBackgroundView = CellBgView(num: indexPath.row)
         
         return cell
-    }
-}
-// 背景用のView
-class CellBgView: UIView {
-
-    init(num: Int) {
-        super.init(frame: CGRect.zero)
-        // 偶数と奇数で色変えてみよう
-        backgroundColor = num % 2 == 0 ? .red : .orange
-    }
-
-    required init(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
 }
 
@@ -68,11 +55,18 @@ extension RetualCollectionView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
-        print(indexPath.item)
-        
-        
-        
-        
+        var isActive = guest.retuals[indexPath.row]
+        if isActive == true {
+            isActive = false
+        } else {
+            isActive = true
+        }
+        guest.retuals[indexPath.row] = isActive
+        let guestId = updateDelegate?.update(guest: guest)
+        if (guest.id == "new" && guestId != nil) {
+            guest.id = guestId!
+        }
+        collectionView.reloadData()
     }
 }
 extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
