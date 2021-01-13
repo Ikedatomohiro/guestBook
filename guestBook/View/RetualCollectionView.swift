@@ -71,10 +71,8 @@ extension RetualCollectionView: UICollectionViewDelegate {
 }
 extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-        //ここでは画面の横サイズの半分の大きさのcellサイズを指定
         return CGSize(width: 100, height: 50)
-      }
+    }
     // セルの外周余白
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return .zero
@@ -85,6 +83,6 @@ extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     }
     // セル同士の横間隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 1
     }
 }

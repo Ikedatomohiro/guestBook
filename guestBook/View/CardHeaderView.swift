@@ -8,8 +8,8 @@
 import UIKit
 
 class CardHeaderView: UIView {
-    fileprivate let cardTitleLabel                       = UILabel()
-    fileprivate let cardHeaderLabel                      = UILabel()
+    fileprivate let cardTitleLabel  = UILabel()
+    fileprivate let cardHeaderLabel = UILabel()
     fileprivate let guestId: String = ""
     
     override init(frame: CGRect) {

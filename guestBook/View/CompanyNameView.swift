@@ -10,9 +10,8 @@ import PencilKit
 
 class CompanyNameView: UIView {
     fileprivate let companyNameTitleLabel = UILabel()
-    let companyNameTextField  = UITextField()
+    let companyNameTextField              = UITextField()
     fileprivate let companyNameCanvas     = PKCanvasView()
-    fileprivate let companyName: String   = ""
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -22,26 +21,27 @@ class CompanyNameView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(companyName: String) {
+    func setupView(guest: Guest) {
         setupLabel()
-        setupTextField(companyName: companyName)
-//        setupCanvas()
+        setupTextField(companyName: guest.companyName)
+        setupCanvas()
     }
     fileprivate func setupLabel() {
         addSubview(companyNameTitleLabel)
-        companyNameTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: 300, height: 100))
+        companyNameTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5, left: 5, bottom: 0, right: 5))
         companyNameTitleLabel.text = "会社名(団体名)"
+        companyNameTitleLabel.font = .systemFont(ofSize: 24)
     }
     fileprivate func setupTextField(companyName: String) {
         addSubview(companyNameTextField)
-        companyNameTextField.anchor(top: companyNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
+        companyNameTextField.anchor(top: nil, leading: companyNameTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         companyNameTextField.layer.borderWidth = 1.0
-        companyNameTextField.layer.borderColor = .init(gray: 000000, alpha: 1)
         companyNameTextField.text = companyName
     }
     fileprivate func setupCanvas() {
         addSubview(companyNameCanvas)
-        companyNameCanvas.fillSuperview()
+//        companyNameCanvas.fillSuperview()
+        companyNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         companyNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         companyNameCanvas.isOpaque = false
 

@@ -28,24 +28,23 @@ class CardTitleView: UIView {
     fileprivate func setupLabel() {
         addSubview(cardTitleLabel)
         cardTitleLabel.text = "御芳名カード"
-        cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil)
+        cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         cardTitleLabel.font = .systemFont(ofSize: 36)
     }
     fileprivate func setupRetualCollectionView(guest: Guest) {
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
-            layout.itemSize = CGSize(width: 100, height: 100)
             return layout
         }()
-
         
         let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: nil, leading: cardTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 200, height: 50))
+        retualCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 100, bottom: 0, right: 0), size: .init(width: 400, height: 50))
+        retualCollectionView.backgroundColor = .white
     }
     fileprivate func setupPageLabel(pageNumber: Int) {
         addSubview(pageLabel)
         pageLabel.text = "No. \(pageNumber)"
-        pageLabel.anchor(top: nil, leading: nil, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 100, height: 100))
+        pageLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 100, height: 100))
     }
 }

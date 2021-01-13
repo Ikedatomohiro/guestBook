@@ -13,11 +13,12 @@ import PencilKit
 //}
 
 class GuestNameView: UIView {
-    fileprivate let guestNameTitleLabel     = UILabel()
-    let guestNameTextField      = UITextField()
-    fileprivate let guestNameCanvas         = PKCanvasView()
-    fileprivate let guestName: String = ""
-    var guestNameImage: UIImage = UIImage()
+    fileprivate let guestNameTitleLabel = UILabel()
+    let guestNameTextField              = UITextField()
+    fileprivate let guestNameCanvas     = PKCanvasView()
+    fileprivate let honorificTitle      = UILabel()
+    var guestNameImage: UIImage         = UIImage()
+    
     
     override init(frame: CGRect) {
         
@@ -36,7 +37,13 @@ class GuestNameView: UIView {
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)
         guestNameTitleLabel.text = "御芳名"
-        guestNameTitleLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 100, height: 100))
+        guestNameTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5, left: 5, bottom: 0, right: 5))
+        guestNameTitleLabel.font = .systemFont(ofSize: 24)
+        // 敬称
+        addSubview(honorificTitle)
+        honorificTitle.text = "様"
+        honorificTitle.anchor(top: nil, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
+        honorificTitle.font = .systemFont(ofSize: 40)
     }
     fileprivate func setupTextField(guestName: String) {
         addSubview(guestNameTextField)
@@ -47,10 +54,8 @@ class GuestNameView: UIView {
     fileprivate func setupCanvas() {
         addSubview(guestNameCanvas)
 //        guestNameCanvas.fillSuperview()
-        guestNameCanvas.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 500, height: 200))
+        guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
-        
-        
         guestNameCanvas.isOpaque = false
         
         

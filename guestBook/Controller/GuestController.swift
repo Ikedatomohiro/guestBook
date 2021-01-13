@@ -23,7 +23,7 @@ protocol GuestUpdateDelegate: class {
 
 
 class GuestController: UIViewController {
-    
+    fileprivate let backGroundFrame = UIView()
     var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
 //    weak var updateRetualDelegate: UpdateRetualDelegate?
@@ -58,40 +58,45 @@ class GuestController: UIViewController {
 //        setupLabels()
         setupCardHeaderView()
         setupCardTitleView()
+        setupBackgroundFrame()
         setupGuestNameView()
         setupCompanyNameView()
-//        setupSelectView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
-
      }
     fileprivate func setupCardHeaderView() {
         view.addSubview(cardHeaderView)
         cardHeaderView.setupView()
-        cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 5, right: 5), size: .init(width: screenSize.width, height: screenSize.height / 20))
+        cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: screenSize.width, height: screenSize.height / 20))
     }
     fileprivate func setupCardTitleView() {
         view.addSubview(cardTitleView)
         cardTitleView.setupView(guest: guest)
-        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 10))
+        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 12))
+    }
+    fileprivate func setupBackgroundFrame() {
+        view.addSubview(backGroundFrame)
+        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10))
+        backGroundFrame.layer.borderWidth = 2.0
+
     }
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guest: guest)
-        guestNameView.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 3 / 5, height: screenSize.height / 5))
+        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 4 / 7, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
      }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
-        companyNameView.setupView(companyName: guest.companyName)
-        companyNameView.anchor(top: cardTitleView.bottomAnchor, leading: guestNameView.trailingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor)
-        companyNameView.layer.borderWidth = 2
+        companyNameView.setupView(guest: guest)
+        companyNameView.anchor(top: backGroundFrame.topAnchor, leading: guestNameView.trailingAnchor, bottom: guestNameView.bottomAnchor, trailing: backGroundFrame.trailingAnchor)
+        companyNameView.layer.borderWidth = 1.0
         companyNameView.companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
-     fileprivate func setupSelectView() {
-//         selectView.setup()
+     fileprivate func setupAddressView() {
+
      }
     
     fileprivate func setupLabels() {
