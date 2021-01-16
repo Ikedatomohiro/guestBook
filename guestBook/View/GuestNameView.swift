@@ -59,13 +59,8 @@ class GuestNameView: UIView {
         guestNameCanvas.isOpaque = false
         guestNameCanvas.layer.borderWidth = 1.0
         
-        if let windw = UIApplication.shared.windows.first {
-            if let toolPicker = PKToolPicker.shared(for: windw) {
-                toolPicker.addObserver(guestNameCanvas)
-                toolPicker.setVisible(true, forFirstResponder: guestNameCanvas)
-                guestNameCanvas.becomeFirstResponder()
-            }
-        }
+        guestNameCanvas.setupPencil(canvas: guestNameCanvas)
+        
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guestNameImage = guestNameCanvas.drawing.image(from: CGRect(x: 0, y: 0, width: 500, height: 200), scale: 1.0)

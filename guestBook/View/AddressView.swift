@@ -9,22 +9,26 @@ import UIKit
 import PencilKit
 
 class AddressView: UIView {
-    fileprivate let addressTitleLabel = UILabel()
-    let addressTextField              = UITextField()
-    fileprivate let zipCodeTitleLabel = UILabel()
-    fileprivate let zipCodeLabel      = UILabel()
-    fileprivate let zipCodeLabel1     = UILabel()
-    fileprivate let zipCodeLabel2     = UILabel()
-    fileprivate let zipCodeLabel3     = UILabel()
-    fileprivate let zipCodeLabelBar   = UILabel()
-    fileprivate let zipCodeLabel4     = UILabel()
-    fileprivate let zipCodeLabel5     = UILabel()
-    fileprivate let zipCodeLabel6     = UILabel()
-    fileprivate let zipCodeLabel7     = UILabel()
-    let zipCodeTextField              = UITextField()
+    fileprivate let addressTitleLabel   = UILabel()
+    let addressTextField                = UITextField()
+    fileprivate let addressCanvas       = PKCanvasView()
+    fileprivate let zipCodeTitleLabel   = UILabel()
+    fileprivate let zipCodeLabel        = UILabel()
+    fileprivate let zipCodeLabel1       = UILabel()
+    fileprivate let zipCodeLabel2       = UILabel()
+    fileprivate let zipCodeLabel3       = UILabel()
+    fileprivate let zipCodeLabelBar     = UILabel()
+    fileprivate let zipCodeLabel4       = UILabel()
+    fileprivate let zipCodeLabel5       = UILabel()
+    fileprivate let zipCodeLabel6       = UILabel()
+    fileprivate let zipCodeLabel7       = UILabel()
+    fileprivate let zipCodeCanvas       = PKCanvasView()
+    let zipCodeTextField                = UITextField()
     fileprivate let telNumberTitleLabel = UILabel()
-    let telNumberTextField = UITextField()
+    let telNumberTextField              = UITextField()
+    fileprivate let telNumberCanvas     = PKCanvasView()
     
+    // MARK:-
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -62,6 +66,12 @@ class AddressView: UIView {
     fileprivate func setupZipCodeLabel() {
         // 郵便番号の枠
         setupZipCodeFrame()
+        // 手書きエリア
+        addSubview(zipCodeCanvas)
+        zipCodeCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: addressTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 400, height: 60))
+        zipCodeCanvas.isOpaque = false
+        zipCodeCanvas.layer.borderWidth = 1.0
+        zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
 
     }
     fileprivate func setupZipCodeTextField(zipCode: String) {
@@ -75,10 +85,21 @@ class AddressView: UIView {
 
     fileprivate func setupTelNumberLabel() {
         addSubview(telNumberTitleLabel)
-        telNumberTitleLabel.text = "TEL"
-        telNumberTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: zipCodeLabel.trailingAnchor, bottom: addressTitleLabel.bottomAnchor, trailing: nil,padding: .init(top: 5, left: 5, bottom: 0, right: 5))
+        let telText = "TEL　　　　　　(　　　　　　)                    　"
+        // アンダーラインを引く
+        let attributedString = NSMutableAttributedString(string: telText)
+        attributedString.addAttribute(NSAttributedString.Key.underlineStyle, value: 1, range:
+            NSRange.init(location: 0, length: attributedString.length));
+        telNumberTitleLabel.attributedText = attributedString
+        telNumberTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: addressTitleLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 5, left: 5, bottom: 0, right: 5))
         telNumberTitleLabel.font = .systemFont(ofSize: 24)
- 
+        // 手書きエリア
+        addSubview(telNumberCanvas)
+        telNumberCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 400, height: 60))
+        telNumberCanvas.isOpaque = false
+        telNumberCanvas.layer.borderWidth = 1.0
+        telNumberCanvas.setupPencil(canvas: telNumberCanvas)
+
     }
     fileprivate func setupTelNumberTextField(telNumber: String) {
         addSubview(telNumberTextField)
@@ -121,8 +142,6 @@ class AddressView: UIView {
         addSubview(zipCodeLabel7)
         zipCodeLabel7.anchor(top: zipCodeLabel.topAnchor, leading: zipCodeLabel6.trailingAnchor, bottom: zipCodeLabel.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size: .init(width: 30, height: 40))
         zipCodeLabel7.layer.borderWidth = 1.0
-
-        
     }
 
 }

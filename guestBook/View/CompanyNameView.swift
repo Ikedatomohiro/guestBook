@@ -45,13 +45,6 @@ class CompanyNameView: UIView {
         companyNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         companyNameCanvas.isOpaque = false
         companyNameCanvas.layer.borderWidth = 1.0
-
-        if let windw = UIApplication.shared.windows.first {
-            if let toolPicker = PKToolPicker.shared(for: windw) {
-                toolPicker.addObserver(companyNameCanvas)
-                toolPicker.setVisible(true, forFirstResponder: companyNameCanvas)
-                companyNameCanvas.becomeFirstResponder()
-            }
-        }
+        companyNameCanvas.setupPencil(canvas: companyNameCanvas)
     }
 }
