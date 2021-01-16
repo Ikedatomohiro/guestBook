@@ -52,6 +52,12 @@ class AddressView: UIView {
         addressTitleLabel.text = "御住所"
         addressTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil,padding: .init(top: 5, left: 5, bottom: 0, right: 5), size: .init(width: 100, height: 30))
         addressTitleLabel.font = .systemFont(ofSize: 24)
+        // 手書きエリア
+        addSubview(addressCanvas)
+        addressCanvas.anchor(top: nil, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 400, height: 60))
+        addressCanvas.isOpaque = false
+        addressCanvas.layer.borderWidth = 1.0
+        addressCanvas.setupPencil(canvas: addressCanvas)
  
     }
     fileprivate func setupAddressTextField(address: String) {

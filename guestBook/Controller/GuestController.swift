@@ -62,6 +62,7 @@ class GuestController: UIViewController {
         setupGuestNameView()
         setupCompanyNameView()
         setupAddressView()
+        setupDescriptionView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -78,7 +79,7 @@ class GuestController: UIViewController {
     }
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
-        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: screenSize.width, height: screenSize.height * 3 / 5))
+        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: screenSize.width, height: screenSize.height * 3 / 5))
         backGroundFrame.layer.borderWidth = 2.0
 
     }
@@ -117,7 +118,7 @@ class GuestController: UIViewController {
     fileprivate func setupDescriptionView() {
         view.addSubview(descriptionView)
         descriptionView.setupView(guest: guest)
-        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
         descriptionView.layer.borderWidth = 1.0
     }
 
@@ -130,9 +131,14 @@ class GuestController: UIViewController {
         print("名前が変更されました。")
         let name = guestNameView.guestNameTextField.text ?? ""
         let companyName = companyNameView.companyNameTextField.text ?? ""
+        let address = addressView.addressTextField.text ?? ""
+        let zipCode = addressView.zipCodeTextField.text ?? ""
+        let telNumber = addressView.telNumberTextField.text ?? ""
         guest.guestName = name
         guest.companyName = companyName
-
+        guest.address = address
+        guest.zipCode = zipCode
+        guest.telNumber = telNumber
         let guestId = updateDelegate?.update(guest: guest)
         if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!

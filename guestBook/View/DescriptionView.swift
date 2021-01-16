@@ -30,7 +30,7 @@ class DescriptionView: UIView {
     
     fileprivate func setupDescriptionLabel() {
         addSubview(description1)
-        description1.text = "名刺をお持ちの方は受付にお渡しください。"
+        description1.text = "名刺をお持ちの方は受付にお渡しください。\n□へのチェックをお願いいたします。"
         description1.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 500, height: 100))
         
         

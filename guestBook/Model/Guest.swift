@@ -17,6 +17,8 @@ struct Guest {
     var zipCode     : String
     var address     : String
     var telNumber   : String
+//    var relattion   : Array<Bool>
+    
     var description : String
     var pageNumber  : Int
     let createdAt   : Date
@@ -74,30 +76,30 @@ struct Guest {
     
     static func registGuest(guest: Guest, eventId: String) -> DocumentReference {
         let documrntRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
-            "guestName"  : guest.guestName,
-            "companyName": guest.companyName,
-            "retuals"    : guest.retuals,
-            "zipCode"    : guest.zipCode,
-            "address"    : guest.address,
-            "telNumber"  : guest.telNumber,
+            "guestName"   : guest.guestName,
+            "companyName" : guest.companyName,
+            "retuals"     : guest.retuals,
+            "zipCode"     : guest.zipCode,
+            "address"     : guest.address,
+            "telNumber"   : guest.telNumber,
             "description" : guest.description,
-            "eventId"    : eventId,
-            "createdAt"  : Date(),
-            "updatedAt"  : Date(),
+            "eventId"     : eventId,
+            "createdAt"   : Date(),
+            "updatedAt"   : Date(),
         ])
         return documrntRef
     }
     
     static func updateGuest(guest: Guest, eventId: String) {
         Guest.collectionRef(eventId: eventId).document(guest.id).updateData([
-            "guestName"  : guest.guestName,
-            "companyName": guest.companyName,
-            "retuals"    : guest.retuals,
-            "zipCode"    : guest.zipCode,
-            "address"    : guest.address,
-            "telNumber"  : guest.telNumber,
+            "guestName"   : guest.guestName,
+            "companyName" : guest.companyName,
+            "retuals"     : guest.retuals,
+            "zipCode"     : guest.zipCode,
+            "address"     : guest.address,
+            "telNumber"   : guest.telNumber,
             "description" : guest.description,
-           "updatedAt"  : Date(),
+            "updatedAt"   : Date(),
         ])
     }
 }
@@ -109,5 +111,10 @@ extension Guest: Equatable {
             && lhs.guestName   == rhs.guestName
             && lhs.companyName == rhs.companyName
             && lhs.retuals     == rhs.retuals
+            && lhs.zipCode     == rhs.zipCode
+            && lhs.address     == rhs.address
+            && lhs.telNumber   == rhs.telNumber
+            && lhs.description == rhs.description
+
     }
 }
