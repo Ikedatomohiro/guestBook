@@ -26,12 +26,12 @@ class CheckBoxCell: UICollectionViewCell {
         contentView.addSubview(label)
         label.fillSuperview()
         label.layer.cornerRadius = 5
-        label.layer.borderWidth = 1
         label.textAlignment = .center
     }
     
     func setupContents(textName: String) {
         label.text = textName
+        label.font = .systemFont(ofSize: 30)
     }
     func setupButton(isActive: Bool) {
         if isActive == true {

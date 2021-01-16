@@ -34,6 +34,7 @@
 		E59D9F05254848F4000F7C45 /* guestBookTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F04254848F4000F7C45 /* guestBookTests.swift */; };
 		E59D9F10254848F4000F7C45 /* guestBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */; };
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
+		E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFCC8925AF04AF00E5274A /* AddressView.swift */; };
 		E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B06533257C6D870010916C /* GuestDetailViewController.swift */; };
 		E5B3C9122552B27400509757 /* GuestsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9112552B27400509757 /* GuestsController.swift */; };
 		E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */; };
@@ -97,6 +98,7 @@
 		E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = guestBookUITests.swift; sourceTree = "<group>"; };
 		E59D9F11254848F4000F7C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
+		E5AFCC8925AF04AF00E5274A /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
 		E5B06533257C6D870010916C /* GuestDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewController.swift; sourceTree = "<group>"; };
 		E5B3C9112552B27400509757 /* GuestsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsController.swift; sourceTree = "<group>"; };
 		E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuViewController.swift; sourceTree = "<group>"; };
@@ -181,14 +183,15 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E5AFCC8925AF04AF00E5274A /* AddressView.swift */,
 				E573F5C025A972F4008652DD /* CollectionViewCell.swift */,
 				E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */,
 				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
-				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
-				E573F424255047330000C955 /* EventNameCell.swift */,
-				E57444E025694EAE001D4774 /* GuestCell.swift */,
 				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
 				E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */,
+				E573F424255047330000C955 /* EventNameCell.swift */,
+				E57444E025694EAE001D4774 /* GuestCell.swift */,
+				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
 				C565EBA625711C36005E61AD /* RetualCollectionView.swift */,
 			);
 			path = View;
@@ -539,6 +542,7 @@
 				E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */,
 				E5B3C9122552B27400509757 /* GuestsController.swift in Sources */,
 				E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */,
+				E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */,
 				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
 				E573F5C125A972F4008652DD /* CollectionViewCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,

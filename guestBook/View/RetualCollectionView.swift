@@ -8,7 +8,7 @@
 import UIKit
 
 class RetualCollectionView: UICollectionView {
-    fileprivate let retuals: [String]                    = ["通夜", "告別式"]
+    fileprivate let retuals: [String]                    = ["□通夜", "□告別式"]
     fileprivate var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
 //    weak var updateRetualDelegate: UpdateRetualDelegate?
@@ -71,7 +71,7 @@ extension RetualCollectionView: UICollectionViewDelegate {
 }
 extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 50)
+        return CGSize(width: 150, height: 50)
     }
     // セルの外周余白
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

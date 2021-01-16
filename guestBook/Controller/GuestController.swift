@@ -31,6 +31,7 @@ class GuestController: UIViewController {
     fileprivate let cardTitleView                   = CardTitleView()
     fileprivate let guestNameView                   = GuestNameView()
     fileprivate let companyNameView                 = CompanyNameView()
+    fileprivate let addressView                     = AddressView()
     fileprivate let zipCodeLabel                    = UILabel()
     fileprivate let telLabel                        = UILabel()
     fileprivate let addressLabel                    = UILabel()
@@ -61,6 +62,7 @@ class GuestController: UIViewController {
         setupBackgroundFrame()
         setupGuestNameView()
         setupCompanyNameView()
+        setupAddressView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -77,7 +79,7 @@ class GuestController: UIViewController {
     }
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
-        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10))
+        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: screenSize.width, height: screenSize.height * 3 / 5))
         backGroundFrame.layer.borderWidth = 2.0
 
     }
@@ -96,7 +98,11 @@ class GuestController: UIViewController {
         companyNameView.companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
      fileprivate func setupAddressView() {
-
+        view.addSubview(addressView)
+        addressView.setupView(guest: guest)
+        addressView.anchor(top: guestNameView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        addressView.layer.borderWidth = 1.0
+        addressView.addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
      }
     
     fileprivate func setupLabels() {

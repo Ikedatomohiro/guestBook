@@ -14,6 +14,9 @@ struct Guest {
     var guestNameImage = UIImage()
     var companyName: String
     var retuals    : Array<Bool>
+    var zipCode    : String
+    var address    : String
+    var telNumber  : String
     var pageNumber : Int
     let createdAt  : Date
     var updatedAt  : Date
@@ -25,6 +28,9 @@ struct Guest {
         self.guestName   = dictionary["guestName"]   as? String ?? ""
         self.companyName = dictionary["companyName"] as? String ?? ""
         self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
+        self.zipCode     = dictionary["zipCode"]     as? String ?? ""
+        self.address     = dictionary["address"]     as? String ?? ""
+        self.telNumber   = dictionary["telNumber"]   as? String ?? ""
         self.pageNumber  = 0
         self.createdAt   = dictionary["createdAt"]   as? Date   ?? Date()
         self.updatedAt   = dictionary["updatedAt"]   as? Date   ?? Date()
@@ -36,6 +42,9 @@ struct Guest {
         self.guestName   = ""
         self.companyName = ""
         self.retuals     = [false, false]
+        self.zipCode     = ""
+        self.address     = ""
+        self.telNumber   = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -47,6 +56,9 @@ struct Guest {
         self.guestName   = ""
         self.companyName = ""
         self.retuals     = [false, false]
+        self.zipCode     = ""
+        self.address     = ""
+        self.telNumber   = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -61,6 +73,9 @@ struct Guest {
             "guestName"  : guest.guestName,
             "companyName": guest.companyName,
             "retuals"    : guest.retuals,
+            "zipCode"    : guest.zipCode,
+            "address"    : guest.address,
+            "telNumber"  : guest.telNumber,
             "eventId"    : eventId,
             "createdAt"  : Date(),
             "updatedAt"  : Date(),
@@ -73,8 +88,11 @@ struct Guest {
             "guestName"  : guest.guestName,
             "companyName": guest.companyName,
             "retuals"    : guest.retuals,
+            "zipCode"    : guest.zipCode,
+            "address"    : guest.address,
+            "telNumber"  : guest.telNumber,
             "updatedAt"  : Date(),
-            ])
+        ])
     }
 }
 

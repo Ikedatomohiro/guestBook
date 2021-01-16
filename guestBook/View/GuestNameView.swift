@@ -57,7 +57,7 @@ class GuestNameView: UIView {
         guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
-        
+        guestNameCanvas.layer.borderWidth = 1.0
         
         if let windw = UIApplication.shared.windows.first {
             if let toolPicker = PKToolPicker.shared(for: windw) {
