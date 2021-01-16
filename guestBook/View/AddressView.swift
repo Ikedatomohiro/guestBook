@@ -44,7 +44,6 @@ class AddressView: UIView {
         setupZipCodeTextField(zipCode: guest.zipCode)
         setupTelNumberLabel()
         setupTelNumberTextField(telNumber: guest.telNumber)
-//        setupCanvas()
 
     }
 

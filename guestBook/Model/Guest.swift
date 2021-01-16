@@ -9,17 +9,18 @@ import FirebaseFirestore
 
 struct Guest {
     var id: String
-    let eventId    : String
-    var guestName  : String
+    let eventId     : String
+    var guestName   : String
     var guestNameImage = UIImage()
-    var companyName: String
-    var retuals    : Array<Bool>
-    var zipCode    : String
-    var address    : String
-    var telNumber  : String
-    var pageNumber : Int
-    let createdAt  : Date
-    var updatedAt  : Date
+    var companyName : String
+    var retuals     : Array<Bool>
+    var zipCode     : String
+    var address     : String
+    var telNumber   : String
+    var description : String
+    var pageNumber  : Int
+    let createdAt   : Date
+    var updatedAt   : Date
     
     init(document: QueryDocumentSnapshot) {
         let dictionary   = document.data()
@@ -31,6 +32,7 @@ struct Guest {
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
         self.address     = dictionary["address"]     as? String ?? ""
         self.telNumber   = dictionary["telNumber"]   as? String ?? ""
+        self.description = dictionary["description"] as? String ?? ""
         self.pageNumber  = 0
         self.createdAt   = dictionary["createdAt"]   as? Date   ?? Date()
         self.updatedAt   = dictionary["updatedAt"]   as? Date   ?? Date()
@@ -45,6 +47,7 @@ struct Guest {
         self.zipCode     = ""
         self.address     = ""
         self.telNumber   = ""
+        self.description = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -59,6 +62,7 @@ struct Guest {
         self.zipCode     = ""
         self.address     = ""
         self.telNumber   = ""
+        self.description = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -76,6 +80,7 @@ struct Guest {
             "zipCode"    : guest.zipCode,
             "address"    : guest.address,
             "telNumber"  : guest.telNumber,
+            "description" : guest.description,
             "eventId"    : eventId,
             "createdAt"  : Date(),
             "updatedAt"  : Date(),
@@ -91,7 +96,8 @@ struct Guest {
             "zipCode"    : guest.zipCode,
             "address"    : guest.address,
             "telNumber"  : guest.telNumber,
-            "updatedAt"  : Date(),
+            "description" : guest.description,
+           "updatedAt"  : Date(),
         ])
     }
 }

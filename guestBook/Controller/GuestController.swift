@@ -32,17 +32,17 @@ class GuestController: UIViewController {
     fileprivate let guestNameView                   = GuestNameView()
     fileprivate let companyNameView                 = CompanyNameView()
     fileprivate let addressView                     = AddressView()
-    fileprivate let zipCodeLabel                    = UILabel()
-    fileprivate let telLabel                        = UILabel()
-    fileprivate let addressLabel                    = UILabel()
+ 
+    
+    fileprivate let descriptionView                 = DescriptionView()
+    
+    
     fileprivate let selectAcuaintanceQuestionLabel  = UILabel()
     fileprivate let selectAcuaintanceLabel          = UILabel()
     fileprivate let selectRelationQuestionLabel     = UILabel()
     fileprivate let selectRelationLabel             = UILabel()
     fileprivate let relations: [String]             = ["故人様", "喪主様", "ご家族", "その他"]
     fileprivate let groups: [String]                = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
-    fileprivate let description1                    = UILabel()
-    fileprivate let description2                    = UILabel()
     fileprivate let storage                         = Storage.storage().reference()
 
         
@@ -56,7 +56,6 @@ class GuestController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBasic()
-//        setupLabels()
         setupCardHeaderView()
         setupCardTitleView()
         setupBackgroundFrame()
@@ -103,38 +102,29 @@ class GuestController: UIViewController {
         addressView.anchor(top: guestNameView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
         addressView.layer.borderWidth = 1.0
         addressView.addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-     }
-    
-    fileprivate func setupLabels() {
-     
-
-        
-        
-        
-         
-        
-//        // 参加儀式選択
-
-
-        
-//
-//        view.addSubview(zipCodeLabel)
-//
-//
-//
-//        view.addSubview(telLabel)
-//
-//
-//
-//        view.addSubview(addressLabel)
-//        view.addSubview(selectAcuaintanceQuestionLabel)
-//        view.addSubview(selectAcuaintanceLabel)
-//        view.addSubview(selectRelationQuestionLabel)
-//        view.addSubview(selectRelationLabel)
-        
-        
-        
     }
+    
+    // どなたのご関係ですか？
+    
+    
+    // どのようなご関係ですか？
+    
+    
+    
+    
+    
+    
+    fileprivate func setupDescriptionView() {
+        view.addSubview(descriptionView)
+        descriptionView.setupView(guest: guest)
+        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        descriptionView.layer.borderWidth = 1.0
+    }
+
+    
+    
+    
+    
     //MARK:- func
     @objc func textFieldDidChange() {
         print("名前が変更されました。")
