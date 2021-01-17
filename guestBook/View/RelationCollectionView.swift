@@ -1,20 +1,19 @@
 //
-//  RetualCollectionView.swift
+//  RelationCollectionView.swift
 //  guestBook
 //
-//  Created by 杉崎圭 on 2020/11/27.
+//  Created by 池田友宏 on 2021/01/17.
 //
 
 import UIKit
 
-class RetualCollectionView: UICollectionView {
-    fileprivate let retuals: [String] = ["□通夜", "□告別式"]
+class RelationCollectionView: UICollectionView {
+
+    fileprivate let relations: [String] = ["故人様", "喪主様", "ご家族", "その他"]
     fileprivate var guest: Guest
     weak var updateDelegate: GuestUpdateDelegate?
-//    weak var updateRetualDelegate: UpdateRetualDelegate?
 
-    init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-
+    init(guest: Guest, frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
@@ -26,41 +25,39 @@ class RetualCollectionView: UICollectionView {
         self.dataSource = self
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
-        
     }
+    
 }
 
-extension RetualCollectionView: UICollectionViewDataSource {
-    // cellの個数設定
+extension RelationCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return retuals.count
+        return relations.count
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
-        cell.setupContents(textName: retuals[indexPath.item])
-        cell.setupButton(isActive: guest.retuals[indexPath.item])
+        cell.setupContents(textName: relations[indexPath.item])
+        cell.setupButton(isActive: guest.relations[indexPath.item])
         
         return cell
     }
+    
 }
 
-extension RetualCollectionView: UICollectionViewDelegate {
+extension RelationCollectionView: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
-    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
-        var isActive = guest.retuals[indexPath.row]
+        var isActive = guest.relations[indexPath.row]
         if isActive == true {
             isActive = false
         } else {
             isActive = true
         }
-        guest.retuals[indexPath.row] = isActive
+        guest.relations[indexPath.row] = isActive
         let guestId = updateDelegate?.update(guest: guest)
         if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!
@@ -68,7 +65,7 @@ extension RetualCollectionView: UICollectionViewDelegate {
         collectionView.reloadData()
     }
 }
-extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
+extension RelationCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: 150, height: 50)
     }

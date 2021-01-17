@@ -32,17 +32,9 @@ class GuestController: UIViewController {
     fileprivate let guestNameView                   = GuestNameView()
     fileprivate let companyNameView                 = CompanyNameView()
     fileprivate let addressView                     = AddressView()
- 
-    
+    fileprivate let selectRelationView              = SelectRelationView()
+    fileprivate let selectGroupView                 = SelectGroupView()
     fileprivate let descriptionView                 = DescriptionView()
-    
-    
-    fileprivate let selectAcuaintanceQuestionLabel  = UILabel()
-    fileprivate let selectAcuaintanceLabel          = UILabel()
-    fileprivate let selectRelationQuestionLabel     = UILabel()
-    fileprivate let selectRelationLabel             = UILabel()
-    fileprivate let relations: [String]             = ["故人様", "喪主様", "ご家族", "その他"]
-    fileprivate let groups: [String]                = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
     fileprivate let storage                         = Storage.storage().reference()
 
         
@@ -62,6 +54,7 @@ class GuestController: UIViewController {
         setupGuestNameView()
         setupCompanyNameView()
         setupAddressView()
+        setupSelectRelationView()
         setupDescriptionView()
     }
     fileprivate func setupBasic() {
@@ -106,7 +99,11 @@ class GuestController: UIViewController {
     }
     
     // どなたのご関係ですか？
-    
+    fileprivate func setupSelectRelationView() {
+        view.addSubview(selectRelationView)
+        selectRelationView.setupView(guest: guest)
+        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+    }
     
     // どのようなご関係ですか？
     
@@ -118,7 +115,7 @@ class GuestController: UIViewController {
     fileprivate func setupDescriptionView() {
         view.addSubview(descriptionView)
         descriptionView.setupView(guest: guest)
-        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 8))
         descriptionView.layer.borderWidth = 1.0
     }
 

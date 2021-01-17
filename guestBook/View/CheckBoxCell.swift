@@ -31,7 +31,7 @@ class CheckBoxCell: UICollectionViewCell {
     
     func setupContents(textName: String) {
         label.text = textName
-        label.font = .systemFont(ofSize: 30)
+        label.font = .systemFont(ofSize: 24)
     }
     func setupButton(isActive: Bool) {
         if isActive == true {

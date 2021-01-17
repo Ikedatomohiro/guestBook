@@ -17,7 +17,7 @@ class GuestNameView: UIView {
     let guestNameTextField              = UITextField()
     fileprivate let guestNameCanvas     = PKCanvasView()
     fileprivate let honorificTitle      = UILabel()
-    var guestNameImage: UIImage         = UIImage()
+    var guestNameImageData         = Data()
     
     
     override init(frame: CGRect) {
@@ -58,12 +58,12 @@ class GuestNameView: UIView {
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
         guestNameCanvas.layer.borderWidth = 1.0
-        
+        //        guestNameCanvas.drawing = PKDrawing(data: guestNameImageData) のような感じでデータをセット
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
         
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guestNameImage = guestNameCanvas.drawing.image(from: CGRect(x: 0, y: 0, width: 500, height: 200), scale: 1.0)
+        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
         
     }
     

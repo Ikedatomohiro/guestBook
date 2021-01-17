@@ -6,19 +6,20 @@
 //
 
 import FirebaseFirestore
+import PencilKit
 
 struct Guest {
     var id: String
     let eventId     : String
     var guestName   : String
-    var guestNameImage = UIImage()
+    var guestNameImage : PKDrawing
     var companyName : String
     var retuals     : Array<Bool>
     var zipCode     : String
     var address     : String
     var telNumber   : String
-//    var relattion   : Array<Bool>
-    
+    var relations   : Array<Bool>
+    var groups      : Array<Bool>
     var description : String
     var pageNumber  : Int
     let createdAt   : Date
@@ -29,11 +30,14 @@ struct Guest {
         self.id          = document.documentID
         self.eventId     = dictionary["eventId"]     as? String ?? ""
         self.guestName   = dictionary["guestName"]   as? String ?? ""
+        self.guestNameImage   = PKDrawing()
         self.companyName = dictionary["companyName"] as? String ?? ""
         self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
         self.address     = dictionary["address"]     as? String ?? ""
         self.telNumber   = dictionary["telNumber"]   as? String ?? ""
+        self.relations   = dictionary["rerlations"]  as? Array  ?? [false, false, false, false]
+        self.groups      = dictionary["rerlations"]  as? Array  ?? [false, false, false, false, false, false, false, false, false]
         self.description = dictionary["description"] as? String ?? ""
         self.pageNumber  = 0
         self.createdAt   = dictionary["createdAt"]   as? Date   ?? Date()
@@ -44,27 +48,15 @@ struct Guest {
         self.id          = id
         self.eventId     = ""
         self.guestName   = ""
+        self.guestNameImage = PKDrawing()
         self.companyName = ""
         self.retuals     = [false, false]
         self.zipCode     = ""
         self.address     = ""
         self.telNumber   = ""
-        self.description = ""
-        self.pageNumber  = 0
-        self.createdAt   = Date()
-        self.updatedAt   = Date()
-    }
-    
-    init() {
-        self.id          = ""
-        self.eventId     = ""
-        self.guestName   = ""
-        self.companyName = ""
-        self.retuals     = [false, false]
-        self.zipCode     = ""
-        self.address     = ""
-        self.telNumber   = ""
-        self.description = ""
+        self.relations   = [false, false, false, false]
+        self.groups      = [false, false, false, false, false, false, false, false, false]
+       self.description = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
@@ -75,19 +67,21 @@ struct Guest {
     }
     
     static func registGuest(guest: Guest, eventId: String) -> DocumentReference {
-        let documrntRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
+        let documentRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
             "guestName"   : guest.guestName,
             "companyName" : guest.companyName,
             "retuals"     : guest.retuals,
             "zipCode"     : guest.zipCode,
             "address"     : guest.address,
             "telNumber"   : guest.telNumber,
+            "relations"   : guest.relations,
+            "groups"      : guest.groups,
             "description" : guest.description,
             "eventId"     : eventId,
             "createdAt"   : Date(),
             "updatedAt"   : Date(),
         ])
-        return documrntRef
+        return documentRef
     }
     
     static func updateGuest(guest: Guest, eventId: String) {
@@ -98,6 +92,8 @@ struct Guest {
             "zipCode"     : guest.zipCode,
             "address"     : guest.address,
             "telNumber"   : guest.telNumber,
+            "relations"   : guest.relations,
+            "groups"      : guest.groups,
             "description" : guest.description,
             "updatedAt"   : Date(),
         ])
@@ -114,6 +110,7 @@ extension Guest: Equatable {
             && lhs.zipCode     == rhs.zipCode
             && lhs.address     == rhs.address
             && lhs.telNumber   == rhs.telNumber
+            && lhs.relations   == rhs.relations
             && lhs.description == rhs.description
 
     }
