@@ -32,7 +32,7 @@ class GuestNameView: UIView {
     func setupView(guest: Guest) {
         setupLabel()
         setupTextField(guestName: guest.guestName)
-        setupCanvas()
+        setupCanvas(ImageData: guest.guestNameImageData)
     }
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)
@@ -51,7 +51,7 @@ class GuestNameView: UIView {
         guestNameTextField.layer.borderWidth = 1.0
         guestNameTextField.text = guestName
     }
-    fileprivate func setupCanvas() {
+    fileprivate func setupCanvas(ImageData: Data) {
         addSubview(guestNameCanvas)
 //        guestNameCanvas.fillSuperview()
         guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
@@ -60,13 +60,43 @@ class GuestNameView: UIView {
         guestNameCanvas.layer.borderWidth = 1.0
         //        guestNameCanvas.drawing = PKDrawing(data: guestNameImageData) のような感じでデータをセット
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
-        
+        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
+//        guestNameCanvas.drawing = try PKDrawing(data: guestNameImageData)
+        // 仮で保存 これでなにかは保存できているみたい。
+//        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
     }
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
+
+        
+        
+        // 仮で保存 これでなにかは保存できているみたい。
+        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
+//        let guestNameImage = guestNameCanvas.drawing.image(from: <#T##CGRect#>, scale: <#T##CGFloat#>)
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
         
     }
-    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("moved")
+    }
 }
 
 

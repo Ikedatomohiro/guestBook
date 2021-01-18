@@ -13,6 +13,7 @@ struct Guest {
     let eventId     : String
     var guestName   : String
     var guestNameImage : PKDrawing
+    var guestNameImageData : Data
     var companyName : String
     var retuals     : Array<Bool>
     var zipCode     : String
@@ -31,6 +32,7 @@ struct Guest {
         self.eventId     = dictionary["eventId"]     as? String ?? ""
         self.guestName   = dictionary["guestName"]   as? String ?? ""
         self.guestNameImage   = PKDrawing()
+        self.guestNameImageData = dictionary["guestNameImageData"] as? Data ?? Data()
         self.companyName = dictionary["companyName"] as? String ?? ""
         self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
@@ -49,6 +51,7 @@ struct Guest {
         self.eventId     = ""
         self.guestName   = ""
         self.guestNameImage = PKDrawing()
+        self.guestNameImageData = Data()
         self.companyName = ""
         self.retuals     = [false, false]
         self.zipCode     = ""
@@ -69,6 +72,7 @@ struct Guest {
     static func registGuest(guest: Guest, eventId: String) -> DocumentReference {
         let documentRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
             "guestName"   : guest.guestName,
+            "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
             "retuals"     : guest.retuals,
             "zipCode"     : guest.zipCode,
@@ -87,6 +91,7 @@ struct Guest {
     static func updateGuest(guest: Guest, eventId: String) {
         Guest.collectionRef(eventId: eventId).document(guest.id).updateData([
             "guestName"   : guest.guestName,
+            "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
             "retuals"     : guest.retuals,
             "zipCode"     : guest.zipCode,
