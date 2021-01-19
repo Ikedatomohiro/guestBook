@@ -13,6 +13,8 @@ class CompanyNameView: UIView {
     let companyNameTextField              = UITextField()
     fileprivate let companyNameCanvas     = PKCanvasView()
     
+    weak var updateDelegate: GuestUpdateDelegate?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -37,6 +39,8 @@ class CompanyNameView: UIView {
         companyNameTextField.anchor(top: nil, leading: companyNameTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         companyNameTextField.layer.borderWidth = 1.0
         companyNameTextField.text = companyName
+        companyNameTextField.delegate = self
+        companyNameTextField.accessibilityIdentifier = "companyName"
     }
     fileprivate func setupCanvas() {
         addSubview(companyNameCanvas)
@@ -46,5 +50,11 @@ class CompanyNameView: UIView {
         companyNameCanvas.isOpaque = false
         companyNameCanvas.layer.borderWidth = 1.0
         companyNameCanvas.setupPencil(canvas: companyNameCanvas)
+    }
+}
+
+extension CompanyNameView: UITextFieldDelegate {
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        updateDelegate?.update(inputView: self)
     }
 }

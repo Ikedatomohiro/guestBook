@@ -12,9 +12,16 @@ class CardTitleView: UIView {
     fileprivate let pageLabel            = UILabel()
     fileprivate let pageNumber: Int      = 0
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-    }
+    fileprivate let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    
+    let retualCollectionView = RetualCollectionView(frame: .zero, collectionViewLayout: layout)
+    
+//    override init(frame: CGRect) {
+//        super.init(frame: frame)
+//    }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -32,14 +39,9 @@ class CardTitleView: UIView {
         cardTitleLabel.font = .systemFont(ofSize: 36)
     }
     fileprivate func setupRetualCollectionView(guest: Guest) {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            return layout
-        }()
-        
-        let retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(retualCollectionView)
         retualCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: cardTitleLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 100, bottom: 0, right: 0), size: .init(width: 400, height: 50))
+        retualCollectionView.setup(guest: guest)
         retualCollectionView.backgroundColor = .white
     }
     fileprivate func setupPageLabel(pageNumber: Int) {
@@ -48,3 +50,4 @@ class CardTitleView: UIView {
         pageLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 100, height: 100))
     }
 }
+

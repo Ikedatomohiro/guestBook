@@ -13,16 +13,14 @@ class RetualCollectionView: UICollectionView {
     weak var updateDelegate: GuestUpdateDelegate?
 //    weak var updateRetualDelegate: UpdateRetualDelegate?
 
-    init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-
-        self.guest = guest
+    override init(frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         super.init(frame: frame, collectionViewLayout: layout)
-        setup()
     }
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    func setup() {
+    func setup(guest: Guest) {
+        self.guest = guest
         self.dataSource = self
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
@@ -61,7 +59,7 @@ extension RetualCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.retuals[indexPath.row] = isActive
-        let guestId = updateDelegate?.update(guest: guest)
+        let guestId = updateDelegate?.update(inputView: collectionView)
         if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!
         }
