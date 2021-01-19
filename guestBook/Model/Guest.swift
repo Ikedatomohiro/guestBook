@@ -26,6 +26,9 @@ struct Guest {
     let createdAt   : Date
     var updatedAt   : Date
     
+    var questionOrder: ["id1, id2, id3"]
+    var questions: [String: Section] = ["id1": Section(), "id2": Section()]
+    
     init(document: QueryDocumentSnapshot) {
         let dictionary   = document.data()
         self.id          = document.documentID

@@ -14,7 +14,8 @@ import FirebaseStorage
 let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
 
 protocol GuestUpdateDelegate: class {
-    func update(guest: Guest) -> String
+//    func update(guest: Guest) -> String
+    func update<T>(inputView: T)
 }
 //protocol UpdateRetualDelegate: class {
 //    func updateRetual(guest: Guest) -> String
@@ -69,12 +70,13 @@ class GuestController: UIViewController {
         view.addSubview(cardTitleView)
         cardTitleView.setupView(guest: guest)
         cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 12))
+        cardTitleView.retualCollectionView.updateDelegate = self
     }
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
         backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: screenSize.width, height: screenSize.height * 3 / 5))
         backGroundFrame.layer.borderWidth = 2.0
-
+        
     }
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
@@ -82,6 +84,7 @@ class GuestController: UIViewController {
         guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 4 / 7, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        guestNameView.updateDelegate = self
      }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
@@ -142,3 +145,33 @@ class GuestController: UIViewController {
         }
     }
 }
+
+extension GuestController: GuestUpdateDelegate {
+//    func update(guest: Guest) -> String {
+//
+//    }
+    func update<T>(inputView: T) {
+        switch inputView {
+        case is RetualCollectionView:
+            let retualCollecitonView = inputView as! RetualCollectionView
+            guest.retual = retualCollecitonView.retual
+        case is UITextField:
+            let textField = inputView as! UITextField
+            switch textField.accessibilityIdentifier {
+            case "companyName":
+                guest.companyName = textField.text ?? ""
+            
+            default:
+                <#code#>
+            }
+        default:
+            <#code#>
+        }
+//        update() --> GuestController
+    }
+}
+
+
+//parent.update(guest: guest)
+//GuestsController: UINavigationController
+//GuestController: UIViewController
