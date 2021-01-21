@@ -11,7 +11,7 @@ class RelationCollectionView: UICollectionView {
 
     fileprivate let relations: [String] = ["故人様", "喪主様", "ご家族", "その他"]
     fileprivate var guest: Guest
-    weak var updateDelegate: GuestUpdateDelegate?
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
     init(guest: Guest, frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
@@ -58,10 +58,7 @@ extension RelationCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.relations[indexPath.row] = isActive
-        let guestId = updateDelegate?.update(guest: guest)
-        if (guest.id == "new" && guestId != nil) {
-            guest.id = guestId!
-        }
+        guestItemupdateDelegate?.update(inputView: collectionView)
         collectionView.reloadData()
     }
 }

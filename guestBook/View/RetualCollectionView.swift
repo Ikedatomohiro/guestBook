@@ -10,7 +10,7 @@ import UIKit
 class RetualCollectionView: UICollectionView {
     fileprivate let retuals: [String] = ["□通夜", "□告別式"]
     fileprivate var guest: Guest
-    weak var updateDelegate: GuestUpdateDelegate?
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 //    weak var updateRetualDelegate: UpdateRetualDelegate?
 
     init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
@@ -61,10 +61,7 @@ extension RetualCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.retuals[indexPath.row] = isActive
-        let guestId = updateDelegate?.update(guest: guest)
-        if (guest.id == "new" && guestId != nil) {
-            guest.id = guestId!
-        }
+        guestItemupdateDelegate?.update(inputView: collectionView)
         collectionView.reloadData()
     }
 }

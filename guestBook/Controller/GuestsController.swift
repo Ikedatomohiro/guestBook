@@ -65,7 +65,7 @@ class GuestsController: UIPageViewController {
              self.currentIndex = lastIndex
              let guestController = GuestController(guest: self.guests[lastIndex])
              // 参加者情報登録用のdelegateをセット
-             guestController.updateDelegate = self
+             guestController.guestupdateDelegate = self
              self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
              self.view.layoutIfNeeded()
         }
@@ -89,14 +89,14 @@ extension GuestsController: UIPageViewControllerDataSource {
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
             let guestVC = GuestController(guest: guests[nextIndex])
-            guestVC.updateDelegate = self
+            guestVC.guestupdateDelegate = self
 //            guestVC.updateRetualDelegate = self
             return guestVC
         } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
             // id を"new"で仮作成したGuestに入力された要素を選択
             let index = guests.firstIndex(where: {$0.id == "new"})!
             let guestVC = GuestController(guest: guests[index])
-            guestVC.updateDelegate = self
+            guestVC.guestupdateDelegate = self
 //            guestVC.updateRetualDelegate = self
             return guestVC
         } else {
@@ -104,7 +104,7 @@ extension GuestsController: UIPageViewControllerDataSource {
             newGuest.pageNumber = guests.count + 1
             self.guests.append(newGuest)
             let guestVC = GuestController(guest: newGuest)
-            guestVC.updateDelegate = self
+            guestVC.guestupdateDelegate = self
 //            guestVC.updateRetualDelegate = self
            return guestVC
         }
@@ -122,7 +122,7 @@ extension GuestsController: UIPageViewControllerDataSource {
         currentIndex = prevIndex
 
         let guestVC = GuestController(guest: guests[prevIndex])
-        guestVC.updateDelegate = self
+        guestVC.guestupdateDelegate = self
 
         return guestVC
     }
@@ -176,25 +176,3 @@ extension GuestsController: GuestUpdateDelegate {
     }
     
 }
-//extension GuestsController: UpdateRetualDelegate {
-//    func updateRetual(guest: Guest) -> String {
-//        if (guest.id == "new") {
-//            let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
-//            let index = guests.firstIndex(where: {$0.id == "new"})
-//            if index != nil {
-//                guests[index!] = guest
-//                guests[index!].id = documentRef.documentID
-////            guest.id = documentRef.documentID   // idを変更できない。どこでletになっているかわからない。
-//            }
-//            return documentRef.documentID
-//        } else {
-//            Guest.updateGuest(guest: guest, eventId: event.eventId)
-//            let index = guests.firstIndex(where: {$0.id == guest.id})
-//            if index != nil {
-//                guests[index!] = guest
-//            }
-//            return guests[index!].id
-//        }
-//    }
-//
-//}

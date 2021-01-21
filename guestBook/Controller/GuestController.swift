@@ -16,17 +16,17 @@ let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 
 protocol GuestUpdateDelegate: class {
     func update(guest: Guest) -> String
 }
-//protocol UpdateRetualDelegate: class {
-//    func updateRetual(guest: Guest) -> String
-//}
-
-
+protocol GuestItemUpdateDelegate: class {
+    func update<T>(inputView: T)
+}
 
 class GuestController: UIViewController {
+    
     fileprivate let backGroundFrame = UIView()
     var guest: Guest
-    weak var updateDelegate: GuestUpdateDelegate?
-//    weak var updateRetualDelegate: UpdateRetualDelegate?
+    weak var guestupdateDelegate: GuestUpdateDelegate?
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+
     fileprivate let cardHeaderView                  = CardHeaderView()
     fileprivate let cardTitleView                   = CardTitleView()
     fileprivate let guestNameView                   = GuestNameView()
@@ -36,8 +36,12 @@ class GuestController: UIViewController {
     fileprivate let selectGroupView                 = SelectGroupView()
     fileprivate let descriptionView                 = DescriptionView()
     fileprivate let storage                         = Storage.storage().reference()
-
-        
+    let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    lazy var retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
+    
     init(guest: Guest) {
         self.guest = guest
         super.init(nibName: nil, bundle: nil)
@@ -50,6 +54,7 @@ class GuestController: UIViewController {
         setupBasic()
         setupCardHeaderView()
         setupCardTitleView()
+        setupRetualsSelectView()
         setupBackgroundFrame()
         setupGuestNameView()
         setupCompanyNameView()
@@ -68,8 +73,20 @@ class GuestController: UIViewController {
     fileprivate func setupCardTitleView() {
         view.addSubview(cardTitleView)
         cardTitleView.setupView(guest: guest)
-        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width, height: screenSize.height / 12))
+        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width / 2, height: screenSize.height / 12))
     }
+    fileprivate func setupRetualsSelectView() {
+        view.addSubview(retualCollectionView)
+        retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: cardTitleView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 100, bottom: 0, right: 0), size: .init(width: 400, height: 50))
+        retualCollectionView.backgroundColor = .white
+        retualCollectionView.guestItemupdateDelegate = self
+    }
+    
+    
+    
+    
+    
+    
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
         backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: screenSize.width, height: screenSize.height * 3 / 5))
@@ -136,9 +153,20 @@ class GuestController: UIViewController {
         guest.address = address
         guest.zipCode = zipCode
         guest.telNumber = telNumber
-        let guestId = updateDelegate?.update(guest: guest)
+        let guestId = guestupdateDelegate?.update(guest: guest)
         if (guest.id == "new" && guestId != nil) {
             guest.id = guestId!
         }
     }
+}
+
+extension GuestController: GuestItemUpdateDelegate {
+    func update<T>(inputView: T) {
+        
+        
+        
+        
+    }
+    
+    
 }
