@@ -60,8 +60,8 @@ class GuestController: UIViewController {
         setupGuestNameView()
         setupCompanyNameView()
         setupAddressView()
-//        setupSelectRelationView()
-//        setupDescriptionView()
+        setupSelectRelationView()
+        setupDescriptionView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -97,20 +97,20 @@ class GuestController: UIViewController {
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestItemupdateDelegate = self
 
-     }
+    }
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
         companyNameView.setupView(guest: guest)
         companyNameView.anchor(top: backGroundFrame.topAnchor, leading: guestNameView.trailingAnchor, bottom: guestNameView.bottomAnchor, trailing: backGroundFrame.trailingAnchor)
         companyNameView.layer.borderWidth = 1.0
-        companyNameView.companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        companyNameView.guestItemupdateDelegate = self
     }
-     fileprivate func setupAddressView() {
+    fileprivate func setupAddressView() {
         view.addSubview(addressView)
         addressView.setupView(guest: guest)
         addressView.anchor(top: guestNameView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
         addressView.layer.borderWidth = 1.0
-        addressView.addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        addressView.guestItemupdateDelegate = self
     }
     
     // どなたのご関係ですか？
@@ -139,25 +139,6 @@ class GuestController: UIViewController {
     
     
     //MARK:- func
-    @objc func textFieldDidChange() {
-        
-        print("名前が変更されました。")
-//        let name = guestNameView.guestNameTextField.text ?? ""
-        let companyName = companyNameView.companyNameTextField.text ?? ""
-        let address = addressView.addressTextField.text ?? ""
-        let zipCode = addressView.zipCodeTextField.text ?? ""
-        let telNumber = addressView.telNumberTextField.text ?? ""
-//        guest.guestName = name
-        guest.companyName = companyName
-        guest.address = address
-        guest.zipCode = zipCode
-        guest.telNumber = telNumber
-        let guestId = guestupdateDelegate?.update(guest: guest)
-        if (guest.id == "new" && guestId != nil) {
-            guest.id = guestId!
-        }
-    }
-    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         let guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
         guestItemupdateDelegate?.update(inputView: GuestNameView.self)
@@ -179,6 +160,26 @@ extension GuestController: GuestItemUpdateDelegate {
             break
         case is GuestNameView:
             guest.guestName = guestNameView.guestNameTextField.text ?? ""
+            break
+        case is CompanyNameView:
+            guest.companyName = companyNameView.companyNameTextField.text ?? ""
+            break
+        case is AddressView:
+//            let textField = inputView as? UITextField
+//            switch textField?.accessibilityIdentifier {
+//            case "zipCode":
+                guest.zipCode = addressView.zipCodeTextField.text ?? ""
+//                break
+//            case "telNumber":
+                guest.telNumber = addressView.telNumberTextField.text ?? ""
+//                break
+//            case "address":
+                guest.address = addressView.addressTextField.text ?? ""
+//                break
+//            default:
+//                break
+//            }
+        
             break
         default:
             break

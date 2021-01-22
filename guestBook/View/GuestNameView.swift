@@ -11,9 +11,9 @@ import PencilKit
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()
     let guestNameTextField              = UITextField()
-    let guestNameCanvas     = PKCanvasView()
+    let guestNameCanvas                 = PKCanvasView()
     fileprivate let honorificTitle      = UILabel()
-    var guestNameImageData         = Data()
+    var guestNameImageData              = Data()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
     
@@ -51,7 +51,6 @@ class GuestNameView: UIView {
     }
     fileprivate func setupCanvas(ImageData: Data) {
         addSubview(guestNameCanvas)
-//        guestNameCanvas.fillSuperview()
         guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false

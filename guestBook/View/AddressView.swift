@@ -27,7 +27,8 @@ class AddressView: UIView {
     fileprivate let telNumberTitleLabel = UILabel()
     let telNumberTextField              = UITextField()
     fileprivate let telNumberCanvas     = PKCanvasView()
-    
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+
     // MARK:-
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -65,7 +66,8 @@ class AddressView: UIView {
         addressTextField.anchor(top: addressTitleLabel.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         addressTextField.layer.borderWidth = 1.0
         addressTextField.text = address
-
+        addressTextField.accessibilityIdentifier = "address"
+        addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
 
     fileprivate func setupZipCodeLabel() {
@@ -84,7 +86,9 @@ class AddressView: UIView {
         zipCodeTextField.anchor(top: zipCodeTitleLabel.bottomAnchor, leading: addressTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         zipCodeTextField.layer.borderWidth = 1.0
         zipCodeTextField.text = zipCode
+        zipCodeTextField.accessibilityIdentifier = "zipCode"
         zipCodeTextField.placeholder = "郵便番号"
+        zipCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
 
     }
 
@@ -111,7 +115,8 @@ class AddressView: UIView {
         telNumberTextField.anchor(top: telNumberTitleLabel.bottomAnchor, leading: zipCodeTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         telNumberTextField.layer.borderWidth = 1.0
         telNumberTextField.text = telNumber
-
+        telNumberTextField.accessibilityIdentifier = "telNumber"
+        telNumberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     // MARK:-
     fileprivate func setupZipCodeFrame() {
@@ -148,5 +153,7 @@ class AddressView: UIView {
         zipCodeLabel7.anchor(top: zipCodeLabel.topAnchor, leading: zipCodeLabel6.trailingAnchor, bottom: zipCodeLabel.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size: .init(width: 30, height: 40))
         zipCodeLabel7.layer.borderWidth = 1.0
     }
-
+    @objc func textFieldDidChange() {
+        guestItemupdateDelegate?.update(inputView: self)
+    }
 }
