@@ -9,9 +9,8 @@ import UIKit
 
 class RetualCollectionView: UICollectionView {
     fileprivate let retuals: [String] = ["□通夜", "□告別式"]
-    fileprivate var guest: Guest
+    var guest: Guest
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
-//    weak var updateRetualDelegate: UpdateRetualDelegate?
 
     init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
 
@@ -61,7 +60,7 @@ extension RetualCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.retuals[indexPath.row] = isActive
-        guestItemupdateDelegate?.update(inputView: collectionView)
+        guestItemupdateDelegate?.update(inputView: self)
         collectionView.reloadData()
     }
 }

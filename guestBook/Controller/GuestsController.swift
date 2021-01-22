@@ -26,7 +26,8 @@ class GuestsController: UIPageViewController {
     fileprivate var db                = Firestore.firestore()
     
     lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
-    
+    weak var guestupdateDelegate: GuestUpdateDelegate?
+
     
     init(event: Event) {
         self.event = event
@@ -90,14 +91,12 @@ extension GuestsController: UIPageViewControllerDataSource {
         if nextIndex <= guests.count - 1 {
             let guestVC = GuestController(guest: guests[nextIndex])
             guestVC.guestupdateDelegate = self
-//            guestVC.updateRetualDelegate = self
             return guestVC
         } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
             // id を"new"で仮作成したGuestに入力された要素を選択
             let index = guests.firstIndex(where: {$0.id == "new"})!
             let guestVC = GuestController(guest: guests[index])
             guestVC.guestupdateDelegate = self
-//            guestVC.updateRetualDelegate = self
             return guestVC
         } else {
             var newGuest = Guest(id: "new")
@@ -105,7 +104,6 @@ extension GuestsController: UIPageViewControllerDataSource {
             self.guests.append(newGuest)
             let guestVC = GuestController(guest: newGuest)
             guestVC.guestupdateDelegate = self
-//            guestVC.updateRetualDelegate = self
            return guestVC
         }
     }
@@ -143,6 +141,13 @@ extension GuestsController: UIPageViewControllerDelegate {
             } else {
                 currentIndex = guests.count
             }
+//            ここで保存できる？？
+//            guestController.guestupdateDelegate = self
+//            let guestId = guestupdateDelegate?.update(guest: guests[currentIndex])
+//            if (guests[currentIndex].id == "new" && guestId != nil) {
+//                guests[currentIndex].id = guestId!
+//            }
+
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestController else { return }
             if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {

@@ -9,7 +9,6 @@ import UIKit
 
 class CardTitleView: UIView {
     fileprivate let cardTitleLabel       = UILabel()
-    fileprivate let pageLabel            = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -19,19 +18,13 @@ class CardTitleView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(guest: Guest) {
+    func setupView() {
         setupLabel()
-        setupPageLabel(pageNumber: guest.pageNumber)
     }
     fileprivate func setupLabel() {
         addSubview(cardTitleLabel)
         cardTitleLabel.text = "御芳名カード"
         cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
         cardTitleLabel.font = .systemFont(ofSize: 36)
-    }
-    fileprivate func setupPageLabel(pageNumber: Int) {
-        addSubview(pageLabel)
-        pageLabel.text = "No. \(pageNumber)"
-        pageLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 100, height: 100))
     }
 }

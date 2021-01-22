@@ -8,17 +8,14 @@
 import UIKit
 import PencilKit
 
-//protocol GuestNameImageUpdateDelegate: class {
-//    func updateGuestNameImage(guestNameImage: ) -> String
-//}
-
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()
     let guestNameTextField              = UITextField()
-    fileprivate let guestNameCanvas     = PKCanvasView()
+    let guestNameCanvas     = PKCanvasView()
     fileprivate let honorificTitle      = UILabel()
     var guestNameImageData         = Data()
-    
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+
     
     override init(frame: CGRect) {
         
@@ -50,6 +47,7 @@ class GuestNameView: UIView {
         guestNameTextField.anchor(top: nil, leading: guestNameTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
         guestNameTextField.layer.borderWidth = 1.0
         guestNameTextField.text = guestName
+        guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     fileprivate func setupCanvas(ImageData: Data) {
         addSubview(guestNameCanvas)
@@ -65,8 +63,11 @@ class GuestNameView: UIView {
         // 仮で保存 これでなにかは保存できているみたい。
 //        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
     }
+    
+    
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
+        guestItemupdateDelegate?.update(inputView: GuestNameView.self)
 
         
         
@@ -76,27 +77,16 @@ class GuestNameView: UIView {
         
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
         
     }
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         print("moved")
     }
+    @objc func textFieldDidChange() {
+        guestItemupdateDelegate?.update(inputView: self)
+    }
+    
 }
 
 
