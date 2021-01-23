@@ -59,7 +59,7 @@ struct Guest {
         self.telNumber   = ""
         self.relations   = [false, false, false, false]
         self.groups      = [false, false, false, false, false, false, false, false, false]
-       self.description = ""
+        self.description = ""
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()

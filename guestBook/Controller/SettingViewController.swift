@@ -6,72 +6,42 @@
 //
 
 import UIKit
+import PencilKit
 
 class SettingViewController: UIViewController {
 
-    private let collectionView: UICollectionView = {
-           //セルのレイアウト設計
-           let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-
-           //各々の設計に合わせて調整
-           layout.scrollDirection = .vertical
-           layout.minimumInteritemSpacing = 0
-           layout.minimumLineSpacing = 0
-
-           let collectionView = UICollectionView( frame: CGRect(x: 0, y: 0, width: screenSize.width, height: screenSize.height ), collectionViewLayout: layout)
-           collectionView.backgroundColor = UIColor.white
-           //セルの登録
-           collectionView.register(CollectionViewCell.self, forCellWithReuseIdentifier: "CollectionViewCell")
-           return collectionView
-       }()
-    
-    fileprivate let fruits: [String] = ["apple", "grape", "lemon", "banana", "cherry", "strobery", "peach", "orange"]
-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        //生成したcollectionViewのdataSourceとdelegteを紐づける
-        collectionView.dataSource = self
-        collectionView.delegate = self
-
-        view.addSubview(collectionView)
+        // Three Lines of Code ここに3行のコードを足す
+        let canvas = PKCanvasView(frame: view.frame)
+        view.addSubview(canvas)
+        canvas.tool = PKInkingTool(.pen, color: .black, width: 30)
+        canvas.delegate = self
+        // PKToolPicker: ドラッグして移動できるツールパレット (ペンや色などを選択できるツール)
+        if let window = UIApplication.shared.windows.first {
+            if let toolPicker = PKToolPicker.shared(for: window) {
+                toolPicker.addObserver(canvas)
+                toolPicker.setVisible(true, forFirstResponder: canvas)
+                canvas.becomeFirstResponder()
+            }
+        }
 
     }
     
-
-}
-    
-    
-extension SettingViewController:UICollectionViewDataSource {
-    
-    //cellの個数設定
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return fruits.count
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("動いています。")
     }
-
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
-
-        let cellText = fruits[indexPath.item]
-        cell.setupContents(textName: cellText)
-
-        return cell
+    
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        print("おわり")
     }
+    
+    
 }
-
-//イベントの設定(何もなければ記述の必要なし)
-extension SettingViewController: UICollectionViewDelegate {
-
-}
-
-
-//cellのサイズの設定
-extension SettingViewController: UICollectionViewDelegateFlowLayout {
-
-  func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-
-      //ここでは画面の横サイズの半分の大きさのcellサイズを指定
-      return CGSize(width: screenSize.width / 2.0, height: screenSize.width / 2.0)
-  }
+    
+extension SettingViewController: PKCanvasViewDelegate {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        print("おわりました。")
+        print(canvasView.drawing.dataRepresentation())
+    }
 }

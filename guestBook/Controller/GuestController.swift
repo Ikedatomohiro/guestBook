@@ -59,9 +59,9 @@ class GuestController: UIViewController {
         setupBackgroundFrame()
         setupGuestNameView()
         setupCompanyNameView()
-        setupAddressView()
-        setupSelectRelationView()
-        setupDescriptionView()
+//        setupAddressView()
+//        setupSelectRelationView()
+//        setupDescriptionView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -160,9 +160,13 @@ extension GuestController: GuestItemUpdateDelegate {
             break
         case is GuestNameView:
             guest.guestName = guestNameView.guestNameTextField.text ?? ""
+            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         case is CompanyNameView:
             guest.companyName = companyNameView.companyNameTextField.text ?? ""
+            break
+        case is PKCanvasView:
+            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         case is AddressView:
 //            let textField = inputView as? UITextField
@@ -182,6 +186,7 @@ extension GuestController: GuestItemUpdateDelegate {
         
             break
         default:
+            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         }
         let guestId = guestupdateDelegate?.update(guest: guest)

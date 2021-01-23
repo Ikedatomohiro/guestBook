@@ -54,40 +54,35 @@ class GuestNameView: UIView {
         guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
+        guestNameCanvas.delegate = self
         guestNameCanvas.layer.borderWidth = 1.0
-        //        guestNameCanvas.drawing = PKDrawing(data: guestNameImageData) のような感じでデータをセット
+        do {
+            self.guestNameCanvas.drawing = try PKDrawing(data: ImageData)
+        }
+        catch {
+            let nserror = error as NSError
+//            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
+            print("描画エラー")
+        }
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
-        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
+
+//        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
 //        guestNameCanvas.drawing = try PKDrawing(data: guestNameImageData)
         // 仮で保存 これでなにかは保存できているみたい。
 //        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
     }
-    
-    
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
-        guestItemupdateDelegate?.update(inputView: GuestNameView.self)
 
-        
-        
-        // 仮で保存 これでなにかは保存できているみたい。
-        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
-//        let guestNameImage = guestNameCanvas.drawing.image(from: <#T##CGRect#>, scale: <#T##CGFloat#>)
-        
-        
-        
-
-        
-    }
-    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        print("moved")
-    }
     @objc func textFieldDidChange() {
         guestItemupdateDelegate?.update(inputView: self)
     }
     
 }
 
-
+extension GuestNameView: PKCanvasViewDelegate {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        guestItemupdateDelegate?.update(inputView: self)
+        print(guestNameCanvas.drawing.dataRepresentation())
+    }
+}
 
 
