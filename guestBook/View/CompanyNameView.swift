@@ -11,7 +11,7 @@ import PencilKit
 class CompanyNameView: UIView {
     fileprivate let companyNameTitleLabel = UILabel()
     let companyNameTextField              = UITextField()
-    fileprivate let companyNameCanvas     = PKCanvasView()
+    let companyNameCanvas     = PKCanvasView()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
     override init(frame: CGRect) {
@@ -25,7 +25,7 @@ class CompanyNameView: UIView {
     func setupView(guest: Guest) {
         setupLabel()
         setupTextField(companyName: guest.companyName)
-        setupCanvas()
+        setupCanvas(ImageData: guest.companyNameImageData)
     }
     fileprivate func setupLabel() {
         addSubview(companyNameTitleLabel)
@@ -42,16 +42,30 @@ class CompanyNameView: UIView {
         companyNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
 
     }
-    fileprivate func setupCanvas() {
+    fileprivate func setupCanvas(ImageData: Data) {
         addSubview(companyNameCanvas)
 //        companyNameCanvas.fillSuperview()
         companyNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 50, left: 0, bottom: 0, right: 0))
         companyNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         companyNameCanvas.isOpaque = false
+        companyNameCanvas.delegate = self
         companyNameCanvas.layer.borderWidth = 1.0
+        do {
+            self.companyNameCanvas.drawing = try PKDrawing(data: ImageData)
+        }
+        catch {
+            let nserror = error as NSError
+            print("Unresolved error \(nserror), \(nserror.userInfo)")
+        }
         companyNameCanvas.setupPencil(canvas: companyNameCanvas)
     }
     @objc func textFieldDidChange() {
+        guestItemupdateDelegate?.update(inputView: self)
+    }
+}
+
+extension CompanyNameView: PKCanvasViewDelegate {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)
     }
 }

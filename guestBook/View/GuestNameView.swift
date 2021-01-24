@@ -61,8 +61,7 @@ class GuestNameView: UIView {
         }
         catch {
             let nserror = error as NSError
-//            fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
-            print("描画エラー")
+            print("Unresolved error \(nserror), \(nserror.userInfo)")
         }
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
 
@@ -81,7 +80,6 @@ class GuestNameView: UIView {
 extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)
-        print(guestNameCanvas.drawing.dataRepresentation())
     }
 }
 

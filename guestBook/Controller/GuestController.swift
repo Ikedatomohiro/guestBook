@@ -164,10 +164,9 @@ extension GuestController: GuestItemUpdateDelegate {
             break
         case is CompanyNameView:
             guest.companyName = companyNameView.companyNameTextField.text ?? ""
+            guest.companyNameImageData = companyNameView.companyNameCanvas.drawing.dataRepresentation()
             break
-        case is PKCanvasView:
-            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
-            break
+
         case is AddressView:
 //            let textField = inputView as? UITextField
 //            switch textField?.accessibilityIdentifier {

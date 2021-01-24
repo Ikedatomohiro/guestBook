@@ -15,6 +15,7 @@ struct Guest {
     var guestNameImage : PKDrawing
     var guestNameImageData : Data
     var companyName : String
+    var companyNameImageData : Data
     var retuals     : Array<Bool>
     var zipCode     : String
     var address     : String
@@ -34,6 +35,7 @@ struct Guest {
         self.guestNameImage   = PKDrawing()
         self.guestNameImageData = dictionary["guestNameImageData"] as? Data ?? Data()
         self.companyName = dictionary["companyName"] as? String ?? ""
+        self.companyNameImageData = dictionary["companyNameImageData"] as? Data ?? Data()
         self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
         self.address     = dictionary["address"]     as? String ?? ""
@@ -53,6 +55,7 @@ struct Guest {
         self.guestNameImage = PKDrawing()
         self.guestNameImageData = Data()
         self.companyName = ""
+        self.companyNameImageData = Data()
         self.retuals     = [false, false]
         self.zipCode     = ""
         self.address     = ""
@@ -74,6 +77,7 @@ struct Guest {
             "guestName"   : guest.guestName,
             "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
+            "companyNameImageData" : guest.companyNameImageData,
             "retuals"     : guest.retuals,
             "zipCode"     : guest.zipCode,
             "address"     : guest.address,
@@ -93,6 +97,7 @@ struct Guest {
             "guestName"   : guest.guestName,
             "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
+            "companyNameImageData" : guest.companyNameImageData,
             "retuals"     : guest.retuals,
             "zipCode"     : guest.zipCode,
             "address"     : guest.address,
