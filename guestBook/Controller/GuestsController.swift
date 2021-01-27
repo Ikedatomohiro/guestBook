@@ -86,6 +86,7 @@ extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
+//        _ = guestupdateDelegate?.update(guest: guests[currentIndex])
         nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {

@@ -14,6 +14,7 @@ target 'guestBook' do
 	pod 'lottie-ios'
 	pod 'ChameleonFramework'
   pod 'SnapKit'
+  pod 'SwiftyJSON'
 
 
   target 'guestBookTests' do

@@ -30,6 +30,7 @@ class EventListViewController: UIViewController {
         fetchEventNameList()
         
         setBackButtonTitle()
+
     }
 
     func setupTitleLabel() {

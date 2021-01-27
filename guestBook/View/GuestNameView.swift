@@ -7,6 +7,7 @@
 
 import UIKit
 import PencilKit
+import SwiftyJSON
 
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()
@@ -15,7 +16,6 @@ class GuestNameView: UIView {
     fileprivate let honorificTitle      = UILabel()
     var guestNameImageData              = Data()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
-
     
     override init(frame: CGRect) {
         
@@ -30,6 +30,7 @@ class GuestNameView: UIView {
         setupLabel()
         setupTextField(guestName: guest.guestName)
         setupCanvas(ImageData: guest.guestNameImageData)
+        print(Constants.googleVisionAPIKey)
     }
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)
@@ -64,11 +65,6 @@ class GuestNameView: UIView {
             print("Unresolved error \(nserror), \(nserror.userInfo)")
         }
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
-
-//        guestNameImageData = guestNameCanvas.drawing.dataRepresentation()
-//        guestNameCanvas.drawing = try PKDrawing(data: guestNameImageData)
-        // 仮で保存 これでなにかは保存できているみたい。
-//        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
     }
 
     @objc func textFieldDidChange() {
@@ -81,6 +77,5 @@ extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)
     }
+
 }
-
-
