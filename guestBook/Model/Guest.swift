@@ -16,7 +16,8 @@ struct Guest {
     var guestNameImageData : Data
     var companyName : String
     var companyNameImageData : Data
-    var retuals     : Array<Bool>
+    var retuals     : Dictionary<String, Bool>
+//    var retualsDic  : Dictionary<String, String> = setRetuals()
     var zipCode     : String
     var address     : String
     var telNumber   : String
@@ -36,7 +37,7 @@ struct Guest {
         self.guestNameImageData = dictionary["guestNameImageData"] as? Data ?? Data()
         self.companyName = dictionary["companyName"] as? String ?? ""
         self.companyNameImageData = dictionary["companyNameImageData"] as? Data ?? Data()
-        self.retuals     = dictionary["retuals"]     as? Array  ?? [false, false]
+        self.retuals     = dictionary["retuals"]     as? Dictionary  ?? [:]
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
         self.address     = dictionary["address"]     as? String ?? ""
         self.telNumber   = dictionary["telNumber"]   as? String ?? ""
@@ -56,7 +57,7 @@ struct Guest {
         self.guestNameImageData = Data()
         self.companyName = ""
         self.companyNameImageData = Data()
-        self.retuals     = [false, false]
+        self.retuals     = [:]
         self.zipCode     = ""
         self.address     = ""
         self.telNumber   = ""

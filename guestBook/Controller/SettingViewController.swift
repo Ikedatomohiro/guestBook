@@ -12,7 +12,7 @@ import SwiftyJSON
 class SettingViewController: UIViewController {
     var points: [CGPoint]!
     var b64String: String!
-    var googleAPIKey = Constants.googleVisionAPIKey
+    var googleAPIKey = Keys.googleVisionAPIKey
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue

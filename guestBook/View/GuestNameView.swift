@@ -30,7 +30,6 @@ class GuestNameView: UIView {
         setupLabel()
         setupTextField(guestName: guest.guestName)
         setupCanvas(ImageData: guest.guestNameImageData)
-        print(Constants.googleVisionAPIKey)
     }
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)

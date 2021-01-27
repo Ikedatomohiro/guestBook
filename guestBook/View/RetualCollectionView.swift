@@ -40,7 +40,7 @@ extension RetualCollectionView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
         cell.setupContents(textName: retuals[indexPath.item])
-        cell.setupButton(isActive: guest.retuals[indexPath.item])
+//        cell.setupButton(isActive: guest.retuals[indexPath.item])
         
         return cell
     }
@@ -53,13 +53,13 @@ extension RetualCollectionView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
-        var isActive = guest.retuals[indexPath.row]
-        if isActive == true {
-            isActive = false
-        } else {
-            isActive = true
-        }
-        guest.retuals[indexPath.row] = isActive
+//        var isActive = guest.retuals[indexPath.row]
+//        if isActive == true {
+//            isActive = false
+//        } else {
+//            isActive = true
+//        }
+//        guest.retuals[indexPath.row] = isActive
         guestItemupdateDelegate?.update(inputView: self)
         collectionView.reloadData()
     }

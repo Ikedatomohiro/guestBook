@@ -16,6 +16,8 @@ class EventListViewController: UIViewController {
     fileprivate let eventNameTextField = UITextField()
     fileprivate let eventNameTableView = UITableView()
     fileprivate var events             = [Event]()
+    fileprivate let defaultRetuals     = Constants.defaultRetuals
+    fileprivate var number: Int        = 0
     
     // MARK: -
     override func viewDidLoad() {
@@ -52,11 +54,15 @@ class EventListViewController: UIViewController {
     @objc private func createEvent() {
         let eventName = eventNameTextField.text
         if eventName != nil {
-            db.collection("events").addDocument(data: ["eventName": eventName!]) // ログイン機能を実装したら"users"を挟む
-            eventNameTextField.text = ""
+            let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName!])
+            let eventId = docmentRef.documentID
             // 儀式のデフォルト値を登録
-//            let defaultRetuals = 
-            
+            for retual in defaultRetuals {
+                number += 1
+                Retual.registRetual(retual: Retual(name: retual), eventId: eventId, number: number)
+            }
+            // ログイン機能を実装したら"users"を挟む
+            eventNameTextField.text = ""
         }
         // テーブル再読み込み
         fetchEventNameList()

@@ -14,6 +14,7 @@ class EventMenuViewController: UIViewController {
     fileprivate let showGuestCardButton = UIButton()
     fileprivate let showGuestDetailButton = UIButton()
     fileprivate let showSettingButton = UIButton()
+    fileprivate var retuals :[Retual] = []
 
     init(event: Event) {
         self.event = event
@@ -26,6 +27,7 @@ class EventMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         navigationItem.title = event.eventName
+        retuals = getRetuals(eventId: event.eventId)
         self.view.backgroundColor = .red
         setupEventMenuList()
         setBackButtonTitle() 
@@ -61,7 +63,7 @@ class EventMenuViewController: UIViewController {
     }
     
     @objc private func showGuestCard() {
-        let guestCardVC = GuestsController(event: event)
+        let guestCardVC = GuestsController(event: event, retuals: retuals)
         guestCardVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestCardVC, animated: true)
     }
@@ -84,4 +86,25 @@ class EventMenuViewController: UIViewController {
         backBarButtonItem.title = "メニューに戻る"
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
+    
+    fileprivate func getRetuals(eventId: String) -> [Retual] {
+        Retual.collectionRef(eventId: eventId).order(by:"number").getDocuments() { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else { return }
+            self.retuals = documents.map({ (document) -> Retual in
+                var retual = Retual(docment: document)
+                return retual
+            })
+        }
+        return self.retuals
+    }
 }
+
+
+//Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
+//    guard let docments = querySnapshot?.documents else { return }
+//    self.guests = docments.map({ (document) -> Guest in
+//        var guest = Guest(document: document)
+//        guest.pageNumber = self.pageNumber
+//        self.pageNumber += 1
+//        return guest
+//    })

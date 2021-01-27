@@ -12,6 +12,8 @@ import FirebaseFirestore
 class GuestsController: UIPageViewController {
     fileprivate let retualArray:[String] = ["通夜", "告別式"]
     fileprivate let event: Event
+//    fileprivate let retuals: [Retual] = []
+//    fileprivate var guestRetuals: Dictionary<String, Bool>
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     
     fileprivate var guests      : [Guest] = []
@@ -29,8 +31,10 @@ class GuestsController: UIPageViewController {
     weak var guestupdateDelegate: GuestUpdateDelegate?
 
     
-    init(event: Event) {
+    init(event: Event, retuals: [Retual]) {
         self.event = event
+//        self.retuals = retuals
+//        self.guestRetuals = setGuestRetuals(retuals: retuals)
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
     }
 
@@ -45,7 +49,6 @@ class GuestsController: UIPageViewController {
         setupPageViewController()
     }
     
-    
     fileprivate func setGuestData() {
         Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
             guard let docments = querySnapshot?.documents else { return }
@@ -56,19 +59,19 @@ class GuestsController: UIPageViewController {
                 return guest
             })
             // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-             if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
+            if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
                 // 空のguestを配列に追加
                 var newGuest = Guest(id: "new")
                 newGuest.pageNumber = self.guests.count + 1
                 self.guests.append(newGuest)
-             }
-             let lastIndex = self.guests.count - 1
-             self.currentIndex = lastIndex
-             let guestController = GuestController(guest: self.guests[lastIndex])
-             // 参加者情報登録用のdelegateをセット
-             guestController.guestupdateDelegate = self
-             self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
-             self.view.layoutIfNeeded()
+            }
+            let lastIndex = self.guests.count - 1
+            self.currentIndex = lastIndex
+            let guestController = GuestController(guest: self.guests[lastIndex])
+            // 参加者情報登録用のdelegateをセット
+            guestController.guestupdateDelegate = self
+            self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
+            self.view.layoutIfNeeded()
         }
 
     }
@@ -78,9 +81,15 @@ class GuestsController: UIPageViewController {
         view.backgroundColor = .white
         dataSource = self
         delegate = self
- 
     }
 
+    fileprivate func setGuestRetuals(retuals: [Retual]) {
+//        var karinojisho:Dictionary<String, Bool>
+//        for retual in retuals {
+////            retual[retual["key"]] = retual["value"]
+//        }
+//        return karinojisho["string"] = true
+    }
 }
 extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
