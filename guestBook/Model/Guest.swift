@@ -17,7 +17,6 @@ struct Guest {
     var companyName : String
     var companyNameImageData : Data
     var retuals     : Dictionary<String, Bool>
-//    var retualsDic  : Dictionary<String, String> = setRetuals()
     var zipCode     : String
     var address     : String
     var telNumber   : String
@@ -27,6 +26,8 @@ struct Guest {
     var pageNumber  : Int
     let createdAt   : Date
     var updatedAt   : Date
+
+
     
     init(document: QueryDocumentSnapshot) {
         let dictionary   = document.data()
@@ -37,7 +38,7 @@ struct Guest {
         self.guestNameImageData = dictionary["guestNameImageData"] as? Data ?? Data()
         self.companyName = dictionary["companyName"] as? String ?? ""
         self.companyNameImageData = dictionary["companyNameImageData"] as? Data ?? Data()
-        self.retuals     = dictionary["retuals"]     as? Dictionary  ?? [:]
+        self.retuals     = dictionary["retuals"]     as? Dictionary<String, Bool> ?? [:]
         self.zipCode     = dictionary["zipCode"]     as? String ?? ""
         self.address     = dictionary["address"]     as? String ?? ""
         self.telNumber   = dictionary["telNumber"]   as? String ?? ""
@@ -49,7 +50,7 @@ struct Guest {
         self.updatedAt   = dictionary["updatedAt"]   as? Date   ?? Date()
     }
 
-    init(id: String) {
+    init(id: String, retualList: [Retual]) {
         self.id          = id
         self.eventId     = ""
         self.guestName   = ""
@@ -67,6 +68,8 @@ struct Guest {
         self.pageNumber  = 0
         self.createdAt   = Date()
         self.updatedAt   = Date()
+
+        self.retuals     = setDefaultAttendance(retualList: retualList)        
     }
     
     static func collectionRef(eventId: String) ->CollectionReference {
@@ -109,7 +112,16 @@ struct Guest {
             "updatedAt"   : Date(),
         ])
     }
+
+    mutating func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
+        var attendance: [String: Bool] = [:]
+        for retual in retualList {
+            attendance[retual.id] = false
+        }
+        return attendance
+    }
 }
+
 
 // 入力されているかどうかチェック
 extension Guest: Equatable {
@@ -117,7 +129,7 @@ extension Guest: Equatable {
         return lhs.id          == rhs.id
             && lhs.guestName   == rhs.guestName
             && lhs.companyName == rhs.companyName
-            && lhs.retuals     == rhs.retuals
+//            && lhs.retuals     == rhs.retuals
             && lhs.zipCode     == rhs.zipCode
             && lhs.address     == rhs.address
             && lhs.telNumber   == rhs.telNumber

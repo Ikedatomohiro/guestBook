@@ -10,10 +10,9 @@ import PencilKit
 import FirebaseFirestore
 
 class GuestsController: UIPageViewController {
-    fileprivate let retualArray:[String] = ["通夜", "告別式"]
+//    fileprivate let retualArray:[String] = ["通夜", "告別式"]
     fileprivate let event: Event
-//    fileprivate let retuals: [Retual] = []
-//    fileprivate var guestRetuals: Dictionary<String, Bool>
+    fileprivate let retuals: [Retual]
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     
     fileprivate var guests      : [Guest] = []
@@ -25,15 +24,14 @@ class GuestsController: UIPageViewController {
     fileprivate var nextIndex   : Int     = 0
     fileprivate var pageNumber  : Int     = 1
 
-    fileprivate var db                = Firestore.firestore()
     
-    lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex])
+    lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex], retuals: retuals)
     weak var guestupdateDelegate: GuestUpdateDelegate?
 
     
     init(event: Event, retuals: [Retual]) {
         self.event = event
-//        self.retuals = retuals
+        self.retuals = retuals
 //        self.guestRetuals = setGuestRetuals(retuals: retuals)
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
     }
@@ -59,15 +57,15 @@ class GuestsController: UIPageViewController {
                 return guest
             })
             // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-            if self.guests.count == 0 || self.guests.last != Guest(id: "new") {
+            if self.guests.count == 0 || self.guests.last != Guest(id: "new", retualList: self.retuals) {
                 // 空のguestを配列に追加
-                var newGuest = Guest(id: "new")
+                var newGuest = Guest(id: "new", retualList: self.retuals)
                 newGuest.pageNumber = self.guests.count + 1
                 self.guests.append(newGuest)
             }
             let lastIndex = self.guests.count - 1
             self.currentIndex = lastIndex
-            let guestController = GuestController(guest: self.guests[lastIndex])
+            let guestController = GuestController(guest: self.guests[lastIndex], retuals: self.retuals)
             // 参加者情報登録用のdelegateをセット
             guestController.guestupdateDelegate = self
             self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
@@ -84,11 +82,9 @@ class GuestsController: UIPageViewController {
     }
 
     fileprivate func setGuestRetuals(retuals: [Retual]) {
-//        var karinojisho:Dictionary<String, Bool>
 //        for retual in retuals {
 ////            retual[retual["key"]] = retual["value"]
 //        }
-//        return karinojisho["string"] = true
     }
 }
 extension GuestsController: UIPageViewControllerDataSource {
@@ -99,20 +95,20 @@ extension GuestsController: UIPageViewControllerDataSource {
         nextIndex = currentIndex + 1
         currentIndex = nextIndex
         if nextIndex <= guests.count - 1 {
-            let guestVC = GuestController(guest: guests[nextIndex])
+            let guestVC = GuestController(guest: guests[nextIndex], retuals: retuals)
             guestVC.guestupdateDelegate = self
             return guestVC
         } else if guests.firstIndex(where: {$0.id == "new"}) != nil  {
             // id を"new"で仮作成したGuestに入力された要素を選択
             let index = guests.firstIndex(where: {$0.id == "new"})!
-            let guestVC = GuestController(guest: guests[index])
+            let guestVC = GuestController(guest: guests[index], retuals: retuals)
             guestVC.guestupdateDelegate = self
             return guestVC
         } else {
-            var newGuest = Guest(id: "new")
+            var newGuest = Guest(id: "new", retualList: retuals)
             newGuest.pageNumber = guests.count + 1
             self.guests.append(newGuest)
-            let guestVC = GuestController(guest: newGuest)
+            let guestVC = GuestController(guest: newGuest, retuals: retuals)
             guestVC.guestupdateDelegate = self
            return guestVC
         }
@@ -129,7 +125,7 @@ extension GuestsController: UIPageViewControllerDataSource {
         }
         currentIndex = prevIndex
 
-        let guestVC = GuestController(guest: guests[prevIndex])
+        let guestVC = GuestController(guest: guests[prevIndex], retuals: retuals)
         guestVC.guestupdateDelegate = self
 
         return guestVC

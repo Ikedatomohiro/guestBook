@@ -23,6 +23,7 @@ protocol GuestItemUpdateDelegate: class {
 class GuestController: UIViewController {
     
     var guest: Guest
+    var retuals: [Retual]
     weak var guestupdateDelegate    : GuestUpdateDelegate?
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
@@ -41,12 +42,14 @@ class GuestController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         return layout
     }()
-    lazy var retualCollectionView = RetualCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var retualCollectionView = RetualCollectionView(guest: guest, retuals: retuals, frame: CGRect.zero, collectionViewLayout: layout)
     
-    init(guest: Guest) {
+    init(guest: Guest, retuals: [Retual]) {
         self.guest = guest
+        self.retuals = retuals
         super.init(nibName: nil, bundle: nil)
     }
+
     required init?(coder: NSCoder){fatalError()}
     
     // MARK:- layout

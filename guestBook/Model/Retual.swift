@@ -14,7 +14,7 @@ struct Retual {
     let eventId    : String
     let createdAt  : Date
     var updatedAt  : Date
-//    var retualDictionary: Dictionary<String, String>
+
     init(name: String) {
         self.id         = ""
         self.number     = 0
@@ -27,7 +27,7 @@ struct Retual {
     init(docment: QueryDocumentSnapshot) {
         let dictionary  = docment.data()
         self.id         = docment.documentID
-        self.number     = dictionary["number"] as? Int ?? 0
+        self.number     = dictionary["number"]     as? Int    ?? 0
         self.retualName = dictionary["retualName"] as? String ?? ""
         self.eventId    = dictionary["eventID"]    as? String ?? ""
         self.createdAt  = dictionary["createdAt"]  as? Date   ?? Date()
@@ -49,11 +49,4 @@ struct Retual {
         ])
         return
     }
-    
-    static func setDefaultRetualDictionary(retuals: Array<String>) {
-//        for retual in retuals {
-//            retualDictionary[retual[retualId]] = retual[retualName]
-//        }
-    }
-    
 }

@@ -8,13 +8,14 @@
 import UIKit
 
 class RetualCollectionView: UICollectionView {
-    fileprivate let retuals: [String] = ["□通夜", "□告別式"]
+//    fileprivate let retuals: [String] = ["□通夜", "□告別式"]
     var guest: Guest
+    var retuals: [Retual]
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
-    init(guest: Guest,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
-
+    init(guest: Guest, retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
+        self.retuals = retuals
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
     }
@@ -39,7 +40,7 @@ extension RetualCollectionView: UICollectionViewDataSource {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
-        cell.setupContents(textName: retuals[indexPath.item])
+        cell.setupContents(textName: retuals[indexPath.item].retualName)
 //        cell.setupButton(isActive: guest.retuals[indexPath.item])
         
         return cell

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FirebaseFirestore
 
 class EventMenuViewController: UIViewController {
 
@@ -79,7 +80,7 @@ class EventMenuViewController: UIViewController {
         settingVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
-    
+
     // 戻るボタンの名称をセット
     fileprivate func setBackButtonTitle() {
         let backBarButtonItem = UIBarButtonItem()
@@ -98,13 +99,3 @@ class EventMenuViewController: UIViewController {
         return self.retuals
     }
 }
-
-
-//Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
-//    guard let docments = querySnapshot?.documents else { return }
-//    self.guests = docments.map({ (document) -> Guest in
-//        var guest = Guest(document: document)
-//        guest.pageNumber = self.pageNumber
-//        self.pageNumber += 1
-//        return guest
-//    })
