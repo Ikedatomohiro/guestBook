@@ -7,6 +7,9 @@
 
 import FirebaseFirestore
 import PencilKit
+import FirebaseStorage
+
+fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorage)
 
 struct Guest {
     var id: String
@@ -115,6 +118,10 @@ struct Guest {
     // 儀式の参列をデフォルト不参加にセット。デフォルトのretualsListの配列をDictionary型に変換して返す。
     mutating func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
          return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
+    }
+    
+    func uploadDrawingData(canvas: PKCanvasView, fileName: String) {
+        
     }
 }
 

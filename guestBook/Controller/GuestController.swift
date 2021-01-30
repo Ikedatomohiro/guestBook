@@ -36,7 +36,7 @@ class GuestController: UIViewController {
     fileprivate let selectRelationView = SelectRelationView()
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
-    fileprivate let storage            = Storage.storage().reference()
+    fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorage)
     
     let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()
@@ -136,25 +136,8 @@ class GuestController: UIViewController {
         descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 8))
         descriptionView.layer.borderWidth = 1.0
     }
-
-    
-    
-    
-    
-    //MARK:- func
-    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        let guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
-        guestItemupdateDelegate?.update(inputView: GuestNameView.self)
-
-        
-        
-        // 仮で保存 これでなにかは保存できているみたい。
-        Guest.collectionRef(eventId: "Ek8tGxTMN0afqzCjXpWE").document("YBbcTpprfqklHR6fRMCA").updateData(["guestNameImageData": guestNameImageData])
-//        let guestNameImage = guestNameCanvas.drawing.image(from: <#T##CGRect#>, scale: <#T##CGFloat#>)
-        
-    }
 }
-
+// MARK:- Extensions
 extension GuestController: GuestItemUpdateDelegate {
     func update<T>(inputView: T) {
         switch inputView {
@@ -163,7 +146,20 @@ extension GuestController: GuestItemUpdateDelegate {
             break
         case is GuestNameView:
             guest.guestName = guestNameView.guestNameTextField.text ?? ""
-            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
+            let canvas = guestNameView.guestNameCanvas
+            guest.guestNameImageData = canvas.drawing.dataRepresentation()
+            let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: canvas.frame.width, height: canvas.frame.height), scale: 1.0)
+            let imageFile = image.pngData() ?? Data()
+            let fileName = "\(guest.id)_guestName"
+            let strageRef = storage.child("\(fileName).png")
+            strageRef.putData(imageFile, metadata: nil) { (metaData, error) in
+                if error != nil {
+                    print(error.debugDescription)
+                }
+            }
+
+
+
             break
         case is CompanyNameView:
             guest.companyName = companyNameView.companyNameTextField.text ?? ""
