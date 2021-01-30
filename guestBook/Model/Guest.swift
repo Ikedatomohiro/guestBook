@@ -16,7 +16,7 @@ struct Guest {
     var guestNameImageData : Data
     var companyName : String
     var companyNameImageData : Data
-    var retuals     : Dictionary<String, Bool>
+    var retuals     : Dictionary<String, Bool> = [:]
     var zipCode     : String
     var address     : String
     var telNumber   : String
@@ -27,7 +27,7 @@ struct Guest {
     let createdAt   : Date
     var updatedAt   : Date
 
-
+// MARK:-
     
     init(document: QueryDocumentSnapshot) {
         let dictionary   = document.data()
@@ -58,7 +58,6 @@ struct Guest {
         self.guestNameImageData = Data()
         self.companyName = ""
         self.companyNameImageData = Data()
-        self.retuals     = [:]
         self.zipCode     = ""
         self.address     = ""
         self.telNumber   = ""
@@ -113,12 +112,9 @@ struct Guest {
         ])
     }
 
+    // 儀式の参列をデフォルト不参加にセット。デフォルトのretualsListの配列をDictionary型に変換して返す。
     mutating func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
-        var attendance: [String: Bool] = [:]
-        for retual in retualList {
-            attendance[retual.id] = false
-        }
-        return attendance
+         return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
     }
 }
 
