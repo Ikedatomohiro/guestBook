@@ -7,7 +7,9 @@
 
 import UIKit
 import PencilKit
+import FirebaseStorage
 import SwiftyJSON
+
 
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()
@@ -16,6 +18,8 @@ class GuestNameView: UIView {
     fileprivate let honorificTitle      = UILabel()
     var guestNameImageData              = Data()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+    
+    
     
     override init(frame: CGRect) {
         
@@ -30,6 +34,7 @@ class GuestNameView: UIView {
         setupLabel()
         setupTextField(guestName: guest.guestName)
         setupCanvas(ImageData: guest.guestNameImageData)
+        
     }
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)
@@ -75,6 +80,22 @@ class GuestNameView: UIView {
 extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)
+        
+        let image = canvasView.drawing.image(from: CGRect(x: 0, y: 0, width: 300, height: 300), scale: 1.0)
+        let imageFile = image.pngData() ?? Data()
+        let fileName = "guestName"
+        let strageRef = Storage.storage().reference(forURL: Keys.firestoreStorage).child("\(fileName)2.png")
+        strageRef.putData(imageFile, metadata: nil) { (metaData, error) in
+            
+            if error != nil {
+                print(error.debugDescription)
+            }
+            
+        }
+        
+        
+        
+        
     }
 
 }
