@@ -92,7 +92,7 @@ class EventMenuViewController: UIViewController {
         Retual.collectionRef(eventId: eventId).order(by:"number").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.retuals = documents.map({ (document) -> Retual in
-                var retual = Retual(docment: document)
+                let retual = Retual(docment: document)
                 return retual
             })
         }

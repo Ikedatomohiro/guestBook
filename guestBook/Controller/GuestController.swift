@@ -36,7 +36,7 @@ class GuestController: UIViewController {
     fileprivate let selectRelationView = SelectRelationView()
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
-    fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorage)
+    fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     let layout: UICollectionViewFlowLayout = {
         let layout = UICollectionViewFlowLayout()

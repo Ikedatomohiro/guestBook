@@ -13,6 +13,8 @@
 		C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25EB255B7BCF0037825B /* GuestController.swift */; };
 		C52C25F1255B7DCA0037825B /* Guest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C52C25F0255B7DCA0037825B /* Guest.swift */; };
 		C565EBA725711C36005E61AD /* RetualCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C565EBA625711C36005E61AD /* RetualCollectionView.swift */; };
+		E524B66325C6E3CE00497CD4 /* GuestSortAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */; };
+		E524B66E25C6EA6400497CD4 /* GuestListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */; };
 		E56E1874254E9AE300205FCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E56E1873254E9AE300205FCE /* GoogleService-Info.plist */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
 		E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */; };
@@ -21,7 +23,6 @@
 		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
 		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
 		E573F42A25504A2B0000C955 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F42925504A2B0000C955 /* NSObject.swift */; };
-		E573F5C125A972F4008652DD /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F5C025A972F4008652DD /* CollectionViewCell.swift */; };
 		E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444DB25694D2E001D4774 /* GuestListViewController.swift */; };
 		E57444E125694EAE001D4774 /* GuestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444E025694EAE001D4774 /* GuestCell.swift */; };
 		E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577604825737D0600DD2F81 /* SettingViewController.swift */; };
@@ -81,6 +82,8 @@
 		C565EBA625711C36005E61AD /* RetualCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualCollectionView.swift; sourceTree = "<group>"; };
 		DCC3CACB06962AB4CBD1771A /* Pods-guestBook.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook.debug.xcconfig"; path = "Target Support Files/Pods-guestBook/Pods-guestBook.debug.xcconfig"; sourceTree = "<group>"; };
 		DFDF1D7CBCA4692B2C07A5A7 /* Pods-guestBook-guestBookUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-guestBook-guestBookUITests.release.xcconfig"; path = "Target Support Files/Pods-guestBook-guestBookUITests/Pods-guestBook-guestBookUITests.release.xcconfig"; sourceTree = "<group>"; };
+		E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSortAreaView.swift; sourceTree = "<group>"; };
+		E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListHeaderCell.swift; sourceTree = "<group>"; };
 		E56E1873254E9AE300205FCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
 		E570A8C925A5F8A1003C41BE /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
 		E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
@@ -89,7 +92,6 @@
 		E573F41F254FD5630000C955 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		E573F424255047330000C955 /* EventNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameCell.swift; sourceTree = "<group>"; };
 		E573F42925504A2B0000C955 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
-		E573F5C025A972F4008652DD /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
 		E57444DB25694D2E001D4774 /* GuestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewController.swift; sourceTree = "<group>"; };
 		E57444E025694EAE001D4774 /* GuestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCell.swift; sourceTree = "<group>"; };
 		E577604825737D0600DD2F81 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
@@ -205,7 +207,6 @@
 			isa = PBXGroup;
 			children = (
 				E5AFCC8925AF04AF00E5274A /* AddressView.swift */,
-				E573F5C025A972F4008652DD /* CollectionViewCell.swift */,
 				E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */,
 				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
 				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
@@ -216,10 +217,12 @@
 				E5B5ADAC25B3C7D9002E9384 /* GroupListView.swift */,
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
 				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
+				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
 				E5B5ADB725B3C8B0002E9384 /* RelationCollectionView.swift */,
 				C565EBA625711C36005E61AD /* RetualCollectionView.swift */,
 				E5B5ADBC25B3CCA3002E9384 /* SelectRelationView.swift */,
 				E5B5ADC125B47289002E9384 /* SelectGroupView.swift */,
+				E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -575,9 +578,9 @@
 				E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */,
 				E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */,
 				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
-				E573F5C125A972F4008652DD /* CollectionViewCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
 				E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */,
+				E524B66E25C6EA6400497CD4 /* GuestListHeaderCell.swift in Sources */,
 				E5B5ADAD25B3C7D9002E9384 /* GroupListView.swift in Sources */,
 				E586221625C1810400291182 /* Retual.swift in Sources */,
 				C52C25EC255B7BCF0037825B /* GuestController.swift in Sources */,
@@ -592,6 +595,7 @@
 				C565EBA725711C36005E61AD /* RetualCollectionView.swift in Sources */,
 				E5B5ADB825B3C8B0002E9384 /* RelationCollectionView.swift in Sources */,
 				E586221125C17DA100291182 /* Constants.swift in Sources */,
+				E524B66325C6E3CE00497CD4 /* GuestSortAreaView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
