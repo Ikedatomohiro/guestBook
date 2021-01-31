@@ -11,10 +11,10 @@ target 'guestBook' do
 	pod 'FirebaseFirestoreSwift'
 	pod 'Firebase/Storage'
 	pod 'GoogleSignIn'
-	pod 'lottie-ios'
+#pod 'lottie-ios'
 	pod 'ChameleonFramework'
-  pod 'SnapKit'
-  pod 'SwiftyJSON'
+#pod 'SnapKit'
+	pod 'SwiftyJSON'
 
 
   target 'guestBookTests' do
