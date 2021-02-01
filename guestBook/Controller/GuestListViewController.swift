@@ -9,10 +9,10 @@ import UIKit
 import FirebaseFirestore
 
 class GuestListViewController: UIViewController {
-
     fileprivate let event: Event
     fileprivate var guests: [Guest]
     fileprivate var guestListTableView = UITableView()
+//    fileprivate var guestListTableView = GuestListTableView()
 
     fileprivate var guestSortAreaView: UIView = GuestSortAreaView()
         
@@ -67,7 +67,6 @@ class GuestListViewController: UIViewController {
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         guestListTableView.delegate = self
         guestListTableView.dataSource = self
-        guestListTableView.sectionHeaderHeight = 50
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
     }
         
