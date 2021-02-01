@@ -12,10 +12,11 @@ class GuestListViewController: UIViewController {
     fileprivate let event: Event
     fileprivate var guests: [Guest]
     fileprivate var guestListTableView = UITableView()
-//    fileprivate var guestListTableView = GuestListTableView()
+//    lazy var guestListTableView = GuestListTableView(guests: guests, frame: .zero, style: .plain)
 
     fileprivate var guestSortAreaView: UIView = GuestSortAreaView()
-        
+    fileprivate var pageNumber  : Int     = 1
+
         
 
     init(event: Event) {
@@ -33,7 +34,7 @@ class GuestListViewController: UIViewController {
 
         fetchGuestList()
         setSearchArea()
-        setupGuestListTableView()
+        setupGuestListTableView(guests: guests)
         setBackButtonTitle()
     }
 
@@ -45,7 +46,10 @@ class GuestListViewController: UIViewController {
         Guest.collectionRef(eventId: event.eventId).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.guests = documents.map{ (document) -> Guest in
-                return Guest(document: document)
+                var guest = Guest(document: document)
+                guest.pageNumber = self.pageNumber
+                self.pageNumber += 1
+                return guest
             }
             self.guestListTableView.reloadData()
             if let error = error {
@@ -57,12 +61,12 @@ class GuestListViewController: UIViewController {
     
     fileprivate func setSearchArea() {
         view.addSubview(guestSortAreaView)
-        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: screenSize.width, height: screenSize.height / 10))
+        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: screenSize.width, height: screenSize.height / 15))
 
     }
     
         
-    fileprivate func setupGuestListTableView() {
+    fileprivate func setupGuestListTableView(guests: [Guest]) {
         view.addSubview(guestListTableView)
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         guestListTableView.delegate = self
@@ -106,14 +110,14 @@ extension GuestListViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         80
     }
-    
+
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let guestListHeader = GuestListHeaderCell()
-        
+
         guestListHeader.backgroundColor = .yellow
-        
-        
+
+
         return guestListHeader
     }
     // ヘッダー高さ

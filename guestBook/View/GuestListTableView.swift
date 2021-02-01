@@ -11,9 +11,12 @@ import FirebaseFirestore
 class GuestListTableView: UITableView {
     fileprivate let guests: [Guest]
     
+    
     init(guests: [Guest], frame: CGRect, style: UITableView.Style) {
         self.guests = guests
         super.init(frame: .zero, style: style)
+        self.delegate = self
+        self.dataSource = self
     }
     
     required init?(coder: NSCoder) {

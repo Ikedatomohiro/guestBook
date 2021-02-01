@@ -8,7 +8,6 @@
 import UIKit
 
 class RetualCollectionView: UICollectionView {
-//    fileprivate let retuals: [String] = ["□通夜", "□告別式"]
     var guest: Guest
     var retuals: [Retual]
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
