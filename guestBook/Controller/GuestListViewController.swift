@@ -11,16 +11,17 @@ import FirebaseFirestore
 class GuestListViewController: UIViewController {
     fileprivate let event: Event
     fileprivate var guests: [Guest]
+    fileprivate var retuals: [Retual]
     fileprivate var guestListTableView = UITableView()
 //    lazy var guestListTableView = GuestListTableView(guests: guests, frame: .zero, style: .plain)
 
-    fileprivate var guestSortAreaView: UIView = GuestSortAreaView()
+    
+    lazy var guestSortAreaView: UIView = GuestSortAreaView(retuals: retuals, frame: .zero)
     fileprivate var pageNumber  : Int     = 1
 
-        
-
-    init(event: Event) {
+    init(event: Event, retuals: [Retual]) {
         self.event = event
+        self.retuals = retuals
         self.guests = [Guest]()
         super.init(nibName: nil, bundle: nil)
     }
@@ -33,7 +34,7 @@ class GuestListViewController: UIViewController {
         setupBasic()
 
         fetchGuestList()
-        setSearchArea()
+        setSortArea(retuals: retuals)
         setupGuestListTableView(guests: guests)
         setBackButtonTitle()
     }
@@ -59,16 +60,22 @@ class GuestListViewController: UIViewController {
         }
     }
     
-    fileprivate func setSearchArea() {
+    fileprivate func setSortArea(retuals: [Retual]) {
         view.addSubview(guestSortAreaView)
-        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: screenSize.width, height: screenSize.height / 15))
+        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 15))
 
+        
+        
+        
+        
+        
+        
     }
     
         
     fileprivate func setupGuestListTableView(guests: [Guest]) {
         view.addSubview(guestListTableView)
-        guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.delegate = self
         guestListTableView.dataSource = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)

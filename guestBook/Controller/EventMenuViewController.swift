@@ -27,13 +27,18 @@ class EventMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        navigationItem.title = event.eventName
-        retuals = getRetuals(eventId: event.eventId)
-        self.view.backgroundColor = .red
+        setupBase()
         setupEventMenuList()
         setBackButtonTitle() 
     }
 
+    fileprivate func setupBase() {
+        navigationItem.title = event.eventName
+        retuals = getRetuals(eventId: event.eventId)
+        self.view.backgroundColor = .red
+    }
+    
+    
     fileprivate func setupEventMenuList() {
         self.view.addSubview(eventMenuList)
         eventMenuList.spacing = 10.0
@@ -70,7 +75,7 @@ class EventMenuViewController: UIViewController {
     }
     
     @objc private func showGuestList() {
-        let guestListVC = GuestListViewController(event: event)
+        let guestListVC = GuestListViewController(event: event, retuals: retuals)
         guestListVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestListVC, animated: true)
     }
