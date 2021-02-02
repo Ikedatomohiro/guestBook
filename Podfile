@@ -11,6 +11,8 @@ target 'guestBook' do
 	pod 'FirebaseFirestoreSwift'
 	pod 'Firebase/Storage'
 	pod 'GoogleSignIn'
+	pod 'Firebase/DynamicLinks'
+	pod 'Alamofire', '~> 5.2'
 #pod 'lottie-ios'
 	pod 'ChameleonFramework'
 #pod 'SnapKit'
