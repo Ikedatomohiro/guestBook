@@ -182,6 +182,45 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E52A061E25CAEA69007669CB /* EventList */ = {
+			isa = PBXGroup;
+			children = (
+				E573F424255047330000C955 /* EventNameCell.swift */,
+			);
+			path = EventList;
+			sourceTree = "<group>";
+		};
+		E52A061F25CAEA74007669CB /* GuestCard */ = {
+			isa = PBXGroup;
+			children = (
+				E5AFCC8925AF04AF00E5274A /* AddressView.swift */,
+				E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */,
+				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
+				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
+				E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */,
+				E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */,
+				E5B5ADB225B3C885002E9384 /* GroupCollectionView.swift */,
+				E5B5ADAC25B3C7D9002E9384 /* GroupListView.swift */,
+				E57444E025694EAE001D4774 /* GuestCell.swift */,
+				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
+				E5B5ADB725B3C8B0002E9384 /* RelationCollectionView.swift */,
+				C565EBA625711C36005E61AD /* RetualCollectionView.swift */,
+				E5B5ADC125B47289002E9384 /* SelectGroupView.swift */,
+				E5B5ADBC25B3CCA3002E9384 /* SelectRelationView.swift */,
+			);
+			path = GuestCard;
+			sourceTree = "<group>";
+		};
+		E52A062025CAEA87007669CB /* GuestList */ = {
+			isa = PBXGroup;
+			children = (
+				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
+				E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */,
+				E51FC58425C8081E002F965E /* GuestListTableView.swift */,
+			);
+			path = GuestList;
+			sourceTree = "<group>";
+		};
 		E56E1853254D664200205FCE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -210,24 +249,9 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5AFCC8925AF04AF00E5274A /* AddressView.swift */,
-				E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */,
-				E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */,
-				E5CB0E7125721A3E0087193F /* CheckBoxCell.swift */,
-				E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */,
-				E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */,
-				E573F424255047330000C955 /* EventNameCell.swift */,
-				E5B5ADB225B3C885002E9384 /* GroupCollectionView.swift */,
-				E5B5ADAC25B3C7D9002E9384 /* GroupListView.swift */,
-				E57444E025694EAE001D4774 /* GuestCell.swift */,
-				E570A8C925A5F8A1003C41BE /* GuestNameView.swift */,
-				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
-				E5B5ADB725B3C8B0002E9384 /* RelationCollectionView.swift */,
-				C565EBA625711C36005E61AD /* RetualCollectionView.swift */,
-				E5B5ADBC25B3CCA3002E9384 /* SelectRelationView.swift */,
-				E5B5ADC125B47289002E9384 /* SelectGroupView.swift */,
-				E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */,
-				E51FC58425C8081E002F965E /* GuestListTableView.swift */,
+				E52A062025CAEA87007669CB /* GuestList */,
+				E52A061F25CAEA74007669CB /* GuestCard */,
+				E52A061E25CAEA69007669CB /* EventList */,
 			);
 			path = View;
 			sourceTree = "<group>";
