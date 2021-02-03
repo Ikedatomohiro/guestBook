@@ -17,6 +17,7 @@
 		E51FC58525C8081E002F965E /* GuestListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E51FC58425C8081E002F965E /* GuestListTableView.swift */; };
 		E524B66325C6E3CE00497CD4 /* GuestSortAreaView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */; };
 		E524B66E25C6EA6400497CD4 /* GuestListHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */; };
+		E52A061725CAE48B007669CB /* EventListTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52A061625CAE48B007669CB /* EventListTest.swift */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
 		E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */; };
 		E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */; };
@@ -87,6 +88,7 @@
 		E51FC58425C8081E002F965E /* GuestListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListTableView.swift; sourceTree = "<group>"; };
 		E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestSortAreaView.swift; sourceTree = "<group>"; };
 		E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListHeaderCell.swift; sourceTree = "<group>"; };
+		E52A061625CAE48B007669CB /* EventListTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTest.swift; sourceTree = "<group>"; };
 		E570A8C925A5F8A1003C41BE /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
 		E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
 		E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleView.swift; sourceTree = "<group>"; };
@@ -274,6 +276,7 @@
 			children = (
 				E59D9F04254848F4000F7C45 /* guestBookTests.swift */,
 				E59D9F06254848F4000F7C45 /* Info.plist */,
+				E52A061625CAE48B007669CB /* EventListTest.swift */,
 			);
 			path = guestBookTests;
 			sourceTree = "<group>";
@@ -616,6 +619,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E52A061725CAE48B007669CB /* EventListTest.swift in Sources */,
 				E59D9F05254848F4000F7C45 /* guestBookTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

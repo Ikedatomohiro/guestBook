@@ -9,12 +9,12 @@ import UIKit
 import FirebaseFirestore
 
 class EventListViewController: UIViewController {
-    fileprivate let titleLabel         = UILabel()
+    let titleLabel         = UILabel()
     fileprivate let logInButton        = UIButton()
     fileprivate let createEventButton  = UIButton()
     fileprivate let db                 = Firestore.firestore()
     fileprivate let eventNameTextField = UITextField()
-    fileprivate let eventNameTableView = UITableView()
+    let eventNameTableView = UITableView()
     fileprivate var events             = [Event]()
     fileprivate let defaultRetuals     = Constants.defaultRetuals
     fileprivate var number: Int        = 0
@@ -118,10 +118,9 @@ class EventListViewController: UIViewController {
         backBarButtonItem.title = "イベントリストに戻る"
         self.navigationItem.backBarButtonItem = backBarButtonItem
     }
-
-
 }
 
+// MARK:- Extension
 extension EventListViewController:UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let eventMenuVC = EventMenuViewController(event: events[indexPath.row])
