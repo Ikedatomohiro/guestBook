@@ -8,10 +8,14 @@
 import UIKit
 import FirebaseFirestore
 
+protocol TransitionGuestDetailDelegate: AnyObject {
+    func transition(guestDetailVC: UIViewController, index: Int)
+}
+
 class GuestListTableView: UITableView {
     fileprivate let guests: [Guest]
-    
-    
+    weak var transitionDelegate: TransitionGuestDetailDelegate?
+
     init(guests: [Guest], frame: CGRect, style: UITableView.Style) {
         self.guests = guests
         super.init(frame: .zero, style: style)
@@ -29,7 +33,8 @@ extension GuestListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let guestDetailVC = GuestDetailViewController(guest: guests[indexPath.row])
         guestDetailVC.modalPresentationStyle = .fullScreen
-//        self.navigationController?.pushViewController(guestDetailVC, animated: true)
+        // GuestListViewContollerに返して、画面遷移させるための情報を提供する
+        transitionDelegate?.transition(guestDetailVC: guestDetailVC, index: indexPath.row)
     }
 }
 

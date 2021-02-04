@@ -16,7 +16,7 @@ DerivedData
 *.ipa
 *.xcuserstate
 
-guestBook/Extensions/Keys.swift
+*Keys.swift
 
 # CocoaPod
 Pods/*

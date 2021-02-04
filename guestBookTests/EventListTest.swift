@@ -10,18 +10,18 @@ import XCTest
 @testable import guestBook
 class EventListTest: XCTestCase {
 
-    let eventViewController = EventListViewController()
+    let eventListVC = EventListViewController()
     let eventNameTableView  = EventListViewController().eventNameTableView
     
     func testSetupTitleLabel() {
-        XCTAssertEqual(eventViewController.titleLabel.text, nil)
-        eventViewController.viewDidLoad()
-        XCTAssertEqual(eventViewController.titleLabel.text, "芳名帳アプリ")
-        XCTAssertNotEqual(eventViewController.titleLabel.text, nil)
+        XCTAssertEqual(eventListVC.titleLabel.text, nil)
+        eventListVC.viewDidLoad()
+        XCTAssertEqual(eventListVC.titleLabel.text, "芳名帳アプリ")
+        XCTAssertNotEqual(eventListVC.titleLabel.text, nil)
     }
     
     func testEventNameTableView() {
-        XCTAssertEqual(eventViewController.numberOfSections(in: eventNameTableView), 1)
+        XCTAssertEqual(eventListVC.numberOfSections(in: eventNameTableView), 1)
 
     }
     

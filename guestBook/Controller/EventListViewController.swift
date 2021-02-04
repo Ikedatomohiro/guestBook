@@ -22,7 +22,7 @@ class EventListViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        _ = fetchData()
         view.backgroundColor = .white
         setupTitleLabel()
         setLogInButton()
@@ -34,7 +34,18 @@ class EventListViewController: UIViewController {
         setBackButtonTitle()
 
     }
-
+    
+    override func viewWillAppear(_ animated: Bool) {
+        
+    }
+    
+    //MARK:- Function
+    func fetchData() -> Bool {
+        
+        
+        
+        return true
+    }
     func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.backgroundColor = .systemYellow

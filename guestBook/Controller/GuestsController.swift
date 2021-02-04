@@ -10,12 +10,10 @@ import PencilKit
 import FirebaseFirestore
 
 class GuestsController: UIPageViewController {
-//    fileprivate let retualArray:[String] = ["通夜", "告別式"]
     fileprivate let event: Event
     fileprivate let retuals: [Retual]
+    var guests: [Guest]
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
-    
-    fileprivate var guests      : [Guest] = []
     fileprivate var guestId     : String  = ""
     fileprivate var guestName   : String  = ""
     fileprivate var createdAt   : Date    = Date()
@@ -29,10 +27,10 @@ class GuestsController: UIPageViewController {
     weak var guestupdateDelegate: GuestUpdateDelegate?
 
     
-    init(event: Event, retuals: [Retual]) {
+    init(_ event: Event,_ retuals: [Retual],_ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
-//        self.guestRetuals = setGuestRetuals(retuals: retuals)
+        self.guests = guests
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
     }
 
@@ -48,30 +46,20 @@ class GuestsController: UIPageViewController {
     }
     
     fileprivate func setGuestData() {
-        Guest.collectionRef(eventId: event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
-            guard let docments = querySnapshot?.documents else { return }
-            self.guests = docments.map({ (document) -> Guest in
-                var guest = Guest(document: document)
-                guest.pageNumber = self.pageNumber
-                self.pageNumber += 1
-                return guest
-            })
-            // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-            if self.guests.count == 0 || self.guests.last != Guest(id: "new", retualList: self.retuals) {
-                // 空のguestを配列に追加
-                var newGuest = Guest(id: "new", retualList: self.retuals)
-                newGuest.pageNumber = self.guests.count + 1
-                self.guests.append(newGuest)
-            }
-            let lastIndex = self.guests.count - 1
-            self.currentIndex = lastIndex
-            let guestController = GuestController(guest: self.guests[lastIndex], retuals: self.retuals)
-            // 参加者情報登録用のdelegateをセット
-            guestController.guestupdateDelegate = self
-            self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
-            self.view.layoutIfNeeded()
+        // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
+        if self.guests.count == 0 || self.guests.last != Guest(id: "new", retualList: self.retuals) {
+            // 空のguestを配列に追加
+            var newGuest = Guest(id: "new", retualList: self.retuals)
+            newGuest.pageNumber = self.guests.count + 1
+            self.guests.append(newGuest)
         }
-
+        let lastIndex = self.guests.count - 1
+        self.currentIndex = lastIndex
+        let guestController = GuestController(guest: self.guests[lastIndex], retuals: self.retuals)
+        // 参加者情報登録用のdelegateをセット
+        guestController.guestupdateDelegate = self
+        self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
+        self.view.layoutIfNeeded()
     }
     
     

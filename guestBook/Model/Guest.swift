@@ -75,7 +75,7 @@ struct Guest {
     }
     
     static func registGuest(guest: Guest, eventId: String) -> DocumentReference {
-        let documentRef = Guest.collectionRef(eventId: eventId).addDocument(data: [
+        let documentRef = Guest.collectionRef(eventId).addDocument(data: [
             "guestName"   : guest.guestName,
             "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
@@ -95,7 +95,7 @@ struct Guest {
     }
     
     static func updateGuest(guest: Guest, eventId: String) {
-        Guest.collectionRef(eventId: eventId).document(guest.id).updateData([
+        Guest.collectionRef(eventId).document(guest.id).updateData([
             "guestName"   : guest.guestName,
             "guestNameImageData" : guest.guestNameImageData,
             "companyName" : guest.companyName,
@@ -111,7 +111,7 @@ struct Guest {
         ])
     }
     
-    static func collectionRef(eventId: String) ->CollectionReference {
+    static func collectionRef(_ eventId: String) ->CollectionReference {
         return Firestore.firestore().collection("events").document(eventId).collection("guests")
     }
     
