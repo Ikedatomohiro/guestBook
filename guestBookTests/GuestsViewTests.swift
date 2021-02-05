@@ -23,8 +23,6 @@ class GuestsViewTests: XCTestCase {
         guestsVC.setIndex(targettIndex: 1, transitionAfter: false)
         XCTAssertEqual(guestsVC.prevIndex, 1)
         XCTAssertEqual(guestsVC.nextIndex, 0)
-
-        
     }
 
 

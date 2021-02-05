@@ -44,6 +44,13 @@ class GuestsController: UIPageViewController {
         setupPageViewController()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+
+                    print("back!")
+        
+    }
+
+    
     fileprivate func setGuestData() {
         // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
         if self.guests.count == 0 || self.guests.last != Guest(id: "new", retualList: self.retuals) {
@@ -138,10 +145,8 @@ extension GuestsController: UIPageViewControllerDelegate {
                 currentIndex = guests.count
             }
             // ページめくりが完了したときに保存
-            // 問題。新しいページがどんどんできてしまう。
-            // ページを高速でめくると落ちる
-            // 内容を更新していないのにページをめくるだけで更新してしまう。
-//            let guestId = guestupdateDelegate?.update(guest: guests[prevIndex])
+
+            guestupdateDelegate?.updateCloud(guest: guests[prevIndex])
 //            if (guests[currentIndex].id == "new" && guestId != nil) {
 //                guests[currentIndex].id = guestId!
 //            }
@@ -158,7 +163,21 @@ extension GuestsController: UIPageViewControllerDelegate {
 }
 
 extension GuestsController: GuestUpdateDelegate {
-    func update(guest: Guest) -> String {
+    func update(guest: Guest) {
+        if (guest.id == "new") {
+            let index = guests.firstIndex(where: {$0.id == "new"})
+            if index != nil {
+                guests[index!] = guest
+            }
+        } else {
+            let index = guests.firstIndex(where: {$0.id == guest.id})
+            if index != nil {
+                guests[index!] = guest
+            }
+        }
+    }
+    
+    func updateCloud(guest: Guest) {
         if (guest.id == "new") {
             let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
             let index = guests.firstIndex(where: {$0.id == "new"})
@@ -166,14 +185,13 @@ extension GuestsController: GuestUpdateDelegate {
                 guests[index!] = guest
                 guests[index!].id = documentRef.documentID
             }
-            return documentRef.documentID
         } else {
             Guest.updateGuest(guest: guest, eventId: event.eventId)
             let index = guests.firstIndex(where: {$0.id == guest.id})
             if index != nil {
                 guests[index!] = guest
             }
-            return guests[index!].id
+            
         }
     }
     

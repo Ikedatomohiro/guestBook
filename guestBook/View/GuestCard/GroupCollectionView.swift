@@ -54,10 +54,7 @@ extension GroupCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.groups[indexPath.row] = isActive
-        let guestId = updateDelegate?.update(guest: guest)
-        if (guest.id == "new" && guestId != nil) {
-            guest.id = guestId!
-        }
+        updateDelegate?.update(guest: guest)
         collectionView.reloadData()
     }
 }

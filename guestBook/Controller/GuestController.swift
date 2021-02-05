@@ -13,7 +13,8 @@ import FirebaseStorage
 let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
 
 protocol GuestUpdateDelegate: AnyObject {
-    func update(guest: Guest) -> String
+    func update(guest: Guest)
+    func updateCloud(guest: Guest)
 }
 protocol GuestItemUpdateDelegate: AnyObject {
     func update<T>(inputView: T)
@@ -156,9 +157,6 @@ extension GuestController: GuestItemUpdateDelegate {
                     print(error.debugDescription)
                 }
             }
-
-
-
             break
         case is CompanyNameView:
             guest.companyName = companyNameView.companyNameTextField.text ?? ""
@@ -186,9 +184,6 @@ extension GuestController: GuestItemUpdateDelegate {
             guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         }
-        let guestId = guestupdateDelegate?.update(guest: guest)
-        if (guest.id == "new" && guestId != nil) {
-            guest.id = guestId!
-        }
+        guestupdateDelegate?.update(guest: guest)
     }
 }
