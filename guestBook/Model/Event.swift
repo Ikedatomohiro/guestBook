@@ -18,4 +18,11 @@ struct Event {
         self.eventId   = document.documentID
         self.createdAt = dictionary["createdAt"] as? Date ?? Date()
     }
+    
+    init() {
+        self.eventName = ""
+        self.eventId   = ""
+        self.createdAt = Date()
+    }
+    
 }

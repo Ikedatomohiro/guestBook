@@ -1,5 +1,5 @@
 //
-//  EventListTest.swift
+//  EventListTests.swift
 //  guestBookTests
 //
 //  Created by Tomohiro Ikeda on 2021/02/03.
@@ -8,7 +8,7 @@
 import XCTest
 
 @testable import guestBook
-class EventListTest: XCTestCase {
+class EventListTests: XCTestCase {
 
     let eventListVC = EventListViewController()
     let eventNameTableView  = EventListViewController().eventNameTableView

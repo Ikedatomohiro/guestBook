@@ -17,13 +17,12 @@ class GuestsController: UIPageViewController {
     fileprivate var guestId     : String  = ""
     fileprivate var guestName   : String  = ""
     fileprivate var createdAt   : Date    = Date()
-    fileprivate var currentIndex: Int     = 0
-    fileprivate var prevIndex   : Int     = 0
-    fileprivate var nextIndex   : Int     = 0
+    var currentIndex: Int     = 0
+    
+    var prevIndex   : Int     = 0
+    var nextIndex   : Int     = 0
     fileprivate var pageNumber  : Int     = 1
 
-    
-    lazy var currentGuestController: GuestController = GuestController(guest: guests[currentIndex], retuals: retuals)
     weak var guestupdateDelegate: GuestUpdateDelegate?
 
     
@@ -32,9 +31,9 @@ class GuestsController: UIPageViewController {
         self.retuals = retuals
         self.guests = guests
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
+        self.guestupdateDelegate = self
     }
 
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -62,26 +61,19 @@ class GuestsController: UIPageViewController {
         self.view.layoutIfNeeded()
     }
     
-    
     fileprivate func setupPageViewController() {
         view.backgroundColor = .white
         dataSource = self
         delegate = self
     }
 
-    fileprivate func setGuestRetuals(retuals: [Retual]) {
-//        for retual in retuals {
-////            retual[retual["key"]] = retual["value"]
-//        }
-    }
 }
 extension GuestsController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
-//        _ = guestupdateDelegate?.update(guest: guests[currentIndex])
-        nextIndex = currentIndex + 1
-        currentIndex = nextIndex
+        // guestsを操作するindexをセット
+        setIndex(targettIndex: currentIndex, transitionAfter: true)
         if nextIndex <= guests.count - 1 {
             let guestVC = GuestController(guest: guests[nextIndex], retuals: retuals)
             guestVC.guestupdateDelegate = self
@@ -105,21 +97,31 @@ extension GuestsController: UIPageViewControllerDataSource {
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
-        prevIndex = currentIndex - 1
-        guard prevIndex >= 0 else {
+        // guestsを操作するindexをセット
+        setIndex(targettIndex: currentIndex, transitionAfter: false)
+        guard nextIndex >= 0 else {
             // 1ページ目のときはページを戻す動作をしない
-            prevIndex = 0
+            nextIndex = 0
             return nil
         }
-        currentIndex = prevIndex
-
-        let guestVC = GuestController(guest: guests[prevIndex], retuals: retuals)
+        let guestVC = GuestController(guest: guests[nextIndex], retuals: retuals)
         guestVC.guestupdateDelegate = self
 
         return guestVC
     }
- }
-
+    
+    // GuestControllerにセットおよび保存するguestsのindexを作成
+    func setIndex(targettIndex: Int, transitionAfter: Bool) -> Void {
+        if transitionAfter == true {
+            nextIndex = targettIndex + 1
+            prevIndex = targettIndex
+        } else if transitionAfter == false {
+            nextIndex = targettIndex - 1
+            prevIndex = targettIndex
+        }
+        return
+    }
+}
 
 extension GuestsController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
@@ -135,9 +137,11 @@ extension GuestsController: UIPageViewControllerDelegate {
             } else {
                 currentIndex = guests.count
             }
-//            ここで保存できる？？
-//            guestController.guestupdateDelegate = self
-//            let guestId = guestupdateDelegate?.update(guest: guests[currentIndex])
+            // ページめくりが完了したときに保存
+            // 問題。新しいページがどんどんできてしまう。
+            // ページを高速でめくると落ちる
+            // 内容を更新していないのにページをめくるだけで更新してしまう。
+//            let guestId = guestupdateDelegate?.update(guest: guests[prevIndex])
 //            if (guests[currentIndex].id == "new" && guestId != nil) {
 //                guests[currentIndex].id = guestId!
 //            }
@@ -161,7 +165,6 @@ extension GuestsController: GuestUpdateDelegate {
             if index != nil {
                 guests[index!] = guest
                 guests[index!].id = documentRef.documentID
-//            guest.id = documentRef.documentID   // idを変更できない。どこでletになっているかわからない。
             }
             return documentRef.documentID
         } else {
