@@ -16,14 +16,14 @@ class GuestsViewTests: XCTestCase {
     lazy var guestsVC = GuestsController(event, retuals, guests)
     
     func testSetIndex() {
-        guestsVC.setIndex(targettIndex: 1, transitionAfter: true)
+        guestsVC.setIndex(1, viewControllerAfter: true)
         XCTAssertEqual(guestsVC.prevIndex, 1)
         XCTAssertEqual(guestsVC.nextIndex, 2)
         
-        guestsVC.setIndex(targettIndex: 1, transitionAfter: false)
+        guestsVC.setIndex(1, viewControllerAfter: false)
         XCTAssertEqual(guestsVC.prevIndex, 1)
         XCTAssertEqual(guestsVC.nextIndex, 0)
     }
-
-
+    
+    
 }

@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestore
 
 class EventMenuViewController: UIViewController {
-
+    
     fileprivate let event: Event
     fileprivate var guests: [Guest]       = []
     fileprivate let eventMenuList         = UIStackView()
@@ -18,7 +18,7 @@ class EventMenuViewController: UIViewController {
     fileprivate let showSettingButton     = UIButton()
     fileprivate var retuals:[Retual]      = []
     fileprivate var pageNumber: Int       = 0
-
+    
     init(event: Event) {
         self.event = event
         super.init(nibName: nil, bundle: nil)
@@ -33,7 +33,7 @@ class EventMenuViewController: UIViewController {
         setupEventMenuList()
         setBackButtonTitle() 
     }
-
+    
     override func viewWillAppear(_ animated: Bool) {
         _ = fetchData()
     }
@@ -94,7 +94,7 @@ class EventMenuViewController: UIViewController {
         showSettingButton.layer.cornerRadius = 5
         eventMenuList.addArrangedSubview(showSettingButton)
         showSettingButton.addTarget(self, action: #selector(showSetting), for: .touchUpInside)
-
+        
     }
     
     @objc private func showGuestCard() {
@@ -114,7 +114,7 @@ class EventMenuViewController: UIViewController {
         settingVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
-
+    
     // 戻るボタンの名称をセット
     fileprivate func setBackButtonTitle() {
         let backBarButtonItem = UIBarButtonItem()

@@ -13,22 +13,22 @@ fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStor
 
 struct Guest {
     var id: String
-    let eventId     : String
-    var guestName   : String
-    var guestNameImage : PKDrawing
-    var guestNameImageData : Data
-    var companyName : String
+    let eventId: String
+    var guestName: String
+    var guestNameImage: PKDrawing
+    var guestNameImageData: Data
+    var companyName: String
     var companyNameImageData : Data
-    var retuals     : Dictionary<String, Bool> = [:]
-    var zipCode     : String
-    var address     : String
-    var telNumber   : String
-    var relations   : Array<Bool>
-    var groups      : Array<Bool>
-    var description : String
-    var pageNumber  : Int
-    let createdAt   : Date
-    var updatedAt   : Date
+    var retuals: Dictionary<String, Bool> = [:]
+    var zipCode: String
+    var address: String
+    var telNumber: String
+    var relations: Array<Bool>
+    var groups: Array<Bool>
+    var description: String
+    var pageNumber: Int
+    let createdAt: Date
+    var updatedAt: Date
 
 // MARK:-
     
@@ -131,8 +131,10 @@ extension Guest: Equatable {
     static func == (lhs: Guest, rhs: Guest) -> Bool {
         return lhs.id          == rhs.id
             && lhs.guestName   == rhs.guestName
+            && lhs.guestNameImageData   == rhs.guestNameImageData
             && lhs.companyName == rhs.companyName
-//            && lhs.retuals     == rhs.retuals
+            && lhs.companyNameImageData == rhs.companyNameImageData
+            && lhs.retuals     == rhs.retuals
             && lhs.zipCode     == rhs.zipCode
             && lhs.address     == rhs.address
             && lhs.telNumber   == rhs.telNumber

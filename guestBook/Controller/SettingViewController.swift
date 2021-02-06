@@ -8,11 +8,21 @@
 import UIKit
 import Alamofire
 import FirebaseStorage
+import SwiftyJSON
+
+struct responseText {
+    let responseText: String
+    let responseDescription: String
+}
 
 class SettingViewController: UIViewController {
     var points: [CGPoint]!
     var b64String: String!
     var googleAPIKey = Keys.googleVisionAPIKey
+    
+
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
@@ -39,12 +49,12 @@ class SettingViewController: UIViewController {
                         ],
                         "imageContext": [
                             "languageHints": [
-                            "ja-t-i0-handwrit"
-                          ]
+                                "ja-t-i0-handwrit"
+                            ]
                         ]
                     ]
                 ]
-
+                
                 let headers: HTTPHeaders = [
                     "Content-Type": "application/json",
                     "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? ""]
@@ -55,11 +65,31 @@ class SettingViewController: UIViewController {
                     encoding: JSONEncoding.default,
                     headers: headers)
                     .responseJSON { response in
-                        debugPrint(response)
+                        guard let responseData = response.data else { return }
+                        let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options:.allowFragments) as? [String: Any]
+                        
+//                        print(jsonObject)
+//                        print(">>>>>>>>>>>>>>>>>>>>>>>>>>.")
+//                        debugPrint(response)
+//                        let responseName = try? JSONDecoder().decode(responseText.self, from: responseData)
+                        
+                        let jsonValue = JSON(jsonObject)
+                        let responseName = jsonValue["responses"][0]["textAnnotations"][0]["description"].string!  // ここは不安定だから対処必要
+                        let trimedName = responseName.trimmingCharacters(in: .newlines)
+                        print(responseName)
+                        print(trimedName)
+                        
+                        
+                        
+                        
+                        
+                        
                         return
-                }
+                    }
+            } else {
+                print(URL ?? "画像が見つかりません")
+
             }
-            print(URL ?? "画像が見つかりません")
         }
     }
     
