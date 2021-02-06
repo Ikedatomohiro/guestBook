@@ -14,17 +14,15 @@ class GuestsPageViewController: UIPageViewController {
     fileprivate let retuals: [Retual]
     var guests: [Guest]
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
-    fileprivate var guestId     : String  = ""
-    fileprivate var guestName   : String  = ""
-    fileprivate var createdAt   : Date    = Date()
-    var currentIndex: Int     = 0
-    
-    var prevIndex   : Int     = 0
-    var nextIndex   : Int     = 0
+    fileprivate var guestId: String   = ""
+    fileprivate var guestName: String = ""
+    fileprivate var createdAt: Date   = Date()
+    var currentIndex: Int = 0
+    var prevIndex: Int    = 0
+    var nextIndex: Int    = 0
     fileprivate var pageNumber  : Int     = 1
     
     weak var guestupdateDelegate: GuestUpdateDelegate?
-    
     
     init(_ event: Event,_ retuals: [Retual],_ guests: [Guest]) {
         self.event = event

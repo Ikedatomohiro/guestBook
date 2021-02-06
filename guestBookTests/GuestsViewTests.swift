@@ -13,7 +13,7 @@ class GuestsViewTests: XCTestCase {
     let event = Event()
     let retuals = [Retual(name: "kankonsousai")]
     lazy var guests = [Guest(id: "new", retualList: retuals)]
-    lazy var guestsVC = GuestsController(event, retuals, guests)
+    lazy var guestsVC = GuestsPageViewController(event, retuals, guests)
     
     func testSetIndex() {
         guestsVC.setIndex(1, viewControllerAfter: true)

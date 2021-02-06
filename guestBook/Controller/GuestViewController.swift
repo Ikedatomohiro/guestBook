@@ -1,5 +1,5 @@
 //
-//  GuestController.swift
+//  GuestViewController.swift
 //  guestBook
 //
 //  Created by 杉崎圭 on 2020/11/11.
@@ -20,13 +20,14 @@ protocol GuestItemUpdateDelegate: AnyObject {
     func update<T>(inputView: T)
 }
 
-class GuestController: UIViewController {
+class GuestViewController: UIViewController {
     
     var guest: Guest
     var retuals: [Retual]
     weak var guestupdateDelegate: GuestUpdateDelegate?
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
     
+    // UIView
     fileprivate let backGroundFrame    = UIView()
     fileprivate let cardHeaderView     = CardHeaderView()
     fileprivate let cardTitleView      = CardTitleView()
@@ -36,6 +37,7 @@ class GuestController: UIViewController {
     fileprivate let selectRelationView = SelectRelationView()
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
+
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     let layout: UICollectionViewFlowLayout = {
@@ -145,7 +147,7 @@ class GuestController: UIViewController {
     }
 }
 // MARK:- Extensions
-extension GuestController: GuestItemUpdateDelegate {
+extension GuestViewController: GuestItemUpdateDelegate {
     func update<T>(inputView: T) {
         switch inputView {
         case is RetualCollectionView:
