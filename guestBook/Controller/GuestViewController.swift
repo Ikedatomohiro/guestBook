@@ -14,7 +14,6 @@ let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: 
 
 protocol GuestUpdateDelegate: AnyObject {
     func update(guest: Guest)
-    func updateCloud(guest: Guest)
 }
 protocol GuestItemUpdateDelegate: AnyObject {
     func update<T>(inputView: T)

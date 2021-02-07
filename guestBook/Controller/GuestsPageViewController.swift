@@ -29,7 +29,6 @@ class GuestsPageViewController: UIPageViewController {
         self.retuals = retuals
         self.guests = guests
         super.init(transitionStyle: .pageCurl, navigationOrientation: .horizontal, options: .none)
-        self.guestupdateDelegate = self
     }
     
     required init?(coder: NSCoder) {
@@ -108,7 +107,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         setIndex(currentIndex, viewControllerAfter: false)
         guard nextIndex >= 0 else {
             // 1ページ目のときはページを戻す動作をしない
-            nextIndex = 0
+            currentIndex = 0
             return nil
         }
         
@@ -129,39 +128,6 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         currentIndex = nextIndex
         return
     }
-}
-
-extension GuestsPageViewController: UIPageViewControllerDelegate {
-    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        print("willTransitionTo")
-    }
-    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        print("didFinishAnimating")
-        // ページめくりが完了したとき
-        if completed {
-            guard let guestController = pageViewController.viewControllers?.first as? GuestViewController else { return }
-            // ページめくりが完了したときに保存
-            guestupdateDelegate?.updateCloud(guest: guests[prevIndex])
-            // ページを捲り始めたが、元のページに戻ったとき
-        } else {
-            guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
-            if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {
-                currentIndex = index
-            } else {
-                fatalError()
-            }
-        }
-    }
-}
-
-extension GuestsPageViewController: GuestUpdateDelegate {
-    func update(guest: Guest) {
-        let index = guests.firstIndex(where: {$0.id == guest.id})
-        if index != nil {
-            guests[index!] = guest
-        }
-    }
-    
     func updateCloud(guest: Guest) {
         if guest == Guest(id: "new", retualList: retuals) {
             return()
@@ -173,17 +139,21 @@ extension GuestsPageViewController: GuestUpdateDelegate {
                 guests[index!] = guest
                 guests[index!].id = documentRef.documentID
             }
+            saveImageData(guest)
             if guest.guestNameImageData != nil {
                 
             }
         } else {
             Guest.updateGuest(guest: guest, eventId: event.eventId)
-            let index = guests.firstIndex(where: {$0.id == guest.id})
-            if index != nil {
-                guests[index!] = guest
-            }
             
         }
+    }
+    
+    
+    
+    
+    func saveImageData(_ guest: Guest) {
+        
     }
     
     func throwOcrApi() {
@@ -203,6 +173,45 @@ extension GuestsPageViewController: GuestUpdateDelegate {
         
         
         
+    }
+    
+    
+    
+    
+    
+    
+}
+
+extension GuestsPageViewController: UIPageViewControllerDelegate {
+    func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
+        print("willTransitionTo")
+    }
+    func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
+        print("didFinishAnimating")
+        // ページめくりが完了したとき
+        if completed {
+            //            guard let guestController = pageViewController.viewControllers?.first as? GuestViewController else { return }
+            // ページめくりが完了したときに保存
+            updateCloud(guest: guests[prevIndex])
+            // ページを捲り始めたが、元のページに戻ったとき
+        } else {
+            guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
+            if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {
+                currentIndex = index
+            } else {
+                fatalError()
+            }
+        }
+    }
+    
+}
+
+extension GuestsPageViewController: GuestUpdateDelegate {
+    func update(guest: Guest) {
+        let index = guests.firstIndex(where: {$0.id == guest.id})
+        if index != nil {
+            guests[index!] = guest
+        }
     }
     
 }

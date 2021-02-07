@@ -33,14 +33,16 @@ class SettingViewController: UIViewController {
         
         let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)"
         var imageUri = ""
-        FirebaseStorage.Storage.storage().reference().child("QFQSYdXfzaUceWlWfWsj_guestName.png").downloadURL { (URL, error) in
+        FirebaseStorage.Storage.storage().reference().child("6FiEyIAX1XaB6zHItgf8_guestName.png").downloadURL { (URL, error) in
             // 画像URLを取得できたときに画像解析を行う
             if URL != nil {
                 imageUri = URL?.absoluteString ?? ""
+ print(imageUri)
                 let parameters: Parameters = [
                     "requests": [
                         "image": [
-                            "source": ["imageUri": imageUri
+//                            "source": ["imageUri": imageUri
+                                       "source": ["imageUri": "https://firebasestorage.googleapis.com/v0/b/guestbook-311bf.appspot.com/o/6FiEyIAX1XaB6zHItgf8_guestName.png?alt=media"
                             ]
                         ],
                         "features": [
@@ -70,7 +72,7 @@ class SettingViewController: UIViewController {
                         
 //                        print(jsonObject)
 //                        print(">>>>>>>>>>>>>>>>>>>>>>>>>>.")
-//                        debugPrint(response)
+                        debugPrint(response)
 //                        let responseName = try? JSONDecoder().decode(responseText.self, from: responseData)
                         
                         let jsonValue = JSON(jsonObject)
