@@ -75,6 +75,10 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
+        // 遷移前のページが初期状態の場合、ページをめくらない
+        if guests[currentIndex] == Guest(id:"new", retualList: retuals)  {
+            return nil
+        }
         // guestsを操作するindexをセット
         setIndex(currentIndex, viewControllerAfter: true)
         // 最後のページ以前でページが進められたとき
@@ -82,14 +86,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             let guestVC = GuestViewController(guest: guests[nextIndex], retuals: retuals)
             guestVC.guestupdateDelegate = self
             return guestVC
-            // 遷移前のページが初期状態の場合、そのままのページを使う
-        } else if guests[prevIndex] == Guest(id:"new", retualList: retuals)  {
-            // 新しいページではなく最終ページのindexをそのまま使う。
-            currentIndex = prevIndex
-            let guestVC = GuestViewController(guest: guests[prevIndex], retuals: retuals)
-            guestVC.guestupdateDelegate = self
-            return guestVC
-            // 最後のページにデータが入っているときにページが進められたとき
+        // 最後のページにデータが入っているときにページが進められたとき
         } else {
             var newGuest = Guest(id: "new", retualList: retuals)
             newGuest.pageNumber = guests.count + 1
@@ -103,24 +100,23 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     // 右にスワイプ（戻る）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
-        // guestsを操作するindexをセット
-        setIndex(currentIndex, viewControllerAfter: false)
-        guard nextIndex >= 0 else {
+        if currentIndex == 0 {
             // 1ページ目のときはページを戻す動作をしない
-            currentIndex = 0
             return nil
         }
-        
+        // guestsを操作するindexをセット
+        setIndex(currentIndex, viewControllerAfter: false)
         let guestVC = GuestViewController(guest: guests[nextIndex], retuals: retuals)
         guestVC.guestupdateDelegate = self
-        
         return guestVC
     }
     
     // GuestControllerにセットおよび保存するguestsのindexを作成
     func setIndex(_ targettIndex: Int, viewControllerAfter: Bool) -> Void {
+        // ページ進むとき
         if viewControllerAfter == true {
             nextIndex = targettIndex + 1
+        // ページ戻るとき
         } else if viewControllerAfter == false {
             nextIndex = targettIndex - 1
         }
