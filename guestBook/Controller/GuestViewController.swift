@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseStorage
+import PencilKit
 
 //スクリーンサイズの取得
 let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
@@ -63,9 +64,9 @@ class GuestViewController: UIViewController {
         setupBackgroundFrame()
         setupGuestNameView()
         setupCompanyNameView()
-        //        setupAddressView()
-        //        setupSelectRelationView()
-        //        setupDescriptionView()
+        setupAddressView()
+        setupSelectRelationView()
+        setupDescriptionView()
     }
     fileprivate func setupBasic() {
         view.backgroundColor = .white
@@ -172,24 +173,17 @@ extension GuestViewController: GuestItemUpdateDelegate {
             break
             
         case is AddressView:
-            //            let textField = inputView as? UITextField
-            //            switch textField?.accessibilityIdentifier {
-            //            case "zipCode":
             guest.zipCode = addressView.zipCodeTextField.text ?? ""
-            //                break
-            //            case "telNumber":
+            guest.zipCodeImageData = addressView.zipCodeCanvas.drawing.dataRepresentation()
+
             guest.telNumber = addressView.telNumberTextField.text ?? ""
-            //                break
-            //            case "address":
+            guest.telNumberImageData = addressView.telNumberCanvas.drawing.dataRepresentation()
+
             guest.address = addressView.addressTextField.text ?? ""
-            //                break
-            //            default:
-            //                break
-            //            }
-            
+            guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
             break
         default:
-            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
+//            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         }
         guestupdateDelegate?.update(guest: guest)

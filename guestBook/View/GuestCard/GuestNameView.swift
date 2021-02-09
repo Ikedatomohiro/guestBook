@@ -57,13 +57,7 @@ class GuestNameView: UIView {
         guestNameCanvas.isOpaque = false
         guestNameCanvas.delegate = self
         guestNameCanvas.layer.borderWidth = 1.0
-        do {
-            self.guestNameCanvas.drawing = try PKDrawing(data: ImageData)
-        }
-        catch {
-            let nserror = error as NSError
-            print("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        guestNameCanvas.setDrawingData(guestNameCanvas, ImageData)
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
     }
 
@@ -72,7 +66,7 @@ class GuestNameView: UIView {
     }
     
 }
-
+// MARK:- Extensions
 extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)

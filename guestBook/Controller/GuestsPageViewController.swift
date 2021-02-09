@@ -145,9 +145,6 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         }
     }
     
-    
-    
-    
     func saveImageData(_ guest: Guest) {
         
     }
@@ -177,7 +174,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     
     
 }
-
+// MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         print("willTransitionTo")
@@ -186,10 +183,9 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
-            //            guard let guestController = pageViewController.viewControllers?.first as? GuestViewController else { return }
             // ページめくりが完了したときに保存
             updateCloud(guest: guests[prevIndex])
-            // ページを捲り始めたが、元のページに戻ったとき
+        // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
             if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {
@@ -199,7 +195,6 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
             }
         }
     }
-    
 }
 
 extension GuestsPageViewController: GuestUpdateDelegate {

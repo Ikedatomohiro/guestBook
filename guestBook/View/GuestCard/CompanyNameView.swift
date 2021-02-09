@@ -50,13 +50,7 @@ class CompanyNameView: UIView {
         companyNameCanvas.isOpaque = false
         companyNameCanvas.delegate = self
         companyNameCanvas.layer.borderWidth = 1.0
-        do {
-            self.companyNameCanvas.drawing = try PKDrawing(data: ImageData)
-        }
-        catch {
-            let nserror = error as NSError
-            print("Unresolved error \(nserror), \(nserror.userInfo)")
-        }
+        companyNameCanvas.setDrawingData(companyNameCanvas, ImageData)
         companyNameCanvas.setupPencil(canvas: companyNameCanvas)
     }
     @objc func textFieldDidChange() {
