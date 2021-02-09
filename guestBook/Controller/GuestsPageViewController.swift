@@ -20,7 +20,6 @@ class GuestsPageViewController: UIPageViewController {
     var currentIndex: Int = 0
     var prevIndex: Int    = 0
     var nextIndex: Int    = 0
-    fileprivate var pageNumber  : Int     = 1
     
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
@@ -49,9 +48,9 @@ class GuestsPageViewController: UIPageViewController {
     
     fileprivate func setGuestData() {
         // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
-        if guests.count == 0 || self.guests.last != Guest(id: "new", retualList: retuals) {
+        if guests.count == 0 || self.guests.last != Guest("new", retuals) {
             // 空のguestを配列に追加
-            var newGuest = Guest(id: "new", retualList: self.retuals)
+            var newGuest = Guest("new", retuals)
             newGuest.pageNumber = self.guests.count + 1
             self.guests.append(newGuest)
         }
@@ -71,12 +70,14 @@ class GuestsPageViewController: UIPageViewController {
     }
     
 }
+
+// MARK:- 
 extension GuestsPageViewController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
         // 遷移前のページが初期状態の場合、ページをめくらない
-        if guests[currentIndex] == Guest(id:"new", retualList: retuals)  {
+        if guests[currentIndex] == Guest("new", retuals)  {
             return nil
         }
         // guestsを操作するindexをセット
@@ -88,7 +89,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             return guestVC
         // 最後のページにデータが入っているときにページが進められたとき
         } else {
-            var newGuest = Guest(id: "new", retualList: retuals)
+            var newGuest = Guest("new", retuals)
             newGuest.pageNumber = guests.count + 1
             guests.append(newGuest)
             let guestVC = GuestViewController(guest: newGuest, retuals: retuals)
@@ -125,27 +126,29 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         return
     }
     func updateCloud(guest: Guest) {
-        if guest == Guest(id: "new", retualList: retuals) {
+        if guest == Guest("new", retuals) {
             return()
         }
         if guest.id == "new" {
-            let documentRef = Guest.registGuest(guest: guest, eventId: event.eventId)
+            // Firestoreにデータを保存
+            let documentRef = Guest.registGuest(guest, event.eventId)
             let index = guests.firstIndex(where: {$0.id == "new"})
             if index != nil {
                 guests[index!] = guest
                 guests[index!].id = documentRef.documentID
             }
-            saveImageData(guest)
-            if guest.guestNameImageData != nil {
-                
-            }
         } else {
-            Guest.updateGuest(guest: guest, eventId: event.eventId)
+            Guest.updateGuest(guest, event.eventId)
             
         }
+        // FirestoreStorageにデータを保存
+        saveImageData(guest.companyNameImageData)
+
     }
     
-    func saveImageData(_ guest: Guest) {
+    func saveImageData(_ imageData: Data) {
+        let canvas: PKCanvasView = PKCanvasView()
+        canvas.setDrawingData(canvas, imageData)
         
     }
     

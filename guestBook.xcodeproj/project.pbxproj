@@ -188,6 +188,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E5268A8E25D2AB6200325739 /* Structures */ = {
+			isa = PBXGroup;
+			children = (
+				E586221025C17DA100291182 /* Constants.swift */,
+				E57D43A825BD4ED300CC459A /* Keys.swift */,
+			);
+			path = Structures;
+			sourceTree = "<group>";
+		};
 		E52A061E25CAEA69007669CB /* EventList */ = {
 			isa = PBXGroup;
 			children = (
@@ -291,6 +300,7 @@
 				E56E1855254D665D00205FCE /* View */,
 				E56E1853254D664200205FCE /* Controller */,
 				E59D9F2F25484DC4000F7C45 /* Extensions */,
+				E5268A8E25D2AB6200325739 /* Structures */,
 				E59D9EED254848F1000F7C45 /* AppDelegate.swift */,
 				E59D9EEF254848F1000F7C45 /* SceneDelegate.swift */,
 				E59D9EF6254848F3000F7C45 /* Assets.xcassets */,
@@ -329,8 +339,6 @@
 				E59D9F3025484DE4000F7C45 /* Anchor.swift */,
 				E573F42925504A2B0000C955 /* NSObject.swift */,
 				E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */,
-				E57D43A825BD4ED300CC459A /* Keys.swift */,
-				E586221025C17DA100291182 /* Constants.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";

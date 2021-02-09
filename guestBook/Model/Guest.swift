@@ -61,7 +61,7 @@ struct Guest {
         self.updatedAt            = dictionary["updatedAt"]   as? Date   ?? Date()
     }
 
-    init(id: String, retualList: [Retual]) {
+    init(_ id: String,_ retualList: [Retual]) {
         self.id                   = id
         self.eventId              = ""
         self.guestName            = ""
@@ -86,7 +86,7 @@ struct Guest {
         self.retuals     = setDefaultAttendance(retualList: retualList)        
     }
     
-    static func registGuest(guest: Guest, eventId: String) -> DocumentReference {
+    static func registGuest(_ guest: Guest,_ eventId: String) -> DocumentReference {
         let documentRef = Guest.collectionRef(eventId).addDocument(data: [
             "guestName"            : guest.guestName,
             "guestNameImageData"   : guest.guestNameImageData,
@@ -110,7 +110,7 @@ struct Guest {
         return documentRef
     }
     
-    static func updateGuest(guest: Guest, eventId: String) {
+    static func updateGuest(_ guest: Guest,_ eventId: String) {
         Guest.collectionRef(eventId).document(guest.id).updateData([
             "guestName"            : guest.guestName,
             "guestNameImageData"   : guest.guestNameImageData,

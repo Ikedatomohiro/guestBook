@@ -10,9 +10,6 @@ import FirebaseFirestore
 import FirebaseStorage
 import PencilKit
 
-//スクリーンサイズの取得
-let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
-
 protocol GuestUpdateDelegate: AnyObject {
     func update(guest: Guest)
 }
@@ -146,6 +143,7 @@ class GuestViewController: UIViewController {
         descriptionView.layer.borderWidth = 1.0
     }
 }
+
 // MARK:- Extensions
 extension GuestViewController: GuestItemUpdateDelegate {
     func update<T>(inputView: T) {

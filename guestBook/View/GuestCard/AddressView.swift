@@ -74,32 +74,6 @@ class AddressView: UIView {
         addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     
-    // MARK:- zipCode
-    fileprivate func setupZipCodeLabel(_ guest: Guest) {
-        // 郵便番号の枠
-        setupZipCodeFrame()
-        // 手書きエリア
-        addSubview(zipCodeCanvas)
-        zipCodeCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: addressTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 400, height: 60))
-        zipCodeCanvas.isOpaque = false
-        zipCodeCanvas.layer.borderWidth = 1.0
-        zipCodeCanvas.setDrawingData(zipCodeCanvas, guest.zipCodeImageData)
-        zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
-        zipCodeCanvas.delegate = self
-        zipCodeCanvas.accessibilityIdentifier = "zipCode"
-    }
-    
-    fileprivate func setupZipCodeTextField(zipCode: String) {
-        addSubview(zipCodeTextField)
-        zipCodeTextField.anchor(top: zipCodeTitleLabel.bottomAnchor, leading: addressTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        zipCodeTextField.layer.borderWidth = 1.0
-        zipCodeTextField.text = zipCode
-        zipCodeTextField.accessibilityIdentifier = "zipCode"
-        zipCodeTextField.placeholder = "郵便番号"
-        zipCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-        
-    }
-    
     // MARK:- telNumber
     fileprivate func setupTelNumberLabel(_ guest: Guest) {
         addSubview(telNumberTitleLabel)
@@ -129,6 +103,32 @@ class AddressView: UIView {
         telNumberTextField.text = telNumber
         telNumberTextField.accessibilityIdentifier = "telNumber"
         telNumberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+    }
+    
+    // MARK:- zipCode
+    fileprivate func setupZipCodeLabel(_ guest: Guest) {
+        // 郵便番号の枠
+        setupZipCodeFrame()
+        // 手書きエリア
+        addSubview(zipCodeCanvas)
+        zipCodeCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: addressTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: 400, height: 60))
+        zipCodeCanvas.isOpaque = false
+        zipCodeCanvas.layer.borderWidth = 1.0
+        zipCodeCanvas.setDrawingData(zipCodeCanvas, guest.zipCodeImageData)
+        zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
+        zipCodeCanvas.delegate = self
+        zipCodeCanvas.accessibilityIdentifier = "zipCode"
+    }
+    
+    fileprivate func setupZipCodeTextField(zipCode: String) {
+        addSubview(zipCodeTextField)
+        zipCodeTextField.anchor(top: zipCodeTitleLabel.bottomAnchor, leading: addressTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
+        zipCodeTextField.layer.borderWidth = 1.0
+        zipCodeTextField.text = zipCode
+        zipCodeTextField.accessibilityIdentifier = "zipCode"
+        zipCodeTextField.placeholder = "郵便番号"
+        zipCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
+        
     }
     
     fileprivate func setupZipCodeFrame() {
