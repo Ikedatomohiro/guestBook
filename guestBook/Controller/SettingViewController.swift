@@ -26,14 +26,14 @@ class SettingViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .blue
-        callGoogleVisionApi()
+        callGoogleVisionApi(fileName: "6FiEyIAX1XaB6zHItgf8_guestName.png")
     }
     
-    fileprivate func callGoogleVisionApi() {
+    func callGoogleVisionApi(fileName: String) {
         
         let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(googleAPIKey)"
         var imageUri = ""
-        FirebaseStorage.Storage.storage().reference().child("6FiEyIAX1XaB6zHItgf8_guestName.png").downloadURL { (URL, error) in
+        FirebaseStorage.Storage.storage().reference().child(fileName).downloadURL { (URL, error) in
             // 画像URLを取得できたときに画像解析を行う
             if URL != nil {
                 imageUri = URL?.absoluteString ?? ""

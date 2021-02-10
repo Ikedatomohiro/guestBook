@@ -15,3 +15,7 @@ struct Constants {
 //スクリーンサイズの取得
 let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
 
+let guestNameWidth = screenSize.width / 2
+let guestNameHeight = screenSize.height / 5
+let companyNameWidth = screenSize.width / 2
+let companyNameHeight = screenSize.height / 5

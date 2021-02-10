@@ -8,6 +8,10 @@
 import UIKit
 import PencilKit
 import FirebaseFirestore
+import FirebaseStorage
+import Alamofire
+import SwiftyJSON
+
 
 class GuestsPageViewController: UIPageViewController {
     fileprivate let event: Event
@@ -20,6 +24,7 @@ class GuestsPageViewController: UIPageViewController {
     var currentIndex: Int = 0
     var prevIndex: Int    = 0
     var nextIndex: Int    = 0
+    fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
@@ -87,7 +92,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             let guestVC = GuestViewController(guest: guests[nextIndex], retuals: retuals)
             guestVC.guestupdateDelegate = self
             return guestVC
-        // 最後のページにデータが入っているときにページが進められたとき
+            // 最後のページにデータが入っているときにページが進められたとき
         } else {
             var newGuest = Guest("new", retuals)
             newGuest.pageNumber = guests.count + 1
@@ -117,7 +122,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         // ページ進むとき
         if viewControllerAfter == true {
             nextIndex = targettIndex + 1
-        // ページ戻るとき
+            // ページ戻るとき
         } else if viewControllerAfter == false {
             nextIndex = targettIndex - 1
         }
@@ -142,34 +147,96 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             
         }
         // FirestoreStorageにデータを保存
-        saveImageData(guest.companyNameImageData)
-
-    }
-    
-    func saveImageData(_ imageData: Data) {
-        let canvas: PKCanvasView = PKCanvasView()
-        canvas.setDrawingData(canvas, imageData)
+        saveImageData(guest)
         
     }
     
-    func throwOcrApi() {
+    func saveImageData(_ guest: Guest) {
+        let canvas: PKCanvasView = PKCanvasView(frame: .zero)
+        canvas.setDrawingData(canvas, guest.guestNameImageData)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestNameWidth, height: guestNameHeight), scale: 1.0)
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+        let binaryImageData = base64EncodeImage(image)
+        self.callGoogleVisionApi(imgeData: binaryImageData)
     }
+    
+    func callGoogleVisionApi(imgeData: String) {
+        let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
+        let parameters: Parameters = [
+            "requests": [
+                "image": [
+                    "content": imgeData
+                ],
+                "features": [
+                    "type": "TEXT_DETECTION",
+                    "maxResults": 1,
+                    "model": "aaaaa"
+                ],
+                "imageContext": [
+                    "languageHints": [
+                        "ja-t-i0-handwrit"
+                    ]
+                ]
+            ]
+        ]
+        
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? ""]
+        AF.request(
+            apiURL,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: headers)
+            .responseJSON { response in
+                guard let responseData = response.data else { return }
+                let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options:.allowFragments) as? [String: Any]
+                
+//                debugPrint(response)
+                print("作業中")
+                let jsonValue = JSON(jsonObject)
+                if jsonValue["responses"][0]["fullTextAnnotation"]["text"].exists() {
+                    let responseName = jsonValue["responses"][0]["fullTextAnnotation"]["text"].string!  // ここは不安定だから対処必要
+                    let trimedName = responseName.trimmingCharacters(in: .newlines)
+                    print(responseName)
+                    print(trimedName)
+                }
+                
+                return
+            }
+    }
+    
+    
+    
+    
+    
+    func base64EncodeImage(_ image: UIImage) -> String {
+        var imagedata = image.pngData()
+        
+        // Resize the image if it exceeds the 2MB API limit
+        //        if (imagedata?.count ?? 0 > 2097152) {
+        //            let oldSize: CGSize = image.size
+        //            let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
+        //            imagedata = resizeImage(newSize, image: image)
+        //        }
+        
+        return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
@@ -188,7 +255,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         if completed {
             // ページめくりが完了したときに保存
             updateCloud(guest: guests[prevIndex])
-        // ページを捲り始めたが、元のページに戻ったとき
+            // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
             if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {

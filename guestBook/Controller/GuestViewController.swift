@@ -34,7 +34,7 @@ class GuestViewController: UIViewController {
     fileprivate let selectRelationView = SelectRelationView()
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
-
+    
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     let layout: UICollectionViewFlowLayout = {
@@ -73,9 +73,8 @@ class GuestViewController: UIViewController {
         view.addSubview(cardHeaderView)
         cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: screenSize.width, height: screenSize.height / 20))
         cardHeaderView.setupView(guest: guest)
-        
     }
- 
+    
     fileprivate func setupCardTitleView() {
         view.addSubview(cardTitleView)
         cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width / 2, height: screenSize.height / 12))
@@ -94,16 +93,14 @@ class GuestViewController: UIViewController {
         backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: .zero, height: screenSize.height * 3 / 5))
         backGroundFrame.accessibilityIdentifier = "backGroundFrame"
         backGroundFrame.layer.borderWidth = 2.0
-        
     }
     
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guest: guest)
-        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 4 / 7, height: screenSize.height / 5))
+        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 1 / 2, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestItemupdateDelegate = self
-        
     }
     
     fileprivate func setupCompanyNameView() {
@@ -173,15 +170,15 @@ extension GuestViewController: GuestItemUpdateDelegate {
         case is AddressView:
             guest.zipCode = addressView.zipCodeTextField.text ?? ""
             guest.zipCodeImageData = addressView.zipCodeCanvas.drawing.dataRepresentation()
-
+            
             guest.telNumber = addressView.telNumberTextField.text ?? ""
             guest.telNumberImageData = addressView.telNumberCanvas.drawing.dataRepresentation()
-
+            
             guest.address = addressView.addressTextField.text ?? ""
             guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
             break
         default:
-//            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
+            //            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         }
         guestupdateDelegate?.update(guest: guest)
