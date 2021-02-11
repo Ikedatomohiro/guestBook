@@ -9,7 +9,7 @@ import UIKit
 import FirebaseFirestore
 
 protocol TransitionGuestDetailDelegate: AnyObject {
-    func transition(guestDetailVC: UIViewController, index: Int)
+    func transition(_ guestDetailVC: UIViewController,_ index: Int)
 }
 
 class GuestListTableView: UITableView {
@@ -34,7 +34,7 @@ extension GuestListTableView: UITableViewDelegate {
         let guestDetailVC = GuestDetailViewController(guest: guests[indexPath.row])
         guestDetailVC.modalPresentationStyle = .fullScreen
         // GuestListViewContollerに返して、画面遷移させるための情報を提供する
-        transitionDelegate?.transition(guestDetailVC: guestDetailVC, index: indexPath.row)
+        transitionDelegate?.transition(guestDetailVC, indexPath.row)
     }
 }
 
@@ -56,16 +56,13 @@ extension GuestListTableView: UITableViewDataSource {
     
     // リスト高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        80
+        70
     }
     
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let guestListHeader = GuestListHeaderCell()
-        
         guestListHeader.backgroundColor = .yellow
-        
-        
         return guestListHeader
     }
     // ヘッダー高さ

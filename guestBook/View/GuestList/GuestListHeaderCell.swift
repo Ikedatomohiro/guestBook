@@ -12,6 +12,7 @@ class GuestListHeaderCell: UITableViewCell {
     fileprivate let numberLabel      = UILabel()
     fileprivate let guestNameLabel   = UILabel()
     fileprivate let companyNameLabel = UILabel()
+    fileprivate let addressLabel     = UILabel()
     fileprivate let retualLabel      = UILabel()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -39,8 +40,12 @@ class GuestListHeaderCell: UITableViewCell {
         companyNameLabel.textAlignment = .center
         companyNameLabel.text = "会社名"
         
+        contentView.addSubview(addressLabel)
+        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        addressLabel.text = "御住所"
+        
         contentView.addSubview(retualLabel)
-        retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
         retualLabel.text = "参列儀式"
         
         

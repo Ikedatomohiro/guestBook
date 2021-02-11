@@ -67,7 +67,7 @@ class GuestListViewController: UIViewController {
     }
 }
 
-
+// MARK: - Extensions
 extension GuestListViewController: UINavigationControllerDelegate {
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
         self.guestListTableView.reloadData()
@@ -75,7 +75,7 @@ extension GuestListViewController: UINavigationControllerDelegate {
 }
 
 extension GuestListViewController: TransitionGuestDetailDelegate {
-    func transition(guestDetailVC: UIViewController, index: Int) {
+    func transition(_ guestDetailVC: UIViewController, _ index: Int) {
         let guestDetailVC = GuestDetailViewController(guest: guests[index])
         guestDetailVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestDetailVC, animated: true)

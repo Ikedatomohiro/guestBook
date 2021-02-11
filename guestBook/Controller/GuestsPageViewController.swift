@@ -146,12 +146,12 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             Guest.updateGuest(guest, event.eventId)
             
         }
-        // FirestoreStorageにデータを保存
-        saveImageData(guest)
+        // 手書きデータ解析APIにデータ送信
+//        analizeImageData(guest)
         
     }
     
-    func saveImageData(_ guest: Guest) {
+    func analizeImageData(_ guest: Guest) {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.guestNameImageData)
         let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestNameWidth, height: guestNameHeight), scale: 1.0)

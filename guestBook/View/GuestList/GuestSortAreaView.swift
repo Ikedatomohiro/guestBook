@@ -26,9 +26,6 @@ class GuestSortAreaView: UIView {
     
     fileprivate func setup() {
         
-        
-
-        
         guestSortTypePickerView.delegate = self
         guestSortTypePickerView.dataSource = self
         

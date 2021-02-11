@@ -12,6 +12,7 @@ class GuestCell: UITableViewCell {
     fileprivate var numberLabel    = UILabel()
     fileprivate var guestNameLabel = UILabel()
     fileprivate var companyNameLabel = UILabel()
+    fileprivate let addressLabel     = UILabel()
     fileprivate var retualAttendanceLabel = UILabel()
     
     
@@ -27,29 +28,42 @@ class GuestCell: UITableViewCell {
     }
     
     func setupGuestData(guest: Guest) {
-        setupNumberLabel(guest: guest)
-        setupGuestNameLabel(guest: guest)
-        setupCompanyNameLabel(guest: guest)
-        setupRetualAttendanceLabel(guest: guest)
-        
+        setupNumberLabel(guest)
+        setupGuestNameLabel(guest)
+        setupCompanyNameLabel(guest)
+        setupRetualAttendanceLabel(guest)
+        setupAddresLabel(guest)
     }
-    fileprivate func setupNumberLabel(guest: Guest) {
+    
+    fileprivate func setupNumberLabel(_ guest: Guest) {
         addSubview(numberLabel)
         numberLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 30, height: .zero))
         numberLabel.text = String(guest.pageNumber)
         numberLabel.textAlignment = .center
     }
-    fileprivate func setupGuestNameLabel(guest: Guest) {
+    
+    fileprivate func setupGuestNameLabel(_ guest: Guest) {
         addSubview(guestNameLabel)
-        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 8, height: .zero))
         guestNameLabel.text = guest.guestName
+        guestNameLabel.numberOfLines = 0
     }
-    fileprivate func setupCompanyNameLabel(guest: Guest) {
+    
+    fileprivate func setupCompanyNameLabel(_ guest: Guest) {
         addSubview(companyNameLabel)
         companyNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
         companyNameLabel.text = guest.companyName
+        companyNameLabel.numberOfLines = 0
     }
-    fileprivate func setupRetualAttendanceLabel(guest: Guest) {
+    
+    fileprivate func setupAddresLabel(_ guest: Guest) {
+        addSubview(addressLabel)
+        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        addressLabel.text = guest.address
+        addressLabel.numberOfLines = 0
+    }
+
+    fileprivate func setupRetualAttendanceLabel(_ guest: Guest) {
         
     }
 

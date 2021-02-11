@@ -71,6 +71,7 @@ class AddressView: UIView {
         addressTextField.layer.borderWidth = 1.0
         addressTextField.text = address
         addressTextField.accessibilityIdentifier = "address"
+        addressTextField.placeholder = "住所"
         addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     
@@ -102,6 +103,7 @@ class AddressView: UIView {
         telNumberTextField.layer.borderWidth = 1.0
         telNumberTextField.text = telNumber
         telNumberTextField.accessibilityIdentifier = "telNumber"
+        telNumberTextField.placeholder = "電話番号"
         telNumberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     

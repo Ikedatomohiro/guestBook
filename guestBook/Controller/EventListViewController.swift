@@ -16,7 +16,7 @@ class EventListViewController: UIViewController {
     fileprivate let eventNameTextField = UITextField()
     let eventNameTableView = UITableView()
     fileprivate var events             = [Event]()
-    fileprivate let defaultRetuals     = Constants.defaultRetuals
+    fileprivate let defaultRetuals     = DefaultRetuals
     fileprivate var number: Int        = 0
     
     // MARK: -
