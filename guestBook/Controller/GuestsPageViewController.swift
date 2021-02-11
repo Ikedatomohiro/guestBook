@@ -155,11 +155,10 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.guestNameImageData)
         let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestNameWidth, height: guestNameHeight), scale: 1.0)
-        
-        let binaryImageData = base64EncodeImage(image)
+        let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         self.callGoogleVisionApi(imgeData: binaryImageData)
     }
-    
+
     func callGoogleVisionApi(imgeData: String) {
         let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
         let parameters: Parameters = [
@@ -193,11 +192,11 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
                 guard let responseData = response.data else { return }
                 let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options:.allowFragments) as? [String: Any]
                 
-//                debugPrint(response)
+                //                debugPrint(response)
                 print("作業中")
                 let jsonValue = JSON(jsonObject)
                 if jsonValue["responses"][0]["fullTextAnnotation"]["text"].exists() {
-                    let responseName = jsonValue["responses"][0]["fullTextAnnotation"]["text"].string!  // ここは不安定だから対処必要
+                    let responseName = jsonValue["responses"][0]["fullTextAnnotation"]["text"].string!
                     let trimedName = responseName.trimmingCharacters(in: .newlines)
                     print(responseName)
                     print(trimedName)
@@ -211,18 +210,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     
     
     
-    func base64EncodeImage(_ image: UIImage) -> String {
-        var imagedata = image.pngData()
-        
-        // Resize the image if it exceeds the 2MB API limit
-        //        if (imagedata?.count ?? 0 > 2097152) {
-        //            let oldSize: CGSize = image.size
-        //            let newSize: CGSize = CGSize(width: 800, height: oldSize.height / oldSize.width * 800)
-        //            imagedata = resizeImage(newSize, image: image)
-        //        }
-        
-        return imagedata!.base64EncodedString(options: .endLineWithCarriageReturn)
-    }
+
     
     
     
