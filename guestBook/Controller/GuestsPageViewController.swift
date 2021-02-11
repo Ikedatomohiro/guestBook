@@ -46,9 +46,9 @@ class GuestsPageViewController: UIPageViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        
-        print("back!")
-        
+        // 戻るボタンが押されたときに保存する
+        updateCloud(guest: guests[prevIndex])
+
     }
     
     fileprivate func setGuestData() {
@@ -205,28 +205,6 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
                 return
             }
     }
-    
-    
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
     
     
