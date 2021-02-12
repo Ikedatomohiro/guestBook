@@ -20,8 +20,9 @@
 		E52A061725CAE48B007669CB /* EventListTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52A061625CAE48B007669CB /* EventListTests.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
-		E538FCF425CC32AD00FA6AF2 /* GuestsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsViewTests.swift */; };
+		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
 		E57078C025D68FB800EE5CFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078BF25D68FB800EE5CFE /* Keys.swift */; };
+		E57078D525D6CB4C00EE5CFE /* GuestListViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
 		E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */; };
 		E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */; };
@@ -94,8 +95,9 @@
 		E52A061625CAE48B007669CB /* EventListTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTests.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
-		E538FCF325CC32AD00FA6AF2 /* GuestsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewTests.swift; sourceTree = "<group>"; };
+		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
 		E57078BF25D68FB800EE5CFE /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
+		E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewTest.swift; sourceTree = "<group>"; };
 		E570A8C925A5F8A1003C41BE /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
 		E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
 		E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleView.swift; sourceTree = "<group>"; };
@@ -319,7 +321,8 @@
 				E52A061625CAE48B007669CB /* EventListTests.swift */,
 				E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */,
 				E538FCEE25CC049300FA6AF2 /* TestKeys.swift */,
-				E538FCF325CC32AD00FA6AF2 /* GuestsViewTests.swift */,
+				E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */,
+				E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */,
 			);
 			path = guestBookTests;
 			sourceTree = "<group>";
@@ -663,8 +666,9 @@
 				E52A061725CAE48B007669CB /* EventListTests.swift in Sources */,
 				E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */,
 				E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */,
+				E57078D525D6CB4C00EE5CFE /* GuestListViewTest.swift in Sources */,
 				E59D9F05254848F4000F7C45 /* guestBookTests.swift in Sources */,
-				E538FCF425CC32AD00FA6AF2 /* GuestsViewTests.swift in Sources */,
+				E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
