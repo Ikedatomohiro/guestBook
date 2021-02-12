@@ -14,10 +14,12 @@ protocol TransitionGuestDetailDelegate: AnyObject {
 
 class GuestListTableView: UITableView {
     fileprivate let guests: [Guest]
+    let retuals: [Retual]
     weak var transitionDelegate: TransitionGuestDetailDelegate?
 
-    init(guests: [Guest], frame: CGRect, style: UITableView.Style) {
+    init(guests: [Guest], retuals: [Retual], frame: CGRect, style: UITableView.Style) {
         self.guests = guests
+        self.retuals = retuals
         super.init(frame: .zero, style: style)
         self.delegate = self
         self.dataSource = self
@@ -49,7 +51,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestCell.className) as? GuestCell else { fatalError("improper UITableViewCell")}
-        cell.setupGuestData(guest: guests[indexPath.row])
+        cell.setupGuestData(guests[indexPath.row], retuals)
         cell.selectionStyle = .none
         return cell
     }

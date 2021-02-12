@@ -33,8 +33,8 @@ struct Guest {
     var pageNumber: Int
     let createdAt: Date
     var updatedAt: Date
-
-// MARK:-
+    
+    // MARK:-
     
     init(document: QueryDocumentSnapshot) {
         let dictionary            = document.data()
@@ -60,7 +60,7 @@ struct Guest {
         self.createdAt            = dictionary["createdAt"]   as? Date   ?? Date()
         self.updatedAt            = dictionary["updatedAt"]   as? Date   ?? Date()
     }
-
+    
     init(_ id: String,_ retualList: [Retual]) {
         self.id                   = id
         self.eventId              = ""
@@ -82,7 +82,7 @@ struct Guest {
         self.pageNumber           = 0
         self.createdAt            = Date()
         self.updatedAt            = Date()
-
+        
         self.retuals     = setDefaultAttendance(retualList: retualList)        
     }
     
@@ -137,14 +137,13 @@ struct Guest {
     
     // 儀式の参列をデフォルト不参加にセット。デフォルトのretualsListの配列をDictionary型に変換して返す。
     func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
-         return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
+        return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
     }
     
     func uploadDrawingData(canvas: PKCanvasView, fileName: String) {
         
     }
 }
-
 
 // 入力されているかどうかチェック
 extension Guest: Equatable {

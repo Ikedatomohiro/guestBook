@@ -14,7 +14,7 @@ class GuestListViewController: UIViewController {
     fileprivate let event: Event
     fileprivate var guests: [Guest]
     fileprivate var retuals: [Retual]
-    lazy var guestListTableView = GuestListTableView(guests: guests, frame: .zero, style: .plain)
+    lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
 
     
     lazy var guestSortAreaView: UIView = GuestSortAreaView(retuals: retuals, frame: .zero)
@@ -35,7 +35,7 @@ class GuestListViewController: UIViewController {
         super.viewDidLoad()
         setupBasic()
         setSortArea(retuals: retuals)
-        setupGuestListTableView(guests: guests)
+        setupGuestListTableView()
         setBackButtonTitle()
     }
 
@@ -52,7 +52,7 @@ class GuestListViewController: UIViewController {
     }
     
         
-    fileprivate func setupGuestListTableView(guests: [Guest]) {
+    fileprivate func setupGuestListTableView() {
         view.addSubview(guestListTableView)
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.transitionDelegate = self

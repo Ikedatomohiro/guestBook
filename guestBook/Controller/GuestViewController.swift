@@ -49,8 +49,10 @@ class GuestViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder){fatalError()}
-    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+
     // MARK:- layout
     override func viewDidLoad() {
         super.viewDidLoad()

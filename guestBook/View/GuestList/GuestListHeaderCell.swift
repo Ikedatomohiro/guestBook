@@ -23,7 +23,7 @@ class GuestListHeaderCell: UITableViewCell {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     fileprivate func setup() {
         contentView.addSubview(numberLabel)
         numberLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 30, height: .zero))
@@ -31,7 +31,7 @@ class GuestListHeaderCell: UITableViewCell {
         numberLabel.text = "No."
         
         contentView.addSubview(guestNameLabel)
-        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 8, height: .zero))
         guestNameLabel.textAlignment = .center
         guestNameLabel.text = "御芳名"
         
@@ -47,9 +47,6 @@ class GuestListHeaderCell: UITableViewCell {
         contentView.addSubview(retualLabel)
         retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
         retualLabel.text = "参列儀式"
-        
-        
-        
     }
-
+    
 }

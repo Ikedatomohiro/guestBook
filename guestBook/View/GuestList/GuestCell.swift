@@ -9,30 +9,34 @@ import UIKit
 
 class GuestCell: UITableViewCell {
     
+//    lazy var guest: Guest
+//    lazy var retuals: [Retual]
     fileprivate var numberLabel    = UILabel()
     fileprivate var guestNameLabel = UILabel()
     fileprivate var companyNameLabel = UILabel()
     fileprivate let addressLabel     = UILabel()
-    fileprivate var retualAttendanceLabel = UILabel()
+
     
-    
-    
-    
+//    init(guest: Guest, retuals: [Retual] ,style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+//        self.guest = guest
+//        self.retuals = retuals
+//        super.init(frame: frame)
+//        super.init(style: style, reuseIdentifier: reuseIdentifier)
+//    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
-
     }
     
-    func setupGuestData(guest: Guest) {
+    func setupGuestData(_ guest: Guest,_ retuals: [Retual]) {
         setupNumberLabel(guest)
         setupGuestNameLabel(guest)
         setupCompanyNameLabel(guest)
-        setupRetualAttendanceLabel(guest)
         setupAddresLabel(guest)
+        setupRetualAttendanceLabel(guest, retuals)
     }
     
     fileprivate func setupNumberLabel(_ guest: Guest) {
@@ -63,8 +67,15 @@ class GuestCell: UITableViewCell {
         addressLabel.numberOfLines = 0
     }
 
-    fileprivate func setupRetualAttendanceLabel(_ guest: Guest) {
-        
+    fileprivate func setupRetualAttendanceLabel(_ guest: Guest,_ retuals: [Retual]) {
+        let layout: UICollectionViewFlowLayout = {
+            let layout = UICollectionViewFlowLayout()
+            return layout
+        }()
+        let retualAttendanceLabel = RetualAttendanceCollectionView(guest: guest, retuals: retuals, frame:CGRect.zero, collectionViewLayout: layout)
+        addSubview(retualAttendanceLabel)
+        retualAttendanceLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: 200, height: 50))
+        retualAttendanceLabel.backgroundColor = .yellow
     }
 
 
