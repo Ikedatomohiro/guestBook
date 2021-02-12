@@ -8,21 +8,13 @@
 import UIKit
 
 class GuestCell: UITableViewCell {
-    
-//    lazy var guest: Guest
-//    lazy var retuals: [Retual]
+
     fileprivate var numberLabel    = UILabel()
     fileprivate var guestNameLabel = UILabel()
     fileprivate var companyNameLabel = UILabel()
     fileprivate let addressLabel     = UILabel()
+    let retualAttendanceLabel = UILabel()
 
-    
-//    init(guest: Guest, retuals: [Retual] ,style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
-//        self.guest = guest
-//        self.retuals = retuals
-//        super.init(frame: frame)
-//        super.init(style: style, reuseIdentifier: reuseIdentifier)
-//    }
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
     }
@@ -68,16 +60,21 @@ class GuestCell: UITableViewCell {
     }
 
     fileprivate func setupRetualAttendanceLabel(_ guest: Guest,_ retuals: [Retual]) {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            return layout
-        }()
-        let retualAttendanceLabel = RetualAttendanceCollectionView(guest: guest, retuals: retuals, frame:CGRect.zero, collectionViewLayout: layout)
         addSubview(retualAttendanceLabel)
-        retualAttendanceLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: 200, height: 50))
-        retualAttendanceLabel.backgroundColor = .yellow
+        retualAttendanceLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: 300, height: 50))
+        retualAttendanceLabel.text = setRetualAttendanceList(guest, retuals)
     }
 
+    func setRetualAttendanceList(_ guest: Guest,_ retuals: [Retual]) -> String {
+        var labelText: String = ""
+        for retual in retuals where guest.retuals["\(retual.id)"] == true {
+            if labelText != "" {
+                labelText = labelText + " ・ "
+            }
+            labelText = labelText + retual.retualName
+        }
+        return labelText
+    }
 
 }
 

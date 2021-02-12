@@ -22,8 +22,6 @@
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsViewTests.swift */; };
 		E57078C025D68FB800EE5CFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078BF25D68FB800EE5CFE /* Keys.swift */; };
-		E57078C525D690D300EE5CFE /* RetualAttendanceCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078C425D690D300EE5CFE /* RetualAttendanceCollectionView.swift */; };
-		E57078CA25D692CB00EE5CFE /* ListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078C925D692CB00EE5CFE /* ListCell.swift */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
 		E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */; };
 		E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */; };
@@ -98,8 +96,6 @@
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsViewTests.swift; sourceTree = "<group>"; };
 		E57078BF25D68FB800EE5CFE /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
-		E57078C425D690D300EE5CFE /* RetualAttendanceCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetualAttendanceCollectionView.swift; sourceTree = "<group>"; };
-		E57078C925D692CB00EE5CFE /* ListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListCell.swift; sourceTree = "<group>"; };
 		E570A8C925A5F8A1003C41BE /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
 		E57384C425A7173F00AFA4B5 /* CardHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardHeaderView.swift; sourceTree = "<group>"; };
 		E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleView.swift; sourceTree = "<group>"; };
@@ -236,8 +232,6 @@
 				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
 				E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */,
 				E51FC58425C8081E002F965E /* GuestListTableView.swift */,
-				E57078C425D690D300EE5CFE /* RetualAttendanceCollectionView.swift */,
-				E57078C925D692CB00EE5CFE /* ListCell.swift */,
 			);
 			path = GuestList;
 			sourceTree = "<group>";
@@ -640,13 +634,11 @@
 				E5B3C9322552BA9D00509757 /* EventMenuViewController.swift in Sources */,
 				E573F42A25504A2B0000C955 /* NSObject.swift in Sources */,
 				E5AE163F25B2CC7F00DBAE33 /* Canvas.swift in Sources */,
-				E57078C525D690D300EE5CFE /* RetualAttendanceCollectionView.swift in Sources */,
 				E51FC58525C8081E002F965E /* GuestListTableView.swift in Sources */,
 				E57444E125694EAE001D4774 /* GuestCell.swift in Sources */,
 				E5AE164425B2D3EF00DBAE33 /* DescriptionView.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				E57384D525A74E9100AFA4B5 /* CompanyNameView.swift in Sources */,
-				E57078CA25D692CB00EE5CFE /* ListCell.swift in Sources */,
 				C565EBA725711C36005E61AD /* RetualCollectionView.swift in Sources */,
 				E5B5ADB825B3C8B0002E9384 /* RelationCollectionView.swift in Sources */,
 				E586221125C17DA100291182 /* Constants.swift in Sources */,
