@@ -69,8 +69,8 @@ class GuestsPageViewController: UIPageViewController {
     
     fileprivate func setupPageViewController() {
         view.backgroundColor = .white
-        dataSource = self
-        delegate = self
+        self.dataSource = self
+        self.delegate = self
     }
     
 }

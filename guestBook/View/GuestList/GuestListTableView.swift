@@ -13,10 +13,11 @@ protocol TransitionGuestDetailDelegate: AnyObject {
 }
 
 class GuestListTableView: UITableView {
+    
     fileprivate let guests: [Guest]
     let retuals: [Retual]
     weak var transitionDelegate: TransitionGuestDetailDelegate?
-
+    
     init(guests: [Guest], retuals: [Retual], frame: CGRect, style: UITableView.Style) {
         self.guests = guests
         self.retuals = retuals
@@ -31,6 +32,7 @@ class GuestListTableView: UITableView {
     
 }
 
+// MARK:- Extensions
 extension GuestListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let guestDetailVC = GuestDetailViewController(guest: guests[indexPath.row])
@@ -51,7 +53,6 @@ extension GuestListTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestCell.className) as? GuestCell else { fatalError("improper UITableViewCell")}
-        
         cell.setupGuestCell(guests[indexPath.row], retuals, indexPath: indexPath.row)
         cell.selectionStyle = .none
         return cell
@@ -59,7 +60,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     // リスト高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        70
+        screenSize.height / 15
     }
     
     // ヘッダー

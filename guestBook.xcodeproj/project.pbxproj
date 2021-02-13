@@ -231,9 +231,9 @@
 			isa = PBXGroup;
 			children = (
 				E57444E025694EAE001D4774 /* GuestCell.swift */,
-				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
 				E524B66D25C6EA6400497CD4 /* GuestListHeaderCell.swift */,
 				E51FC58425C8081E002F965E /* GuestListTableView.swift */,
+				E524B66225C6E3CE00497CD4 /* GuestSortAreaView.swift */,
 			);
 			path = GuestList;
 			sourceTree = "<group>";

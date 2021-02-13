@@ -9,24 +9,21 @@ import UIKit
 import FirebaseFirestore
 
 class GuestListViewController: UIViewController {
-
     
     fileprivate let event: Event
     fileprivate var guests: [Guest]
     fileprivate var retuals: [Retual]
     lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
-
-    
-    lazy var guestSortAreaView: UIView = GuestSortAreaView(retuals: retuals, frame: .zero)
+    lazy var guestSortAreaView: UIView = GuestSortAreaView(retuals, frame: .zero)
     fileprivate var pageNumber  : Int     = 1
-    weak var transitionDelegate: TransitionGuestDetailDelegate?
-
-    init(_ event: Event,_ retuals: [Retual],_ guests: [Guest]) {
+    
+    init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
         self.guests = guests
         super.init(nibName: nil, bundle: nil)
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -38,27 +35,31 @@ class GuestListViewController: UIViewController {
         setupGuestListTableView()
         setBackButtonTitle()
     }
-
+    
     fileprivate func setupBasic() {
         view.backgroundColor = .white
     }
     
     fileprivate func setSortArea(retuals: [Retual]) {
         view.addSubview(guestSortAreaView)
-        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 15))
-
+        
+        guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
+        
         
 
+        
     }
     
-        
+    
+    
     fileprivate func setupGuestListTableView() {
         view.addSubview(guestListTableView)
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.transitionDelegate = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
-    }
         
+    }
+    
     // 戻るボタンの名称をセット
     fileprivate func setBackButtonTitle() {
         let backBarButtonItem = UIBarButtonItem()
@@ -79,5 +80,11 @@ extension GuestListViewController: TransitionGuestDetailDelegate {
         let guestDetailVC = GuestDetailViewController(guest: guests[index])
         guestDetailVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestDetailVC, animated: true)
+    }
+}
+
+extension GuestListViewController: SendRetualDelegate {
+    func sendRetual(retual: Retual) {
+        
     }
 }
