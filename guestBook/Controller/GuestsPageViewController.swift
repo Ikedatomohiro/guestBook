@@ -24,7 +24,7 @@ class GuestsPageViewController: UIPageViewController {
     var currentIndex: Int = 0
     var prevIndex: Int    = 0
     var nextIndex: Int    = 0
-    fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
+    fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
@@ -47,8 +47,7 @@ class GuestsPageViewController: UIPageViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         // 戻るボタンが押されたときに保存する
-        updateCloud(guest: guests[prevIndex])
-
+        updateGuestCardToCloud(guest: guests[currentIndex])
     }
     
     fileprivate func setGuestData() {
@@ -130,7 +129,8 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         currentIndex = nextIndex
         return
     }
-    func updateCloud(guest: Guest) {
+    
+    func updateGuestCardToCloud(guest: Guest) {
         if guest == Guest("new", retuals) {
             return()
         }
@@ -220,7 +220,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         // ページめくりが完了したとき
         if completed {
             // ページめくりが完了したときに保存
-            updateCloud(guest: guests[prevIndex])
+            updateGuestCardToCloud(guest: guests[prevIndex])
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }

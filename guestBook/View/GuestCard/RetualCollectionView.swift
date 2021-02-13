@@ -12,7 +12,7 @@ class RetualCollectionView: UICollectionView {
     var retuals: [Retual]
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
-    init(guest: Guest, retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(_ guest: Guest,_ retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
         self.retuals = retuals
         super.init(frame: frame, collectionViewLayout: layout)

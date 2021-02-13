@@ -41,7 +41,7 @@ class GuestViewController: UIViewController {
         let layout = UICollectionViewFlowLayout()
         return layout
     }()
-    lazy var retualCollectionView = RetualCollectionView(guest: guest, retuals: retuals, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero, collectionViewLayout: layout)
     
     init(guest: Guest, retuals: [Retual]) {
         self.guest = guest
@@ -67,6 +67,7 @@ class GuestViewController: UIViewController {
         setupSelectRelationView()
         setupDescriptionView()
     }
+    
     fileprivate func setupBasic() {
         view.backgroundColor = .white
     }

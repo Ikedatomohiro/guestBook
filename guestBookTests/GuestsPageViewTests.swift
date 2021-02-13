@@ -19,10 +19,12 @@ class GuestsPageViewTests: XCTestCase {
         guestsVC.setIndex(1, viewControllerAfter: true)
         XCTAssertEqual(guestsVC.prevIndex, 1)
         XCTAssertEqual(guestsVC.nextIndex, 2)
+        XCTAssertEqual(guestsVC.currentIndex, 2)
         
         guestsVC.setIndex(1, viewControllerAfter: false)
         XCTAssertEqual(guestsVC.prevIndex, 1)
         XCTAssertEqual(guestsVC.nextIndex, 0)
+        XCTAssertEqual(guestsVC.currentIndex, 0)
     }
     
     
