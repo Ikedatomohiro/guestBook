@@ -51,7 +51,8 @@ extension GuestListTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestCell.className) as? GuestCell else { fatalError("improper UITableViewCell")}
-        cell.setupGuestData(guests[indexPath.row], retuals)
+        
+        cell.setupGuestCell(guests[indexPath.row], retuals, indexPath: indexPath.row)
         cell.selectionStyle = .none
         return cell
     }
@@ -64,7 +65,6 @@ extension GuestListTableView: UITableViewDataSource {
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let guestListHeader = GuestListHeaderCell()
-        guestListHeader.backgroundColor = .yellow
         return guestListHeader
     }
     // ヘッダー高さ

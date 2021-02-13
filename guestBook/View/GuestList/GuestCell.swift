@@ -23,7 +23,8 @@ class GuestCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupGuestData(_ guest: Guest,_ retuals: [Retual]) {
+    func setupGuestCell(_ guest: Guest,_ retuals: [Retual], indexPath: Int) {
+        setupBase(indexPath)
         setupNumberLabel(guest)
         setupGuestNameLabel(guest)
         setupCompanyNameLabel(guest)
@@ -31,37 +32,45 @@ class GuestCell: UITableViewCell {
         setupRetualAttendanceLabel(guest, retuals)
     }
     
+    func setupBase(_ indexPath: Int) {
+        if indexPath % 2 == 0 {
+            self.backgroundColor = .white
+        } else {
+            self.backgroundColor = .rgb(red: 209, green: 238, blue: 123)
+        }
+    }
+    
     fileprivate func setupNumberLabel(_ guest: Guest) {
         addSubview(numberLabel)
-        numberLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 30, height: .zero))
+        numberLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.numberWidth, height: .zero))
         numberLabel.text = String(guest.pageNumber)
         numberLabel.textAlignment = .center
     }
     
     fileprivate func setupGuestNameLabel(_ guest: Guest) {
         addSubview(guestNameLabel)
-        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 8, height: .zero))
+        guestNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: numberLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.guestNameWidth, height: .zero))
         guestNameLabel.text = guest.guestName
         guestNameLabel.numberOfLines = 0
     }
     
     fileprivate func setupCompanyNameLabel(_ guest: Guest) {
         addSubview(companyNameLabel)
-        companyNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        companyNameLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.companyNameWidth, height: .zero))
         companyNameLabel.text = guest.companyName
         companyNameLabel.numberOfLines = 0
     }
     
     fileprivate func setupAddresLabel(_ guest: Guest) {
         addSubview(addressLabel)
-        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 5, height: .zero))
+        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.addressWidth, height: .zero))
         addressLabel.text = guest.address
         addressLabel.numberOfLines = 0
     }
 
     fileprivate func setupRetualAttendanceLabel(_ guest: Guest,_ retuals: [Retual]) {
         addSubview(retualAttendanceLabel)
-        retualAttendanceLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: 300, height: 50))
+        retualAttendanceLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.retualWidth, height: .zero))
         retualAttendanceLabel.text = setRetualAttendanceList(guest, retuals)
     }
 
@@ -75,6 +84,5 @@ class GuestCell: UITableViewCell {
         }
         return labelText
     }
-
 }
 

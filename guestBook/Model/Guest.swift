@@ -139,12 +139,9 @@ struct Guest {
     func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
         return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
     }
-    
-    func uploadDrawingData(canvas: PKCanvasView, fileName: String) {
-        
-    }
 }
 
+// MARK:- Extensions
 // 入力されているかどうかチェック
 extension Guest: Equatable {
     static func == (lhs: Guest, rhs: Guest) -> Bool {
