@@ -13,6 +13,7 @@ import PencilKit
 protocol GuestUpdateDelegate: AnyObject {
     func update(guest: Guest)
 }
+
 protocol GuestItemUpdateDelegate: AnyObject {
     func update<T>(inputView: T)
 }
@@ -22,7 +23,6 @@ class GuestViewController: UIViewController {
     var guest: Guest
     var retuals: [Retual]
     weak var guestupdateDelegate: GuestUpdateDelegate?
-    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
     
     // UIView
     fileprivate let backGroundFrame    = UIView()

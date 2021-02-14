@@ -35,7 +35,6 @@ class GuestSortAreaView: UIView {
         retualList.append(retual)
         retualList.append(contentsOf: retuals)
 
-
         guestSortTypePickerView.delegate = self
         guestSortTypePickerView.dataSource = self
         
@@ -58,12 +57,15 @@ extension GuestSortAreaView:UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
     }
+    
     func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return retualList.count
     }
+    
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
         return retualList[row].retualName
     }
+    
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         print(retualList[row])

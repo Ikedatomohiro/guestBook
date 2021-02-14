@@ -14,7 +14,7 @@ class GuestListViewController: UIViewController {
     fileprivate var guests: [Guest]
     fileprivate var retuals: [Retual]
     lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
-    lazy var guestSortAreaView: UIView = GuestSortAreaView(retuals, frame: .zero)
+    lazy var guestSortAreaView = GuestSortAreaView(retuals, frame: .zero)
     fileprivate var pageNumber  : Int     = 1
     
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
@@ -33,38 +33,30 @@ class GuestListViewController: UIViewController {
         setupBasic()
         setSortArea(retuals: retuals)
         setupGuestListTableView()
-        setBackButtonTitle()
     }
     
     fileprivate func setupBasic() {
         view.backgroundColor = .white
-    }
+        // 戻るボタンの名称をセット
+        let backBarButtonItem = UIBarButtonItem()
+        backBarButtonItem.title = "参加者一覧に戻る"
+        self.navigationItem.backBarButtonItem = backBarButtonItem}
     
     fileprivate func setSortArea(retuals: [Retual]) {
         view.addSubview(guestSortAreaView)
         
         guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
         
-        
+        guestSortAreaView.sendRetualDelegate = self
 
         
     }
-    
-    
     
     fileprivate func setupGuestListTableView() {
         view.addSubview(guestListTableView)
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.transitionDelegate = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
-        
-    }
-    
-    // 戻るボタンの名称をセット
-    fileprivate func setBackButtonTitle() {
-        let backBarButtonItem = UIBarButtonItem()
-        backBarButtonItem.title = "参加者一覧に戻る"
-        self.navigationItem.backBarButtonItem = backBarButtonItem
     }
 }
 
@@ -76,7 +68,7 @@ extension GuestListViewController: UINavigationControllerDelegate {
 }
 
 extension GuestListViewController: TransitionGuestDetailDelegate {
-    func transition(_ guestDetailVC: UIViewController, _ index: Int) {
+    func sendTransitionIndex(_ guestDetailVC: UIViewController, _ index: Int) {
         let guestDetailVC = GuestDetailViewController(guest: guests[index])
         guestDetailVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestDetailVC, animated: true)
@@ -87,4 +79,6 @@ extension GuestListViewController: SendRetualDelegate {
     func sendRetual(retual: Retual) {
         
     }
+    
+    
 }
