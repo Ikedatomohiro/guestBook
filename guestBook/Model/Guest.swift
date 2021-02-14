@@ -139,6 +139,11 @@ struct Guest {
     func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
         return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
     }
+
+    // 検索
+
+
+
 }
 
 // MARK:- Extensions

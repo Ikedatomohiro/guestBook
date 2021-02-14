@@ -48,7 +48,7 @@ class GuestListViewController: UIViewController {
         guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
         
         guestSortAreaView.sendRetualDelegate = self
-
+        
         
     }
     
@@ -77,6 +77,33 @@ extension GuestListViewController: TransitionGuestDetailDelegate {
 
 extension GuestListViewController: SendRetualDelegate {
     func sendRetual(retual: Retual) {
+        // 得られた情報からデータを検索
+        Guest.collectionRef(event.eventId).whereField("\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
+            if (error == nil) {
+                guard let docments = querySnapshot?.documents else { return }
+                self.guests = docments.map({ (document) -> Guest in
+                    var guest = Guest(document: document)
+                    guest.pageNumber = self.pageNumber
+                    self.pageNumber += 1
+                    return guest
+                })
+            } else {
+                print("取得に失敗しました。")
+                print(error as Any)
+                return
+            }
+        }
+        
+        
+        
+        
+        
+        
+        
+        // TabeleViewにguestsを渡す
+        
+        
+        
         
     }
     
