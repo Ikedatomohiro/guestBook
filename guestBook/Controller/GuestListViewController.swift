@@ -78,7 +78,7 @@ extension GuestListViewController: TransitionGuestDetailDelegate {
 extension GuestListViewController: SendRetualDelegate {
     func sendRetual(retual: Retual) {
         // 得られた情報からデータを検索
-        Guest.collectionRef(event.eventId).whereField("\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
+        Guest.collectionRef(event.eventId).whereField("retuals.\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
             if (error == nil) {
                 guard let docments = querySnapshot?.documents else { return }
                 self.guests = docments.map({ (document) -> Guest in

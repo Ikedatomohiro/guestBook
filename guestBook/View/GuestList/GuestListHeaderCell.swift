@@ -11,6 +11,7 @@ class GuestListHeaderCell: UITableViewCell {
     
     fileprivate let numberLabel      = UILabel()
     fileprivate let guestNameLabel   = UILabel()
+    let guestNameRankButton          = UIButton()
     fileprivate let companyNameLabel = UILabel()
     fileprivate let addressLabel     = UILabel()
     fileprivate let retualLabel      = UILabel()
@@ -31,6 +32,9 @@ class GuestListHeaderCell: UITableViewCell {
         setupCompanyNameLabel()
         setupAddressLabel()
         setupRetualLabel()
+        
+        
+        setupGuestNameRankButton()
     }
     
     func setupBase() {
@@ -53,6 +57,19 @@ class GuestListHeaderCell: UITableViewCell {
         guestNameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         guestNameLabel.text = "御芳名"
     }
+    
+    func setupGuestNameRankButton() {
+        contentView.addSubview(guestNameRankButton)
+        guestNameRankButton.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: guestNameLabel.trailingAnchor)
+        guestNameRankButton.setTitle("▲", for: .normal)
+        
+        
+    }
+    
+    
+    
+    
+    
     
     func setupCompanyNameLabel() {
         contentView.addSubview(companyNameLabel)
