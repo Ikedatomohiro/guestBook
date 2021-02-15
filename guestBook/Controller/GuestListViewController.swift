@@ -77,34 +77,52 @@ extension GuestListViewController: TransitionGuestDetailDelegate {
 
 extension GuestListViewController: SendRetualDelegate {
     func sendRetual(retual: Retual) {
-        // 得られた情報からデータを検索
-        Guest.collectionRef(event.eventId).whereField("retuals.\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
-            if (error == nil) {
-                guard let docments = querySnapshot?.documents else { return }
-                self.guests = docments.map({ (document) -> Guest in
-                    var guest = Guest(document: document)
-                    guest.pageNumber = self.pageNumber
-                    self.pageNumber += 1
-                    return guest
-                })
-            } else {
-                print("取得に失敗しました。")
-                print(error as Any)
-                return
+        // リスト番号リセット
+        self.pageNumber = 1
+        if retual.id != "" {
+            // 得られた情報からデータを検索
+            Guest.collectionRef(event.eventId).whereField("retuals.\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
+                if (error == nil) {
+                    guard let docments = querySnapshot?.documents else { return }
+                    self.guests = docments.map({ (document) -> Guest in
+                        var guest = Guest(document: document)
+                        guest.pageNumber = self.pageNumber
+                        self.pageNumber += 1
+                        return guest
+                    })
+                    // TabeleViewにguestsを渡す
+                    self.guestListTableView = GuestListTableView(guests: self.guests, retuals: self.retuals, frame: .zero, style: .plain)
+                    print("guest:\(self.guests.count)")
+                    self.setupGuestListTableView()
+                } else {
+                    print("取得に失敗しました。")
+                    print(error as Any)
+                    return
+                }
             }
+        } else {
+            Guest.collectionRef(event.eventId).getDocuments { (querySnapshot, error) in
+                if (error == nil) {
+                    guard let docments = querySnapshot?.documents else { return }
+                    self.guests = docments.map({ (document) -> Guest in
+                        var guest = Guest(document: document)
+                        guest.pageNumber = self.pageNumber
+                        self.pageNumber += 1
+                        return guest
+                    })
+                    // TabeleViewにguestsを渡す
+                    self.guestListTableView = GuestListTableView(guests: self.guests, retuals: self.retuals, frame: .zero, style: .plain)
+                    print("guest:\(self.guests.count)")
+                    self.setupGuestListTableView()
+                } else {
+                    print("取得に失敗しました。")
+                    print(error as Any)
+                    return
+                }
+            }
+            
         }
-        
-        
-        
-        
-        
-        
-        
-        // TabeleViewにguestsを渡す
-        
-        
-        
-        
+
     }
     
     
