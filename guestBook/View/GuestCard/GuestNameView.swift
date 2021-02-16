@@ -32,6 +32,7 @@ class GuestNameView: UIView {
         setupCanvas(ImageData: guest.guestNameImageData)
         
     }
+    
     fileprivate func setupLabel() {
         addSubview(guestNameTitleLabel)
         guestNameTitleLabel.text = "御芳名"
@@ -43,6 +44,7 @@ class GuestNameView: UIView {
         honorificTitle.anchor(top: nil, leading: nil, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         honorificTitle.font = .systemFont(ofSize: 40)
     }
+    
     fileprivate func setupTextField(guestName: String) {
         addSubview(guestNameTextField)
         guestNameTextField.anchor(top: nil, leading: guestNameTitleLabel.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
@@ -50,13 +52,13 @@ class GuestNameView: UIView {
         guestNameTextField.text = guestName
         guestNameTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
+    
     fileprivate func setupCanvas(ImageData: Data) {
         addSubview(guestNameCanvas)
-        guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
+        guestNameCanvas.anchor(top: topAnchor, leading: leadingAnchor , bottom: bottomAnchor, trailing: trailingAnchor)
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
         guestNameCanvas.delegate = self
-        guestNameCanvas.layer.borderWidth = 1.0
         guestNameCanvas.setDrawingData(guestNameCanvas, ImageData)
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
     }
@@ -66,6 +68,7 @@ class GuestNameView: UIView {
     }
     
 }
+
 // MARK:- Extensions
 extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
