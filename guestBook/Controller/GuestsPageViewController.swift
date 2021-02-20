@@ -10,8 +10,6 @@ import PencilKit
 import FirebaseFirestore
 import FirebaseStorage
 import Alamofire
-import SwiftyJSON
-
 
 class GuestsPageViewController: UIPageViewController {
     fileprivate let event: Event
@@ -144,11 +142,9 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             }
         } else {
             Guest.updateGuest(guest, event.eventId)
-            
         }
         // 手書きデータ解析APIにデータ送信
-//        analizeImageData(guest)
-        
+        analizeImageData(guest)
     }
     
     func analizeImageData(_ guest: Guest) {
@@ -168,8 +164,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
                 ],
                 "features": [
                     "type": "TEXT_DETECTION",
-                    "maxResults": 1,
-                    "model": "aaaaa"
+                    "maxResults": 1
                 ],
                 "imageContext": [
                     "languageHints": [
@@ -181,7 +176,8 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         
         let headers: HTTPHeaders = [
             "Content-Type": "application/json",
-            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? ""]
+            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? "",
+            "Process-Identifire": "aaaaaaaabbbbbbbb"]
         AF.request(
             apiURL,
             method: .post,
@@ -189,26 +185,31 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             encoding: JSONEncoding.default,
             headers: headers)
             .responseJSON { response in
-                guard let responseData = response.data else { return }
-                let jsonObject = try? JSONSerialization.jsonObject(with: responseData, options:.allowFragments) as? [String: Any]
-                
-                //                debugPrint(response)
-                print("作業中")
-                let jsonValue = JSON(jsonObject)
-                if jsonValue["responses"][0]["fullTextAnnotation"]["text"].exists() {
-                    let responseName = jsonValue["responses"][0]["fullTextAnnotation"]["text"].string!
-                    let trimedName = responseName.trimmingCharacters(in: .newlines)
-                    print(responseName)
-                    print(trimedName)
+                // JSONデコード
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .iso8601
+                do {
+                    let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
+                    print(decoded.responses[0].fullTextAnnotation.text)
+                    // unwrap
+                    if let headers = response.request?.headers {
+                        for header in headers {
+                            if header.name == "Process-Identifire" {
+                                let job = header.value
+                                continue
+                                
+                            }
+                        }
+                    }
+                    print(response.request?.headers[1].value ?? "")
+                    
+                } catch {
+                    print(error.localizedDescription)
                 }
-                
                 return
             }
     }
-    
-    
-    
-    
 }
 // MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDelegate {

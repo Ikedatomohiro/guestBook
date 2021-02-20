@@ -55,7 +55,7 @@ class GuestNameView: UIView {
     
     fileprivate func setupCanvas(ImageData: Data) {
         addSubview(guestNameCanvas)
-        guestNameCanvas.anchor(top: topAnchor, leading: leadingAnchor , bottom: bottomAnchor, trailing: trailingAnchor)
+        guestNameCanvas.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor , bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         guestNameCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
         guestNameCanvas.isOpaque = false
         guestNameCanvas.delegate = self

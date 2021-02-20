@@ -142,9 +142,22 @@ struct Guest {
 
     // 検索
 
-
-
 }
+struct CloudVisionApiResponse: Codable {
+    var responses: [Response]
+    struct Response: Codable {
+        var textAnnotations: [TextAnnotations]
+        var fullTextAnnotation: FullTextAnnotation
+        struct TextAnnotations: Codable {
+            var description: String
+        }
+        struct FullTextAnnotation: Codable {
+            var text: String
+        }
+    }
+}
+
+
 
 // MARK:- Extensions
 // 入力されているかどうかチェック
