@@ -8,6 +8,7 @@
 import FirebaseFirestore
 import PencilKit
 import FirebaseStorage
+import Alamofire
 
 fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
 
@@ -142,7 +143,102 @@ struct Guest {
 
     // 検索
 
+    
+    // MARK:- 手書き文字解析
+    static func updateText(guest: inout Guest) {
+        let tasks: Array = ["GuestName", "CompanyName", "Address", "ZipCode", "TelNumber"]
+        for task in tasks {
+            switch task {
+            case "GuestName":
+                // processIdentifireを作成
+                let processIdentifire = "guestName\(guest.id)"
+                // CloudVisionAPIで手書き文字解析
+                let imageData: String = makeGuestNameImageData(guest)
+                // 手書き文字解析
+                guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                print("名前")
+                break
+            default:
+                break
+            }
+            
+            
+            
+            
+            
+
+
+            
+            
+        }
+    }
+    
+
+
+    static func makeGuestNameImageData(_ guest: Guest) -> String {
+        let canvas: PKCanvasView = PKCanvasView(frame: .zero)
+        canvas.setDrawingData(canvas, guest.guestNameImageData)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.guestNameWidth, height: guestCardView.guestNameHeight), scale: 1.0)
+        let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
+        return binaryImageData
+    }
+
+    static func callGoogleVisionApi(_ imgeData: String, _ processIdentifire: String) -> String {
+        let semaphore = DispatchSemaphore(value: 0)
+        let queue     = DispatchQueue.global(qos: .utility)
+        let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
+        let parameters: Parameters = [
+            "requests": [
+                "image": [
+                    "content": imgeData
+                ],
+                "features": [
+                    "type": "TEXT_DETECTION",
+                    "maxResults": 1
+                ],
+                "imageContext": [
+                    "languageHints": [
+                        "ja-t-i0-handwrit"
+                    ]
+                ]
+            ]
+        ]
+        var resultText: String = ""
+        let headers: HTTPHeaders = [
+            "Content-Type": "application/json",
+            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? "",
+            "Process-Identifire": processIdentifire]
+        AF.request(
+            apiURL,
+            method: .post,
+            parameters: parameters,
+            encoding: JSONEncoding.default,
+            headers: headers)
+            .responseJSON(queue: queue) { response in
+                // JSONデコード
+                let decoder = JSONDecoder()
+                decoder.keyDecodingStrategy = .convertFromSnakeCase
+                decoder.dateDecodingStrategy = .iso8601
+                do {
+                    let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
+                    resultText = decoded.responses[0].fullTextAnnotation.text
+                    print(decoded.responses[0].fullTextAnnotation.text)
+                } catch {
+                    print(error.localizedDescription)
+                }
+                semaphore.signal()
+            }
+        semaphore.wait()
+        return resultText
+    }
+    
+    
+    
+    
+    
 }
+
+// MARK:- CloudVisionApiレスポンス解析
 struct CloudVisionApiResponse: Codable {
     var responses: [Response]
     struct Response: Codable {
@@ -156,8 +252,6 @@ struct CloudVisionApiResponse: Codable {
         }
     }
 }
-
-
 
 // MARK:- Extensions
 // 入力されているかどうかチェック
@@ -180,3 +274,5 @@ extension Guest: Equatable {
             && lhs.descriptionImageData == rhs.descriptionImageData
     }
 }
+
+

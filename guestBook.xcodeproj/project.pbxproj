@@ -21,6 +21,7 @@
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
+		E543E15525E13086009C95D0 /* CloudVisionApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E543E15425E13086009C95D0 /* CloudVisionApiTest.swift */; };
 		E57078C025D68FB800EE5CFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078BF25D68FB800EE5CFE /* Keys.swift */; };
 		E57078D525D6CB4C00EE5CFE /* GuestListViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */; };
 		E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E570A8C925A5F8A1003C41BE /* GuestNameView.swift */; };
@@ -96,6 +97,7 @@
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
+		E543E15425E13086009C95D0 /* CloudVisionApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudVisionApiTest.swift; sourceTree = "<group>"; };
 		E57078BF25D68FB800EE5CFE /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewTest.swift; sourceTree = "<group>"; };
 		E570A8C925A5F8A1003C41BE /* GuestNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestNameView.swift; sourceTree = "<group>"; };
@@ -323,6 +325,7 @@
 				E538FCEE25CC049300FA6AF2 /* TestKeys.swift */,
 				E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */,
 				E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */,
+				E543E15425E13086009C95D0 /* CloudVisionApiTest.swift */,
 			);
 			path = guestBookTests;
 			sourceTree = "<group>";
@@ -668,6 +671,7 @@
 				E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */,
 				E57078D525D6CB4C00EE5CFE /* GuestListViewTest.swift in Sources */,
 				E59D9F05254848F4000F7C45 /* guestBookTests.swift in Sources */,
+				E543E15525E13086009C95D0 /* CloudVisionApiTest.swift in Sources */,
 				E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

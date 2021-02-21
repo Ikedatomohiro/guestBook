@@ -9,7 +9,6 @@ import UIKit
 import PencilKit
 import FirebaseFirestore
 import FirebaseStorage
-import Alamofire
 
 class GuestsPageViewController: UIPageViewController {
     fileprivate let event: Event
@@ -45,7 +44,7 @@ class GuestsPageViewController: UIPageViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         // 戻るボタンが押されたときに保存する
-        updateGuestCardToCloud(guest: guests[currentIndex])
+        updateGuestCardToCloud(guest: &guests[currentIndex])
     }
     
     fileprivate func setGuestData() {
@@ -128,88 +127,25 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         return
     }
     
-    func updateGuestCardToCloud(guest: Guest) {
+    func updateGuestCardToCloud(guest: inout Guest) {
         if guest == Guest("new", retuals) {
             return()
         }
+        Guest.updateText(guest: &guest)
+
         if guest.id == "new" {
             // Firestoreにデータを保存
             let documentRef = Guest.registGuest(guest, event.eventId)
-            let index = guests.firstIndex(where: {$0.id == "new"})
-            if index != nil {
-                guests[index!] = guest
-                guests[index!].id = documentRef.documentID
+            if let index = guests.firstIndex(where: {$0.id == "new"}) {
+                guests[index] = guest
+                guests[index].id = documentRef.documentID
             }
         } else {
             Guest.updateGuest(guest, event.eventId)
         }
-        // 手書きデータ解析APIにデータ送信
-        analizeImageData(guest)
-    }
-    
-    func analizeImageData(_ guest: Guest) {
-        let canvas: PKCanvasView = PKCanvasView(frame: .zero)
-        canvas.setDrawingData(canvas, guest.guestNameImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.guestNameWidth, height: guestCardView.guestNameHeight), scale: 1.0)
-        let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
-        self.callGoogleVisionApi(imgeData: binaryImageData)
+
     }
 
-    func callGoogleVisionApi(imgeData: String) {
-        let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
-        let parameters: Parameters = [
-            "requests": [
-                "image": [
-                    "content": imgeData
-                ],
-                "features": [
-                    "type": "TEXT_DETECTION",
-                    "maxResults": 1
-                ],
-                "imageContext": [
-                    "languageHints": [
-                        "ja-t-i0-handwrit"
-                    ]
-                ]
-            ]
-        ]
-        
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? "",
-            "Process-Identifire": "aaaaaaaabbbbbbbb"]
-        AF.request(
-            apiURL,
-            method: .post,
-            parameters: parameters,
-            encoding: JSONEncoding.default,
-            headers: headers)
-            .responseJSON { response in
-                // JSONデコード
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
-                do {
-                    let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
-                    print(decoded.responses[0].fullTextAnnotation.text)
-                    // unwrap
-                    if let headers = response.request?.headers {
-                        for header in headers {
-                            if header.name == "Process-Identifire" {
-                                let job = header.value
-                                continue
-                                
-                            }
-                        }
-                    }
-                    print(response.request?.headers[1].value ?? "")
-                    
-                } catch {
-                    print(error.localizedDescription)
-                }
-                return
-            }
-    }
 }
 // MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDelegate {
@@ -221,7 +157,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         // ページめくりが完了したとき
         if completed {
             // ページめくりが完了したときに保存
-            updateGuestCardToCloud(guest: guests[prevIndex])
+            updateGuestCardToCloud(guest: &guests[prevIndex])
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
