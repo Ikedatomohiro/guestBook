@@ -154,10 +154,14 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
     }
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         print("didFinishAnimating")
+        let grobalQueue = DispatchQueue.global(qos: .userInteractive)
         // ページめくりが完了したとき
         if completed {
-            // ページめくりが完了したときに保存
-            updateGuestCardToCloud(guest: &guests[prevIndex])
+            grobalQueue.async {
+                // ページめくりが完了したときに保存
+                self.updateGuestCardToCloud(guest: &self.guests[self.prevIndex])
+            }
+
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }

@@ -221,8 +221,17 @@ struct Guest {
                 decoder.dateDecodingStrategy = .iso8601
                 do {
                     let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
-                    resultText = decoded.responses[0].fullTextAnnotation.text
-                    print(decoded.responses[0].fullTextAnnotation.text)
+                    // レスポンスが該当のリクエストに対するものか確認
+                    if let requestHeaders = response.request?.headers {
+                        for header in requestHeaders {
+                            if header.name == "Process-Identifire" {
+                                if header.value == processIdentifire {
+                                    resultText = decoded.responses[0].fullTextAnnotation.text
+                                    print(decoded.responses[0].fullTextAnnotation.text)
+                                }
+                            }
+                        }
+                    }
                 } catch {
                     print(error.localizedDescription)
                 }
