@@ -154,7 +154,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
     }
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         print("didFinishAnimating")
-        let grobalQueue = DispatchQueue.global(qos: .userInteractive)
+        let grobalQueue = DispatchQueue.global(qos: .userInitiated)
         // ページめくりが完了したとき
         if completed {
             grobalQueue.async {

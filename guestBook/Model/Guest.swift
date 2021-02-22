@@ -156,7 +156,6 @@ struct Guest {
                 let imageData: String = makeGuestNameImageData(guest)
                 // 手書き文字解析
                 guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
-                print("名前")
                 break
             default:
                 break
@@ -237,7 +236,9 @@ struct Guest {
                 }
                 semaphore.signal()
             }
+        // 10秒でタイムアウト
         semaphore.wait()
+        print("タスク終わりました")
         return resultText
     }
     
