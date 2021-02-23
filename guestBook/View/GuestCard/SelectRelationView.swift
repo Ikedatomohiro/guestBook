@@ -22,12 +22,18 @@ class SelectRelationView: UIView {
         setupRelationLabel()
         setupRelationCollectionView(guest: guest)
     }
+    
     fileprivate func setupRelationLabel() {
         addSubview(relationAskLabel)
-        relationAskLabel.text = "どなたのご関係ですか"
-        relationAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 250, height: 40))
-
+        relationAskLabel.text = """
+        どなたの
+        御関係ですか
+        """
+        relationAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
+        relationAskLabel.font = .systemFont(ofSize: 24)
+        relationAskLabel.numberOfLines = 0
     }
+    
     fileprivate func setupRelationCollectionView(guest: Guest) {
         let layout: UICollectionViewFlowLayout = {
             let layout = UICollectionViewFlowLayout()
@@ -36,7 +42,7 @@ class SelectRelationView: UIView {
         
         let relationCollectionView = RelationCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(relationCollectionView)
-        relationCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: relationAskLabel.trailingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: 300, height: 100))
+        relationCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: relationAskLabel.trailingAnchor, bottom: relationAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         relationCollectionView.backgroundColor = .white
     }
 

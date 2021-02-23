@@ -150,29 +150,60 @@ struct Guest {
         for task in tasks {
             switch task {
             case "GuestName":
-                // processIdentifireを作成
-                let processIdentifire = "guestName\(guest.id)"
-                // CloudVisionAPIで手書き文字解析
-                let imageData: String = makeGuestNameImageData(guest)
-                // 手書き文字解析
-                guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                if guest.guestNameImageData != Data() {
+                    // processIdentifireを作成
+                    let processIdentifire = "guestName\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeGuestNameImageData(guest)
+                    // 手書き文字解析
+                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                }
+                break
+            case "CompanyName":
+                if guest.guestNameImageData != Data() {
+                    // processIdentifireを作成
+                    let processIdentifire = "companyName\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeGuestNameImageData(guest)
+                    // 手書き文字解析
+                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                }
+                break
+            case "Address":
+                if guest.guestNameImageData != Data() {
+                    // processIdentifireを作成
+                    let processIdentifire = "address\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeGuestNameImageData(guest)
+                    // 手書き文字解析
+                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                }
+                break
+            case "ZipCode":
+                if guest.guestNameImageData != Data() {
+                    // processIdentifireを作成
+                    let processIdentifire = "zipCode\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeGuestNameImageData(guest)
+                    // 手書き文字解析
+                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                }
+                break
+            case "TelNumber":
+                if guest.guestNameImageData != Data() {
+                    // processIdentifireを作成
+                    let processIdentifire = "telNumber\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeGuestNameImageData(guest)
+                    // 手書き文字解析
+                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+                }
                 break
             default:
                 break
             }
-            
-            
-            
-            
-            
-
-
-            
-            
         }
     }
-    
-
 
     static func makeGuestNameImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
@@ -236,7 +267,6 @@ struct Guest {
                 }
                 semaphore.signal()
             }
-        // 10秒でタイムアウト
         semaphore.wait()
         print("タスク終わりました")
         return resultText

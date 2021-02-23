@@ -18,7 +18,6 @@ class GuestNameView: UIView {
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
     override init(frame: CGRect) {
-        
         super.init(frame: frame)
     }
     
@@ -66,7 +65,6 @@ class GuestNameView: UIView {
     @objc func textFieldDidChange() {
         guestItemupdateDelegate?.update(inputView: self)
     }
-    
 }
 
 // MARK:- Extensions

@@ -65,7 +65,7 @@ class GuestViewController: UIViewController {
         setupCompanyNameView()
         setupAddressView()
         setupSelectRelationView()
-        setupDescriptionView()
+//        setupDescriptionView()
     }
     
     fileprivate func setupBasic() {
@@ -101,7 +101,7 @@ class GuestViewController: UIViewController {
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guest: guest)
-        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 1 / 2, height: screenSize.height / 5))
+        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 1 / 2 - 20, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestItemupdateDelegate = self
     }
@@ -109,7 +109,7 @@ class GuestViewController: UIViewController {
     fileprivate func setupCompanyNameView() {
         view.addSubview(companyNameView)
         companyNameView.setupView(guest: guest)
-        companyNameView.anchor(top: backGroundFrame.topAnchor, leading: guestNameView.trailingAnchor, bottom: guestNameView.bottomAnchor, trailing: backGroundFrame.trailingAnchor)
+        companyNameView.anchor(top: backGroundFrame.topAnchor, leading: guestNameView.trailingAnchor, bottom: guestNameView.bottomAnchor, trailing: backGroundFrame.trailingAnchor, size: .zero)
         companyNameView.layer.borderWidth = 1.0
         companyNameView.guestItemupdateDelegate = self
     }
@@ -117,7 +117,7 @@ class GuestViewController: UIViewController {
     fileprivate func setupAddressView() {
         view.addSubview(addressView)
         addressView.setupView(guest: guest)
-        addressView.anchor(top: guestNameView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        addressView.anchor(top: guestNameView.bottomAnchor, leading: guestNameView.leadingAnchor, bottom: nil, trailing: companyNameView.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 5))
         addressView.layer.borderWidth = 1.0
         addressView.guestItemupdateDelegate = self
     }

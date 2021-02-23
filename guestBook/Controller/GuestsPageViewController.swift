@@ -131,7 +131,8 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         if guest == Guest("new", retuals) {
             return()
         }
-        Guest.updateText(guest: &guest)
+        // 画像解析により手書き文字のテキストを取得しguestを更新
+//        Guest.updateText(guest: &guest)
 
         if guest.id == "new" {
             // Firestoreにデータを保存

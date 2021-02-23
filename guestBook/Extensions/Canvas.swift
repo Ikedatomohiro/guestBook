@@ -21,15 +21,14 @@ extension PKCanvasView {
     }
     
     func setDrawingData(_ canvas: PKCanvasView,_ ImageData: Data) {
-        do {
-            canvas.drawing = try PKDrawing(data: ImageData)
-        }
-        catch {
-            let nserror = error as NSError
-            print("Unresolved error \(nserror), \(nserror.userInfo)")
+        if ImageData != Data() {
+            do {
+                canvas.drawing = try PKDrawing(data: ImageData)
+            }
+            catch {
+                let nserror = error as NSError
+                print("Unresolved error \(nserror), \(nserror.userInfo)")
+            }
         }
     }
-    
-    
-    
 }
