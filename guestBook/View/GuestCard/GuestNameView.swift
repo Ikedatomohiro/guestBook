@@ -18,6 +18,7 @@ class GuestNameView: UIView {
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
 
     override init(frame: CGRect) {
+        
         super.init(frame: frame)
     }
     

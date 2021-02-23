@@ -11,6 +11,8 @@ import FirebaseStorage
 import Alamofire
 
 fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
+let apiQueueGroup = DispatchGroup()
+let apiQueue  = DispatchQueue(label: "queue", attributes: .concurrent)
 
 struct Guest {
     var id: String
@@ -140,179 +142,211 @@ struct Guest {
     func setDefaultAttendance(retualList: [Retual]) -> Dictionary<String, Bool> {
         return retualList.reduce(into: [String: Bool]()) { $0[$1.id] = false }
     }
-
+    
     // 検索
-
+    
     
     // MARK:- 手書き文字解析
-    static func updateText(guest: inout Guest) {
-        let tasks: Array = ["GuestName", "CompanyName", "Address", "ZipCode", "TelNumber"]
-        for task in tasks {
-            switch task {
-            case "GuestName":
-                if guest.guestNameImageData != Data() {
-                    // processIdentifireを作成
-                    let processIdentifire = "guestName\(guest.id)"
-                    // CloudVisionAPIで手書き文字解析
-                    let imageData: String = makeGuestNameImageData(guest)
-                    // 手書き文字解析
-                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+    static func analizeText(guest: Guest, completion: @escaping (Dictionary<String,String>) -> Void) {
+        let tasks: Array = ["GuestName"]
+        //        let tasks: Array = ["GuestName", "CompanyName", "Address", "ZipCode", "TelNumber"]
+        var apiResult: Dictionary<String, String> = [:]
+        
+        apiQueueGroup.enter()
+        if guest.guestNameImageData != Data() {
+            // processIdentifireを作成
+            let processIdentifire = "guestName\(guest.id)"
+            // CloudVisionAPIで手書き文字解析
+            let imageData: String = makeGuestNameImageData(guest)
+            // 手書き文字解析
+            callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
+                apiQueue.async(group: apiQueueGroup) {
+                apiResult["GuestName"] = result
+                print("御芳名：\(result)")
+                    apiQueueGroup.leave()
                 }
-                break
-            case "CompanyName":
-                if guest.guestNameImageData != Data() {
-                    // processIdentifireを作成
-                    let processIdentifire = "companyName\(guest.id)"
-                    // CloudVisionAPIで手書き文字解析
-                    let imageData: String = makeGuestNameImageData(guest)
-                    // 手書き文字解析
-                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
-                }
-                break
-            case "Address":
-                if guest.guestNameImageData != Data() {
-                    // processIdentifireを作成
-                    let processIdentifire = "address\(guest.id)"
-                    // CloudVisionAPIで手書き文字解析
-                    let imageData: String = makeGuestNameImageData(guest)
-                    // 手書き文字解析
-                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
-                }
-                break
-            case "ZipCode":
-                if guest.guestNameImageData != Data() {
-                    // processIdentifireを作成
-                    let processIdentifire = "zipCode\(guest.id)"
-                    // CloudVisionAPIで手書き文字解析
-                    let imageData: String = makeGuestNameImageData(guest)
-                    // 手書き文字解析
-                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
-                }
-                break
-            case "TelNumber":
-                if guest.guestNameImageData != Data() {
-                    // processIdentifireを作成
-                    let processIdentifire = "telNumber\(guest.id)"
-                    // CloudVisionAPIで手書き文字解析
-                    let imageData: String = makeGuestNameImageData(guest)
-                    // 手書き文字解析
-                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
-                }
-                break
-            default:
-                break
+            })
+        }
+            
+            
+            //        for task in tasks {
+            //            apiQueueGroup.enter()
+            //            switch task {
+            //            case "GuestName":
+            //                if guest.guestNameImageData != Data() {
+            //                    // processIdentifireを作成
+            //                    let processIdentifire = "guestName\(guest.id)"
+            //                    // CloudVisionAPIで手書き文字解析
+            //                    let imageData: String = makeGuestNameImageData(guest)
+            //                    // 手書き文字解析
+            //                    callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
+            //                        apiQueue.async(group: apiQueueGroup) {
+            //                        apiResult["GuestName"] = result
+            //                        print("御芳名：\(result)")
+            //                            apiQueueGroup.leave()
+            ////                        guest.guestName = apiResult["GuestName"] ?? ""
+            //                        }
+            //                    })
+            //                }
+            //                break
+            //            case "CompanyName":
+            //                if guest.guestNameImageData != Data() {
+            //                    // processIdentifireを作成
+            //                    let processIdentifire = "companyName\(guest.id)"
+            //                    // CloudVisionAPIで手書き文字解析
+            //                    let imageData: String = makeGuestNameImageData(guest)
+            //                    // 手書き文字解析
+            //                    apiQueue.async(group: apiQueueGroup) {
+            //                        callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
+            //                            apiResult["CompanyName"] = result
+            //                            print("会社名：\(result)")
+            //                            apiQueueGroup.leave()
+            //                        })
+            //                    }
+            //
+            //                }
+            //                break
+            //            case "Address":
+            //                if guest.guestNameImageData != Data() {
+            //                    // processIdentifireを作成
+            //                    let processIdentifire = "address\(guest.id)"
+            //                    // CloudVisionAPIで手書き文字解析
+            //                    let imageData: String = makeGuestNameImageData(guest)
+            //                    // 手書き文字解析
+            //                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+            //                }
+            //                break
+            //            case "ZipCode":
+            //                if guest.guestNameImageData != Data() {
+            //                    // processIdentifireを作成
+            //                    let processIdentifire = "zipCode\(guest.id)"
+            //                    // CloudVisionAPIで手書き文字解析
+            //                    let imageData: String = makeGuestNameImageData(guest)
+            //                    // 手書き文字解析
+            //                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+            //                }
+            //                break
+            //            case "TelNumber":
+            //                if guest.guestNameImageData != Data() {
+            //                    // processIdentifireを作成
+            //                    let processIdentifire = "telNumber\(guest.id)"
+            //                    // CloudVisionAPIで手書き文字解析
+            //                    let imageData: String = makeGuestNameImageData(guest)
+            //                    // 手書き文字解析
+            //                    guest.guestName = callGoogleVisionApi(imageData, processIdentifire)
+            //                }
+            //                break
+            //            default:
+            //                apiQueueGroup.leave()
+            //                break
+            //            }
+            //        }
+            apiQueueGroup.notify(queue: .main) {
+                completion(apiResult)
+                print("Guestモデルのデータ\(apiResult)")
             }
         }
-    }
-
-    static func makeGuestNameImageData(_ guest: Guest) -> String {
-        let canvas: PKCanvasView = PKCanvasView(frame: .zero)
-        canvas.setDrawingData(canvas, guest.guestNameImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.guestNameWidth, height: guestCardView.guestNameHeight), scale: 1.0)
-        let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
-        return binaryImageData
-    }
-
-    static func callGoogleVisionApi(_ imgeData: String, _ processIdentifire: String) -> String {
-        let semaphore = DispatchSemaphore(value: 0)
-        let queue     = DispatchQueue.global(qos: .utility)
-        let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
-        let parameters: Parameters = [
-            "requests": [
-                "image": [
-                    "content": imgeData
-                ],
-                "features": [
-                    "type": "TEXT_DETECTION",
-                    "maxResults": 1
-                ],
-                "imageContext": [
-                    "languageHints": [
-                        "ja-t-i0-handwrit"
+        
+        static func makeGuestNameImageData(_ guest: Guest) -> String {
+            let canvas: PKCanvasView = PKCanvasView(frame: .zero)
+            canvas.setDrawingData(canvas, guest.guestNameImageData)
+            let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.guestNameWidth, height: guestCardView.guestNameHeight), scale: 1.0)
+            let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
+            return binaryImageData
+        }
+        
+        static func callGoogleVisionApi(_ imgeData: String, _ processIdentifire: String, completion: @escaping(String) -> Void) {
+            
+            let apiURL = "https://vision.googleapis.com/v1/images:annotate?key=\(Keys.googleVisionAPIKey)"
+            let parameters: Parameters = [
+                "requests": [
+                    "image": [
+                        "content": imgeData
+                    ],
+                    "features": [
+                        "type": "TEXT_DETECTION",
+                        "maxResults": 1
+                    ],
+                    "imageContext": [
+                        "languageHints": [
+                            "ja-t-i0-handwrit"
+                        ]
                     ]
                 ]
             ]
-        ]
-        var resultText: String = ""
-        let headers: HTTPHeaders = [
-            "Content-Type": "application/json",
-            "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? "",
-            "Process-Identifire": processIdentifire]
-        AF.request(
-            apiURL,
-            method: .post,
-            parameters: parameters,
-            encoding: JSONEncoding.default,
-            headers: headers)
-            .responseJSON(queue: queue) { response in
-                // JSONデコード
-                let decoder = JSONDecoder()
-                decoder.keyDecodingStrategy = .convertFromSnakeCase
-                decoder.dateDecodingStrategy = .iso8601
-                do {
-                    let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
-                    // レスポンスが該当のリクエストに対するものか確認
-                    if let requestHeaders = response.request?.headers {
-                        for header in requestHeaders {
-                            if header.name == "Process-Identifire" {
-                                if header.value == processIdentifire {
-                                    resultText = decoded.responses[0].fullTextAnnotation.text
-                                    print(decoded.responses[0].fullTextAnnotation.text)
+            var resultText: String = ""
+            let headers: HTTPHeaders = [
+                "Content-Type": "application/json",
+                "X-Ios-Bundle-Identifier": Bundle.main.bundleIdentifier ?? "",
+                "Process-Identifire": processIdentifire]
+            AF.request(
+                apiURL,
+                method: .post,
+                parameters: parameters,
+                encoding: JSONEncoding.default,
+                headers: headers)
+                .responseJSON() { response in
+                    // JSONデコード
+                    let decoder = JSONDecoder()
+                    decoder.keyDecodingStrategy = .convertFromSnakeCase
+                    decoder.dateDecodingStrategy = .iso8601
+                    do {
+                        let decoded: CloudVisionApiResponse = try decoder.decode(CloudVisionApiResponse.self, from: response.data ?? Data())
+                        // レスポンスが該当のリクエストに対するものか確認
+                        if let requestHeaders = response.request?.headers {
+                            for header in requestHeaders {
+                                if header.name == "Process-Identifire" {
+                                    if header.value == processIdentifire {
+                                        resultText = decoded.responses[0].fullTextAnnotation.text
+                                    }
                                 }
                             }
                         }
+                        
+                    } catch {
+                        print(error.localizedDescription)
                     }
-                } catch {
-                    print(error.localizedDescription)
+                    completion(resultText)
+                    print("\(processIdentifire)：タスク終わりました")
                 }
-                semaphore.signal()
+        }
+    }
+    
+    // MARK:- CloudVisionApiレスポンス解析
+    struct CloudVisionApiResponse: Codable {
+        var responses: [Response]
+        struct Response: Codable {
+            var textAnnotations: [TextAnnotations]
+            var fullTextAnnotation: FullTextAnnotation
+            struct TextAnnotations: Codable {
+                var description: String
             }
-        semaphore.wait()
-        print("タスク終わりました")
-        return resultText
-    }
-    
-    
-    
-    
-    
-}
-
-// MARK:- CloudVisionApiレスポンス解析
-struct CloudVisionApiResponse: Codable {
-    var responses: [Response]
-    struct Response: Codable {
-        var textAnnotations: [TextAnnotations]
-        var fullTextAnnotation: FullTextAnnotation
-        struct TextAnnotations: Codable {
-            var description: String
-        }
-        struct FullTextAnnotation: Codable {
-            var text: String
+            struct FullTextAnnotation: Codable {
+                var text: String
+            }
         }
     }
-}
-
-// MARK:- Extensions
-// 入力されているかどうかチェック
-extension Guest: Equatable {
-    static func == (lhs: Guest, rhs: Guest) -> Bool {
-        return lhs.id                   == rhs.id
-            && lhs.guestName            == rhs.guestName
-            && lhs.guestNameImageData   == rhs.guestNameImageData
-            && lhs.companyName          == rhs.companyName
-            && lhs.companyNameImageData == rhs.companyNameImageData
-            && lhs.retuals              == rhs.retuals
-            && lhs.zipCode              == rhs.zipCode
-            && lhs.zipCodeImageData     == rhs.zipCodeImageData
-            && lhs.address              == rhs.address
-            && lhs.addressImageData     == rhs.addressImageData
-            && lhs.telNumber            == rhs.telNumber
-            && lhs.telNumberImageData   == rhs.telNumberImageData
-            && lhs.relations            == rhs.relations
-            && lhs.description          == rhs.description
-            && lhs.descriptionImageData == rhs.descriptionImageData
+    
+    // MARK:- Extensions
+    // 入力されているかどうかチェック
+    extension Guest: Equatable {
+        static func == (lhs: Guest, rhs: Guest) -> Bool {
+            return lhs.id                   == rhs.id
+                && lhs.guestName            == rhs.guestName
+                && lhs.guestNameImageData   == rhs.guestNameImageData
+                && lhs.companyName          == rhs.companyName
+                && lhs.companyNameImageData == rhs.companyNameImageData
+                && lhs.retuals              == rhs.retuals
+                && lhs.zipCode              == rhs.zipCode
+                && lhs.zipCodeImageData     == rhs.zipCodeImageData
+                && lhs.address              == rhs.address
+                && lhs.addressImageData     == rhs.addressImageData
+                && lhs.telNumber            == rhs.telNumber
+                && lhs.telNumberImageData   == rhs.telNumberImageData
+                && lhs.relations            == rhs.relations
+                && lhs.description          == rhs.description
+                && lhs.descriptionImageData == rhs.descriptionImageData
+        }
     }
-}
 
 

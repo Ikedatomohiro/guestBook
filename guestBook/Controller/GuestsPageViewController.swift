@@ -22,7 +22,8 @@ class GuestsPageViewController: UIPageViewController {
     var prevIndex: Int    = 0
     var nextIndex: Int    = 0
     fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
-    
+    let guestUpdateQueue = DispatchQueue.global(qos: .userInitiated)
+
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
     init(_ event: Event,_ retuals: [Retual],_ guests: [Guest]) {
@@ -44,7 +45,13 @@ class GuestsPageViewController: UIPageViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         // 戻るボタンが押されたときに保存する
-        updateGuestCardToCloud(guest: &guests[currentIndex])
+        guestUpdateQueue.async {
+            var guest = self.guests[self.currentIndex]
+            // 画像解析により手書き文字のテキストを取得しguestを更新
+//            Guest.analizeText(guest: guest)
+            // Firestoreに保存する
+            self.updateGuestCardToCloud(guest: guest)
+        }
     }
     
     fileprivate func setGuestData() {
@@ -127,12 +134,11 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         return
     }
     
-    func updateGuestCardToCloud(guest: inout Guest) {
+    func updateGuestCardToCloud(guest: Guest) {
         if guest == Guest("new", retuals) {
             return()
         }
-        // 画像解析により手書き文字のテキストを取得しguestを更新
-//        Guest.updateText(guest: &guest)
+
 
         if guest.id == "new" {
             // Firestoreにデータを保存
@@ -153,16 +159,20 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         print("willTransitionTo")
     }
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         print("didFinishAnimating")
-        let grobalQueue = DispatchQueue.global(qos: .userInitiated)
         // ページめくりが完了したとき
         if completed {
-            grobalQueue.async {
+            guestUpdateQueue.async {
+                var guest = self.guests[self.prevIndex]
+                // 画像解析により手書き文字のテキストを取得しguestを更新
+                Guest.analizeText(guest: guest) { (result) in
+                    print(result)
+                }
                 // ページめくりが完了したときに保存
-                self.updateGuestCardToCloud(guest: &self.guests[self.prevIndex])
+                self.updateGuestCardToCloud(guest: guest)
             }
-
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
@@ -177,10 +187,8 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
 
 extension GuestsPageViewController: GuestUpdateDelegate {
     func update(guest: Guest) {
-        let index = guests.firstIndex(where: {$0.id == guest.id})
-        if index != nil {
-            guests[index!] = guest
+        if let index = guests.firstIndex(where: {$0.id == guest.id}) {
+            guests[index] = guest
         }
     }
-    
 }
