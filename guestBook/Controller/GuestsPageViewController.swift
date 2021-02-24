@@ -46,11 +46,11 @@ class GuestsPageViewController: UIPageViewController {
     override func viewWillDisappear(_ animated: Bool) {
         // 戻るボタンが押されたときに保存する
         guestUpdateQueue.async {
-            var guest = self.guests[self.currentIndex]
+            let guest = self.guests[self.currentIndex]
             // 画像解析により手書き文字のテキストを取得しguestを更新
 //            Guest.analizeText(guest: guest)
             // Firestoreに保存する
-            self.updateGuestCardToCloud(guest: guest)
+//            self.updateGuestCardToCloud(guest: guest)
         }
     }
     
@@ -134,7 +134,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         return
     }
     
-    func updateGuestCardToCloud(guest: Guest) {
+    func updateGuestCardToCloud(guest: Guest, result: Dictionary<String, String>) {
         if guest == Guest("new", retuals) {
             return()
         }
@@ -142,13 +142,13 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
 
         if guest.id == "new" {
             // Firestoreにデータを保存
-            let documentRef = Guest.registGuest(guest, event.eventId)
+            let documentRef = Guest.registGuest(guest, event.eventId, result)
             if let index = guests.firstIndex(where: {$0.id == "new"}) {
                 guests[index] = guest
                 guests[index].id = documentRef.documentID
             }
         } else {
-            Guest.updateGuest(guest, event.eventId)
+            Guest.updateGuest(guest, event.eventId, result )
         }
 
     }
@@ -164,14 +164,17 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
+            // ページめくりが完了したときに保存
             guestUpdateQueue.async {
-                var guest = self.guests[self.prevIndex]
+                let guest = self.guests[self.prevIndex]
                 // 画像解析により手書き文字のテキストを取得しguestを更新
                 Guest.analizeText(guest: guest) { (result) in
-                    print(result)
+                    // 画像解析が完了したら保存する
+                    apiQueueGroup.notify(queue: .main) {
+                        self.updateGuestCardToCloud(guest: guest, result: result)
+                    }
                 }
-                // ページめくりが完了したときに保存
-                self.updateGuestCardToCloud(guest: guest)
+
             }
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
