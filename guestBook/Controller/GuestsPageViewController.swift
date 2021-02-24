@@ -23,7 +23,7 @@ class GuestsPageViewController: UIPageViewController {
     var nextIndex: Int    = 0
     fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     let guestUpdateQueue = DispatchQueue.global(qos: .userInitiated)
-
+    
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
     init(_ event: Event,_ retuals: [Retual],_ guests: [Guest]) {
@@ -48,9 +48,12 @@ class GuestsPageViewController: UIPageViewController {
         guestUpdateQueue.async {
             let guest = self.guests[self.currentIndex]
             // 画像解析により手書き文字のテキストを取得しguestを更新
-//            Guest.analizeText(guest: guest)
-            // Firestoreに保存する
-//            self.updateGuestCardToCloud(guest: guest)
+            Guest.analizeText(guest: guest) { (result) in
+                // 画像解析が完了したら保存する
+                apiQueueGroup.notify(queue: .main) {
+                    self.updateGuestCardToCloud(guest: guest, result: result)
+                }
+            }
         }
     }
     
@@ -138,8 +141,8 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         if guest == Guest("new", retuals) {
             return()
         }
-
-
+        
+        
         if guest.id == "new" {
             // Firestoreにデータを保存
             let documentRef = Guest.registGuest(guest, event.eventId, result)
@@ -150,9 +153,9 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         } else {
             Guest.updateGuest(guest, event.eventId, result )
         }
-
+        
     }
-
+    
 }
 // MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDelegate {
@@ -174,7 +177,6 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
                         self.updateGuestCardToCloud(guest: guest, result: result)
                     }
                 }
-
             }
             // ページを捲り始めたが、元のページに戻ったとき
         } else {
