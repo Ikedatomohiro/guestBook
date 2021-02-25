@@ -15,7 +15,7 @@ class GuestListViewController: UIViewController {
     fileprivate var retuals: [Retual]
     lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
     lazy var guestSortAreaView = GuestSortAreaView(retuals, frame: .zero)
-    fileprivate var pageNumber  : Int     = 1
+    fileprivate var pageNumber  : Int = 1
     
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
@@ -46,10 +46,7 @@ class GuestListViewController: UIViewController {
         view.addSubview(guestSortAreaView)
         
         guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
-        
         guestSortAreaView.sendRetualDelegate = self
-        
-        
     }
     
     fileprivate func setupGuestListTableView() {
@@ -79,51 +76,30 @@ extension GuestListViewController: SendRetualDelegate {
     func sendRetual(retual: Retual) {
         // リスト番号リセット
         self.pageNumber = 1
+        let selectGuest = SelectGuest()
         if retual.id != "" {
-            // 得られた情報からデータを検索
-            Guest.collectionRef(event.eventId).whereField("retuals.\(retual.id)", isEqualTo: true).getDocuments { (querySnapshot, error) in
-                if (error == nil) {
-                    guard let docments = querySnapshot?.documents else { return }
-                    self.guests = docments.map({ (document) -> Guest in
-                        var guest = Guest(document: document)
-                        guest.pageNumber = self.pageNumber
-                        self.pageNumber += 1
-                        return guest
-                    })
-                    // TabeleViewにguestsを渡す
-                    self.guestListTableView = GuestListTableView(guests: self.guests, retuals: self.retuals, frame: .zero, style: .plain)
-                    print("guest:\(self.guests.count)")
-                    self.setupGuestListTableView()
-                } else {
-                    print("取得に失敗しました。")
-                    print(error as Any)
-                    return
+            firestoreQueue.async {
+                selectGuest.selectGuestFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
+                    DispatchQueue.main.async {
+                        // TabeleViewにguestsを渡す
+                        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
+                        print("guest:\(guests.count)")
+                        self.setupGuestListTableView()
+                    }
                 }
             }
         } else {
-            Guest.collectionRef(event.eventId).getDocuments { (querySnapshot, error) in
-                if (error == nil) {
-                    guard let docments = querySnapshot?.documents else { return }
-                    self.guests = docments.map({ (document) -> Guest in
-                        var guest = Guest(document: document)
-                        guest.pageNumber = self.pageNumber
-                        self.pageNumber += 1
-                        return guest
-                    })
-                    // TabeleViewにguestsを渡す
-                    self.guestListTableView = GuestListTableView(guests: self.guests, retuals: self.retuals, frame: .zero, style: .plain)
-                    print("guest:\(self.guests.count)")
-                    self.setupGuestListTableView()
-                } else {
-                    print("取得に失敗しました。")
-                    print(error as Any)
-                    return
+            firestoreQueue.async {
+                let selectGuest = SelectGuest()
+                selectGuest.selectGuestAll(eventId: self.event.eventId) { (guests) in
+                    DispatchQueue.main.async {
+                        // TabeleViewにguestsを渡す
+                        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
+                        print("guest:\(guests.count)")
+                        self.setupGuestListTableView()
+                    }
                 }
             }
-            
         }
-
     }
-    
-    
 }
