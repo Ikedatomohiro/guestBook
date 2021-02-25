@@ -101,7 +101,7 @@ class GuestViewController: UIViewController {
     fileprivate func setupGuestNameView() {
         view.addSubview(guestNameView)
         guestNameView.setupView(guest: guest)
-        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 1 / 2 - 20, height: screenSize.height / 5))
+        guestNameView.anchor(top: backGroundFrame.topAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 1 / 2, height: screenSize.height / 5))
         guestNameView.layer.borderWidth = 1.0
         guestNameView.guestItemupdateDelegate = self
     }

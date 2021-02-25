@@ -40,14 +40,11 @@ class AddressView: UIView {
     
     func setupView(guest: Guest) {
         setupAdrressLabel(guest)
-        setupAddressTextField(address: guest.address)
         setupAddressCanvas(ImageData: guest.addressImageData)
         setupZipCodeLabel(guest)
         setupZipCodeCanvas(ImageData: guest.zipCodeImageData)
-        setupZipCodeTextField(zipCode: guest.zipCode)
         setupTelNumberLabel(guest)
         setupTelNumberCanvas(ImageData: guest.telNumberImageData)
-        setupTelNumberTextField(telNumber: guest.telNumber)
         
     }
     
@@ -71,16 +68,6 @@ class AddressView: UIView {
         addressCanvas.accessibilityIdentifier = "address"
     }
     
-    fileprivate func setupAddressTextField(address: String) {
-        addSubview(addressTextField)
-        addressTextField.anchor(top: addressTitleLabel.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 20, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        addressTextField.layer.borderWidth = 1.0
-        addressTextField.text = address
-        addressTextField.accessibilityIdentifier = "address"
-        addressTextField.placeholder = "住所"
-        addressTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
-    }
-    
     // MARK:- telNumber
     fileprivate func setupTelNumberLabel(_ guest: Guest) {
         addSubview(telNumberTitleLabel)
@@ -98,21 +85,11 @@ class AddressView: UIView {
         addSubview(telNumberCanvas)
         telNumberCanvas.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, size: .init(width: screenSize.width * 2 / 5, height: 60))
         telNumberCanvas.isOpaque = false
-        telNumberCanvas.layer.borderWidth = 1.0
+        //        telNumberCanvas.layer.borderWidth = 1.0
         telNumberCanvas.setDrawingData(telNumberCanvas, ImageData)
         telNumberCanvas.setupPencil(canvas: telNumberCanvas)
         telNumberCanvas.delegate = self
         telNumberCanvas.accessibilityIdentifier = "telNumber"
-    }
-    
-    fileprivate func setupTelNumberTextField(telNumber: String) {
-        addSubview(telNumberTextField)
-        telNumberTextField.anchor(top: telNumberTitleLabel.bottomAnchor, leading: zipCodeTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 400, height: 40))
-        telNumberTextField.layer.borderWidth = 1.0
-        telNumberTextField.text = telNumber
-        telNumberTextField.accessibilityIdentifier = "telNumber"
-        telNumberTextField.placeholder = "電話番号"
-        telNumberTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     
     // MARK:- zipCode
@@ -125,21 +102,10 @@ class AddressView: UIView {
         addSubview(zipCodeCanvas)
         zipCodeCanvas.anchor(top: topAnchor, leading: addressTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 2 / 5, height: 60))
         zipCodeCanvas.isOpaque = false
-        zipCodeCanvas.layer.borderWidth = 1.0
         zipCodeCanvas.setDrawingData(zipCodeCanvas, ImageData)
         zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
         zipCodeCanvas.delegate = self
         zipCodeCanvas.accessibilityIdentifier = "zipCode"
-    }
-    
-    fileprivate func setupZipCodeTextField(zipCode: String) {
-        addSubview(zipCodeTextField)
-        zipCodeTextField.anchor(top: zipCodeTitleLabel.bottomAnchor, leading: addressTextField.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 300, height: 40))
-        zipCodeTextField.layer.borderWidth = 1.0
-        zipCodeTextField.text = zipCode
-        zipCodeTextField.accessibilityIdentifier = "zipCode"
-        zipCodeTextField.placeholder = "郵便番号"
-        zipCodeTextField.addTarget(self, action: #selector(textFieldDidChange), for: .editingDidEnd)
     }
     
     fileprivate func setupZipCodeFrame() {
