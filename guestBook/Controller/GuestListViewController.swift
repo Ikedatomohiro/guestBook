@@ -15,7 +15,9 @@ class GuestListViewController: UIViewController {
     fileprivate var retuals: [Retual]
     lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
     lazy var guestSortAreaView = GuestSortAreaView(retuals, frame: .zero)
-    fileprivate var pageNumber  : Int = 1
+    fileprivate var pageNumber: Int = 1
+    var selectRetualId: String = ""
+    var selectRank: Dictionary<String, Bool?> = [:]
     
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
@@ -53,6 +55,7 @@ class GuestListViewController: UIViewController {
         view.addSubview(guestListTableView)
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.transitionDelegate = self
+        guestListTableView.changeGuestsRankDelegate = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
     }
 }
@@ -73,13 +76,13 @@ extension GuestListViewController: TransitionGuestDetailDelegate {
 }
 
 extension GuestListViewController: SendRetualDelegate {
-    func sendRetual(retual: Retual) {
+    func selectGuestsByRetual(retual: Retual) {
         // リスト番号リセット
         self.pageNumber = 1
-        let selectGuest = SelectGuest()
+        let selectGuests = SelectGuests()
         if retual.id != "" {
             firestoreQueue.async {
-                selectGuest.selectGuestFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
+                selectGuests.selectGuestsFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
@@ -90,8 +93,7 @@ extension GuestListViewController: SendRetualDelegate {
             }
         } else {
             firestoreQueue.async {
-                let selectGuest = SelectGuest()
-                selectGuest.selectGuestAll(eventId: self.event.eventId) { (guests) in
+                selectGuests.selectGuestAll(eventId: self.event.eventId) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
@@ -101,5 +103,17 @@ extension GuestListViewController: SendRetualDelegate {
                 }
             }
         }
+    }
+}
+
+extension GuestListViewController: ChangeGuestsRankDelegate {
+    func changeGuestsRank(selectRank: Dictionary<String, Bool?>) {
+        self.selectRank = selectRank
+        let selectGuests = SelectGuests()
+        guests = selectGuests.sortGuests(guests: &guests, selectRank: selectRank)
+        // TabeleViewにguestsを渡す
+        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
+        print("guest:\(guests.count)")
+        self.setupGuestListTableView()
     }
 }

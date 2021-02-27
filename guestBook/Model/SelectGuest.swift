@@ -1,5 +1,5 @@
 //
-//  SelectGuest.swift
+//  SelectGuests.swift
 //  guestBook
 //
 //  Created by Tomohiro Ikeda on 2021/02/25.
@@ -11,7 +11,7 @@ import FirebaseFirestore
 let firestoreQueueGroup = DispatchGroup()
 let firestoreQueue  = DispatchQueue.global(qos: .userInitiated)
 
-class SelectGuest {
+class SelectGuests {
     
     var guests: [Guest] = []
     var pageNumber: Int = 1
@@ -20,7 +20,7 @@ class SelectGuest {
         return Firestore.firestore().collection("events").document(eventId).collection("guests")
     }
     
-    func selectGuestFromRetual(eventId: String, retualId: String, completion: @escaping ([Guest]) -> Void) {
+    func selectGuestsFromRetual(eventId: String, retualId: String, completion: @escaping ([Guest]) -> Void) {
         // 得られた情報からデータを検索
         self.collectionRef(eventId).whereField("retuals.\(retualId)", isEqualTo: true).getDocuments { (querySnapshot, error) in
             if (error == nil) {
@@ -55,5 +55,10 @@ class SelectGuest {
                 return
             }
         }
+    }
+    
+    func sortGuests(guests: inout [Guest], selectRank: Dictionary<String, Bool?>) -> [Guest] {
+        guests.sort(by: {$0.guestName < $1.guestName})
+        return guests
     }
 }

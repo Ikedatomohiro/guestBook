@@ -12,12 +12,17 @@ protocol TransitionGuestDetailDelegate: AnyObject {
     func sendTransitionIndex(_ guestDetailVC: UIViewController,_ index: Int)
 }
 
+protocol ChangeGuestsRankDelegate: AnyObject {
+    func changeGuestsRank(selectRank: Dictionary<String, Bool?>)
+}
+
 class GuestListTableView: UITableView {
     
     fileprivate let guests: [Guest]
     let retuals: [Retual]
     weak var transitionDelegate: TransitionGuestDetailDelegate?
-
+    weak var changeGuestsRankDelegate: ChangeGuestsRankDelegate?
+    
     init(guests: [Guest], retuals: [Retual], frame: CGRect, style: UITableView.Style) {
         self.guests = guests
         self.retuals = retuals
@@ -66,6 +71,7 @@ extension GuestListTableView: UITableViewDataSource {
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let guestListHeader = GuestListHeaderCell()
+        guestListHeader.sendGuestRank = self
         return guestListHeader
     }
     // ヘッダー高さ
@@ -73,4 +79,11 @@ extension GuestListTableView: UITableViewDataSource {
         50
     }
 
+}
+
+// MARK:- Extentions
+extension GuestListTableView: SentGuestsRankDelegate {
+    func sendGuestRank(selectRank: Dictionary<String, Bool?>) {
+        changeGuestsRankDelegate?.changeGuestsRank(selectRank: selectRank)
+    }
 }

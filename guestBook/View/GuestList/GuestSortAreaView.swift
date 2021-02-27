@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SendRetualDelegate: AnyObject {
-    func sendRetual(retual: Retual)
+    func selectGuestsByRetual(retual: Retual)
 }
 
 class GuestSortAreaView: UIView {
@@ -69,7 +69,7 @@ extension GuestSortAreaView:UIPickerViewDataSource {
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         
         print(retualList[row])
-        sendRetualDelegate?.sendRetual(retual: retualList[row])
+        sendRetualDelegate?.selectGuestsByRetual(retual: retualList[row])
 
     }
 }
