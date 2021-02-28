@@ -135,8 +135,14 @@ class GuestListHeaderCell: UITableViewCell {
     }
     // MARK:-
     @objc func changeRank(sender: UIButton) {
+        print(guestNameRankAsc)
         // tag: 1 御芳名
         if sender.tag == 1 {
+            
+            if let nameRank = guestNameRankAsc {
+                print(nameRank)
+            }
+            
             if guestNameRankAsc == nil {
                 guestNameRankAsc = true
                 guestNameRankLabel.text = "▲"
@@ -163,6 +169,7 @@ class GuestListHeaderCell: UITableViewCell {
         selectRank["guestName"]   = guestNameRankAsc
         selectRank["companyName"] = companyNameRankAsc
         sendGuestRank?.sendGuestRank(selectRank: selectRank)
+//        print(selectRank)
     }
     
 }

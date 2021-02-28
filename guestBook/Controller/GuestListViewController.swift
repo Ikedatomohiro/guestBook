@@ -85,9 +85,8 @@ extension GuestListViewController: SendRetualDelegate {
                 selectGuests.selectGuestsFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
-                        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
                         print("guest:\(guests.count)")
-                        self.setupGuestListTableView()
+                        self.guestListTableView.reloadGuestsData(guests: guests)
                     }
                 }
             }
@@ -96,9 +95,8 @@ extension GuestListViewController: SendRetualDelegate {
                 selectGuests.selectGuestAll(eventId: self.event.eventId) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
-                        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
                         print("guest:\(guests.count)")
-                        self.setupGuestListTableView()
+                        self.guestListTableView.reloadGuestsData(guests: guests)
                     }
                 }
             }
@@ -112,8 +110,6 @@ extension GuestListViewController: ChangeGuestsRankDelegate {
         let selectGuests = SelectGuests()
         guests = selectGuests.sortGuests(guests: &guests, selectRank: selectRank)
         // TabeleViewにguestsを渡す
-        self.guestListTableView = GuestListTableView(guests: guests, retuals: self.retuals, frame: .zero, style: .plain)
-        print("guest:\(guests.count)")
-        self.setupGuestListTableView()
+        self.guestListTableView.reloadGuestsData(guests: guests)
     }
 }

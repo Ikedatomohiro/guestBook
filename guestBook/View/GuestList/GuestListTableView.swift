@@ -18,7 +18,7 @@ protocol ChangeGuestsRankDelegate: AnyObject {
 
 class GuestListTableView: UITableView {
     
-    fileprivate let guests: [Guest]
+    fileprivate var guests: [Guest]
     let retuals: [Retual]
     weak var transitionDelegate: TransitionGuestDetailDelegate?
     weak var changeGuestsRankDelegate: ChangeGuestsRankDelegate?
@@ -27,12 +27,18 @@ class GuestListTableView: UITableView {
         self.guests = guests
         self.retuals = retuals
         super.init(frame: .zero, style: style)
+        self.tableFooterView = UIView()
         self.delegate = self
         self.dataSource = self
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func reloadGuestsData(guests: [Guest]) {
+        self.guests = guests
+        reloadData()
     }
     
 }
@@ -74,6 +80,7 @@ extension GuestListTableView: UITableViewDataSource {
         guestListHeader.sendGuestRank = self
         return guestListHeader
     }
+    
     // ヘッダー高さ
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         50
