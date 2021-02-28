@@ -58,7 +58,15 @@ class SelectGuests {
     }
     
     func sortGuests(guests: inout [Guest], selectRank: Dictionary<String, Bool?>) -> [Guest] {
-        guests.sort(by: {$0.guestName < $1.guestName})
+        if let guestRank = selectRank["guestName"] {
+            if guestRank! {
+                guests.sort(by: {$0.guestName < $1.guestName})
+            } else if !guestRank! {
+                guests.sort(by: {$0.guestName > $1.guestName})
+            }
+        } else {
+            guests.sort(by: {$0.createdAt < $1.createdAt})
+        }
         return guests
     }
 }

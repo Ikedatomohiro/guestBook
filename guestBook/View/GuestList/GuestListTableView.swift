@@ -20,6 +20,8 @@ class GuestListTableView: UITableView {
     
     fileprivate var guests: [Guest]
     let retuals: [Retual]
+    var selectRank: Dictionary<String, Bool?> = [:]
+
     weak var transitionDelegate: TransitionGuestDetailDelegate?
     weak var changeGuestsRankDelegate: ChangeGuestsRankDelegate?
     
@@ -76,7 +78,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let guestListHeader = GuestListHeaderCell()
+        let guestListHeader = GuestListHeaderCell(selectRank: selectRank, style: .default, reuseIdentifier: .none)
         guestListHeader.sendGuestRank = self
         return guestListHeader
     }
@@ -91,6 +93,7 @@ extension GuestListTableView: UITableViewDataSource {
 // MARK:- Extentions
 extension GuestListTableView: SentGuestsRankDelegate {
     func sendGuestRank(selectRank: Dictionary<String, Bool?>) {
-        changeGuestsRankDelegate?.changeGuestsRank(selectRank: selectRank)
+        self.selectRank = selectRank
+        changeGuestsRankDelegate?.changeGuestsRank(selectRank: self.selectRank)
     }
 }
