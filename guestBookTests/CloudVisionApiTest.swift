@@ -9,12 +9,22 @@ import XCTest
 @testable import guestBook
 
 class CloudVisionApiTest: XCTestCase {
-    
+    var apiResult: String = ""
     // APIのレスポンス仕様変更があったことを発見しやすくする
     func testCloudVisionApi() {
         let processIdentifire = "apiTest"
-        let result = Guest.callGoogleVisionApi(binaryImageTextData, processIdentifire)
-        XCTAssertEqual(result, "てがき\n")
+        apiQueueGroup.enter()
+        apiQueue.async(group: apiQueueGroup) {
+            AnalizeHandWrite.callGoogleVisionApi(self.binaryImageTextData, processIdentifire, completion: { (result) in
+                self.apiResult = result
+                print(result)
+                apiQueueGroup.leave()
+            })
+        }
+        apiQueueGroup.notify(queue: .main) {
+            print("Guestモデルのデータ\(self.apiResult)")
+            XCTAssertEqual(self.apiResult, "てがき\n")
+        }
     }
     
     // 「"てがき\n"」

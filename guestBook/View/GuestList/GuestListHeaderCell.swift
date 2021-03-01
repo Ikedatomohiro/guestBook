@@ -43,11 +43,8 @@ class GuestListHeaderCell: UITableViewCell {
         setupNumberLabel()
         setupGuestNameView()
         setupCompanyNameView()
-        
-//        setupAddressLabel()
-//        setupRetualLabel()
-        
-        
+        setupAddressLabel()
+        setupRetualLabel()
     }
     
     func setupBase() {
@@ -139,6 +136,7 @@ class GuestListHeaderCell: UITableViewCell {
         retualLabel.font = UIFont.boldSystemFont(ofSize: 20)
         retualLabel.text = "参列儀式"
     }
+    
     // MARK:-
     @objc func changeRank(sender: UIButton) {
         // tag: 1 御芳名
