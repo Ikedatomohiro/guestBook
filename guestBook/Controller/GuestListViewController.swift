@@ -105,11 +105,12 @@ extension GuestListViewController: SendRetualDelegate {
 }
 
 extension GuestListViewController: ChangeGuestsRankDelegate {
-    func changeGuestsRank(selectRank: Dictionary<String, Bool?>) {
+    func changeGuestsRank(guests: [Guest], selectRank: Dictionary<String, Bool?>) {
         self.selectRank = selectRank
         let selectGuests = SelectGuests()
-        guests = selectGuests.sortGuests(guests: &guests, selectRank: selectRank)
+        var guests_temp = guests
+        self.guests = selectGuests.sortGuests(guests: &guests_temp, selectRank: selectRank)
         // TabeleViewにguestsを渡す
-        self.guestListTableView.reloadGuestsData(guests: guests)
+        self.guestListTableView.reloadGuestsData(guests: guests_temp)
     }
 }

@@ -13,7 +13,7 @@ protocol TransitionGuestDetailDelegate: AnyObject {
 }
 
 protocol ChangeGuestsRankDelegate: AnyObject {
-    func changeGuestsRank(selectRank: Dictionary<String, Bool?>)
+    func changeGuestsRank(guests: [Guest], selectRank: Dictionary<String, Bool?>)
 }
 
 class GuestListTableView: UITableView {
@@ -94,6 +94,6 @@ extension GuestListTableView: UITableViewDataSource {
 extension GuestListTableView: SentGuestsRankDelegate {
     func sendGuestRank(selectRank: Dictionary<String, Bool?>) {
         self.selectRank = selectRank
-        changeGuestsRankDelegate?.changeGuestsRank(selectRank: self.selectRank)
+        changeGuestsRankDelegate?.changeGuestsRank(guests: guests, selectRank: self.selectRank)
     }
 }

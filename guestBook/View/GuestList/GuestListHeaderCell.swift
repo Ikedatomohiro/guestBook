@@ -143,7 +143,6 @@ class GuestListHeaderCell: UITableViewCell {
     @objc func changeRank(sender: UIButton) {
         // tag: 1 御芳名
         if sender.tag == 1 {
-                    
             if selectRank["guestName"] == nil {
                 selectRank["guestName"] = true
             } else if selectRank["guestName"] == true {
@@ -162,7 +161,6 @@ class GuestListHeaderCell: UITableViewCell {
             }
         }
         sendGuestRank?.sendGuestRank(selectRank: selectRank)
-        guestNameRankLabel.text = "▲"
     }
     
     func setRankLabel(rank: Bool?) -> String {
