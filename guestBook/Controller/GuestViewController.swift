@@ -169,7 +169,6 @@ extension GuestViewController: GuestItemUpdateDelegate {
             guest.companyName = companyNameView.companyNameTextField.text ?? ""
             guest.companyNameImageData = companyNameView.companyNameCanvas.drawing.dataRepresentation()
             break
-            
         case is AddressView:
             guest.zipCode = addressView.zipCodeTextField.text ?? ""
             guest.zipCodeImageData = addressView.zipCodeCanvas.drawing.dataRepresentation()
@@ -181,7 +180,6 @@ extension GuestViewController: GuestItemUpdateDelegate {
             guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
             break
         default:
-            //            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
             break
         }
         guestupdateDelegate?.update(guest: guest)

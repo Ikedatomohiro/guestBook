@@ -62,7 +62,7 @@ class GuestListHeaderCell: UITableViewCell {
     
     func setupGuestNameView() {
         contentView.addSubview(guestNameView)
-        guestNameView.anchor(top: topAnchor, leading: numberLabel.trailingAnchor, bottom: bottomAnchor, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size: .init(width: guestListView.guestNameWidth, height: .zero))
+        guestNameView.anchor(top: topAnchor, leading: numberLabel.trailingAnchor, bottom: bottomAnchor, trailing: nil, size: .init(width: guestListView.guestNameWidth, height: .zero))
         setupGuestNameLabel()
         setupGuestNameRankButton()
         setupGuestNameTapArea()
@@ -92,12 +92,11 @@ class GuestListHeaderCell: UITableViewCell {
     
     func setupCompanyNameView() {
         contentView.addSubview(companyNameView)
-        companyNameView.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil)
+        companyNameView.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.companyNameWidth, height: .zero))
         setupCompanyNameLabel()
         setupCompanyNameRankLabel()
         setupcompanyNameTapArea()
     }
-    
 
     func setupCompanyNameLabel() {
         contentView.addSubview(companyNameLabel)
@@ -123,7 +122,7 @@ class GuestListHeaderCell: UITableViewCell {
 
     func setupAddressLabel() {
         contentView.addSubview(addressLabel)
-        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.addressWidth, height: .zero))
+        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.addressWidth, height: .zero))
         addressLabel.textColor = .white
         addressLabel.font = UIFont.boldSystemFont(ofSize: 20)
         addressLabel.text = "御住所"
