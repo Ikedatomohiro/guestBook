@@ -31,6 +31,10 @@ class GuestSortAreaView: UIView {
     }
     
     fileprivate func setup() {
+        setupGuestSortPickerView()
+    }
+    
+    func setupGuestSortPickerView() {
         let retual = Retual.init(name: "---")
         retualList.append(retual)
         retualList.append(contentsOf: retuals)
@@ -44,6 +48,10 @@ class GuestSortAreaView: UIView {
         // 画面にピッカーを追加
         addSubview(guestSortTypePickerView)
         guestSortTypePickerView.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: 120, height: .zero))
+    }
+    
+    func resetGuestSortPickerview() {
+        guestSortTypePickerView.selectRow(0, inComponent: 0, animated: true)
     }
     
 }

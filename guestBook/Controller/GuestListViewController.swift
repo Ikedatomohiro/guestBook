@@ -68,6 +68,7 @@ class GuestListViewController: UIViewController {
             self.guests = guests
             self.guestListTableView.reloadGuestsData(guests: guests)
             self.guestListTableView.refreshControl?.endRefreshing()
+            self.guestSortAreaView.resetGuestSortPickerview()
         }
     }
 }

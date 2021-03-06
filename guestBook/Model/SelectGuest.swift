@@ -22,7 +22,7 @@ class SelectGuests {
     
     func fetchData(eventId: String, completion: @escaping ([Guest]) -> Void) {
         pageNumber = 1
-        Guest.collectionRef(eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
+        Guest.collectionRef(eventId).order(by:"createdAt").getDocuments { (querySnapshot, error) in
             if (error == nil) {
                 guard let docments = querySnapshot?.documents else { return }
                 self.guests = docments.map({ (document) -> Guest in
@@ -62,7 +62,7 @@ class SelectGuests {
     
     func selectGuestAll(eventId: String, completion: @escaping ([Guest]) -> Void) {
         pageNumber = 1
-        Guest.collectionRef(eventId).getDocuments { (querySnapshot, error) in
+        Guest.collectionRef(eventId).order(by:"createdAt").getDocuments { (querySnapshot, error) in
             if (error == nil) {
                 guard let docments = querySnapshot?.documents else { return }
                 self.guests = docments.map({ (document) -> Guest in
