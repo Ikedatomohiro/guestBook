@@ -30,13 +30,8 @@ class EventListViewController: UIViewController {
         setupEventNameTextFeild()
         setupEventNameTableView()
         fetchEventNameList()
-        
         setBackButtonTitle()
 
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
     }
     
     //MARK:- Function
@@ -94,7 +89,6 @@ class EventListViewController: UIViewController {
 
     // Firestoreからイベント名リストを取得
     fileprivate func fetchEventNameList() {
-        events = []
         db.collection("events").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.events = documents.map{ (document) -> Event in

@@ -18,7 +18,8 @@ class GuestListViewController: UIViewController {
     fileprivate var pageNumber: Int = 1
     var selectRetualId: String = ""
     var selectRank: Dictionary<String, Bool?> = [:]
-    
+    let selectGuests = SelectGuests()
+
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
@@ -57,6 +58,17 @@ class GuestListViewController: UIViewController {
         guestListTableView.transitionDelegate = self
         guestListTableView.changeGuestsRankDelegate = self
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
+        guestListTableView.refreshControl = UIRefreshControl()
+        guestListTableView.refreshControl?.addTarget(self, action: #selector(pullDownTableView), for: .valueChanged)
+    }
+    
+    
+    @objc func pullDownTableView() {
+        self.selectGuests.fetchData(eventId: self.event.eventId) { (guests) in
+            self.guests = guests
+            self.guestListTableView.reloadGuestsData(guests: guests)
+            self.guestListTableView.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -79,10 +91,9 @@ extension GuestListViewController: SendRetualDelegate {
     func selectGuestsByRetual(retual: Retual) {
         // リスト番号リセット
         self.pageNumber = 1
-        let selectGuests = SelectGuests()
         if retual.id != "" {
             firestoreQueue.async {
-                selectGuests.selectGuestsFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
+                self.selectGuests.selectGuestsFromRetual(eventId: self.event.eventId, retualId: retual.id) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         print("guest:\(guests.count)")
@@ -92,7 +103,7 @@ extension GuestListViewController: SendRetualDelegate {
             }
         } else {
             firestoreQueue.async {
-                selectGuests.selectGuestAll(eventId: self.event.eventId) { (guests) in
+                self.selectGuests.selectGuestAll(eventId: self.event.eventId) { (guests) in
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         print("guest:\(guests.count)")

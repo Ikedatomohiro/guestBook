@@ -18,7 +18,7 @@ class EventMenuViewController: UIViewController {
     fileprivate let showSettingButton     = UIButton()
     fileprivate var retuals:[Retual]      = []
     fileprivate var pageNumber: Int       = 0
-    
+    let selectGuests = SelectGuests()
     init(event: Event) {
         self.event = event
         super.init(nibName: nil, bundle: nil)
@@ -35,32 +35,12 @@ class EventMenuViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        _ = fetchData()
+        selectGuests.fetchData(eventId: event.eventId) { (guests) in
+            self.guests = guests
+        }
     }
     
     //MARK:- Function
-    func fetchData() -> Bool {
-        var fetchFlg = false
-        pageNumber = 1
-        Guest.collectionRef(event.eventId).order(by:"createdAt").getDocuments() { (querySnapshot, error) in
-            if (error == nil) {
-                guard let docments = querySnapshot?.documents else { return }
-                self.guests = docments.map({ (document) -> Guest in
-                    var guest = Guest(document: document)
-                    guest.pageNumber = self.pageNumber
-                    self.pageNumber += 1
-                    return guest
-                })
-                fetchFlg = true
-            } else {
-                print("取得に失敗しました。")
-                print(error as Any)
-                return
-            }
-        }
-        return fetchFlg
-    }
-    
     fileprivate func setupBase() {
         navigationItem.title = event.eventName
         retuals = getRetuals(eventId: event.eventId)
