@@ -19,7 +19,7 @@ class GuestListViewController: UIViewController {
     var selectRetualId: String = ""
     var selectRank: Dictionary<String, Bool?> = [:]
     let selectGuests = SelectGuests()
-
+    
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
@@ -57,7 +57,10 @@ class GuestListViewController: UIViewController {
         guestListTableView.anchor(top: guestSortAreaView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor)
         guestListTableView.transitionDelegate = self
         guestListTableView.changeGuestsRankDelegate = self
+        // TableViewをセット
         guestListTableView.register(GuestCell.self, forCellReuseIdentifier: GuestCell.className)
+        guestListTableView.separatorStyle = .none
+        // 下にスワイプで再読み込み
         guestListTableView.refreshControl = UIRefreshControl()
         guestListTableView.refreshControl?.addTarget(self, action: #selector(pullDownTableView), for: .valueChanged)
     }
