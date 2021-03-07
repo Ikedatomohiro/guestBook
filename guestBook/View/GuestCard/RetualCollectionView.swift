@@ -10,7 +10,7 @@ import UIKit
 class RetualCollectionView: UICollectionView {
     var guest: Guest
     var retuals: [Retual]
-    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+    weak var guestItemUpdateDelegate: GuestItemUpdateDelegate?
 
     init(_ guest: Guest,_ retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
@@ -56,6 +56,8 @@ extension RetualCollectionView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
+        let cell = collectionView.cellForItem(at: indexPath) as! CheckBoxCell
+        cell.animateView(cell.label)
         // guest.retualsのretual.idに対してBool値を切り替える
         var isActive = guest.retuals[retuals[indexPath.item].id]
         if isActive == true {
@@ -64,7 +66,8 @@ extension RetualCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.retuals[retuals[indexPath.item].id] = isActive
-        guestItemupdateDelegate?.update(inputView: self)
+        guestItemUpdateDelegate?.update(inputView: self)
+        
         collectionView.reloadData()
     }
 }

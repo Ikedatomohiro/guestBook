@@ -9,7 +9,7 @@ import UIKit
 
 class CheckBoxCell: UICollectionViewCell {
 
-    fileprivate let label          = UILabel()
+    let label          = UILabel()
     fileprivate let isActive: Bool = false
 
     override init(frame: CGRect) {
@@ -33,13 +33,23 @@ class CheckBoxCell: UICollectionViewCell {
         label.text = textName
         label.font = .systemFont(ofSize: 24)
     }
+    
     func setupButton(isActive: Bool) {
         if isActive == true {
-            label.backgroundColor = .orange
+            label.backgroundColor = .systemGreen
         } else if isActive == false {
             label.backgroundColor = .gray
         }
     }
     
-    
+    func animateView(_ viewToAnimate:UIView) {
+        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
+            viewToAnimate.transform = CGAffineTransform(scaleX: 1.08, y: 1.08)
+        }) { (_) in
+            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
+                viewToAnimate.transform = .identity
+                
+            }, completion: nil)
+        }
+    }
 }

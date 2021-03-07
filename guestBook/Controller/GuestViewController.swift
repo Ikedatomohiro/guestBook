@@ -93,7 +93,7 @@ class GuestViewController: UIViewController {
         view.addSubview(retualCollectionView)
         retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: cardTitleView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 100, bottom: 0, right: 0), size: .init(width: 400, height: 50))
         retualCollectionView.backgroundColor = .white
-        retualCollectionView.guestItemupdateDelegate = self
+        retualCollectionView.guestItemUpdateDelegate = self
     }
     
     fileprivate func setupBackgroundFrame() {
