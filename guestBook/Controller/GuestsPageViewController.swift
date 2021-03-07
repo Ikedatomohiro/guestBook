@@ -162,7 +162,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
             guestUpdateQueue.async {
                 self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.prevIndex])
             }
-            // ページを捲り始めたが、元のページに戻ったとき
+        // ページをめくり始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
             if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {
@@ -171,6 +171,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
                 fatalError()
             }
         }
+
     }
     
     func analizeHandWriteAndUpdateGuestToCloud(guest: Guest) {

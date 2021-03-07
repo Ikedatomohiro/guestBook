@@ -68,6 +68,11 @@ class GuestViewController: UIViewController {
 //        setupDescriptionView()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        // ペンシルはページ表示後にセットする
+        setupPencils()
+    }
+    
     fileprivate func setupBasic() {
         view.backgroundColor = .white
     }
@@ -141,6 +146,12 @@ class GuestViewController: UIViewController {
         descriptionView.setupView(guest: guest)
         descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 8))
         descriptionView.layer.borderWidth = 1.0
+    }
+    
+    fileprivate func setupPencils() {
+        guestNameView.setupPencil()
+        companyNameView.setupPencil()
+        addressView.setupPencil()
     }
 }
 

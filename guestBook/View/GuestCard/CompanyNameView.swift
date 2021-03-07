@@ -43,6 +43,10 @@ class CompanyNameView: UIView {
         companyNameCanvas.delegate = self
         companyNameCanvas.layer.borderWidth = 1.0
         companyNameCanvas.setDrawingData(companyNameCanvas, ImageData)
+    }
+    
+    // ペンシルはページ表示後にセットする
+    func setupPencil() {
         companyNameCanvas.setupPencil(canvas: companyNameCanvas)
     }
 }

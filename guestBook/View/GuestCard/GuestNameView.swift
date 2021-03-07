@@ -50,6 +50,10 @@ class GuestNameView: UIView {
         guestNameCanvas.isOpaque = false
         guestNameCanvas.delegate = self
         guestNameCanvas.setDrawingData(guestNameCanvas, ImageData)
+    }
+    
+    // ペンシルはページ表示後にセットする
+    func setupPencil() {
         guestNameCanvas.setupPencil(canvas: guestNameCanvas)
     }
 }

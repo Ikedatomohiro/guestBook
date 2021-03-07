@@ -63,7 +63,6 @@ class AddressView: UIView {
         addressCanvas.isOpaque = false
         addressCanvas.layer.borderWidth = 1.0
         addressCanvas.setDrawingData(addressCanvas, ImageData)
-        addressCanvas.setupPencil(canvas: addressCanvas)
         addressCanvas.delegate = self
         addressCanvas.accessibilityIdentifier = "address"
     }
@@ -85,9 +84,7 @@ class AddressView: UIView {
         addSubview(telNumberCanvas)
         telNumberCanvas.anchor(top: topAnchor, leading: nil, bottom: nil, trailing: trailingAnchor, size: .init(width: screenSize.width * 2 / 5, height: 60))
         telNumberCanvas.isOpaque = false
-        //        telNumberCanvas.layer.borderWidth = 1.0
         telNumberCanvas.setDrawingData(telNumberCanvas, ImageData)
-        telNumberCanvas.setupPencil(canvas: telNumberCanvas)
         telNumberCanvas.delegate = self
         telNumberCanvas.accessibilityIdentifier = "telNumber"
     }
@@ -103,7 +100,6 @@ class AddressView: UIView {
         zipCodeCanvas.anchor(top: topAnchor, leading: addressTitleLabel.trailingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width * 2 / 5, height: 60))
         zipCodeCanvas.isOpaque = false
         zipCodeCanvas.setDrawingData(zipCodeCanvas, ImageData)
-        zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
         zipCodeCanvas.delegate = self
         zipCodeCanvas.accessibilityIdentifier = "zipCode"
     }
@@ -141,6 +137,13 @@ class AddressView: UIView {
         addSubview(zipCodeLabel7)
         zipCodeLabel7.anchor(top: zipCodeLabel.topAnchor, leading: zipCodeLabel6.trailingAnchor, bottom: zipCodeLabel.bottomAnchor, trailing: nil, padding: .init(top: 0, left: 5, bottom: 0, right: 0), size: .init(width: 30, height: 40))
         zipCodeLabel7.layer.borderWidth = 1.0
+    }
+    
+    // ペンシルはページ表示後にセットする
+    func setupPencil() {
+        addressCanvas.setupPencil(canvas: addressCanvas)
+        telNumberCanvas.setupPencil(canvas: telNumberCanvas)
+        zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
     }
     
     // MARK:-

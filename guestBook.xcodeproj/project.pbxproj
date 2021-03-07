@@ -115,6 +115,7 @@
 		E57444E025694EAE001D4774 /* GuestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCell.swift; sourceTree = "<group>"; };
 		E577604825737D0600DD2F81 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		E577B759256BECA4007E6BFC /* LogInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogInViewController.swift; sourceTree = "<group>"; };
+		E57C925125F3C3B400B7CC69 /* guestBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = guestBook.entitlements; sourceTree = "<group>"; };
 		E586221025C17DA100291182 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E586221525C1810400291182 /* Retual.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Retual.swift; sourceTree = "<group>"; };
 		E59D9EEA254848F1000F7C45 /* guestBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = guestBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -306,6 +307,7 @@
 		E59D9EEC254848F1000F7C45 /* guestBook */ = {
 			isa = PBXGroup;
 			children = (
+				E57C925125F3C3B400B7CC69 /* guestBook.entitlements */,
 				E56E1854254D665400205FCE /* Model */,
 				E56E1855254D665D00205FCE /* View */,
 				E56E1853254D664200205FCE /* Controller */,
@@ -841,6 +843,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = guestBook/guestBook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3FKHKT7W58;
@@ -863,6 +866,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = guestBook/guestBook.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 3FKHKT7W58;
