@@ -53,7 +53,7 @@ class GuestListHeaderCell: UITableViewCell {
     
     func setupNumberLabel() {
         contentView.addSubview(numberLabel)
-        numberLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.numberWidth, height: .zero))
+        numberLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.numberWidth, height: .zero))
         numberLabel.textAlignment = .center
         numberLabel.textColor = .white
         numberLabel.font = UIFont.boldSystemFont(ofSize: 20)
@@ -62,7 +62,7 @@ class GuestListHeaderCell: UITableViewCell {
     
     func setupGuestNameView() {
         contentView.addSubview(guestNameView)
-        guestNameView.anchor(top: topAnchor, leading: numberLabel.trailingAnchor, bottom: bottomAnchor, trailing: nil, size: .init(width: guestListView.guestNameWidth, height: .zero))
+        guestNameView.anchor(top: topAnchor, leading: numberLabel.trailingAnchor, bottom: bottomAnchor, trailing: nil, size: .init(width: GuestListView.guestNameWidth, height: .zero))
         setupGuestNameLabel()
         setupGuestNameRankButton()
         setupGuestNameTapArea()
@@ -92,7 +92,7 @@ class GuestListHeaderCell: UITableViewCell {
     
     func setupCompanyNameView() {
         contentView.addSubview(companyNameView)
-        companyNameView.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.companyNameWidth, height: .zero))
+        companyNameView.anchor(top: layoutMarginsGuide.topAnchor, leading: guestNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.companyNameWidth, height: .zero))
         setupCompanyNameLabel()
         setupCompanyNameRankLabel()
         setupcompanyNameTapArea()
@@ -122,7 +122,7 @@ class GuestListHeaderCell: UITableViewCell {
 
     func setupAddressLabel() {
         contentView.addSubview(addressLabel)
-        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.addressWidth, height: .zero))
+        addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.addressWidth, height: .zero))
         addressLabel.textColor = .white
         addressLabel.font = UIFont.boldSystemFont(ofSize: 20)
         addressLabel.text = "御住所"
@@ -130,7 +130,7 @@ class GuestListHeaderCell: UITableViewCell {
 
     func setupRetualLabel() {
         contentView.addSubview(retualLabel)
-        retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: guestListView.retualWidth, height: .zero))
+        retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.retualWidth, height: .zero))
         retualLabel.textColor = .white
         retualLabel.font = UIFont.boldSystemFont(ofSize: 20)
         retualLabel.text = "参列儀式"
@@ -161,7 +161,7 @@ class GuestListHeaderCell: UITableViewCell {
     }
     
     func setRankLabel(rank: Bool?) -> String {
-        var rankString = ""
+        var rankString = "▲▼"
         if rank == nil {
             rankString = ""
         } else if rank == true {

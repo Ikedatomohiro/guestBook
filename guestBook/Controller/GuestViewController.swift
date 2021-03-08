@@ -22,6 +22,8 @@ class GuestViewController: UIViewController {
     
     var guest: Guest
     var retuals: [Retual]
+    var relations: [Relation]
+    var groups: [Group]
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
     // UIView
@@ -31,7 +33,7 @@ class GuestViewController: UIViewController {
     fileprivate let guestNameView      = GuestNameView()
     fileprivate let companyNameView    = CompanyNameView()
     fileprivate let addressView        = AddressView()
-    fileprivate let selectRelationView = SelectRelationView()
+    lazy var selectRelationView = SelectRelationView(guest: guest, relations: relations, frame: CGRect.zero)
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
     
@@ -42,10 +44,13 @@ class GuestViewController: UIViewController {
         return layout
     }()
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero, collectionViewLayout: layout)
     
-    init(guest: Guest, retuals: [Retual]) {
+    init(guest: Guest, retuals: [Retual], relations: [Relation], groups: [Group]) {
         self.guest = guest
         self.retuals = retuals
+        self.relations = relations
+        self.groups = groups
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -79,7 +84,7 @@ class GuestViewController: UIViewController {
     
     fileprivate func setupCardHeaderView() {
         view.addSubview(cardHeaderView)
-        cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: screenSize.width, height: screenSize.height / 20))
+        cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: .zero, height: screenSize.height / 20))
         cardHeaderView.setupView(guest: guest)
     }
     
@@ -91,7 +96,7 @@ class GuestViewController: UIViewController {
     
     fileprivate func setupRetualsSelectView() {
         view.addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: cardTitleView.trailingAnchor, bottom: nil, trailing: nil, padding: .init(top: 0, left: 100, bottom: 0, right: 0), size: .init(width: 400, height: 50))
+        retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: cardHeaderView.trailingAnchor, size: .init(width: 300, height: screenSize.height / 12))
         retualCollectionView.backgroundColor = .white
         retualCollectionView.guestItemUpdateDelegate = self
     }
@@ -130,7 +135,7 @@ class GuestViewController: UIViewController {
     // どなたのご関係ですか？
     fileprivate func setupSelectRelationView() {
         view.addSubview(selectRelationView)
-        selectRelationView.setupView(guest: guest)
+//        selectRelationView.setupView(guest: guest, relations: relations)
         selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
     }
     

@@ -16,7 +16,9 @@ class EventMenuViewController: UIViewController {
     fileprivate let showGuestCardButton   = UIButton()
     fileprivate let showGuestDetailButton = UIButton()
     fileprivate let showSettingButton     = UIButton()
-    fileprivate var retuals:[Retual]      = []
+    fileprivate var retuals: [Retual]     = []
+    fileprivate var relations: [Relation] = []
+    fileprivate var groups: [Group]       = []
     fileprivate var pageNumber: Int       = 0
     let selectGuests = SelectGuests()
     init(event: Event) {
@@ -78,13 +80,13 @@ class EventMenuViewController: UIViewController {
     }
     
     @objc private func showGuestCard() {
-        let guestCardVC = GuestsPageViewController(event, retuals, guests)
+        let guestCardVC = GuestsPageViewController(event, retuals, relations, groups, guests)
         guestCardVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestCardVC, animated: true)
     }
     
     @objc private func showGuestList() {
-        let guestListVC = GuestListViewController(event, retuals, guests)
+        let guestListVC = GuestListViewController(event, retuals,guests)
         guestListVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(guestListVC, animated: true)
     }

@@ -12,20 +12,21 @@ class RetualCollectionView: UICollectionView {
     var retuals: [Retual]
     weak var guestItemUpdateDelegate: GuestItemUpdateDelegate?
 
-    init(_ guest: Guest,_ retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(_ guest: Guest, _ retuals: [Retual] ,frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
         self.retuals = retuals
         super.init(frame: frame, collectionViewLayout: layout)
         setup()
     }
+    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     func setup() {
         self.dataSource = self
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
-        
     }
 }
 
@@ -39,10 +40,11 @@ extension RetualCollectionView: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
 
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
-        
+        // 対象のセルのIDをセット
+        let retualId = retuals[indexPath.item].id
         cell.setupContents(textName: retuals[indexPath.item].retualName)
         
-        let attendance = guest.retuals[retuals[indexPath.item].id] ?? false
+        let attendance = guest.retuals[retualId] ?? false
         cell.setupButton(isActive: attendance)
         
         return cell
@@ -56,24 +58,28 @@ extension RetualCollectionView: UICollectionViewDelegate {
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
+        // 対象のセルのIDをセット
+        let retualId = retuals[indexPath.item].id
+        // ラベルの色を変える
         let cell = collectionView.cellForItem(at: indexPath) as! CheckBoxCell
         cell.animateView(cell.label)
         // guest.retualsのretual.idに対してBool値を切り替える
-        var isActive = guest.retuals[retuals[indexPath.item].id]
+        var isActive = guest.retuals[retualId]
         if isActive == true {
             isActive = false
         } else {
             isActive = true
         }
-        guest.retuals[retuals[indexPath.item].id] = isActive
+        guest.retuals[retualId] = isActive
         guestItemUpdateDelegate?.update(inputView: self)
         
         collectionView.reloadData()
     }
 }
+
 extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 150, height: 50)
+        return CGSize(width: 130, height: 40)
     }
     
     // セルの外周余白
@@ -83,7 +89,7 @@ extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     
     // セル同士の縦間隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 1
     }
     
     // セル同士の横間隔

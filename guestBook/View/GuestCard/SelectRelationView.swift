@@ -9,18 +9,28 @@ import UIKit
 
 class SelectRelationView: UIView {
     fileprivate let relationAskLabel = UILabel()
-    
-    override init(frame: CGRect) {
+    var guest: Guest
+    var relations: [Relation]
+    let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    lazy var relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
+
+    init(guest: Guest, relations: [Relation], frame: CGRect) {
+        self.guest = guest
+        self.relations = relations
         super.init(frame: frame)
+        self.setupView()
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(guest: Guest) {
+    func setupView() {
         setupRelationLabel()
-        setupRelationCollectionView(guest: guest)
+        setupRelationCollectionView()
     }
     
     fileprivate func setupRelationLabel() {
@@ -34,15 +44,10 @@ class SelectRelationView: UIView {
         relationAskLabel.numberOfLines = 0
     }
     
-    fileprivate func setupRelationCollectionView(guest: Guest) {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            return layout
-        }()
-        
-        let relationCollectionView = RelationCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
+    fileprivate func setupRelationCollectionView() {
+//        let relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
         addSubview(relationCollectionView)
-        relationCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: relationAskLabel.trailingAnchor, bottom: relationAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
+        relationCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: relationAskLabel.trailingAnchor, bottom: relationAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         relationCollectionView.backgroundColor = .white
     }
 

@@ -131,7 +131,7 @@ class AnalizeHandWrite {
     static func makeGuestNameImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.guestNameImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.guestNameWidth, height: guestCardView.guestNameHeight), scale: 1.0)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: GuestCardView.guestNameWidth, height: GuestCardView.guestNameHeight), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }
@@ -139,7 +139,7 @@ class AnalizeHandWrite {
     static func makeCompanyNameImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.companyNameImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.companyNameWidth, height: guestCardView.companyNameHeight), scale: 1.0)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: GuestCardView.companyNameWidth, height: GuestCardView.companyNameHeight), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }
@@ -147,7 +147,7 @@ class AnalizeHandWrite {
     static func makeAddressImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.addressImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: guestCardView.addressWidth, height: guestCardView.addressHeight), scale: 1.0)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: GuestCardView.addressWidth, height: GuestCardView.addressHeight), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }
@@ -155,7 +155,7 @@ class AnalizeHandWrite {
     static func makeZipcodeImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.zipCodeImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(guestCardView.zipCodeWidth), height: guestCardView.zipCodeHeight), scale: 1.0)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(GuestCardView.zipCodeWidth), height: GuestCardView.zipCodeHeight), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }
@@ -163,7 +163,7 @@ class AnalizeHandWrite {
     static func makeTelNumberImageData(_ guest: Guest) -> String {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.telNumberImageData)
-        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(guestCardView.telNumberWidth), height: guestCardView.telNumberHeight), scale: 1.0)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(GuestCardView.telNumberWidth), height: GuestCardView.telNumberHeight), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }

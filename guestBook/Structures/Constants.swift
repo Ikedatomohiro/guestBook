@@ -10,7 +10,7 @@ import UIKit
 //MARK:- スクリーンサイズ
 let screenSize: CGSize = CGSize(width: UIScreen.main.bounds.size.width, height: UIScreen.main.bounds.size.height)
 
-struct guestCardView {
+struct GuestCardView {
     static let guestNameWidth = screenSize.width / 2
     static let guestNameHeight = screenSize.height / 5
     static let companyNameWidth = screenSize.width / 2
@@ -23,7 +23,7 @@ struct guestCardView {
     static let telNumberHeight = 60
 }
 
-struct guestListView {
+struct GuestListView {
     static let numberWidth: Int = 50
     static let guestNameWidth: CGFloat = screenSize.width / 8
     static let companyNameWidth: CGFloat = screenSize.width / 5
@@ -34,8 +34,8 @@ struct guestListView {
 
 
 // MARK:- 初期データ
-struct defaultParam {
+struct DefaultParam {
     static let retuals: [String] = ["通夜", "告別式"]
     static let relations: [String] = ["故人様", "喪主様", "ご家族", "その他"]
-    
+    static let groups: [String] = ["会社関係", "お取引先", "学校関係", "官公庁", "各種団体", "町内会", "ご友人", "ご親戚", "その他"]
 }

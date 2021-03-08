@@ -33,7 +33,7 @@ class SelectGroupView: UIView {
             return layout
         }()
         
-        let groupCollectionView = GroupCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
+//        let groupCollectionView = GroupCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
     }
 }
 

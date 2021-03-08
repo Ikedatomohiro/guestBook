@@ -1,24 +1,24 @@
 //
-//  Retual.swift
+//  Group.swift
 //  guestBook
 //
-//  Created by 池田友宏 on 2021/01/27.
+//  Created by Tomohiro Ikeda on 2021/03/07.
 //
 
 import FirebaseFirestore
 
-struct Retual {
-    var id         : String
-    var number     : Int // 順番保持用
-    var retualName : String
-    let eventId    : String
-    let createdAt  : Date
-    var updatedAt  : Date
-
+struct Group {
+    var id: String
+    var number: Int // 順番保持用
+    var group: String
+    var eventId: String
+    let createdAt: Date
+    var updatedAt: Date
+    
     init(name: String) {
         self.id         = ""
         self.number     = 0
-        self.retualName = name
+        self.group      = name
         self.eventId    = ""
         self.createdAt  = Date()
         self.updatedAt  = Date()
@@ -28,21 +28,20 @@ struct Retual {
         let dictionary  = docment.data()
         self.id         = docment.documentID
         self.number     = dictionary["number"]     as? Int    ?? 0
-        self.retualName = dictionary["retualName"] as? String ?? ""
+        self.group      = dictionary["group"]      as? String ?? ""
         self.eventId    = dictionary["eventID"]    as? String ?? ""
         self.createdAt  = dictionary["createdAt"]  as? Date   ?? Date()
         self.updatedAt  = dictionary["updatedAt"]  as? Date   ?? Date()
     }
     
-    
     static func collectionRef(eventId: String) ->CollectionReference {
-        return Firestore.firestore().collection("events").document(eventId).collection("retuals")
+        return Firestore.firestore().collection("events").document(eventId).collection("groups")
     }
     
-    static func registRetual(retual: Retual, eventId: String, number: Int) {
-        Retual.collectionRef(eventId: eventId).addDocument(data: [
+    static func registGroup(group: Group, eventId: String, number: Int) {
+        Group.collectionRef(eventId: eventId).addDocument(data: [
             "number"     : number,
-            "retualName" : retual.retualName,
+            "group"      : group.group,
             "eventId"    : eventId,
             "createdAt"  : Date(),
             "updatedAt"  : Date()
