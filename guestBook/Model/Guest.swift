@@ -49,7 +49,7 @@ struct Guest {
         self.addressImageData     = dictionary["addressImageData"]     as? Data ?? Data()
         self.telNumber            = dictionary["telNumber"]            as? String ?? ""
         self.telNumberImageData   = dictionary["telNumberImageData"]   as? Data ?? Data()
-        self.relations            = dictionary["rerlations"]           as? Dictionary<String, Bool> ?? [:]
+        self.relations            = dictionary["relations"]            as? Dictionary<String, Bool> ?? [:]
         self.groups               = dictionary["groups"]               as? Dictionary<String, Bool> ?? [:]
         self.description          = dictionary["description"]          as? String ?? ""
         self.descriptionImageData = dictionary["descriptionImageData"] as? Data ?? Data()
