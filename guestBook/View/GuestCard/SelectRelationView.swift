@@ -7,30 +7,33 @@
 
 import UIKit
 
+protocol SendRelationDataDelegate: AnyObject {
+    func sendRelationData(relationCollectionView: RelationCollectionView)
+}
+
 class SelectRelationView: UIView {
     fileprivate let relationAskLabel = UILabel()
     var guest: Guest
     var relations: [Relation]
-    let layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        return layout
-    }()
-    lazy var relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
-
-    init(guest: Guest, relations: [Relation], frame: CGRect) {
+    var relationCollectionView: RelationCollectionView
+    weak var guestItemUpdateDelegate: GuestItemUpdateDelegate?
+    
+    init(guest: Guest, relations: [Relation], _ relationCollectionView: RelationCollectionView, frame: CGRect) {
         self.guest = guest
         self.relations = relations
+        self.relationCollectionView = relationCollectionView
         super.init(frame: frame)
-        self.setupView()
+        self.setupView(relationCollectionView)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView() {
+    func setupView(_ relationCollectionView: RelationCollectionView) {
         setupRelationLabel()
-        setupRelationCollectionView()
+        setupRelationCollectionView(relationCollectionView)
+        
     }
     
     fileprivate func setupRelationLabel() {
@@ -44,12 +47,19 @@ class SelectRelationView: UIView {
         relationAskLabel.numberOfLines = 0
     }
     
-    fileprivate func setupRelationCollectionView() {
-//        let relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
+    fileprivate func setupRelationCollectionView(_ relationCollectionView: RelationCollectionView) {
         addSubview(relationCollectionView)
         relationCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: relationAskLabel.trailingAnchor, bottom: relationAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         relationCollectionView.backgroundColor = .white
+        relationCollectionView.sendRelationDataDelegate = self
     }
+    
+    
+}
 
-
+//MARK:- Extensions
+extension SelectRelationView: SendRelationDataDelegate {
+    func sendRelationData(relationCollectionView: RelationCollectionView) {
+        guestItemUpdateDelegate?.update(inputView: relationCollectionView)
+    }
 }

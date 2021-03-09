@@ -45,7 +45,7 @@ class EventMenuViewController: UIViewController {
     //MARK:- Function
     fileprivate func setupBase() {
         navigationItem.title = event.eventName
-        retuals = getRetuals(eventId: event.eventId)
+        self.getRetualRelationGroupData()
         self.view.backgroundColor = .red
     }
     
@@ -118,4 +118,22 @@ class EventMenuViewController: UIViewController {
         }
         return self.retuals
     }
+    
+    fileprivate func getRelations(eventId: String) -> [Relation] {
+        Relation.collectionRef(eventId: eventId).order(by: "number").getDocuments { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else { return }
+            self.relations = documents.map({ (documnt) -> Relation in
+                let relation = Relation(docment: documnt)
+                return relation
+            })
+        }
+        return self.relations
+    }
+
+    fileprivate func getRetualRelationGroupData() {
+        getRetuals(eventId: event.eventId)
+        getRelations(eventId: event.eventId)
+    }
+
+
 }

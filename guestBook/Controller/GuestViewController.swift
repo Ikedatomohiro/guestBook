@@ -33,7 +33,7 @@ class GuestViewController: UIViewController {
     fileprivate let guestNameView      = GuestNameView()
     fileprivate let companyNameView    = CompanyNameView()
     fileprivate let addressView        = AddressView()
-    lazy var selectRelationView = SelectRelationView(guest: guest, relations: relations, frame: CGRect.zero)
+    lazy var selectRelationView = SelectRelationView(guest: guest, relations: relations, relationCollectionView,frame: CGRect.zero)
     fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
     
@@ -44,8 +44,9 @@ class GuestViewController: UIViewController {
         return layout
     }()
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
     lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero, collectionViewLayout: layout)
-    
+
     init(guest: Guest, retuals: [Retual], relations: [Relation], groups: [Group]) {
         self.guest = guest
         self.retuals = retuals
@@ -137,6 +138,7 @@ class GuestViewController: UIViewController {
         view.addSubview(selectRelationView)
 //        selectRelationView.setupView(guest: guest, relations: relations)
         selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        selectRelationView.guestItemUpdateDelegate = self
     }
     
     // どのようなご関係ですか？
@@ -194,6 +196,9 @@ extension GuestViewController: GuestItemUpdateDelegate {
             
             guest.address = addressView.addressTextField.text ?? ""
             guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
+            break
+        case is RelationCollectionView:
+            guest.relations = relationCollectionView.guest.relations
             break
         default:
             break

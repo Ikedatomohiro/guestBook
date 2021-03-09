@@ -9,9 +9,9 @@ import UIKit
 
 class RelationCollectionView: UICollectionView {
 
-    fileprivate var guest: Guest
+    var guest: Guest
     var relations: [Relation]
-    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+    weak var sendRelationDataDelegate: SendRelationDataDelegate?
 
     init(guest: Guest, _ relations: [Relation], frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
@@ -42,7 +42,13 @@ extension RelationCollectionView: UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
         
         cell.setupContents(textName: relations[indexPath.item].relation)
+        // 対象のセルのIDをセット
+        let relationId = relations[indexPath.item].id
+        cell.setupContents(textName: relations[indexPath.item].relation)
         
+        let relation = guest.relations[relationId] ?? false
+        cell.setupButton(isActive: relation)
+
         return cell
     }
 }
@@ -65,7 +71,7 @@ extension RelationCollectionView: UICollectionViewDelegate {
             isActive = true
         }
         guest.relations[relationId] = isActive
-        guestItemupdateDelegate?.update(inputView: collectionView)
+        sendRelationDataDelegate?.sendRelationData(relationCollectionView: self)
         collectionView.reloadData()
     }
 }
