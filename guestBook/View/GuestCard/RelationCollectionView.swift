@@ -47,7 +47,7 @@ extension RelationCollectionView: UICollectionViewDataSource {
         cell.setupContents(textName: relations[indexPath.item].relation)
         
         let relation = guest.relations[relationId] ?? false
-        cell.setupButton(isActive: relation)
+        cell.setButtonColor(isActive: relation)
 
         return cell
     }
@@ -61,18 +61,22 @@ extension RelationCollectionView: UICollectionViewDelegate {
         // クリックしたときのアクション
         // 対象のセルのIDをセット
         let relationId = relations[indexPath.item].id
-        // ラベルの色を変える
+        // セルを選択
         let cell = collectionView.cellForItem(at: indexPath) as! CheckBoxCell
+        // 選択されたセルを揺らす
         cell.animateView(cell.label)
+        // セルの色を変える
         var isActive = guest.relations[relationId]
         if isActive == true {
             isActive = false
         } else {
             isActive = true
         }
+        cell.setButtonColor(isActive: isActive ?? false)
+        // guestの配列データを更新
         guest.relations[relationId] = isActive
+        // guestsの配列データを更新
         sendRelationDataDelegate?.sendRelationData(relationCollectionView: self)
-        collectionView.reloadData()
     }
 }
 

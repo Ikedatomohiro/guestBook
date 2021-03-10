@@ -35,7 +35,7 @@ class CheckBoxCell: UICollectionViewCell {
         label.clipsToBounds = true
     }
     
-    func setupButton(isActive: Bool) {
+    func setButtonColor(isActive: Bool) {
         if isActive == true {
             label.backgroundColor = .rgb(red: 150, green: 200, blue: 20)
         } else if isActive == false {

@@ -43,7 +43,7 @@ extension GroupCollectionView: UICollectionViewDataSource {
 
         cell.setupContents(textName: groups[indexPath.item].group)
         let belongs = guest.groups[groupId] ?? false
-        cell.setupButton(isActive: belongs)
+        cell.setButtonColor(isActive: belongs)
         return cell
     }
     

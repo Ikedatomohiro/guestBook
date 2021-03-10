@@ -45,7 +45,7 @@ extension RetualCollectionView: UICollectionViewDataSource {
         cell.setupContents(textName: retuals[indexPath.item].retualName)
         
         let attendance = guest.retuals[retualId] ?? false
-        cell.setupButton(isActive: attendance)
+        cell.setButtonColor(isActive: attendance)
         
         return cell
     }
@@ -60,9 +60,11 @@ extension RetualCollectionView: UICollectionViewDelegate {
         // クリックしたときのアクション
         // 対象のセルのIDをセット
         let retualId = retuals[indexPath.item].id
-        // ラベルの色を変える
+        // セルを選択
         let cell = collectionView.cellForItem(at: indexPath) as! CheckBoxCell
+        // 選択されたセルを揺らす
         cell.animateView(cell.label)
+        // セルの色を変える
         // guest.retualsのretual.idに対してBool値を切り替える
         var isActive = guest.retuals[retualId]
         if isActive == true {
@@ -70,10 +72,11 @@ extension RetualCollectionView: UICollectionViewDelegate {
         } else {
             isActive = true
         }
+        cell.setButtonColor(isActive: isActive ?? false)
+        // guestの配列データを更新
         guest.retuals[retualId] = isActive
+        // guestsの配列データを更新
         guestItemUpdateDelegate?.update(inputView: self)
-        
-        collectionView.reloadData()
     }
 }
 
