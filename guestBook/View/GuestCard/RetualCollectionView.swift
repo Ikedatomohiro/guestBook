@@ -46,7 +46,6 @@ extension RetualCollectionView: UICollectionViewDataSource {
         
         let attendance = guest.retuals[retualId] ?? false
         cell.setButtonColor(isActive: attendance)
-        
         return cell
     }
 }
@@ -92,7 +91,7 @@ extension RetualCollectionView: UICollectionViewDelegateFlowLayout {
     
     // セル同士の縦間隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 0
     }
     
     // セル同士の横間隔

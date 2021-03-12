@@ -18,7 +18,7 @@ class SelectRelationView: UIView {
     var relationCollectionView: RelationCollectionView
     weak var guestItemUpdateDelegate: GuestItemUpdateDelegate?
     
-    init(guest: Guest, relations: [Relation], _ relationCollectionView: RelationCollectionView, frame: CGRect) {
+    init(_ guest: Guest, _ relations: [Relation], _ relationCollectionView: RelationCollectionView, frame: CGRect) {
         self.guest = guest
         self.relations = relations
         self.relationCollectionView = relationCollectionView
@@ -33,7 +33,6 @@ class SelectRelationView: UIView {
     func setupView(_ relationCollectionView: RelationCollectionView) {
         setupRelationLabel()
         setupRelationCollectionView(relationCollectionView)
-        
     }
     
     fileprivate func setupRelationLabel() {
@@ -53,8 +52,6 @@ class SelectRelationView: UIView {
         relationCollectionView.backgroundColor = .white
         relationCollectionView.sendRelationDataDelegate = self
     }
-    
-    
 }
 
 //MARK:- Extensions

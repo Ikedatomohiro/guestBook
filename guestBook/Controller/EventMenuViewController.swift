@@ -129,10 +129,23 @@ class EventMenuViewController: UIViewController {
         }
         return self.relations
     }
+    
+    
+    fileprivate func getGroups(eventId: String) -> [Group] {
+        Group.collectionRef(eventId: eventId).order(by: "number").getDocuments { (querySnapshot, error) in
+            guard let documents = querySnapshot?.documents else { return }
+            self.groups = documents.map({ (documnt) -> Group in
+                let group = Group(docment: documnt)
+                return group
+            })
+        }
+        return self.groups
+    }
 
     fileprivate func getRetualRelationGroupData() {
-        getRetuals(eventId: event.eventId)
-        getRelations(eventId: event.eventId)
+        self.retuals = getRetuals(eventId: event.eventId)
+        self.relations = getRelations(eventId: event.eventId)
+        self.groups = getGroups(eventId: event.eventId)
     }
 
 

@@ -7,33 +7,56 @@
 
 import UIKit
 
-class SelectGroupView: UIView {
-    fileprivate let groupAskLabel    = UILabel()
+protocol SendGroupDataDelegate: AnyObject {
+    func sendGroupData(groupCollectionView: GroupCollectionView)
+}
 
-    override init(frame: CGRect) {
+class SelectGroupView: UIView {
+    fileprivate let groupAskLabel = UILabel()
+    var guest: Guest
+    var groups: [Group]
+    var groupCollectionView: GroupCollectionView
+    weak var guestItemUpdateDelegate: GuestItemUpdateDelegate?
+
+    init(_ guest: Guest, _ groups: [Group], _ groupCollectionView: GroupCollectionView ,frame: CGRect) {
+        self.guest = guest
+        self.groups = groups
+        self.groupCollectionView = groupCollectionView
         super.init(frame: frame)
+        setupView(groupCollectionView)
     }
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func setupView(guest: Guest) {
+    func setupView(_ groupCollectionView: GroupCollectionView) {
         setupGroupAskLabel()
-        setupGoupCollectionView(guest: guest)
+        setupGoupCollectionView(groupCollectionView)
     }
+    
     fileprivate func setupGroupAskLabel() {
         addSubview(groupAskLabel)
-        groupAskLabel.text = "どのようなご関係ですか"
-        groupAskLabel.anchor(top: groupAskLabel.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 250, height: 80))
+        groupAskLabel.text = """
+        どのような
+        ご関係ですか
+        """
+        groupAskLabel.anchor(top: groupAskLabel.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
+        groupAskLabel.font = .systemFont(ofSize: 24)
+        groupAskLabel.numberOfLines = 0
     }
-    fileprivate func setupGoupCollectionView(guest: Guest) {
-        let layout: UICollectionViewFlowLayout = {
-            let layout = UICollectionViewFlowLayout()
-            return layout
-        }()
-        
-//        let groupCollectionView = GroupCollectionView(guest: guest, frame: CGRect.zero, collectionViewLayout: layout)
+    
+    fileprivate func setupGoupCollectionView(_ groupCollectionView: GroupCollectionView) {
+        addSubview(groupCollectionView)
+        groupCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: groupAskLabel.trailingAnchor, bottom: groupAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
+        groupCollectionView.backgroundColor = .white
+        groupCollectionView.sendGroupDataDelegate = self
     }
 }
 
+//MARK:- Extensions
+extension SelectGroupView: SendGroupDataDelegate {
+    func sendGroupData(groupCollectionView: GroupCollectionView) {
+        guestItemUpdateDelegate?.update(inputView: groupCollectionView)
+    }
+}

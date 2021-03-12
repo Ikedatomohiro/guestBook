@@ -33,8 +33,6 @@ class GuestViewController: UIViewController {
     fileprivate let guestNameView      = GuestNameView()
     fileprivate let companyNameView    = CompanyNameView()
     fileprivate let addressView        = AddressView()
-    lazy var selectRelationView = SelectRelationView(guest: guest, relations: relations, relationCollectionView,frame: CGRect.zero)
-    fileprivate let selectGroupView    = SelectGroupView()
     fileprivate let descriptionView    = DescriptionView()
     
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
@@ -44,9 +42,13 @@ class GuestViewController: UIViewController {
         return layout
     }()
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero, collectionViewLayout: layout)
-    lazy var relationCollectionView = RelationCollectionView(guest: guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var selectRelationView = SelectRelationView(guest, relations, relationCollectionView, frame: CGRect.zero)
+    lazy var relationCollectionView = RelationCollectionView(guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
+    
+    
+    lazy var selectGroupView = SelectGroupView(guest, groups, groupCollectionView, frame: CGRect.zero)
     lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero, collectionViewLayout: layout)
-
+    
     init(guest: Guest, retuals: [Retual], relations: [Relation], groups: [Group]) {
         self.guest = guest
         self.retuals = retuals
@@ -58,7 +60,7 @@ class GuestViewController: UIViewController {
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-
+    
     // MARK:- layout
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +73,8 @@ class GuestViewController: UIViewController {
         setupCompanyNameView()
         setupAddressView()
         setupSelectRelationView()
-//        setupDescriptionView()
+//        setupSelectGroupView()
+        //        setupDescriptionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,17 +139,16 @@ class GuestViewController: UIViewController {
     // どなたのご関係ですか？
     fileprivate func setupSelectRelationView() {
         view.addSubview(selectRelationView)
-//        selectRelationView.setupView(guest: guest, relations: relations)
-        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 5))
+        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: backGroundFrame.frame.height / 6))
         selectRelationView.guestItemUpdateDelegate = self
     }
     
     // どのようなご関係ですか？
-    
-    
-    
-    
-    
+    fileprivate func setupSelectGroupView() {
+        view.addSubview(selectGroupView)
+        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: backGroundFrame.frame.height / 6))
+        selectGroupView.guestItemUpdateDelegate = self
+    }
     
     fileprivate func setupDescriptionView() {
         view.addSubview(descriptionView)

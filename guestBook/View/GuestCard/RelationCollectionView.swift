@@ -8,12 +8,11 @@
 import UIKit
 
 class RelationCollectionView: UICollectionView {
-
     var guest: Guest
     var relations: [Relation]
     weak var sendRelationDataDelegate: SendRelationDataDelegate?
 
-    init(guest: Guest, _ relations: [Relation], frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    init(_ guest: Guest, _ relations: [Relation], frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
         self.guest = guest
         self.relations = relations
         super.init(frame: frame, collectionViewLayout: layout)
@@ -29,7 +28,6 @@ class RelationCollectionView: UICollectionView {
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
     }
-    
 }
 
 // MARK:- Extensions
@@ -40,15 +38,11 @@ extension RelationCollectionView: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: CheckBoxCell.className, for: indexPath) as! CheckBoxCell
-        
         cell.setupContents(textName: relations[indexPath.item].relation)
         // 対象のセルのIDをセット
         let relationId = relations[indexPath.item].id
-        cell.setupContents(textName: relations[indexPath.item].relation)
-        
         let relation = guest.relations[relationId] ?? false
         cell.setButtonColor(isActive: relation)
-
         return cell
     }
 }
@@ -57,6 +51,7 @@ extension RelationCollectionView: UICollectionViewDelegate {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
     }
+    
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         // クリックしたときのアクション
         // 対象のセルのIDをセット
