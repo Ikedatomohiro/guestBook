@@ -73,7 +73,7 @@ class GuestViewController: UIViewController {
         setupCompanyNameView()
         setupAddressView()
         setupSelectRelationView()
-//        setupSelectGroupView()
+        setupSelectGroupView()
         //        setupDescriptionView()
     }
     
@@ -139,14 +139,14 @@ class GuestViewController: UIViewController {
     // どなたのご関係ですか？
     fileprivate func setupSelectRelationView() {
         view.addSubview(selectRelationView)
-        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: backGroundFrame.frame.height / 6))
+        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
         selectRelationView.guestItemUpdateDelegate = self
     }
     
     // どのようなご関係ですか？
     fileprivate func setupSelectGroupView() {
         view.addSubview(selectGroupView)
-        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: backGroundFrame.frame.height / 6))
+        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
         selectGroupView.guestItemUpdateDelegate = self
     }
     
