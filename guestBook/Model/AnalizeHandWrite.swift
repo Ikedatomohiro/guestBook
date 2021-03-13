@@ -16,7 +16,7 @@ class AnalizeHandWrite {
     
     // MARK:- 手書き文字解析
     static func analizeText(guest: Guest, completion: @escaping (Dictionary<String,String>) -> Void) -> Void {
-        let tasks: Array = ["GuestName", "CompanyName", "Address", "ZipCode", "TelNumber"]
+        let tasks: Array = ["GuestName", "CompanyName", "Address", "ZipCode", "TelNumber", "Description"]
         var apiResult: Dictionary<String, String> = [:]
         
         for task in tasks {
@@ -52,7 +52,7 @@ class AnalizeHandWrite {
                         callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
                             // 改行コードを取り除く
                             let text = result.trimmingCharacters(in: .whitespacesAndNewlines)
-                           apiResult["companyName"] = text
+                            apiResult["companyName"] = text
                             print("会社名：\(text)")
                             apiQueueGroup.leave()
                         })
@@ -77,7 +77,7 @@ class AnalizeHandWrite {
                         })
                     }
                 }
-               break
+                break
             case "ZipCode":
                 if guest.zipCodeImageData != Data() {
                     apiQueueGroup.enter()
@@ -111,6 +111,25 @@ class AnalizeHandWrite {
                             let text = result.trimmingCharacters(in: .whitespacesAndNewlines)
                             apiResult["telNumber"] = text
                             print("電話番号：\(text)")
+                            apiQueueGroup.leave()
+                        })
+                    }
+                }
+                break
+            case "Description":
+                if guest.descriptionImageData != Data() {
+                    apiQueueGroup.enter()
+                    // processIdentifireを作成
+                    let processIdentifire = "description\(guest.id)"
+                    // CloudVisionAPIで手書き文字解析
+                    let imageData: String = makeDescriptionImageData(guest)
+                    // 手書き文字解析
+                    apiQueue.async(group: apiQueueGroup) {
+                        callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
+                            // 改行コードを取り除く
+                            let text = result.trimmingCharacters(in: .whitespacesAndNewlines)
+                            apiResult["description"] = text
+                            print("備考：\(text)")
                             apiQueueGroup.leave()
                         })
                     }
@@ -164,6 +183,14 @@ class AnalizeHandWrite {
         let canvas: PKCanvasView = PKCanvasView(frame: .zero)
         canvas.setDrawingData(canvas, guest.telNumberImageData)
         let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(GuestCardView.telNumberWidth), height: GuestCardView.telNumberHeight), scale: 1.0)
+        let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
+        return binaryImageData
+    }
+    
+    static func makeDescriptionImageData(_ guest: Guest) -> String {
+        let canvas: PKCanvasView = PKCanvasView(frame: .zero)
+        canvas.setDrawingData(canvas, guest.descriptionImageData)
+        let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: Int(GuestCardView.guestNameWidth), height: Int(GuestCardView.guestNameHeight)), scale: 1.0)
         let binaryImageData = image.pngData()!.base64EncodedString(options: .endLineWithCarriageReturn)
         return binaryImageData
     }

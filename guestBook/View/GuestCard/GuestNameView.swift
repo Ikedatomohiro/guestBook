@@ -62,5 +62,4 @@ extension GuestNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)
     }
-    
 }

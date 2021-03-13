@@ -10,11 +10,13 @@ import PencilKit
 
 class DescriptionView: UIView {
     
-    fileprivate let description1      = UILabel()
-    fileprivate let description2      = UILabel()
-    let descriptionTextField          = UITextField()
-    fileprivate let descriptionCanvas = PKCanvasView()
-    
+    fileprivate let descriptionText   = UILabel()
+    fileprivate let descriptionTextField = UITextField()
+    fileprivate let descriptionWriteArea = UIView()
+    fileprivate let descriptionWriteAreaTitle = UILabel()
+    let descriptionCanvas = PKCanvasView()
+    weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
+
     override init(frame: CGRect) {
         super.init(frame: frame)
     }
@@ -25,17 +27,47 @@ class DescriptionView: UIView {
     
     func setupView(guest: Guest) {
         setupDescriptionLabel()
-        setupDescriptionTexField()
+        setupDescriptionWriteArea(guest)
+        setupCanvas(ImageData: guest.descriptionImageData)
     }
     
     fileprivate func setupDescriptionLabel() {
-        addSubview(description1)
-        description1.text = "名刺をお持ちの方は受付にお渡しください。\n□へのチェックをお願いいたします。"
-        description1.anchor(top: layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, size: .init(width: 500, height: 100))
-        
-        
+        addSubview(descriptionText)
+        descriptionText.text = "名刺をお持ちの方は受付にお渡しください。\n該当する□へチェックをお願い致します。"
+        descriptionText.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil)
+        descriptionText.font = .systemFont(ofSize: 24)
+        descriptionText.numberOfLines = 0
     }
-    fileprivate func setupDescriptionTexField() {
-        addSubview(descriptionTextField)
+    
+    fileprivate func setupDescriptionWriteArea(_ guest: Guest) {
+        addSubview(descriptionWriteArea)
+        descriptionWriteArea.anchor(top: layoutMarginsGuide.topAnchor, leading: descriptionText.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: trailingAnchor)
+        descriptionWriteArea.layer.borderWidth = 1.0
+        addSubview(descriptionWriteAreaTitle)
+        descriptionWriteAreaTitle.anchor(top: descriptionWriteArea.topAnchor, leading: descriptionWriteArea.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 5, bottom: 0, right: 0))
+        descriptionWriteAreaTitle.text = "備考"
+        descriptionWriteAreaTitle.font = .systemFont(ofSize: 20)
+    }
+    
+    fileprivate func setupCanvas(ImageData: Data) {
+        addSubview(descriptionCanvas)
+        descriptionCanvas.anchor(top: descriptionWriteArea.topAnchor, leading: descriptionWriteArea.leadingAnchor , bottom: descriptionWriteArea.bottomAnchor, trailing: descriptionWriteArea.trailingAnchor)
+        descriptionCanvas.tool = PKInkingTool(.pen, color: .black, width: 30)
+        descriptionCanvas.isOpaque = false
+        descriptionCanvas.delegate = self
+        descriptionCanvas.setDrawingData(descriptionCanvas, ImageData)
+    }
+    
+    // ペンシルはページ表示後にセットする
+    func setupPencil() {
+        descriptionCanvas.setupPencil(canvas: descriptionCanvas)
     }
 }
+
+//MARK:- Extensions
+extension DescriptionView: PKCanvasViewDelegate {
+    func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        guestItemupdateDelegate?.update(inputView: self)
+    }
+}
+

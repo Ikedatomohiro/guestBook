@@ -23,8 +23,8 @@ class CardTitleView: UIView {
     }
     fileprivate func setupLabel() {
         addSubview(cardTitleLabel)
-        cardTitleLabel.text = "御芳名カード"
-        cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 5, left: 0, bottom: 0, right: 0))
-        cardTitleLabel.font = .systemFont(ofSize: 36)
+        cardTitleLabel.text = "御 芳 名 カ ー ド"
+        cardTitleLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, padding: .init(top: 5, left: 10, bottom: 5, right: 0))
+        cardTitleLabel.font = .systemFont(ofSize: 32)
     }
 }

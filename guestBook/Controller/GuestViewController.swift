@@ -40,8 +40,6 @@ class GuestViewController: UIViewController {
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero)
     lazy var selectRelationView = SelectRelationView(guest, relations, relationCollectionView, frame: CGRect.zero)
     lazy var relationCollectionView = RelationCollectionView(guest, relations, frame: CGRect.zero)
-    
-    
     lazy var selectGroupView = SelectGroupView(guest, groups, groupCollectionView, frame: CGRect.zero)
     lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero)
     
@@ -70,7 +68,7 @@ class GuestViewController: UIViewController {
         setupAddressView()
         setupSelectRelationView()
         setupSelectGroupView()
-        //        setupDescriptionView()
+        setupDescriptionView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -90,20 +88,20 @@ class GuestViewController: UIViewController {
     
     fileprivate func setupCardTitleView() {
         view.addSubview(cardTitleView)
-        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width / 2, height: screenSize.height / 12))
+        cardTitleView.anchor(top: cardHeaderView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: screenSize.width / 2, height: screenSize.height / 16))
         cardTitleView.setupView()
     }
     
     fileprivate func setupRetualsSelectView() {
         view.addSubview(retualCollectionView)
-        retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: cardHeaderView.trailingAnchor, size: .init(width: 300, height: screenSize.height / 12))
+        retualCollectionView.anchor(top: cardHeaderView.bottomAnchor, leading: nil, bottom: nil, trailing: cardHeaderView.trailingAnchor, size: .init(width: 300, height: screenSize.height / 16))
         retualCollectionView.backgroundColor = .white
         retualCollectionView.guestItemUpdateDelegate = self
     }
     
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
-        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10), size: .init(width: .zero, height: screenSize.height * 3 / 5))
+        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10))
         backGroundFrame.accessibilityIdentifier = "backGroundFrame"
         backGroundFrame.layer.borderWidth = 2.0
     }
@@ -146,17 +144,19 @@ class GuestViewController: UIViewController {
         selectGroupView.guestItemUpdateDelegate = self
     }
     
+    // 備考
     fileprivate func setupDescriptionView() {
         view.addSubview(descriptionView)
         descriptionView.setupView(guest: guest)
-        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 10, right: 10), size: .init(width: backGroundFrame.frame.width, height: screenSize.height / 8))
-        descriptionView.layer.borderWidth = 1.0
+        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
+        descriptionView.guestItemupdateDelegate = self
     }
     
     fileprivate func setupPencils() {
         guestNameView.setupPencil()
         companyNameView.setupPencil()
         addressView.setupPencil()
+        descriptionView.setupPencil()
     }
 }
 
@@ -197,6 +197,12 @@ extension GuestViewController: GuestItemUpdateDelegate {
             break
         case is RelationCollectionView:
             guest.relations = relationCollectionView.guest.relations
+            break
+        case is GroupCollectionView:
+            guest.groups = groupCollectionView.guest.groups
+            break
+        case is DescriptionView:
+            guest.descriptionImageData = descriptionView.descriptionCanvas.drawing.dataRepresentation()
             break
         default:
             break

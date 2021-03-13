@@ -147,7 +147,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
                 guests[index].id = documentRef.documentID
             }
         } else {
-            Guest.updateGuest(guest, event.eventId, result )
+            Guest.updateGuest(guest, event.eventId, result)
         }
     }
 }

@@ -122,7 +122,7 @@ struct Guest {
             "telNumberImageData"   : guest.telNumberImageData,
             "relations"            : guest.relations,
             "groups"               : guest.groups,
-            "description"          : guest.description,
+            "description"          : analizedText["description"] ?? "",
             "descriptionImageData" : guest.descriptionImageData,
             "updatedAt"            : Date(),
         ])

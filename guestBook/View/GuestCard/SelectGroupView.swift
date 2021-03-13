@@ -37,10 +37,7 @@ class SelectGroupView: UIView {
     
     fileprivate func setupGroupAskLabel() {
         addSubview(groupAskLabel)
-        groupAskLabel.text = """
-        どのような
-        ご関係ですか
-        """
+        groupAskLabel.text = "どのような\nご関係ですか"
         groupAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 70))
         groupAskLabel.font = .systemFont(ofSize: 24)
         groupAskLabel.numberOfLines = 0

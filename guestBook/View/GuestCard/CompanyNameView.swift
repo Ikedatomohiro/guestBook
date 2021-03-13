@@ -9,6 +9,7 @@ import UIKit
 import PencilKit
 
 class CompanyNameView: UIView {
+    
     fileprivate let companyNameTitleLabel = UILabel()
     let companyNameTextField              = UITextField()
     let companyNameCanvas     = PKCanvasView()
@@ -51,6 +52,7 @@ class CompanyNameView: UIView {
     }
 }
 
+//MARK:- Extensions
 extension CompanyNameView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
         guestItemupdateDelegate?.update(inputView: self)

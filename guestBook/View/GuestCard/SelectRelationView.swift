@@ -37,10 +37,7 @@ class SelectRelationView: UIView {
     
     fileprivate func setupRelationLabel() {
         addSubview(relationAskLabel)
-        relationAskLabel.text = """
-        どなたの
-        御関係ですか
-        """
+        relationAskLabel.text = "どなたの\n御関係ですか"
         relationAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
         relationAskLabel.font = .systemFont(ofSize: 24)
         relationAskLabel.numberOfLines = 0
