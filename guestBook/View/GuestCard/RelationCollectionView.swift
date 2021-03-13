@@ -81,7 +81,7 @@ extension RelationCollectionView: UICollectionViewDelegate {
 
 extension RelationCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 130, height: 40)
+        return CGSize(width: 130, height: 30)
     }
     // セルの外周余白
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {

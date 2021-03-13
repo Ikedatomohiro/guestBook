@@ -142,7 +142,7 @@ class GuestViewController: UIViewController {
     // どのようなご関係ですか？
     fileprivate func setupSelectGroupView() {
         view.addSubview(selectGroupView)
-        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 12))
+        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
         selectGroupView.guestItemUpdateDelegate = self
     }
     

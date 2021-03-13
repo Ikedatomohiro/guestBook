@@ -77,7 +77,7 @@ extension GroupCollectionView: UICollectionViewDelegate {
 
 extension GroupCollectionView: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 130, height: 40)
+        return CGSize(width: 130, height: 30)
     }
     // セルの外周余白
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
@@ -85,10 +85,10 @@ extension GroupCollectionView: UICollectionViewDelegateFlowLayout {
     }
     // セル同士の縦間隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
+        return 5
     }
     // セル同士の横間隔
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-        return 1
+        return 5
     }
 }

@@ -41,14 +41,14 @@ class SelectGroupView: UIView {
         どのような
         ご関係ですか
         """
-        groupAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
+        groupAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 70))
         groupAskLabel.font = .systemFont(ofSize: 24)
         groupAskLabel.numberOfLines = 0
     }
     
     fileprivate func setupGoupCollectionView(_ groupCollectionView: GroupCollectionView) {
         addSubview(groupCollectionView)
-        groupCollectionView.anchor(top: layoutMarginsGuide.topAnchor, leading: groupAskLabel.trailingAnchor, bottom: groupAskLabel.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
+        groupCollectionView.anchor(top: topAnchor, leading: groupAskLabel.trailingAnchor, bottom: bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor, padding: .init(top: 15, left: 0, bottom: 0, right: 0))
         groupCollectionView.backgroundColor = .white
         groupCollectionView.sendGroupDataDelegate = self
     }
