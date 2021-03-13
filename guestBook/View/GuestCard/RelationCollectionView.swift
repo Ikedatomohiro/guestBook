@@ -11,8 +11,12 @@ class RelationCollectionView: UICollectionView {
     var guest: Guest
     var relations: [Relation]
     weak var sendRelationDataDelegate: SendRelationDataDelegate?
-
-    init(_ guest: Guest, _ relations: [Relation], frame: CGRect, collectionViewLayout layout: UICollectionViewLayout) {
+    let layout: UICollectionViewFlowLayout = {
+        let layout = UICollectionViewFlowLayout()
+        return layout
+    }()
+    
+    init(_ guest: Guest, _ relations: [Relation], frame: CGRect) {
         self.guest = guest
         self.relations = relations
         super.init(frame: frame, collectionViewLayout: layout)

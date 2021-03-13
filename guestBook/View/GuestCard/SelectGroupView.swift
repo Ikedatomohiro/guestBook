@@ -41,7 +41,7 @@ class SelectGroupView: UIView {
         どのような
         ご関係ですか
         """
-        groupAskLabel.anchor(top: groupAskLabel.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
+        groupAskLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, size: .init(width: 150, height: 80))
         groupAskLabel.font = .systemFont(ofSize: 24)
         groupAskLabel.numberOfLines = 0
     }

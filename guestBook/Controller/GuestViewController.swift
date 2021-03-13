@@ -37,17 +37,13 @@ class GuestViewController: UIViewController {
     
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
-    let layout: UICollectionViewFlowLayout = {
-        let layout = UICollectionViewFlowLayout()
-        return layout
-    }()
-    lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero)
     lazy var selectRelationView = SelectRelationView(guest, relations, relationCollectionView, frame: CGRect.zero)
-    lazy var relationCollectionView = RelationCollectionView(guest, relations, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var relationCollectionView = RelationCollectionView(guest, relations, frame: CGRect.zero)
     
     
     lazy var selectGroupView = SelectGroupView(guest, groups, groupCollectionView, frame: CGRect.zero)
-    lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero, collectionViewLayout: layout)
+    lazy var groupCollectionView = GroupCollectionView(guest, groups, frame: CGRect.zero)
     
     init(guest: Guest, retuals: [Retual], relations: [Relation], groups: [Group]) {
         self.guest = guest
@@ -139,14 +135,14 @@ class GuestViewController: UIViewController {
     // どなたのご関係ですか？
     fileprivate func setupSelectRelationView() {
         view.addSubview(selectRelationView)
-        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
+        selectRelationView.anchor(top: addressView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 12))
         selectRelationView.guestItemUpdateDelegate = self
     }
     
     // どのようなご関係ですか？
     fileprivate func setupSelectGroupView() {
         view.addSubview(selectGroupView)
-        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
+        selectGroupView.anchor(top: selectRelationView.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: nil, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 12))
         selectGroupView.guestItemUpdateDelegate = self
     }
     
