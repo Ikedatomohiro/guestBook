@@ -25,9 +25,7 @@ class GuestsPageViewController: UIPageViewController {
     var nextIndex: Int = 0
     fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     let guestUpdateQueue = DispatchQueue.global(qos: .userInitiated)
-    
-    weak var guestupdateDelegate: GuestUpdateDelegate?
-    
+        
     init(_ event: Event, _ retuals: [Retual], _  relations: [Relation], _ groups: [Group] , _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
@@ -64,10 +62,10 @@ class GuestsPageViewController: UIPageViewController {
         }
         let lastIndex = self.guests.count - 1
         currentIndex = lastIndex
-        let guestController = GuestViewController(guest: guests[lastIndex], retuals: retuals, relations: relations, groups: groups)
+        let guestVC = GuestViewController(guest: guests[lastIndex], retuals: retuals, relations: relations, groups: groups)
         // 参加者情報登録用のdelegateをセット
-        guestController.guestupdateDelegate = self
-        self.setViewControllers([guestController], direction: .forward, animated: true, completion: nil)
+        guestVC.guestupdateDelegate = self
+        self.setViewControllers([guestVC], direction: .forward, animated: true, completion: nil)
         self.view.layoutIfNeeded()
     }
     

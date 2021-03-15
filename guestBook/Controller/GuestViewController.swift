@@ -34,6 +34,7 @@ class GuestViewController: UIViewController {
     fileprivate let companyNameView    = CompanyNameView()
     fileprivate let addressView        = AddressView()
     fileprivate let descriptionView    = DescriptionView()
+    fileprivate let backToMenuButton   = UIButton()
     
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
@@ -58,6 +59,7 @@ class GuestViewController: UIViewController {
     // MARK:- layout
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
         setupBasic()
         setupCardHeaderView()
         setupCardTitleView()
@@ -69,6 +71,7 @@ class GuestViewController: UIViewController {
         setupSelectRelationView()
         setupSelectGroupView()
         setupDescriptionView()
+        setupBackToMenuButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -150,6 +153,21 @@ class GuestViewController: UIViewController {
         descriptionView.setupView(guest: guest)
         descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
         descriptionView.guestItemupdateDelegate = self
+    }
+    
+    fileprivate func setupBackToMenuButton() {
+        view.addSubview(backToMenuButton)
+        backToMenuButton.setTitle("<< メニューに戻る", for: .normal)
+        backToMenuButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil)
+        backToMenuButton.setTitleColor(.black, for: .normal)
+        backToMenuButton.addTarget(self, action: #selector(backToMenu), for: .touchUpInside)
+    }
+    
+    @objc func backToMenu() {
+        // メニュー画面に戻る
+        self.navigationController?.popViewController(animated: true)
+        // 非表示にしたNavigationControllerを再度表示させる
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
     }
     
     fileprivate func setupPencils() {
