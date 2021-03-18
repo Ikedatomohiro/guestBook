@@ -77,7 +77,7 @@ class GuestsPageViewController: UIPageViewController {
     
 }
 
-// MARK:- 
+// MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDataSource {
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
@@ -150,7 +150,6 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     }
 }
 
-// MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         print("willTransitionTo")

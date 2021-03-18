@@ -7,7 +7,6 @@
 
 import UIKit
 import PencilKit
-import SwiftyJSON
 
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()

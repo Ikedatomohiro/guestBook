@@ -48,7 +48,7 @@ class GuestListTableView: UITableView {
 // MARK:- Extensions
 extension GuestListTableView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let guestDetailVC = GuestDetailViewController(guest: guests[indexPath.row])
+        let guestDetailVC = GuestDetailViewController(guests: guests, index: indexPath.row)
         guestDetailVC.modalPresentationStyle = .fullScreen
         // GuestListViewContollerに返して、画面遷移させるための情報を提供する
         transitionDelegate?.sendTransitionIndex(guestDetailVC, indexPath.row)

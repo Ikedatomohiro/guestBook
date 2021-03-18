@@ -9,17 +9,20 @@ import UIKit
 import FirebaseFirestore
 
 class GuestDetailViewController: UIViewController {
-
+    
+    fileprivate let guestsTable: UITableView = UITableView()
     fileprivate let guestInfoStackView = UIStackView()
-    fileprivate let guest: Guest
-    fileprivate let guestNameLabel     = UILabel()
+    fileprivate var guests: [Guest]
+    fileprivate let guestNameTitleLabel = UILabel()
     fileprivate let guestNameTextFeild = UITextField()
     fileprivate let db = Firestore.firestore().collection("events")
+    fileprivate let index: Int
     
     let DeviseSize: CGSize = UIScreen.main.bounds.size
     
-    init(guest: Guest) {
-        self.guest = guest
+    init(guests: [Guest], index: Int) {
+        self.guests = guests
+        self.index = index
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -29,14 +32,58 @@ class GuestDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
-        setGuestInfoStackView()
-        setupGuestInfo()
+
+        
+        setupBase()
+//        setupGuestsTable()
+//        setGuestInfoStackView()
+        setupGuestDetail()
         
         
     }
+    
+    fileprivate func setupBase() {
+        view.backgroundColor = .white
+        
+    }
 
+    fileprivate func setupGuestsTable() {
+        view.addSubview(guestsTable)
+        guestsTable.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
+        guestsTable.delegate = self
+        guestsTable.dataSource = self
+        guestsTable.register(TextCell.self, forCellReuseIdentifier: TextCell.className)
+    }
+    
+    fileprivate func setupGuestDetail() {
+        view.addSubview(guestNameTitleLabel)
+        guestNameTitleLabel.text = "御芳名"
+        guestNameTitleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil)
+        
+        view.addSubview(guestNameTextFeild)
+        guestNameTextFeild.anchor(top: guestNameTitleLabel.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil)
+        guestNameTextFeild.text = guests[index].guestName
+        guestNameTextFeild.layer.borderWidth = 1.0
+        guestNameTextFeild.layer.cornerRadius = 5.0
+        
+        
+        
+    }
+    
+    fileprivate func setupGuestCardView() {
+        
+    }
+    
+    
+    
+    
     fileprivate func setGuestInfoStackView() {
+        
+        
+        
+        
+        
+        
         view.addSubview(guestInfoStackView)
         guestInfoStackView.spacing = 10.0
         guestInfoStackView.axis    = .vertical
@@ -56,7 +103,7 @@ class GuestDetailViewController: UIViewController {
         topBorder.backgroundColor = UIColor.green.cgColor
         guestNameTextFeild.layer.addSublayer(topBorder)
         
-        guestNameTextFeild.text = guest.guestName
+        guestNameTextFeild.text = guests[index].guestName
         guestNameTextFeild.addTarget(self, action: #selector(guestNameTextFeildDidChange), for: .editingDidEnd)
     }
     
@@ -64,8 +111,29 @@ class GuestDetailViewController: UIViewController {
     @objc private func guestNameTextFeildDidChange() {
         print("名前が変更されました。")
         let name = guestNameTextFeild.text!
-        print(name)
-        print(guest.id)
+        let guest = guests[index]
         db.document(guest.eventId).collection("guests").document(guest.id).updateData(["guestName": name, "updatedAt": Date()])
+    }
+}
+
+// MARK:- Extensions
+extension GuestDetailViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return guests.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: TextCell.className) as? TextCell  else {
+            fatalError("improper UITableViewCell")}
+        cell.setText(text: "てきすと")
+        return cell
+    }
+    
+    
+}
+
+extension GuestDetailViewController: UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("タップしました。")
     }
 }
