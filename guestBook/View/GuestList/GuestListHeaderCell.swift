@@ -163,7 +163,7 @@ class GuestListHeaderCell: UITableViewCell {
     func setRankLabel(rank: Bool?) -> String {
         var rankString = "▲▼"
         if rank == nil {
-            rankString = ""
+            rankString = "▲▼"
         } else if rank == true {
             rankString = "▲"
         } else if rank == false {

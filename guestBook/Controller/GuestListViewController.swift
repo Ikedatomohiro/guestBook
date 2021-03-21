@@ -85,22 +85,9 @@ extension GuestListViewController: UINavigationControllerDelegate {
 
 extension GuestListViewController: TransitionGuestDetailDelegate {
     func sendTransitionIndex(_ guestDetailVC: UIViewController, _ index: Int) {
-//        let guestDetailVC = GuestDetailViewController(guest: guests[index])
-//        guestDetailVC.modalPresentationStyle = .fullScreen
-//        self.navigationController?.pushViewController(guestDetailVC, animated: true)
-        
-        
-//        let guestsDetailPVC = GuestsDetailPageViewController(guests: guests, index: index)
-//        guestsDetailPVC.modalTransitionStyle = .coverVertical
-//        self.navigationController?.pushViewController(guestsDetailPVC, animated: true)
-        
         let guestEditVC = GuestEditViewController(guests: guests, index: index)
         guestEditVC.modalTransitionStyle = .coverVertical
         self.navigationController?.pushViewController(guestEditVC, animated: true)
-        
-        
-        
-        
     }
 }
 

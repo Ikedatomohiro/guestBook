@@ -90,7 +90,6 @@ extension GuestListTableView: UITableViewDataSource {
 
 }
 
-// MARK:- Extentions
 extension GuestListTableView: SentGuestsRankDelegate {
     func sendGuestRank(selectRank: Dictionary<String, Bool?>) {
         self.selectRank = selectRank

@@ -39,6 +39,7 @@ class GuestEditViewController: UIViewController {
         guestsTable.delegate = self
         guestsTable.dataSource = self
         guestsTable.register(GuestDetailViewCell.self, forCellReuseIdentifier: GuestDetailViewCell.className)
+        guestsTable.separatorStyle = .none
         openedSections.insert(index)
     }
     
@@ -54,11 +55,9 @@ class GuestEditViewController: UIViewController {
             } else {
                 openedSections.insert(section)
             }
-
             guestsTable.reloadSections(IndexSet(integer: section), with: .fade)
         }
     }
-
 }
 
 // MARK:- Extensions
@@ -75,7 +74,12 @@ extension GuestEditViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestDetailViewCell.className) as? GuestDetailViewCell  else {
             fatalError("improper UITableViewCell")}
         cell.setupCell(guests[indexPath.section], index: indexPath.section)
+        cell.selectionStyle = .none
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 500
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -83,7 +87,8 @@ extension GuestEditViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return guests[section].guestName
+        let guest = guests[section]
+        return "\(guest.pageNumber): \(guest.guestName)"
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -94,9 +99,6 @@ extension GuestEditViewController: UITableViewDataSource {
         view.tag = section
         return view
     }
-    
-
- 
 }
 
 extension GuestEditViewController: UITableViewDelegate {
