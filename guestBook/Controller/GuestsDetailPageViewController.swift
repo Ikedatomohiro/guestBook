@@ -7,12 +7,17 @@
 
 import UIKit
 
+protocol SelectGuestIndexDelegate: AnyObject {
+    func selectGuestIndex(index: Int)
+}
+
 class GuestsDetailPageViewController: UIPageViewController {
     fileprivate var guests:[Guest]
     
     var currentIndex: Int = 0
     var prevIndex: Int = 0
     var nextIndex: Int = 0
+    weak var selectGuestIndexDelegate: SelectGuestIndexDelegate?
     
     init(guests: [Guest], index: Int) {
         self.guests = guests
@@ -73,4 +78,15 @@ extension GuestsDetailPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         print("didFinishAnimating")
     }
+}
+
+extension GuestsDetailPageViewController: SelectGuestIndexDelegate {
+    func selectGuestIndex(index: Int) {
+        let guest = guests[index]
+        let guestDetailVC = GuestDetailViewController(guest: guest)
+        self.setViewControllers([guestDetailVC], direction: .forward, animated: true, completion: nil)
+        self.view.layoutIfNeeded()
+    }
+    
+    
 }

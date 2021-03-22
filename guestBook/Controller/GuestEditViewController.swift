@@ -16,6 +16,7 @@ class GuestEditViewController: UIViewController {
     fileprivate var currentOpenSectionNumber: Int?
     
     lazy var guestsDetailPageViewController = GuestsDetailPageViewController(guests: guests, index: index)
+    weak var selectGuestIndexDelegate: SelectGuestIndexDelegate?
 
     init(guests: [Guest], index: Int) {
         self.guests = guests
@@ -48,6 +49,7 @@ class GuestEditViewController: UIViewController {
     fileprivate func setupGuestsDetailPageView() {
         view.addSubview(guestsDetailPageViewController.view)
         guestsDetailPageViewController.view.anchor(top: view.layoutMarginsGuide.topAnchor, leading: guestsTable.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        guestsDetailPageViewController.selectGuestIndexDelegate = self
     }
     
     @objc func sectionHeaderDidTap(_ sender: UIGestureRecognizer) {
@@ -98,6 +100,7 @@ extension GuestEditViewController: UITableViewDataSource {
         view.tag = section
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sectionHeaderDidTap(_:)))
         view.addGestureRecognizer(gesture)
+        selectGuestIndexDelegate?.selectGuestIndex(index: section)
         return view
     }
 }
@@ -106,5 +109,13 @@ extension GuestEditViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("タップしました。")
     }
+    
+}
+
+extension GuestEditViewController: SelectGuestIndexDelegate {
+    func selectGuestIndex(index: Int) {
+        print("ここに来ました")
+    }
+    
     
 }
