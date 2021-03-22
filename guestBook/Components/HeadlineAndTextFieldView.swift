@@ -31,4 +31,6 @@ class HeadlineAndTextFieldView: UIView {
         textField.layer.cornerRadius = 5.0
     }
 
+    
+    
 }

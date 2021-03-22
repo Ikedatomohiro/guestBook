@@ -12,17 +12,13 @@ class GuestDetailViewController: UIViewController {
     
     fileprivate let guestsTable: UITableView = UITableView()
     fileprivate let guestInfoStackView = UIStackView()
-    fileprivate var guests: [Guest]
+    fileprivate var guest: Guest
     fileprivate let guestNameTitleLabel = UILabel()
     fileprivate let guestNameTextFeild = UITextField()
     fileprivate let db = Firestore.firestore().collection("events")
-    fileprivate let index: Int
     
-    let DeviseSize: CGSize = UIScreen.main.bounds.size
-    
-    init(guests: [Guest], index: Int) {
-        self.guests = guests
-        self.index = index
+    init(guest: Guest) {
+        self.guest = guest
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -33,9 +29,8 @@ class GuestDetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         setupBase()
-
+        
         
         
     }
@@ -45,6 +40,8 @@ class GuestDetailViewController: UIViewController {
         
     }
 
-
+    fileprivate func moveGuestPage(index: Int) {
+        print(index)
+    }
 
 }

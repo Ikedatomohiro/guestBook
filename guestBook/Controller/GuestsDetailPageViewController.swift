@@ -31,7 +31,8 @@ class GuestsDetailPageViewController: UIPageViewController {
     }
     
     fileprivate func setGuestData() {
-        let guestDetailVC = GuestDetailViewController(guests: guests, index: currentIndex)
+        let guest = guests[currentIndex]
+        let guestDetailVC = GuestDetailViewController(guest: guest)
         self.setViewControllers([guestDetailVC], direction: .forward, animated: true, completion: nil)
         self.view.layoutIfNeeded()
 
@@ -47,16 +48,21 @@ class GuestsDetailPageViewController: UIPageViewController {
 // MARK:- Extensions
 extension GuestsDetailPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        let guestDetailVC = GuestDetailViewController(guests: guests, index: currentIndex)
+        let guest = guests[currentIndex]
+        let guestDetailVC = GuestDetailViewController(guest: guest)
         return guestDetailVC
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        let guestDetailVC = GuestDetailViewController(guests: guests, index: currentIndex)
+        let guest = guests[currentIndex]
+        let guestDetailVC = GuestDetailViewController(guest: guest)
         return guestDetailVC
         
     }
     
+    fileprivate func setGuestPage(index: Int) {
+        
+    }
 }
 
 extension GuestsDetailPageViewController: UIPageViewControllerDelegate {

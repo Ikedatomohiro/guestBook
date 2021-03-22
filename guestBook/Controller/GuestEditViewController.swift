@@ -14,9 +14,9 @@ class GuestEditViewController: UIViewController {
     fileprivate let guestsTable: UITableView = UITableView()
     fileprivate var openedSections = Set<Int>()
     fileprivate var currentOpenSectionNumber: Int?
-
-    lazy var guestsDetailPageViewController = GuestsDetailPageViewController(guests: guests, index: index)
     
+    lazy var guestsDetailPageViewController = GuestsDetailPageViewController(guests: guests, index: index)
+
     init(guests: [Guest], index: Int) {
         self.guests = guests
         self.index = index
@@ -40,9 +40,11 @@ class GuestEditViewController: UIViewController {
         guestsTable.dataSource = self
         guestsTable.register(GuestDetailViewCell.self, forCellReuseIdentifier: GuestDetailViewCell.className)
         guestsTable.separatorStyle = .none
+        guestsTable.layer.borderWidth = 1.0
+        guestsTable.layer.borderColor = UIColor.gray.cgColor
         openedSections.insert(index)
     }
-    
+
     fileprivate func setupGuestsDetailPageView() {
         view.addSubview(guestsDetailPageViewController.view)
         guestsDetailPageViewController.view.anchor(top: view.layoutMarginsGuide.topAnchor, leading: guestsTable.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
@@ -96,7 +98,6 @@ extension GuestEditViewController: UITableViewDataSource {
         view.tag = section
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sectionHeaderDidTap(_:)))
         view.addGestureRecognizer(gesture)
-        view.tag = section
         return view
     }
 }
