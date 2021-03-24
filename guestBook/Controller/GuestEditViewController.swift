@@ -60,7 +60,7 @@ class GuestEditViewController: UIViewController {
                 openedSections.insert(section)
             }
             guestsTable.reloadSections(IndexSet(integer: section), with: .fade)
-            guestsDetailPageViewController.move(from: 1, to: section)
+            guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
         }
     }
 }

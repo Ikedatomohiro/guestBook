@@ -16,6 +16,7 @@ class GuestDetailViewController: UIViewController {
     fileprivate let guestNameTitleLabel = UILabel()
     fileprivate let guestNameTextFeild = UITextField()
     fileprivate let db = Firestore.firestore().collection("events")
+    fileprivate let guestCard: UIImageView = UIImageView()
     
     init(guest: Guest) {
         self.guest = guest
@@ -30,11 +31,11 @@ class GuestDetailViewController: UIViewController {
         super.viewDidLoad()
 
         setupBase()
-        
         view.addSubview(guestNameTitleLabel)
         guestNameTitleLabel.centerInSuperview()
         guestNameTitleLabel.text = String(guest.pageNumber)
-        
+        setupGuestData()
+
     }
     
     fileprivate func setupBase() {
@@ -42,8 +43,21 @@ class GuestDetailViewController: UIViewController {
         
     }
 
-    fileprivate func moveGuestPage(index: Int) {
-        print(index)
+    fileprivate func setupGuestData() {
+        view.addSubview(guestCard)
+        guestCard.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
+        
+        let selectGuest = SelectGuests()
+        let storageRef = selectGuest.getGuestCard(guest)
+        storageRef.getData(maxSize: 1024 * 1024 * 10) { (data: Data?, error: Error?) in
+            if error != nil {
+                return
+            }
+            if let imageData = data {
+                self.guestCard.image = UIImage(data: imageData)
+            }
+        }
     }
+    
 
 }

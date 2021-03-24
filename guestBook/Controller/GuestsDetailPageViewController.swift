@@ -44,7 +44,7 @@ class GuestsDetailPageViewController: UIPageViewController {
         self.delegate = self
     }
     
-    func move(from fromIndex: Int, to toIndex: Int) {
+    func moveGuestDetailPage(from fromIndex: Int, to toIndex: Int) {
         if currentIndex == toIndex { return }
         let guest = guests[toIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)

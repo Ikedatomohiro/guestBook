@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseStorage
 
 let firestoreQueueGroup = DispatchGroup()
 let firestoreQueue  = DispatchQueue.global(qos: .userInitiated)
@@ -90,5 +91,12 @@ class SelectGuests {
             guests.sort(by: {$0.createdAt < $1.createdAt})
         }
         return guests
+    }
+    
+    func getGuestCard(_ guest: Guest) -> StorageReference {
+        let filename = "\(guest.id)_guestName.png"
+        let storageURL = Keys.firestoreStorageUrl
+        let storageRef = Storage.storage().reference(forURL: storageURL).child(filename)
+        return storageRef
     }
 }
