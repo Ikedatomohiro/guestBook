@@ -31,7 +31,9 @@ class GuestDetailViewController: UIViewController {
 
         setupBase()
         
-        
+        view.addSubview(guestNameTitleLabel)
+        guestNameTitleLabel.centerInSuperview()
+        guestNameTitleLabel.text = String(guest.pageNumber)
         
     }
     

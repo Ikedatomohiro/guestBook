@@ -23,6 +23,7 @@
 		E52B1E5226021F800016E985 /* GuestEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B1E5126021F800016E985 /* GuestEditViewController.swift */; };
 		E52C618925E7C6B4000A12C9 /* SelectGuest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618825E7C6B4000A12C9 /* SelectGuest.swift */; };
 		E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */; };
+		E52F6642260A0A4900D83DC8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F6641260A0A4900D83DC8 /* Common.swift */; };
 		E53697152605801A008413B9 /* TableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53697142605801A008413B9 /* TableView.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
@@ -109,6 +110,7 @@
 		E52B1E5126021F800016E985 /* GuestEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestEditViewController.swift; sourceTree = "<group>"; };
 		E52C618825E7C6B4000A12C9 /* SelectGuest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGuest.swift; sourceTree = "<group>"; };
 		E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalizeHandWrite.swift; sourceTree = "<group>"; };
+		E52F6641260A0A4900D83DC8 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E53697142605801A008413B9 /* TableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableView.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
@@ -269,6 +271,14 @@
 			path = GuestList;
 			sourceTree = "<group>";
 		};
+		E52F6640260A0A3100D83DC8 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				E52F6641260A0A4900D83DC8 /* Common.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		E540760F26075072007A9F28 /* Components */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +356,7 @@
 		E59D9EEC254848F1000F7C45 /* guestBook */ = {
 			isa = PBXGroup;
 			children = (
+				E52F6640260A0A3100D83DC8 /* Common */,
 				E57C925125F3C3B400B7CC69 /* guestBook.entitlements */,
 				E56E1854254D665400205FCE /* Model */,
 				E56E1855254D665D00205FCE /* View */,
@@ -709,6 +720,7 @@
 				E524B66325C6E3CE00497CD4 /* GuestSortAreaView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
+				E52F6642260A0A4900D83DC8 /* Common.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
 				E5CB0E7225721A3E0087193F /* CheckBoxCell.swift in Sources */,
 				E5B5ADB325B3C885002E9384 /* GroupCollectionView.swift in Sources */,

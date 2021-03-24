@@ -25,7 +25,7 @@ class GuestsPageViewController: UIPageViewController {
     var nextIndex: Int = 0
     fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     let guestUpdateQueue = DispatchQueue.global(qos: .userInitiated)
-        
+    
     init(_ event: Event, _ retuals: [Retual], _  relations: [Relation], _ groups: [Group] , _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
@@ -79,6 +79,20 @@ class GuestsPageViewController: UIPageViewController {
 
 // MARK:- Extensions
 extension GuestsPageViewController: UIPageViewControllerDataSource {
+    // 右にスワイプ（戻る）
+    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
+        print("viewControllerBefore")
+        if currentIndex == 0 {
+            // 1ページ目のときはページを戻す動作をしない
+            return nil
+        }
+        // guestsを操作するindexをセット
+        setIndex(currentIndex, viewControllerAfter: false)
+        let guestVC = GuestViewController(guest: guests[nextIndex], retuals: retuals, relations: relations, groups: groups)
+        guestVC.guestupdateDelegate = self
+        return guestVC
+    }
+    
     // 左にスワイプ（進む）
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
@@ -102,20 +116,6 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
             guestVC.guestupdateDelegate = self
             return guestVC
         }
-    }
-    
-    // 右にスワイプ（戻る）
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        print("viewControllerBefore")
-        if currentIndex == 0 {
-            // 1ページ目のときはページを戻す動作をしない
-            return nil
-        }
-        // guestsを操作するindexをセット
-        setIndex(currentIndex, viewControllerAfter: false)
-        let guestVC = GuestViewController(guest: guests[nextIndex], retuals: retuals, relations: relations, groups: groups)
-        guestVC.guestupdateDelegate = self
-        return guestVC
     }
     
     // GuestControllerにセットおよび保存するguestsのindexを作成
@@ -163,7 +163,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
             guestUpdateQueue.async {
                 self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.prevIndex])
             }
-        // ページをめくり始めたが、元のページに戻ったとき
+            // ページをめくり始めたが、元のページに戻ったとき
         } else {
             guard let previousViewController = previousViewControllers.first as? GuestViewController else { return }
             if let index = guests.firstIndex(where: {$0.id == previousViewController.guest.id}) {
@@ -172,7 +172,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
                 fatalError()
             }
         }
-
+        
     }
     
     func analizeHandWriteAndUpdateGuestToCloud(guest: Guest) {
