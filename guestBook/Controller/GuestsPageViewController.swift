@@ -181,6 +181,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
             // 画像解析が完了したら保存する
             apiQueueGroup.notify(queue: .main) {
                 self.updateGuestCardToCloud(guest: guest, result: result)
+                
             }
         }
     }

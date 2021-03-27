@@ -35,6 +35,7 @@ class GuestViewController: UIViewController {
     fileprivate let addressView        = AddressView()
     fileprivate let descriptionView    = DescriptionView()
     fileprivate let backToMenuButton   = UIButton()
+    fileprivate var captureImage       = UIImage()
     
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
@@ -72,6 +73,7 @@ class GuestViewController: UIViewController {
         setupSelectGroupView()
         setupDescriptionView()
         setupBackToMenuButton()
+        setupCaptureViewArea()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -175,6 +177,52 @@ class GuestViewController: UIViewController {
         companyNameView.setupPencil()
         addressView.setupPencil()
         descriptionView.setupPencil()
+    }
+    
+    fileprivate func setupCaptureViewArea() {
+        captureImage = viewToImage(self.view)
+        let imageFile = captureImage.pngData() ?? Data()
+        let fileName = "\(guest.id)_guestCard"
+        let strageRef = storage.child("\(fileName).png")
+        strageRef.putData(imageFile, metadata: nil) { (metaData, error) in
+            if error != nil {
+                print(error.debugDescription)
+            }
+        }
+    }
+    
+    func viewToImage(_ view : UIView) -> UIImage {
+        
+        //コンテキスト開始
+        UIGraphicsBeginImageContextWithOptions(UIScreen.main.bounds.size, false, 0.0)
+        //viewを書き出す
+        self.view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
+        // imageにコンテキストの内容を書き出す
+        let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+        //コンテキストを閉じる
+        UIGraphicsEndImageContext()
+        
+        
+        
+        
+        
+        
+        
+        
+        
+//        // キャプチャする範囲を取得する
+//        let rect = view.bounds
+//        // 画像のcontextを作成する
+//        UIGraphicsBeginImageContextWithOptions(rect.size, false, 1.0)
+//        // contextを取得する
+//        let context : CGContext = UIGraphicsGetCurrentContext()!
+//        // view内の描画をcontextに複写する
+//        view.layer.render(in: context)
+//        // contextをUIImageとして取得する
+//        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
+//        // contextを閉じる
+//        UIGraphicsEndImageContext()
+        return image
     }
 }
 
