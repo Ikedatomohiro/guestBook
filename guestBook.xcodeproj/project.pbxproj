@@ -356,8 +356,8 @@
 		E59D9EEC254848F1000F7C45 /* guestBook */ = {
 			isa = PBXGroup;
 			children = (
-				E52F6640260A0A3100D83DC8 /* Common */,
 				E57C925125F3C3B400B7CC69 /* guestBook.entitlements */,
+				E52F6640260A0A3100D83DC8 /* Common */,
 				E56E1854254D665400205FCE /* Model */,
 				E56E1855254D665D00205FCE /* View */,
 				E56E1853254D664200205FCE /* Controller */,

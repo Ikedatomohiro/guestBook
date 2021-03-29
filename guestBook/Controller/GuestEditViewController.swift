@@ -93,7 +93,7 @@ extension GuestEditViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let guest = guests[section]
-        return "\(guest.pageNumber): \(guest.guestName)"
+        return "\(guest.pageNumber). \(guest.guestName)"
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {

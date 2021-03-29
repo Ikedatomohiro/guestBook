@@ -94,7 +94,7 @@ class SelectGuests {
     }
     
     func getGuestCard(_ guest: Guest) -> StorageReference {
-        let filename = "\(guest.id)_guestName.png"
+        let filename = "\(guest.id)_guestCard.png"
         let storageURL = Keys.firestoreStorageUrl
         let storageRef = Storage.storage().reference(forURL: storageURL).child(filename)
         return storageRef

@@ -34,7 +34,7 @@ class GuestDetailViewController: UIViewController {
         view.addSubview(guestNameTitleLabel)
         guestNameTitleLabel.centerInSuperview()
         guestNameTitleLabel.text = String(guest.pageNumber)
-        setupGuestData()
+//        setupGuestData()
 
     }
     
@@ -45,8 +45,8 @@ class GuestDetailViewController: UIViewController {
 
     fileprivate func setupGuestData() {
         view.addSubview(guestCard)
-        guestCard.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
-        
+//        guestCard.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
+        guestCard.centerInSuperview()
         let selectGuest = SelectGuests()
         let storageRef = selectGuest.getGuestCard(guest)
         storageRef.getData(maxSize: 1024 * 1024 * 10) { (data: Data?, error: Error?) in
@@ -54,7 +54,12 @@ class GuestDetailViewController: UIViewController {
                 return
             }
             if let imageData = data {
-                self.guestCard.image = UIImage(data: imageData)
+                let guestCardImage: UIImageView = UIImageView()
+                guestCardImage.frame = CGRect(x: 0, y: 0, width: 500, height: 200)
+                guestCardImage.image = UIImage(data: imageData)
+                self.guestCard.image = guestCardImage.image
+//                self.guestCard.contentMode = .scaleAspectFill
+//                self.guestCard.clipsToBounds = true
             }
         }
     }

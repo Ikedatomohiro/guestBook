@@ -73,12 +73,15 @@ class GuestViewController: UIViewController {
         setupSelectGroupView()
         setupDescriptionView()
         setupBackToMenuButton()
-        setupCaptureViewArea()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         // ペンシルはページ表示後にセットする
         setupPencils()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        setupCaptureViewArea()
     }
     
     fileprivate func setupBasic() {
@@ -201,27 +204,6 @@ class GuestViewController: UIViewController {
         let image: UIImage = UIGraphicsGetImageFromCurrentImageContext()!
         //コンテキストを閉じる
         UIGraphicsEndImageContext()
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        // キャプチャする範囲を取得する
-//        let rect = view.bounds
-//        // 画像のcontextを作成する
-//        UIGraphicsBeginImageContextWithOptions(rect.size, false, 1.0)
-//        // contextを取得する
-//        let context : CGContext = UIGraphicsGetCurrentContext()!
-//        // view内の描画をcontextに複写する
-//        view.layer.render(in: context)
-//        // contextをUIImageとして取得する
-//        let image : UIImage = UIGraphicsGetImageFromCurrentImageContext()!
-//        // contextを閉じる
-//        UIGraphicsEndImageContext()
         return image
     }
 }
