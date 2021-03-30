@@ -10,15 +10,11 @@ import UIKit
 class GuestsDetailPageViewController: UIPageViewController {
     fileprivate var guests:[Guest]
     
-    var currentIndex: Int = 0
-    var prevIndex: Int = 0
-    var nextIndex: Int = 0
-    var tmpIndex: Int
+    var currentIndex = 0
     
     init(guests: [Guest], index: Int) {
         self.guests = guests
         self.currentIndex = index
-        self.tmpIndex = index
         super.init(transitionStyle: .scroll, navigationOrientation: .vertical, options: .none)
     }
     
@@ -35,6 +31,7 @@ class GuestsDetailPageViewController: UIPageViewController {
     fileprivate func setGuestData() {
         let guest = guests[currentIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
+        guestDetailVC.index = currentIndex
         self.setViewControllers([guestDetailVC], direction: .forward, animated: true, completion: nil)
         self.view.layoutIfNeeded()
 
@@ -64,37 +61,23 @@ class GuestsDetailPageViewController: UIPageViewController {
 extension GuestsDetailPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
+        let prevIndex = ((viewController as? GuestDetailViewController)?.index)! - 1
         if currentIndex == 0 { return nil }
-        tmpIndex = currentIndex - 1
-//        setIndex(currentIndex, viewControllerAfter: false)
-        let guest = guests[currentIndex - 1]
+        let guest = guests[prevIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
+        guestDetailVC.index = prevIndex
         return guestDetailVC
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
-        if currentIndex == guests.count - 1 { return nil }
-        tmpIndex = currentIndex + 1
-//        setIndex(currentIndex, viewControllerAfter: true)
-        let guest = guests[currentIndex + 1]
+        let nextIndex = ((viewController as? GuestDetailViewController)?.index)! + 1
+        guard nextIndex <= guests.count - 1 else { return nil }
+        let guest = guests[nextIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
+        guestDetailVC.index = nextIndex
         return guestDetailVC
     }
-    
-    // GuestControllerにセットおよび保存するguestsのindexを作成
-//    func setIndex(_ targettIndex: Int, viewControllerAfter: Bool) -> Void {
-//        // ページ進むとき
-//        if viewControllerAfter == true {
-//            nextIndex = targettIndex + 1
-//            // ページ戻るとき
-//        } else if viewControllerAfter == false {
-//            nextIndex = targettIndex - 1
-//        }
-//        prevIndex = targettIndex
-//        currentIndex = nextIndex
-//        return
-//    }
 }
 
 extension GuestsDetailPageViewController: UIPageViewControllerDelegate {
@@ -106,7 +89,14 @@ extension GuestsDetailPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         print("didFinishAnimating")
         if completed {
-            currentIndex = tmpIndex
+            print("completed")
+            guard let changedIndex = (pageViewController.viewControllers as! [GuestDetailViewController]).first?.index else { return }
+            currentIndex = changedIndex
+        } else {
+            print("not completed")
+            guard let changedIndex = (pageViewController.viewControllers as! [GuestDetailViewController]).first?.index else { return }
+            guard changedIndex != currentIndex else { return }
+            currentIndex = changedIndex
         }
     }
 }

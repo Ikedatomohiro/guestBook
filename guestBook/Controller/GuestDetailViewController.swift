@@ -17,6 +17,7 @@ class GuestDetailViewController: UIViewController {
     fileprivate let guestNameTextFeild = UITextField()
     fileprivate let db = Firestore.firestore().collection("events")
     fileprivate let guestCard: UIImageView = UIImageView()
+    var index: Int?
     
     init(guest: Guest) {
         self.guest = guest
