@@ -47,6 +47,7 @@ class GuestsDetailPageViewController: UIPageViewController {
         if currentIndex == toIndex { return }
         let guest = guests[toIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
+        guestDetailVC.index = toIndex
         var direction: UIPageViewController.NavigationDirection = .forward
         if currentIndex > toIndex {
             direction = .reverse

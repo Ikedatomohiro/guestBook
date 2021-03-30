@@ -36,7 +36,7 @@ class GuestEditViewController: UIViewController {
     
     fileprivate func setupGuestsList() {
         view.addSubview(guestsTable)
-        guestsTable.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
+        guestsTable.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
         guestsTable.delegate = self
         guestsTable.dataSource = self
         guestsTable.register(GuestDetailViewCell.self, forCellReuseIdentifier: GuestDetailViewCell.className)
@@ -48,7 +48,7 @@ class GuestEditViewController: UIViewController {
 
     fileprivate func setupGuestsDetailPageView() {
         view.addSubview(guestsDetailPageViewController.view)
-        guestsDetailPageViewController.view.anchor(top: view.layoutMarginsGuide.topAnchor, leading: guestsTable.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        guestsDetailPageViewController.view.anchor(top: view.topAnchor, leading: guestsTable.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
     }
     
