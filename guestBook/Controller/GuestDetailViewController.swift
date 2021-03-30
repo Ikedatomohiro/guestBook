@@ -6,16 +6,10 @@
 //
 
 import UIKit
-import FirebaseFirestore
 
 class GuestDetailViewController: UIViewController {
     
-    fileprivate let guestsTable: UITableView = UITableView()
-    fileprivate let guestInfoStackView = UIStackView()
     fileprivate var guest: Guest
-    fileprivate let guestNameTitleLabel = UILabel()
-    fileprivate let guestNameTextFeild = UITextField()
-    fileprivate let db = Firestore.firestore().collection("events")
     fileprivate let guestCard: UIImageView = UIImageView()
     var index: Int?
     
@@ -32,11 +26,7 @@ class GuestDetailViewController: UIViewController {
         super.viewDidLoad()
 
         setupBase()
-        view.addSubview(guestNameTitleLabel)
-        guestNameTitleLabel.centerInSuperview()
-        guestNameTitleLabel.text = String(guest.pageNumber)
-//        setupGuestData()
-
+        setupGuestData()
     }
     
     fileprivate func setupBase() {
@@ -46,8 +36,7 @@ class GuestDetailViewController: UIViewController {
 
     fileprivate func setupGuestData() {
         view.addSubview(guestCard)
-//        guestCard.anchor(top: guestNameTitleLabel.bottomAnchor, leading: nil, bottom: nil, trailing: nil)
-        guestCard.centerInSuperview()
+        guestCard.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         let selectGuest = SelectGuests()
         let storageRef = selectGuest.getGuestCard(guest)
         storageRef.getData(maxSize: 1024 * 1024 * 10) { (data: Data?, error: Error?) in
@@ -59,8 +48,8 @@ class GuestDetailViewController: UIViewController {
                 guestCardImage.frame = CGRect(x: 0, y: 0, width: 500, height: 200)
                 guestCardImage.image = UIImage(data: imageData)
                 self.guestCard.image = guestCardImage.image
-//                self.guestCard.contentMode = .scaleAspectFill
-//                self.guestCard.clipsToBounds = true
+                self.guestCard.contentMode = .scaleAspectFit
+                self.guestCard.clipsToBounds = true
             }
         }
     }
