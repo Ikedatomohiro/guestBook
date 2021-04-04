@@ -15,10 +15,12 @@ class GuestDetailTableView: UITableView {
     
     var guests: [Guest]
     fileprivate var openedSections = Set<Int>()
+    var section: Int
     weak var toggleSectionDelegate: ToggleSectionDelegate?
     
-    init(guests:[Guest], frame: CGRect, style: UITableView.Style) {
+    init(guests:[Guest], index: Int, frame: CGRect, style: UITableView.Style) {
         self.guests = guests
+        self.section = index
         super.init(frame: .zero, style: style)
         self.delegate = self
         self.dataSource = self
@@ -48,7 +50,7 @@ extension GuestDetailTableView: UITableViewDelegate {
 extension GuestDetailTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if openedSections.contains(section) {
+        if self.section == section {
             return 1
         } else {
             return 0

@@ -11,8 +11,7 @@ class GuestEditViewController: UIViewController {
     
     fileprivate let guests: [Guest]
     fileprivate var index: Int = 0
-    //    fileprivate let guestsDetailTableView: UITableView = UITableView()
-    lazy var guestsDetailTableView = GuestDetailTableView(guests: guests, frame: .zero, style: .plain)
+    lazy var guestsDetailTableView = GuestDetailTableView(guests: guests, index: index, frame: .zero, style: .plain)
     fileprivate var openedSections = Set<Int>()
     fileprivate var currentOpenSectionNumber: Int?
     
