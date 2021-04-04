@@ -10,7 +10,7 @@ import FirebaseFirestore
 import FirebaseStorage
 import PencilKit
 
-protocol GuestUpdateDelegate: AnyObject {
+protocol GuestCardUpdateDelegate: AnyObject {
     func update(guest: Guest)
 }
 
@@ -25,7 +25,7 @@ class GuestViewController: UIViewController {
     var relations: [Relation]
     var groups: [Group]
     var index: Int?
-    weak var guestupdateDelegate: GuestUpdateDelegate?
+    weak var guestupdateDelegate: GuestCardUpdateDelegate?
     
     // UIView
     fileprivate let backGroundFrame    = UIView()

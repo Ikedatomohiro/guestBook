@@ -7,9 +7,14 @@
 
 import UIKit
 
+protocol SendUpdateDataDelegate: AnyObject {
+    func sendUpdateData<T>(inputView: T)
+}
+
 class HeadlineAndTextFieldView: UIView {
     var headlineLabel: UILabel = UILabel()
     var textField: UITextField = UITextField()
+    weak var sendUpdateDataDelegate: SendUpdateDataDelegate?
 
     init(headlineText: String, textFiledText: String, _ accessibilityIdentifier: String) {
         super.init(frame: CGRect())
@@ -35,8 +40,6 @@ class HeadlineAndTextFieldView: UIView {
 
     // MARK:-
     @objc func textFieldDidChange() {
-
-        print("変更されました。")
-
+        sendUpdateDataDelegate?.sendUpdateData(inputView: textField)
     }
 }

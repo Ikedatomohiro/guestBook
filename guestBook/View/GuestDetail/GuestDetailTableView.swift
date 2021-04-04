@@ -60,6 +60,7 @@ extension GuestDetailTableView: UITableViewDataSource {
             fatalError("improper UITableViewCell")}
         cell.setupCell(guests[indexPath.section], index: indexPath.section)
         cell.selectionStyle = .none
+        cell.guestDetailUpdateDelegate = self
         return cell
     }
     
@@ -73,7 +74,7 @@ extension GuestDetailTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         let guest = guests[section]
-        return "\(guest.pageNumber). \(guest.guestName)"
+        return "\(section + 1). \(guest.guestName)"
     }
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -83,4 +84,23 @@ extension GuestDetailTableView: UITableViewDataSource {
         view.addGestureRecognizer(gesture)
         return view
     }
+}
+
+extension GuestDetailTableView: GuestDetailUpdateDelegate {
+    func update<T>(inputView: T, index: Int) {
+        if let textField: UITextField = inputView as? UITextField {
+            var guest = guests[index]
+            let identifire = textField.accessibilityIdentifier
+            switch identifire {
+            case "guestName":
+                guest.guestName = textField.text ?? ""
+                print("guestName")
+                break
+            default:
+                break
+            }
+        }
+    }
+    
+    
 }

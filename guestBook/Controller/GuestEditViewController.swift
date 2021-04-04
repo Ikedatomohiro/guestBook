@@ -70,6 +70,4 @@ extension GuestEditViewController: ToggleSectionDelegate {
         guestsDetailTableView.reloadSections(IndexSet(integer: section), with: .fade)
         guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
     }
-    
-    
 }
