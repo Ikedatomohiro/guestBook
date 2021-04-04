@@ -7,12 +7,12 @@
 
 import UIKit
 
- 
 class GuestEditViewController: UIViewController {
     
     fileprivate let guests: [Guest]
     fileprivate var index: Int = 0
-    fileprivate let guestsTable: UITableView = UITableView()
+    //    fileprivate let guestsDetailTableView: UITableView = UITableView()
+    lazy var guestsDetailTableView = GuestDetailTableView(guests: guests, frame: .zero, style: .plain)
     fileprivate var openedSections = Set<Int>()
     fileprivate var currentOpenSectionNumber: Int?
     
@@ -35,20 +35,19 @@ class GuestEditViewController: UIViewController {
     }
     
     fileprivate func setupGuestsList() {
-        view.addSubview(guestsTable)
-        guestsTable.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
-        guestsTable.delegate = self
-        guestsTable.dataSource = self
-        guestsTable.register(GuestDetailViewCell.self, forCellReuseIdentifier: GuestDetailViewCell.className)
-        guestsTable.separatorStyle = .none
-        guestsTable.layer.borderWidth = 1.0
-        guestsTable.layer.borderColor = UIColor.gray.cgColor
+        view.addSubview(guestsDetailTableView)
+        guestsDetailTableView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
+        guestsDetailTableView.register(GuestDetailViewCell.self, forCellReuseIdentifier: GuestDetailViewCell.className)
+        guestsDetailTableView.separatorStyle = .none
+        guestsDetailTableView.layer.borderWidth = 1.0
+        guestsDetailTableView.layer.borderColor = UIColor.gray.cgColor
+        guestsDetailTableView.toggleSectionDelegate = self
         openedSections.insert(index)
     }
-
+    
     fileprivate func setupGuestsDetailPageView() {
         view.addSubview(guestsDetailPageViewController.view)
-        guestsDetailPageViewController.view.anchor(top: view.topAnchor, leading: guestsTable.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        guestsDetailPageViewController.view.anchor(top: view.topAnchor, leading: guestsDetailTableView.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
     }
     
@@ -59,55 +58,18 @@ class GuestEditViewController: UIViewController {
             } else {
                 openedSections.insert(section)
             }
-            guestsTable.reloadSections(IndexSet(integer: section), with: .fade)
+            guestsDetailTableView.reloadSections(IndexSet(integer: section), with: .fade)
             guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
         }
     }
 }
 
 // MARK:- Extensions
-extension GuestEditViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if openedSections.contains(section) {
-            return 1
-        } else {
-            return 0
-        }
+extension GuestEditViewController: ToggleSectionDelegate {
+    func sectionHeaderDidTap(_ section: Int) {
+        guestsDetailTableView.reloadSections(IndexSet(integer: section), with: .fade)
+        guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: GuestDetailViewCell.className) as? GuestDetailViewCell  else {
-            fatalError("improper UITableViewCell")}
-        cell.setupCell(guests[indexPath.section], index: indexPath.section)
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 70 * 6 // １項目あたり70の高さを6項目分
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return guests.count
-    }
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let guest = guests[section]
-        return "\(guest.pageNumber). \(guest.guestName)"
-    }
-    
-    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let view = UITableViewHeaderFooterView()
-        view.tag = section
-        let gesture = UITapGestureRecognizer(target: self, action: #selector(sectionHeaderDidTap(_:)))
-        view.addGestureRecognizer(gesture)
-        return view
-    }
-}
-
-extension GuestEditViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("タップしました。")
-    }
     
 }
