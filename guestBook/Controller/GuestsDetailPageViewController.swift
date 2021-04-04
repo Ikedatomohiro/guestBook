@@ -84,7 +84,6 @@ extension GuestsDetailPageViewController: UIPageViewControllerDataSource {
 extension GuestsDetailPageViewController: UIPageViewControllerDelegate {
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
         print("willTransitionTo")
-
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {

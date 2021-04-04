@@ -24,14 +24,12 @@ class GuestDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         setupBase()
         setupGuestData()
     }
     
     fileprivate func setupBase() {
         view.backgroundColor = .white
-        
     }
 
     fileprivate func setupGuestData() {
@@ -53,6 +51,4 @@ class GuestDetailViewController: UIViewController {
             }
         }
     }
-    
-
 }

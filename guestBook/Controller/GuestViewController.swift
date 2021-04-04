@@ -24,6 +24,7 @@ class GuestViewController: UIViewController {
     var retuals: [Retual]
     var relations: [Relation]
     var groups: [Group]
+    var index: Int?
     weak var guestupdateDelegate: GuestUpdateDelegate?
     
     // UIView
@@ -195,7 +196,6 @@ class GuestViewController: UIViewController {
     }
     
     func viewToImage(_ view : UIView) -> UIImage {
-        
         //コンテキスト開始
         UIGraphicsBeginImageContextWithOptions(UIScreen.main.bounds.size, false, 0.0)
         //viewを書き出す
