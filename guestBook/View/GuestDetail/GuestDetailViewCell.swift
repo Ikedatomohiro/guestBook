@@ -8,14 +8,12 @@
 import UIKit
 
 class GuestDetailViewCell: UITableViewCell {
-    
-    fileprivate var guestNameLabel = UILabel()
-    fileprivate let guestNameTitle = UILabel()
-    fileprivate var gestNameTextField = UITextField()
-    fileprivate var companyNameTextField = UITextField()
-    fileprivate var companyNameTitle = UILabel()
-    var guestNameArea = HeadlineAndTextFieldView(headlineText: "御芳名", textFiledText: "")
-    var companyNameArea = HeadlineAndTextFieldView(headlineText: "会社名", textFiledText: "")
+    var guestNameArea = HeadlineAndTextFieldView(headlineText: "御芳名", textFiledText: "", "guestName")
+    var companyNameArea = HeadlineAndTextFieldView(headlineText: "会社名", textFiledText: "", "companyName")
+    var zipCodeArea = HeadlineAndTextFieldView(headlineText: "郵便番号", textFiledText: "", "zipCode")
+    var telNumberArea = HeadlineAndTextFieldView(headlineText: "電話番号", textFiledText: "", "telNumber")
+    var addressArea = HeadlineAndTextFieldView(headlineText: "御住所", textFiledText: "", "address")
+    var descriptionArea = HeadlineAndTextFieldView(headlineText: "備考", textFiledText: "", "description")
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -28,6 +26,10 @@ class GuestDetailViewCell: UITableViewCell {
     func setupCell(_ guest: Guest, index: Int) {
         setGuestName(guest)
         setCompanyName(guest)
+        setZipCode(guest)
+        setTelNumber(guest)
+        setAddress(guest)
+        setDescription(guest)
     }
 
     fileprivate func setGuestName(_ guest: Guest) {
@@ -42,4 +44,27 @@ class GuestDetailViewCell: UITableViewCell {
         companyNameArea.anchor(top: guestNameArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
     }
     
+    fileprivate func setZipCode(_ guest: Guest) {
+        zipCodeArea.textField.text = guest.zipCode
+        contentView.addSubview(zipCodeArea)
+        zipCodeArea.anchor(top: companyNameArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+    }
+    
+    fileprivate func setTelNumber(_ guest: Guest) {
+        telNumberArea.textField.text = guest.telNumber
+        contentView.addSubview(telNumberArea)
+        telNumberArea.anchor(top: zipCodeArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+    }
+
+    fileprivate func setAddress(_ guest: Guest) {
+        addressArea.textField.text = guest.address
+        contentView.addSubview((addressArea))
+        addressArea.anchor(top: telNumberArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+    }
+    
+    fileprivate func setDescription(_ guest: Guest) {
+        descriptionArea.textField.text = guest.description
+        contentView.addSubview((descriptionArea))
+        descriptionArea.anchor(top: addressArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+    }
 }

@@ -84,7 +84,7 @@ extension GuestEditViewController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 500
+        return 70 * 6 // １項目あたり70の高さを6項目分
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
