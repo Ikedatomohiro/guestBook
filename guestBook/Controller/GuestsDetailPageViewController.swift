@@ -43,15 +43,12 @@ class GuestsDetailPageViewController: UIPageViewController {
         self.delegate = self
     }
     
-    func moveGuestDetailPage(from fromIndex: Int, to toIndex: Int) {
-        if currentIndex == toIndex { return }
+    func moveGuestDetailPage(to toIndex: Int) {
+        guard currentIndex != toIndex else { return }
         let guest = guests[toIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
         guestDetailVC.index = toIndex
-        var direction: UIPageViewController.NavigationDirection = .forward
-        if currentIndex > toIndex {
-            direction = .reverse
-        }
+        let direction: UIPageViewController.NavigationDirection = currentIndex < toIndex ? .forward : .reverse
         currentIndex = toIndex
         self.setViewControllers([guestDetailVC], direction: direction, animated: true, completion: nil)
 
