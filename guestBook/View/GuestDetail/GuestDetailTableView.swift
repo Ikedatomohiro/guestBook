@@ -14,7 +14,6 @@ protocol ToggleSectionDelegate: AnyObject {
 class GuestDetailTableView: UITableView {
     
     var guests: [Guest]
-    fileprivate var openedSections = Set<Int>()
     var section: Int
     weak var toggleSectionDelegate: ToggleSectionDelegate?
     
@@ -30,13 +29,21 @@ class GuestDetailTableView: UITableView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    // タップしたセクションを開き、前に開いていたセクションを閉じる
+    func select(section: Int) {
+        let beforeSection = self.section
+        let afterSection = section
+        self.section = section
+        performBatchUpdates {
+            deleteRows(at: [IndexPath(row: 0, section: beforeSection)], with: .fade)
+            insertRows(at: [IndexPath(row: 0, section: afterSection)], with: .fade)
+        } completion: { (_) in
+            
+        }
+    }
+    
     @objc func sectionHeaderDidTap(_ sender: UIGestureRecognizer) {
         if let section = sender.view?.tag {
-            if openedSections.contains(section) {
-                openedSections.remove(section)
-            } else {
-                openedSections.insert(section)
-            }
             toggleSectionDelegate?.sectionHeaderDidTap(section)
         }
     }

@@ -49,24 +49,12 @@ class GuestEditViewController: UIViewController {
         guestsDetailPageViewController.view.anchor(top: view.topAnchor, leading: guestsDetailTableView.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
     }
-    
-    @objc func sectionHeaderDidTap(_ sender: UIGestureRecognizer) {
-        if let section = sender.view?.tag {
-            if openedSections.contains(section) {
-                openedSections.remove(section)
-            } else {
-                openedSections.insert(section)
-            }
-            guestsDetailTableView.reloadSections(IndexSet(integer: section), with: .fade)
-            guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
-        }
-    }
 }
 
 // MARK:- Extensions
 extension GuestEditViewController: ToggleSectionDelegate {
     func sectionHeaderDidTap(_ section: Int) {
-        guestsDetailTableView.reloadSections(IndexSet(integer: section), with: .fade)
-        guestsDetailPageViewController.moveGuestDetailPage(from: 1, to: section)
+        guestsDetailTableView.select(section: section)
+        guestsDetailPageViewController.moveGuestDetailPage(to: section)
     }
 }
