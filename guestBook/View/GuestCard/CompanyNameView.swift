@@ -11,8 +11,7 @@ import PencilKit
 class CompanyNameView: UIView {
     
     fileprivate let companyNameTitleLabel = UILabel()
-    let companyNameTextField              = UITextField()
-    let companyNameCanvas     = PKCanvasView()
+    let companyNameCanvas = PKCanvasView()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
     
     override init(frame: CGRect) {
@@ -26,6 +25,7 @@ class CompanyNameView: UIView {
     func setupView(guest: Guest) {
         setupLabel()
         setupCanvas(ImageData: guest.companyNameImageData)
+        self.accessibilityIdentifier = "guestName"
     }
     
     fileprivate func setupLabel() {

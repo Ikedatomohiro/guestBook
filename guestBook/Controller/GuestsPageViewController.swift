@@ -16,6 +16,8 @@ class GuestsPageViewController: UIPageViewController {
     fileprivate let relations: [Relation]
     fileprivate let groups: [Group]
     var guests: [Guest]
+    var updateGuestParam: [String] = []
+    
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     var currentIndex: Int = 0
     fileprivate let storage = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
@@ -43,6 +45,8 @@ class GuestsPageViewController: UIPageViewController {
     override func viewWillDisappear(_ animated: Bool) {
         // 戻るボタンが押されたときに画像解析して保存する
         guestUpdateQueue.async {
+            // 変更があったときに画像解析して保存する。
+            if self.updateGuestParam.count == 0 { return }
             self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.currentIndex])
         }
     }
@@ -58,7 +62,9 @@ class GuestsPageViewController: UIPageViewController {
         let lastIndex = self.guests.count - 1
         let guest = guests[lastIndex]
         let guestVC = GuestViewController(guest: guest, retuals: retuals, relations: relations, groups: groups)
+        // ページ管理用のindexをセット
         guestVC.index = lastIndex
+        // データ変化比較用のguestをセット
         currentIndex = lastIndex
         // 参加者情報登録用のdelegateをセット
         guestVC.guestupdateDelegate = self
@@ -71,7 +77,6 @@ class GuestsPageViewController: UIPageViewController {
         self.dataSource = self
         self.delegate = self
     }
-    
 }
 
 // MARK:- Extensions
@@ -97,29 +102,25 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         if guests[currentIndex] == Guest("new", retuals, relations, groups)  {
             return nil
         }
-        let guest = guests[nextIndex]
-        // 最後のページ以前でページが進められたとき
+        // guestの初期値をセット
+        var guest = Guest("new", retuals, relations, groups)
+        // 最後のページ以前でページが進められたときのguestをセット
         if nextIndex <= guests.count - 1 {
-            let guestVC = GuestViewController(guest: guest, retuals: retuals, relations: relations, groups: groups)
-            guestVC.index = nextIndex
-            guestVC.guestupdateDelegate = self
-            return guestVC
-            // 最後のページにデータが入っているときにページが進められたとき
+            guest = guests[nextIndex]
+            // 最後のページにデータが入っているときにページが進められたときのguestをセット
         } else {
-            let newGuest = Guest("new", retuals, relations, groups)
-            guests.append(newGuest)
-            let guestVC = GuestViewController(guest: newGuest, retuals: retuals, relations: relations, groups: groups)
-            guestVC.index = nextIndex
-            guestVC.guestupdateDelegate = self
-            return guestVC
+            guests.append(guest)
         }
+        let guestVC = GuestViewController(guest: guest, retuals: retuals, relations: relations, groups: groups)
+        guestVC.index = nextIndex
+        guestVC.guestupdateDelegate = self
+        return guestVC
     }
     
     func updateGuestCardToCloud(guest: Guest, result: Dictionary<String, String>) {
         if guest == Guest("new", retuals, relations, groups) {
             return()
         }
-        
         if guest.id == "new" {
             // Firestoreにデータを保存
             let documentRef = Guest.registGuest(guest, event.eventId, result)
@@ -144,7 +145,11 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         if completed {
             // ページめくりが完了したときに画像解析して保存
             guestUpdateQueue.async {
+                // 変更があったときに画像解析して保存する。
+                if self.updateGuestParam.count == 0 { return }
                 self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.currentIndex])
+                // 更新対象パラメータ初期化
+                self.updateGuestParam = []
             }
             guard let changedIndex = (pageViewController.viewControllers as! [GuestViewController]).first?.index else { return }
             currentIndex = changedIndex
@@ -158,7 +163,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
     
     func analizeHandWriteAndUpdateGuestToCloud(guest: Guest) {
         // 画像解析により手書き文字のテキストを取得しguestを更新
-        AnalizeHandWrite.analizeText(guest: guest) { (result) in
+        AnalizeHandWrite.analizeText(guest: guest, updateGuestParam: updateGuestParam) { (result) in
             // 画像解析が完了したら保存する
             apiQueueGroup.notify(queue: .main) {
                 self.updateGuestCardToCloud(guest: guest, result: result)
@@ -168,9 +173,10 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
 }
 
 extension GuestsPageViewController: GuestCardUpdateDelegate {
-    func update(guest: Guest) {
+    func update(guest: Guest, updateGuestParam: Array<String>) {
         if let index = guests.firstIndex(where: {$0.id == guest.id}) {
             guests[index] = guest
+            self.updateGuestParam = updateGuestParam
         }
     }
 }

@@ -10,7 +10,6 @@ import PencilKit
 
 class GuestNameView: UIView {
     fileprivate let guestNameTitleLabel = UILabel()
-    let guestNameTextField              = UITextField()
     let guestNameCanvas                 = PKCanvasView()
     fileprivate let honorificTitle      = UILabel()
     var guestNameImageData              = Data()
@@ -27,6 +26,7 @@ class GuestNameView: UIView {
     func setupView(guest: Guest) {
         setupLabel()
         setupCanvas(ImageData: guest.guestNameImageData)
+        self.accessibilityIdentifier = "guestName"
     }
     
     fileprivate func setupLabel() {

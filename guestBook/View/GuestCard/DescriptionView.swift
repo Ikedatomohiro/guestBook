@@ -11,7 +11,6 @@ import PencilKit
 class DescriptionView: UIView {
     
     fileprivate let descriptionText   = UILabel()
-    fileprivate let descriptionTextField = UITextField()
     fileprivate let descriptionWriteArea = UIView()
     fileprivate let descriptionWriteAreaTitle = UILabel()
     let descriptionCanvas = PKCanvasView()
@@ -29,6 +28,7 @@ class DescriptionView: UIView {
         setupDescriptionLabel()
         setupDescriptionWriteArea(guest)
         setupCanvas(ImageData: guest.descriptionImageData)
+        self.accessibilityIdentifier = "guestName"
     }
     
     fileprivate func setupDescriptionLabel() {

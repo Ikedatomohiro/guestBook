@@ -11,7 +11,7 @@ import FirebaseStorage
 import PencilKit
 
 protocol GuestCardUpdateDelegate: AnyObject {
-    func update(guest: Guest)
+    func update(guest: Guest, updateGuestParam: Array<String>)
 }
 
 protocol GuestItemUpdateDelegate: AnyObject {
@@ -37,7 +37,7 @@ class GuestViewController: UIViewController {
     fileprivate let descriptionView    = DescriptionView()
     fileprivate let backToMenuButton   = UIButton()
     fileprivate var captureImage       = UIImage()
-    
+    var updateGuestParam: [String] = []
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero)
@@ -211,36 +211,23 @@ class GuestViewController: UIViewController {
 // MARK:- Extensions
 extension GuestViewController: GuestItemUpdateDelegate {
     func update<T>(inputView: T) {
+        let identifier = (inputView as! UIView).accessibilityIdentifier
+        updateGuestParam.append(identifier ?? "")
+
         switch inputView {
         case is RetualCollectionView:
             guest.retuals = retualCollectionView.guest.retuals
             break
         case is GuestNameView:
-            guest.guestName = guestNameView.guestNameTextField.text ?? ""
             let canvas = guestNameView.guestNameCanvas
             guest.guestNameImageData = canvas.drawing.dataRepresentation()
-            let image = canvas.drawing.image(from: CGRect(x: 0, y: 0, width: canvas.frame.width, height: canvas.frame.height), scale: 1.0)
-            let imageFile = image.pngData() ?? Data()
-            let fileName = "\(guest.id)_guestName"
-            let strageRef = storage.child("\(fileName).png")
-            strageRef.putData(imageFile, metadata: nil) { (metaData, error) in
-                if error != nil {
-                    print(error.debugDescription)
-                }
-            }
             break
         case is CompanyNameView:
-            guest.companyName = companyNameView.companyNameTextField.text ?? ""
             guest.companyNameImageData = companyNameView.companyNameCanvas.drawing.dataRepresentation()
             break
         case is AddressView:
-            guest.zipCode = addressView.zipCodeTextField.text ?? ""
             guest.zipCodeImageData = addressView.zipCodeCanvas.drawing.dataRepresentation()
-            
-            guest.telNumber = addressView.telNumberTextField.text ?? ""
             guest.telNumberImageData = addressView.telNumberCanvas.drawing.dataRepresentation()
-            
-            guest.address = addressView.addressTextField.text ?? ""
             guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
             break
         case is RelationCollectionView:
@@ -255,6 +242,6 @@ extension GuestViewController: GuestItemUpdateDelegate {
         default:
             break
         }
-        guestupdateDelegate?.update(guest: guest)
+        guestupdateDelegate?.update(guest: guest, updateGuestParam: updateGuestParam)
     }
 }

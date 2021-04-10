@@ -10,8 +10,7 @@ import PencilKit
 
 class AddressView: UIView {
     fileprivate let addressTitleLabel   = UILabel()
-    let addressTextField                = UITextField()
-    let addressCanvas       = PKCanvasView()
+    let addressCanvas = PKCanvasView()
     fileprivate let zipCodeTitleLabel   = UILabel()
     fileprivate let zipCodeLabel        = UILabel()
     fileprivate let zipCodeLabel1       = UILabel()
@@ -22,11 +21,9 @@ class AddressView: UIView {
     fileprivate let zipCodeLabel5       = UILabel()
     fileprivate let zipCodeLabel6       = UILabel()
     fileprivate let zipCodeLabel7       = UILabel()
-    let zipCodeCanvas       = PKCanvasView()
-    let zipCodeTextField                = UITextField()
+    let zipCodeCanvas = PKCanvasView()
     fileprivate let telNumberTitleLabel = UILabel()
-    let telNumberTextField              = UITextField()
-    let telNumberCanvas     = PKCanvasView()
+    let telNumberCanvas = PKCanvasView()
     weak var guestItemupdateDelegate: GuestItemUpdateDelegate?
     
     // MARK:-
@@ -145,16 +142,12 @@ class AddressView: UIView {
         telNumberCanvas.setupPencil(canvas: telNumberCanvas)
         zipCodeCanvas.setupPencil(canvas: zipCodeCanvas)
     }
-    
-    // MARK:-
-    @objc func textFieldDidChange() {
-        guestItemupdateDelegate?.update(inputView: self)
-    }
 }
 
 // MARK:- Extensions
 extension AddressView: PKCanvasViewDelegate {
     func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+        self.accessibilityIdentifier = canvasView.accessibilityIdentifier
         guestItemupdateDelegate?.update(inputView: self)
     }
 }

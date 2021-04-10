@@ -109,20 +109,20 @@ struct Guest {
     
     static func updateGuest(_ guest: Guest, _ eventId: String, _ analizedText: Dictionary<String, String>) {
         Guest.collectionRef(eventId).document(guest.id).updateData([
-            "guestName"            : analizedText["guestName"] ?? "",
+            "guestName"            : analizedText["guestName"] ?? guest.guestName,
             "guestNameImageData"   : guest.guestNameImageData,
-            "companyName"          : analizedText["companyName"] ?? "",
+            "companyName"          : analizedText["companyName"] ?? guest.companyName,
             "companyNameImageData" : guest.companyNameImageData,
             "retuals"              : guest.retuals,
-            "zipCode"              : analizedText["zipCode"] ?? "",
+            "zipCode"              : analizedText["zipCode"] ?? guest.zipCode,
             "zipCodeImageData"     : guest.zipCodeImageData,
-            "address"              : analizedText["address"] ?? "",
+            "address"              : analizedText["address"] ?? guest.address,
             "addressImageData"     : guest.addressImageData,
-            "telNumber"            : analizedText["telNumber"] ?? "",
+            "telNumber"            : analizedText["telNumber"] ?? guest.telNumber,
             "telNumberImageData"   : guest.telNumberImageData,
             "relations"            : guest.relations,
             "groups"               : guest.groups,
-            "description"          : analizedText["description"] ?? "",
+            "description"          : analizedText["description"] ?? guest.description,
             "descriptionImageData" : guest.descriptionImageData,
             "updatedAt"            : Date(),
         ])
@@ -151,8 +151,7 @@ struct Guest {
 // 入力されているかどうかチェック
 extension Guest: Equatable {
     static func == (lhs: Guest, rhs: Guest) -> Bool {
-        return lhs.id                   == rhs.id
-            && lhs.guestName            == rhs.guestName
+        return lhs.guestName            == rhs.guestName
             && lhs.guestNameImageData   == rhs.guestNameImageData
             && lhs.companyName          == rhs.companyName
             && lhs.companyNameImageData == rhs.companyNameImageData
