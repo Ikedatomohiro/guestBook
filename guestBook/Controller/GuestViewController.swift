@@ -82,7 +82,9 @@ class GuestViewController: UIViewController {
     }
     
     override func viewWillDisappear(_ animated: Bool) {
-        setupCaptureViewArea()
+        if updateGuestParam.count == 0 { return }
+        // 画像を保存する
+        uploadGuestCardViewArea()
     }
     
     fileprivate func setupBasic() {
@@ -170,6 +172,10 @@ class GuestViewController: UIViewController {
     }
     
     @objc func backToMenu() {
+        if updateGuestParam.count > 0 {
+            // 画像を保存する
+            uploadGuestCardViewArea()
+        }
         // メニュー画面に戻る
         self.navigationController?.popViewController(animated: true)
         // 非表示にしたNavigationControllerを再度表示させる
@@ -183,7 +189,7 @@ class GuestViewController: UIViewController {
         descriptionView.setupPencil()
     }
     
-    fileprivate func setupCaptureViewArea() {
+    fileprivate func uploadGuestCardViewArea() {
         captureImage = viewToImage(self.view)
         let imageFile = captureImage.pngData() ?? Data()
         let fileName = "\(guest.id)_guestCard"
