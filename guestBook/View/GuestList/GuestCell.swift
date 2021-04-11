@@ -36,7 +36,7 @@ class GuestCell: UITableViewCell {
         if indexPath % 2 == 0 {
             self.backgroundColor = .white
         } else {
-            self.backgroundColor = .rgb(red: 209, green: 238, blue: 123)
+            self.backgroundColor = lightGreent
         }
     }
     

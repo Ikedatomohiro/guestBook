@@ -7,16 +7,5 @@
 
 import UIKit
 
-// GuestControllerにセットおよび保存するguestsのindexを作成
-func setIndex(_ targettIndex: Int, viewControllerAfter: Bool) -> Void {
-//    // ページ進むとき
-//    if viewControllerAfter == true {
-//        nextIndex = targettIndex + 1
-//        // ページ戻るとき
-//    } else if viewControllerAfter == false {
-//        nextIndex = targettIndex - 1
-//    }
-//    prevIndex = targettIndex
-//    currentIndex = nextIndex
-    return
-}
+// 背景色
+let lightGreent = UIColor.rgb(red: 209, green: 238, blue: 123)

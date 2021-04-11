@@ -89,9 +89,18 @@ extension GuestDetailTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let view = UITableViewHeaderFooterView()
         view.tag = section
+        if section % 2 == 0 {
+            view.contentView.backgroundColor = .white
+        } else {
+            view.contentView.backgroundColor = lightGreent
+        }
         let gesture = UITapGestureRecognizer(target: self, action: #selector(sectionHeaderDidTap(_:)))
         view.addGestureRecognizer(gesture)
         return view
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
     }
 }
 
