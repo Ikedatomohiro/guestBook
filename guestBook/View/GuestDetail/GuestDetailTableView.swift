@@ -16,6 +16,7 @@ class GuestDetailTableView: UITableView {
     var guests: [Guest]
     var section: Int
     weak var toggleSectionDelegate: ToggleSectionDelegate?
+    fileprivate var updateGuestParam: Array<String> = []
     
     init(guests:[Guest], index: Int, frame: CGRect, style: UITableView.Style) {
         self.guests = guests
@@ -30,7 +31,8 @@ class GuestDetailTableView: UITableView {
     }
     
     // タップしたセクションを開き、前に開いていたセクションを閉じる
-    func select(section: Int) {
+    func selectAndUpdateGuest(section: Int) {
+        let guest = guests[self.section]
         let beforeSection = self.section
         let afterSection = section
         self.section = section
@@ -40,6 +42,9 @@ class GuestDetailTableView: UITableView {
         } completion: { (_) in
             
         }
+        // 変更があったときに更新する
+        if updateGuestParam.count == 0 { return }
+        Guest.updateGuest(guest, guest.eventId, nil)
     }
     
     @objc func sectionHeaderDidTap(_ sender: UIGestureRecognizer) {
@@ -112,13 +117,27 @@ extension GuestDetailTableView: GuestDetailUpdateDelegate {
             switch identifire {
             case "guestName":
                 guest.guestName = textField.text ?? ""
-                print("guestName")
                 break
+            case "companyName":
+                guest.companyName = textField.text ?? ""
+                break
+            case "zipCode":
+                guest.zipCode = textField.text ?? ""
+                break
+            case "address":
+                guest.address = textField.text ?? ""
+                break
+            case "telNumber":
+                guest.telNumber = textField.text ?? ""
+               break
+            case "description":
+                guest.description = textField.text ?? ""
+               break
             default:
                 break
             }
+            updateGuestParam.append(identifire ?? "")
+            guests[index] = guest
         }
     }
-    
-    
 }

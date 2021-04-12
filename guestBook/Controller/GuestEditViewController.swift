@@ -33,6 +33,11 @@ class GuestEditViewController: UIViewController {
         setupGuestsDetailPageView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        // ここでguestを更新したい
+    }
+    
     fileprivate func setupGuestsList() {
         view.addSubview(guestsDetailTableView)
         guestsDetailTableView.anchor(top: view.topAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: nil, size: .init(width: screenSize.width / 4, height: .zero))
@@ -54,7 +59,7 @@ class GuestEditViewController: UIViewController {
 // MARK:- Extensions
 extension GuestEditViewController: ToggleSectionDelegate {
     func sectionHeaderDidTap(_ section: Int) {
-        guestsDetailTableView.select(section: section)
+        guestsDetailTableView.selectAndUpdateGuest(section: section)
         guestsDetailPageViewController.moveGuestDetailPage(to: section)
     }
 }

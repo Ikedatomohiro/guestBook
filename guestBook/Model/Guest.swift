@@ -107,22 +107,22 @@ struct Guest {
         return documentRef
     }
     
-    static func updateGuest(_ guest: Guest, _ eventId: String, _ analizedText: Dictionary<String, String>) {
+    static func updateGuest(_ guest: Guest, _ eventId: String, _ analizedText: Dictionary<String, String>?) {
         Guest.collectionRef(eventId).document(guest.id).updateData([
-            "guestName"            : analizedText["guestName"] ?? guest.guestName,
+            "guestName"            : analizedText?["guestName"] ?? guest.guestName,
             "guestNameImageData"   : guest.guestNameImageData,
-            "companyName"          : analizedText["companyName"] ?? guest.companyName,
+            "companyName"          : analizedText?["companyName"] ?? guest.companyName,
             "companyNameImageData" : guest.companyNameImageData,
             "retuals"              : guest.retuals,
-            "zipCode"              : analizedText["zipCode"] ?? guest.zipCode,
+            "zipCode"              : analizedText?["zipCode"] ?? guest.zipCode,
             "zipCodeImageData"     : guest.zipCodeImageData,
-            "address"              : analizedText["address"] ?? guest.address,
+            "address"              : analizedText?["address"] ?? guest.address,
             "addressImageData"     : guest.addressImageData,
-            "telNumber"            : analizedText["telNumber"] ?? guest.telNumber,
+            "telNumber"            : analizedText?["telNumber"] ?? guest.telNumber,
             "telNumberImageData"   : guest.telNumberImageData,
             "relations"            : guest.relations,
             "groups"               : guest.groups,
-            "description"          : analizedText["description"] ?? guest.description,
+            "description"          : analizedText?["description"] ?? guest.description,
             "descriptionImageData" : guest.descriptionImageData,
             "updatedAt"            : Date(),
         ])

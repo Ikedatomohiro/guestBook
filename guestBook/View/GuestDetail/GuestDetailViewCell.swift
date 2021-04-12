@@ -51,30 +51,35 @@ class GuestDetailViewCell: UITableViewCell {
         companyNameArea.textField.text = guest.companyName
         contentView.addSubview(companyNameArea)
         companyNameArea.anchor(top: guestNameArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+        companyNameArea.sendUpdateDataDelegate = self
     }
     
     fileprivate func setZipCode(_ guest: Guest) {
         zipCodeArea.textField.text = guest.zipCode
         contentView.addSubview(zipCodeArea)
         zipCodeArea.anchor(top: companyNameArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+        zipCodeArea.sendUpdateDataDelegate = self
     }
     
     fileprivate func setTelNumber(_ guest: Guest) {
         telNumberArea.textField.text = guest.telNumber
         contentView.addSubview(telNumberArea)
         telNumberArea.anchor(top: zipCodeArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+        telNumberArea.sendUpdateDataDelegate = self
     }
     
     fileprivate func setAddress(_ guest: Guest) {
         addressArea.textField.text = guest.address
         contentView.addSubview((addressArea))
         addressArea.anchor(top: telNumberArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+        addressArea.sendUpdateDataDelegate = self
     }
     
     fileprivate func setDescription(_ guest: Guest) {
         descriptionArea.textField.text = guest.description
         contentView.addSubview((descriptionArea))
         descriptionArea.anchor(top: addressArea.bottomAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: 60))
+        descriptionArea.sendUpdateDataDelegate = self
     }
 }
 
