@@ -35,7 +35,10 @@ class GuestEditViewController: UIViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        // ここでguestを更新したい
+        // guestの変更があったときに更新する
+        if guestsDetailTableView.updateGuestParam.count == 0 { return }
+        let guest = guestsDetailTableView.guests[index]
+        Guest.updateGuest(guest, guest.eventId, nil)
     }
     
     fileprivate func setupGuestsList() {
@@ -61,5 +64,6 @@ extension GuestEditViewController: ToggleSectionDelegate {
     func sectionHeaderDidTap(_ section: Int) {
         guestsDetailTableView.selectAndUpdateGuest(section: section)
         guestsDetailPageViewController.moveGuestDetailPage(to: section)
+        self.index = section
     }
 }

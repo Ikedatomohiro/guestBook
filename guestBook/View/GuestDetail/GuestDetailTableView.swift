@@ -16,7 +16,7 @@ class GuestDetailTableView: UITableView {
     var guests: [Guest]
     var section: Int
     weak var toggleSectionDelegate: ToggleSectionDelegate?
-    fileprivate var updateGuestParam: Array<String> = []
+    var updateGuestParam: Array<String> = []
     
     init(guests:[Guest], index: Int, frame: CGRect, style: UITableView.Style) {
         self.guests = guests
@@ -42,7 +42,7 @@ class GuestDetailTableView: UITableView {
         } completion: { (_) in
             
         }
-        // 変更があったときに更新する
+        // guestの変更があったときに更新する
         if updateGuestParam.count == 0 { return }
         Guest.updateGuest(guest, guest.eventId, nil)
     }
