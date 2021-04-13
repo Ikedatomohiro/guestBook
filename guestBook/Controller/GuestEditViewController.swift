@@ -57,6 +57,14 @@ class GuestEditViewController: UIViewController {
         guestsDetailPageViewController.view.anchor(top: view.topAnchor, leading: guestsDetailTableView.trailingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
         
     }
+    
+    func reloadData(guests: [Guest]) {
+        if guests.contains(where: {$0.id == currentGuest.id}) {
+            
+        } else {
+            
+        }
+    }
 }
 
 // MARK:- Extensions

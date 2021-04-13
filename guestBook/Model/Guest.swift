@@ -30,7 +30,11 @@ struct Guest {
     var descriptionImageData: Data
     var pageNumber: Int
     let createdAt: Date
-    var updatedAt: Date
+    var updatedAt: Date {
+        didSet {
+            
+        }
+    }
     
     // MARK:-
     init(document: QueryDocumentSnapshot) {
