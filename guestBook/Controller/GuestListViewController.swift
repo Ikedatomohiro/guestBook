@@ -75,13 +75,24 @@ class GuestListViewController: UIViewController {
         guestListTableView.refreshControl?.addTarget(self, action: #selector(pullDownTableView), for: .valueChanged)
     }
     
-    
     @objc func pullDownTableView() {
         self.selectGuests.fetchData(eventId: self.event.eventId) { (guests) in
             self.guests = guests
             self.guestListTableView.reloadGuestsData(guests: guests)
             self.guestListTableView.refreshControl?.endRefreshing()
             self.guestSortAreaView.resetGuestSortPickerview()
+        }
+        
+        Firestore.firestore().collection("events").document("eventId").collection("guests").getDocuments(source: .cache) { (<#QuerySnapshot?#>, <#Error?#>) in
+            
+            let guestsListener = Firestore.firestore().collection("events").document("eventId").collection("guests").addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else { return }
+                self.guests = documents.map{Guest(document: $0)}
+                self.guestListTableView.reloadData()
+                guard let guestEditViewController =  self.navigationController?.viewControllers.last as? GuestEditViewController else { return }
+                guestEditViewController.reloadData(guests: self.guests)
+            }
+            guestsListener.remove()
         }
     }
 }
