@@ -36,6 +36,16 @@ class GuestListViewController: UIViewController {
         setupBasic()
         setSortArea(retuals: retuals)
         setupGuestListTableView()
+        Guest.collectionRef(event.eventId).addSnapshotListener{(documentSnapshot, error) in
+            guard let documentSnapshot = documentSnapshot else {
+                print("error")
+                return
+            }
+            documentSnapshot.documentChanges.forEach{diff in
+                print(diff)
+                
+            }
+        }
     }
     
     fileprivate func setupBasic() {
