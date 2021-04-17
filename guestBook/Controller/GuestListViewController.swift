@@ -19,7 +19,7 @@ class GuestListViewController: UIViewController {
     var selectRetualId: String = ""
     var selectRank: Dictionary<String, Bool?> = [:]
     let selectGuests = SelectGuests()
-    
+    var listener: ListenerRegistration?
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
         self.retuals = retuals
@@ -39,18 +39,22 @@ class GuestListViewController: UIViewController {
         fetchData()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        guard let _ =  self.navigationController?.viewControllers.last as? GuestEditViewController else {
+                listener?.remove()
+            return
+        }
+    }
+    
     fileprivate func fetchData() {
         selectGuests.fetchData(eventId: event.eventId) { (guests) in
             let guestsListener = self.selectGuests.collectionRef(self.event.eventId).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else { return }
-                self.guests = documents.map({ (document) -> Guest in
-                    let guest = Guest(document: document)
-                    return guest
-                })
-                self.guestListTableView.reloadData()
+                self.guests = documents.map{Guest(document: $0)}
+                 // GuestListTableView内でリロード
+                self.guestListTableView.reloadGuestsData(guests: self.guests)
             }
-        // どこかでListenerを削除する
-         guestsListener.remove()
+            self.listener = guestsListener
         }
     }
     
@@ -64,7 +68,6 @@ class GuestListViewController: UIViewController {
     
     fileprivate func setSortArea(retuals: [Retual]) {
         view.addSubview(guestSortAreaView)
-        
         guestSortAreaView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 10))
         guestSortAreaView.sendRetualDelegate = self
     }
@@ -81,7 +84,6 @@ class GuestListViewController: UIViewController {
         guestListTableView.refreshControl = UIRefreshControl()
         guestListTableView.refreshControl?.addTarget(self, action: #selector(pullDownTableView), for: .valueChanged)
     }
-    
     
     @objc func pullDownTableView() {
         self.selectGuests.fetchData(eventId: self.event.eventId) { (guests) in
