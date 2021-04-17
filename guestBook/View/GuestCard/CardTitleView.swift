@@ -21,6 +21,7 @@ class CardTitleView: UIView {
     func setupView() {
         setupLabel()
     }
+    
     fileprivate func setupLabel() {
         addSubview(cardTitleLabel)
         cardTitleLabel.text = "御 芳 名 カ ー ド"

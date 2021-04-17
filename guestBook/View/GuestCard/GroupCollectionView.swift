@@ -31,6 +31,7 @@ class GroupCollectionView: UICollectionView {
         self.dataSource = self
         self.delegate = self
         self.register(CheckBoxCell.self, forCellWithReuseIdentifier: CheckBoxCell.className)
+        self.accessibilityIdentifier = "groups"
     }
 }
 

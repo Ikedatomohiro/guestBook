@@ -16,7 +16,7 @@ class GuestsPageViewController: UIPageViewController {
     fileprivate let relations: [Relation]
     fileprivate let groups: [Group]
     var guests: [Guest]
-    var updateGuestParam: [String] = []
+    var updateGuestParam = Set<String>()
     
     fileprivate var listeners = [ListenerRegistration]() // リスナーを保持する変数
     var currentIndex: Int = 0
@@ -173,7 +173,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
 }
 
 extension GuestsPageViewController: GuestCardUpdateDelegate {
-    func update(guest: Guest, updateGuestParam: Array<String>) {
+    func update(guest: Guest, updateGuestParam: Set<String>) {
         if let index = guests.firstIndex(where: {$0.id == guest.id}) {
             guests[index] = guest
             self.updateGuestParam = updateGuestParam

@@ -25,7 +25,7 @@ class CompanyNameView: UIView {
     func setupView(guest: Guest) {
         setupLabel()
         setupCanvas(ImageData: guest.companyNameImageData)
-        self.accessibilityIdentifier = "guestName"
+        self.accessibilityIdentifier = "companyName"
     }
     
     fileprivate func setupLabel() {

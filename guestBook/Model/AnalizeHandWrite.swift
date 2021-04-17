@@ -15,7 +15,7 @@ let apiQueue  = DispatchQueue.global(qos: .userInitiated)
 class AnalizeHandWrite {
     
     // MARK:- 手書き文字解析
-    static func analizeText(guest: Guest, updateGuestParam: Array<String>, completion: @escaping (Dictionary<String,String>) -> Void) -> Void {
+    static func analizeText(guest: Guest, updateGuestParam: Set<String>, completion: @escaping (Dictionary<String,String>) -> Void) -> Void {
         
         let guestDictionary = [
             "guestName": guest.guestNameImageData,
@@ -27,7 +27,7 @@ class AnalizeHandWrite {
         ]
         var apiResult: Dictionary<String, String> = [:]
         for item in guestDictionary {
-            guard updateGuestParam.contains(item.key) else { return }
+            guard updateGuestParam.contains(item.key) else { continue }
             apiQueueGroup.enter()
             // processIdentifireを作成
             let processIdentifire = "\(item.key)\(guest.id)"

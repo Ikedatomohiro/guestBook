@@ -28,7 +28,7 @@ class DescriptionView: UIView {
         setupDescriptionLabel()
         setupDescriptionWriteArea(guest)
         setupCanvas(ImageData: guest.descriptionImageData)
-        self.accessibilityIdentifier = "guestName"
+        self.accessibilityIdentifier = "description"
     }
     
     fileprivate func setupDescriptionLabel() {

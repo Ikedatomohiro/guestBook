@@ -26,12 +26,14 @@ class CardHeaderView: UIView {
         setupPageLabel(pageNumber: guest.pageNumber)
 
     }
+    
     fileprivate func setupLabel() {
         addSubview(cardHeaderLabel)
         cardHeaderLabel.text = "〜御会葬賜り心より御礼申し上げます〜"
         cardHeaderLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: layoutMarginsGuide.trailingAnchor)
         cardHeaderLabel.textAlignment = .center
     }
+    
     fileprivate func setupPageLabel(pageNumber: Int) {
         addSubview(pageLabel)
         pageLabel.text = "No. \(pageNumber)"

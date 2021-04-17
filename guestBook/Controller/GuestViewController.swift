@@ -11,7 +11,7 @@ import FirebaseStorage
 import PencilKit
 
 protocol GuestCardUpdateDelegate: AnyObject {
-    func update(guest: Guest, updateGuestParam: Array<String>)
+    func update(guest: Guest, updateGuestParam: Set<String>)
 }
 
 protocol GuestItemUpdateDelegate: AnyObject {
@@ -37,7 +37,7 @@ class GuestViewController: UIViewController {
     fileprivate let descriptionView    = DescriptionView()
     fileprivate let backToMenuButton   = UIButton()
     fileprivate var captureImage       = UIImage()
-    var updateGuestParam: [String] = []
+    var updateGuestParam = Set<String>()
     fileprivate let storage            = Storage.storage().reference(forURL: Keys.firestoreStorageUrl)
     
     lazy var retualCollectionView = RetualCollectionView(guest, retuals, frame: CGRect.zero)
@@ -217,37 +217,29 @@ class GuestViewController: UIViewController {
 // MARK:- Extensions
 extension GuestViewController: GuestItemUpdateDelegate {
     func update<T>(inputView: T) {
-        let identifier = (inputView as! UIView).accessibilityIdentifier
-        updateGuestParam.append(identifier ?? "")
-
-        switch inputView {
-        case is RetualCollectionView:
-            guest.retuals = retualCollectionView.guest.retuals
-            break
-        case is GuestNameView:
-            let canvas = guestNameView.guestNameCanvas
-            guest.guestNameImageData = canvas.drawing.dataRepresentation()
-            break
-        case is CompanyNameView:
+        guard let identifier = (inputView as! UIView).accessibilityIdentifier else { return }
+        updateGuestParam.insert(identifier)
+        // 各変更項目に対して値を更新する
+        if identifier == "guestName" {
+            guest.guestNameImageData = guestNameView.guestNameCanvas.drawing.dataRepresentation()
+        } else if identifier == "companyName" {
             guest.companyNameImageData = companyNameView.companyNameCanvas.drawing.dataRepresentation()
-            break
-        case is AddressView:
+        } else if identifier == "zipCode" {
             guest.zipCodeImageData = addressView.zipCodeCanvas.drawing.dataRepresentation()
-            guest.telNumberImageData = addressView.telNumberCanvas.drawing.dataRepresentation()
+        } else if identifier == "address" {
             guest.addressImageData = addressView.addressCanvas.drawing.dataRepresentation()
-            break
-        case is RelationCollectionView:
-            guest.relations = relationCollectionView.guest.relations
-            break
-        case is GroupCollectionView:
+        } else if identifier == "telNumber" {
+            guest.telNumberImageData = addressView.telNumberCanvas.drawing.dataRepresentation()
+        } else if identifier == "retuals" {
+            guest.retuals = retualCollectionView.guest.retuals
+        } else if identifier == "groups" {
             guest.groups = groupCollectionView.guest.groups
-            break
-        case is DescriptionView:
+        } else if identifier == "relations" {
+            guest.relations = relationCollectionView.guest.relations
+        } else if identifier == "description" {
             guest.descriptionImageData = descriptionView.descriptionCanvas.drawing.dataRepresentation()
-            break
-        default:
-            break
         }
+        print(updateGuestParam)
         guestupdateDelegate?.update(guest: guest, updateGuestParam: updateGuestParam)
     }
 }
