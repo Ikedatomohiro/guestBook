@@ -28,7 +28,6 @@ struct Guest {
     var groups: Dictionary<String, Bool> = [:]
     var description: String
     var descriptionImageData: Data
-    var pageNumber: Int
     let createdAt: Date
     var updatedAt: Date
     
@@ -53,7 +52,6 @@ struct Guest {
         self.groups               = dictionary["groups"]               as? Dictionary<String, Bool> ?? [:]
         self.description          = dictionary["description"]          as? String ?? ""
         self.descriptionImageData = dictionary["descriptionImageData"] as? Data ?? Data()
-        self.pageNumber           = 0
         self.createdAt            = dictionary["createdAt"]            as? Date   ?? Date()
         self.updatedAt            = dictionary["updatedAt"]            as? Date   ?? Date()
     }
@@ -74,7 +72,6 @@ struct Guest {
         self.telNumberImageData   = Data()
         self.description          = ""
         self.descriptionImageData = Data()
-        self.pageNumber           = 0
         self.createdAt            = Date()
         self.updatedAt            = Date()
         

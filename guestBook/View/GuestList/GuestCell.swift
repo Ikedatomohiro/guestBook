@@ -25,7 +25,7 @@ class GuestCell: UITableViewCell {
     
     func setupGuestCell(_ guest: Guest,_ retuals: [Retual], indexPath: Int) {
         setupBase(indexPath)
-        setupNumberLabel(guest)
+        setupNumberLabel(indexPath)
         setupGuestNameLabel(guest)
         setupCompanyNameLabel(guest)
         setupAddresLabel(guest)
@@ -40,10 +40,11 @@ class GuestCell: UITableViewCell {
         }
     }
     
-    fileprivate func setupNumberLabel(_ guest: Guest) {
+    fileprivate func setupNumberLabel(_ index: Int) {
+        let number = index + 1
         addSubview(numberLabel)
         numberLabel.anchor(top: self.layoutMarginsGuide.topAnchor, leading: layoutMarginsGuide.leadingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.numberWidth, height: .zero))
-        numberLabel.text = String(guest.pageNumber)
+        numberLabel.text = String(number)
         numberLabel.textAlignment = .center
     }
     

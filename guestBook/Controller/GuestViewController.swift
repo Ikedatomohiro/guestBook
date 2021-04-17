@@ -94,7 +94,7 @@ class GuestViewController: UIViewController {
     fileprivate func setupCardHeaderView() {
         view.addSubview(cardHeaderView)
         cardHeaderView.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 5, left: 0, bottom: 0, right: 0), size: .init(width: .zero, height: screenSize.height / 20))
-        cardHeaderView.setupView(guest: guest)
+        cardHeaderView.setupView(index: index)
     }
     
     fileprivate func setupCardTitleView() {

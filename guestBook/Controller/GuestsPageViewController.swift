@@ -55,8 +55,7 @@ class GuestsPageViewController: UIPageViewController {
         // 初めて入力画面に入るときと最後のページが使われていないときは白紙のページを1つ追加して白紙ページを表示する
         if guests.count == 0 || self.guests.last != Guest("new", retuals, relations, groups) {
             // 空のguestを配列に追加
-            var newGuest = Guest("new", retuals, relations, groups)
-            newGuest.pageNumber = self.guests.count + 1
+            let newGuest = Guest("new", retuals, relations, groups)
             self.guests.append(newGuest)
         }
         let lastIndex = self.guests.count - 1
