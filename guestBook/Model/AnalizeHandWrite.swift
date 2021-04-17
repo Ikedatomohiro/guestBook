@@ -27,23 +27,22 @@ class AnalizeHandWrite {
         ]
         var apiResult: Dictionary<String, String> = [:]
         for item in guestDictionary {
-            if updateGuestParam.contains(item.key) {
-                apiQueueGroup.enter()
-                // processIdentifireを作成
-                let processIdentifire = "\(item.key)\(guest.id)"
-                // CloudVisionAPIで手書き文字解析
-                let imageData: String = makeImageData(item.value)
-                // 手書き文字解析
-                callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
-                    apiQueue.async(group: apiQueueGroup) {
-                        // 改行コードを取り除く
-                        let text = result.trimmingCharacters(in: .whitespacesAndNewlines)
-                        apiResult["\(item.key)"] = text
-                        print("\(item.key)：\(text)")
-                        apiQueueGroup.leave()
-                    }
-                })
-            }
+            guard updateGuestParam.contains(item.key) else { return }
+            apiQueueGroup.enter()
+            // processIdentifireを作成
+            let processIdentifire = "\(item.key)\(guest.id)"
+            // CloudVisionAPIで手書き文字解析
+            let imageData: String = makeImageData(item.value)
+            // 手書き文字解析
+            callGoogleVisionApi(imageData, processIdentifire, completion: { (result) in
+                apiQueue.async(group: apiQueueGroup) {
+                    // 改行コードを取り除く
+                    let text = result.trimmingCharacters(in: .whitespacesAndNewlines)
+                    apiResult["\(item.key)"] = text
+                    print("\(item.key)：\(text)")
+                    apiQueueGroup.leave()
+                }
+            })
         }
         // 全ての非同期処理完了後にメインスレッドで処理
         apiQueueGroup.notify(queue: .main) {

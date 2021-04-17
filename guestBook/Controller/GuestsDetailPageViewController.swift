@@ -60,7 +60,7 @@ extension GuestsDetailPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         print("viewControllerBefore")
         let prevIndex = ((viewController as? GuestDetailViewController)?.index)! - 1
-        if currentIndex == 0 { return nil }
+        guard prevIndex >= 0 else { return nil }
         let guest = guests[prevIndex]
         let guestDetailVC = GuestDetailViewController(guest: guest)
         guestDetailVC.index = prevIndex
