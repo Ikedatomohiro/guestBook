@@ -143,13 +143,14 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
         print("didFinishAnimating")
         // ページめくりが完了したとき
         if completed {
+            let updateIndex = self.currentIndex
             // ページめくりが完了したときに画像解析して保存
             guestUpdateQueue.async {
                 // 変更があったときに画像解析して保存する。
                 if self.updateGuestParam.count == 0 { return }
-                self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.currentIndex])
+                self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[updateIndex])
                 // 更新対象パラメータ初期化
-                self.updateGuestParam = []
+                self.updateGuestParam = Set<String>()
             }
             guard let changedIndex = (pageViewController.viewControllers as! [GuestViewController]).first?.index else { return }
             currentIndex = changedIndex
