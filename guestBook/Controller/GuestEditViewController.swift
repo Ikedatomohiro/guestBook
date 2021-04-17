@@ -36,7 +36,7 @@ class GuestEditViewController: UIViewController {
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         // guestの変更があったときに更新する
-        if guestsDetailTableView.updateGuestParam.count == 0 { return }
+        guard guestsDetailTableView.updateGuestParam.count > 0  else { return }
         let guest = guestsDetailTableView.guests[index]
         Guest.updateGuest(guest, guest.eventId, nil)
     }

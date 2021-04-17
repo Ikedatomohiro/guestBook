@@ -36,15 +36,21 @@ class GuestListViewController: UIViewController {
         setupBasic()
         setSortArea(retuals: retuals)
         setupGuestListTableView()
-        Guest.collectionRef(event.eventId).addSnapshotListener{(documentSnapshot, error) in
-            guard let documentSnapshot = documentSnapshot else {
-                print("error")
-                return
+        fetchData()
+    }
+    
+    fileprivate func fetchData() {
+        selectGuests.fetchData(eventId: event.eventId) { (guests) in
+            let guestsListener = self.selectGuests.collectionRef(self.event.eventId).addSnapshotListener { (querySnapshot, error) in
+                guard let documents = querySnapshot?.documents else { return }
+                self.guests = documents.map({ (document) -> Guest in
+                    let guest = Guest(document: document)
+                    return guest
+                })
+                self.guestListTableView.reloadData()
             }
-            documentSnapshot.documentChanges.forEach{diff in
-                print(diff)
-                
-            }
+        // どこかでListenerを削除する
+         guestsListener.remove()
         }
     }
     
@@ -53,7 +59,8 @@ class GuestListViewController: UIViewController {
         // 戻るボタンの名称をセット
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = "参加者一覧に戻る"
-        self.navigationItem.backBarButtonItem = backBarButtonItem}
+        self.navigationItem.backBarButtonItem = backBarButtonItem
+    }
     
     fileprivate func setSortArea(retuals: [Retual]) {
         view.addSubview(guestSortAreaView)
