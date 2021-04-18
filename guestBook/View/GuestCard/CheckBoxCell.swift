@@ -36,9 +36,9 @@ class CheckBoxCell: UICollectionViewCell {
     
     func setButtonColor(isActive: Bool) {
         if isActive == true {
-            label.backgroundColor = .rgb(red: 150, green: 200, blue: 20)
+            label.backgroundColor = green
         } else if isActive == false {
-            label.backgroundColor = .rgb(red: 211, green: 211, blue: 211)
+            label.backgroundColor = gray
         }
     }
     
