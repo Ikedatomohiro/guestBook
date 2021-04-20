@@ -202,8 +202,20 @@ class GuestViewController: UIViewController {
     }
     
     func viewToImage(_ view : UIView) -> UIImage {
+        // 取得する画像サイズを設定
+        var size = screenSize
+        guard let statusBar = view.window?.windowScene?.statusBarManager?.statusBarFrame.size else { return UIImage() }
+        // ステータスバー（日時とか電池の表示エリア）の高さとヘッダーの高さの和を画像からカットする
+        let cutHeight = cardHeaderView.frame.height + statusBar.height
+        size.height = size.height - cutHeight
         //コンテキスト開始
-        UIGraphicsBeginImageContextWithOptions(UIScreen.main.bounds.size, false, 0.0)
+        UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return UIImage()
+        }
+        // 画像のスクリーンショットの開始位置を制御
+        context.translateBy(x: 0, y: -cutHeight)
+        self.view.layer.render(in: context)
         //viewを書き出す
         self.view.drawHierarchy(in: self.view.bounds, afterScreenUpdates: true)
         // imageにコンテキストの内容を書き出す
