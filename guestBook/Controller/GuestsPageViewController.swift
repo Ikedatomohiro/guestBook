@@ -117,9 +117,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     }
     
     func updateGuestCardToCloud(guest: Guest, result: Dictionary<String, String>) {
-        if guest == Guest("new", retuals, relations, groups) {
-            return()
-        }
+        guard guest == Guest("new", retuals, relations, groups) else { return() }
         if guest.id == "new" {
             // Firestoreにデータを保存
             let documentRef = Guest.registGuest(guest, event.eventId, result)
