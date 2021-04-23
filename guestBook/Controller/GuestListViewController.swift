@@ -14,14 +14,12 @@ class GuestListViewController: UIViewController {
     fileprivate var guests: [Guest]
     fileprivate var retuals: [Retual]
     lazy var guestListTableView = GuestListTableView(guests: guests, retuals: retuals, frame: .zero, style: .plain)
-    lazy var guestSortAreaView = GuestSortAreaView(retuals, frame: .zero)
+    lazy var guestSortAreaView = GuestControllAreaView(guests, event, retuals, frame: .zero)
     fileprivate var pageNumber: Int = 1
     var selectRetualId: String = ""
     var selectRank: Dictionary<String, Bool?> = [:]
     let selectGuests = SelectGuests()
     var listener: ListenerRegistration?
-    
-    var csvOutputButton = UIButton()
     
     init(_ event: Event, _ retuals: [Retual], _ guests: [Guest]) {
         self.event = event
@@ -38,14 +36,13 @@ class GuestListViewController: UIViewController {
         super.viewDidLoad()
         setupBasic()
         setSortArea(retuals: retuals)
-        setupCsvOutputButton()
         setupGuestListTableView()
         fetchData()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         guard let _ =  self.navigationController?.viewControllers.last as? GuestEditViewController else {
-                listener?.remove()
+            listener?.remove()
             return
         }
     }
@@ -55,7 +52,7 @@ class GuestListViewController: UIViewController {
             let guestsListener = self.selectGuests.collectionRef(self.event.eventId).addSnapshotListener { (querySnapshot, error) in
                 guard let documents = querySnapshot?.documents else { return }
                 self.guests = documents.map{Guest(document: $0)}
-                 // GuestListTableView内でリロード
+                // GuestListTableView内でリロード
                 self.guestListTableView.reloadGuestsData(guests: self.guests)
             }
             self.listener = guestsListener
@@ -68,7 +65,7 @@ class GuestListViewController: UIViewController {
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = "参加者一覧に戻る"
         self.navigationItem.backBarButtonItem = backBarButtonItem
-
+        
     }
     
     fileprivate func setSortArea(retuals: [Retual]) {
@@ -99,57 +96,12 @@ class GuestListViewController: UIViewController {
         }
     }
     
-    fileprivate func setupCsvOutputButton() {
-        view.addSubview(csvOutputButton)
-        csvOutputButton.setTitle("CSVファイル作成", for: .normal)
-        csvOutputButton.anchor(top: guestSortAreaView.topAnchor, leading: nil, bottom: guestSortAreaView.bottomAnchor, trailing: guestSortAreaView.trailingAnchor, size: .init(width: 150, height: 40))
-        csvOutputButton.addTarget(self, action: #selector(tapCsvOutputButton), for: .touchUpInside)
-        csvOutputButton.backgroundColor = green
-        csvOutputButton.layer.cornerRadius = 5
+    fileprivate func reloadData(_ guests: [Guest]) {
+        // TabeleViewにguestsを渡す
+        self.guestListTableView.reloadGuestsData(guests: guests)
+        // csvファイル作成ボタンのguestsを更新
+        self.guestSortAreaView.updateGuestsData(guests)
     }
-    
-    @objc func tapCsvOutputButton() {
-        animateView(csvOutputButton)
-        csvOutput()
-    }
-    
-    func csvOutput() {
-        guard let dirURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else { return }
-        let path = dirURL.appendingPathComponent("\(event.eventName).csv")
-        let csvList = CsvList()
-        let data: Data? = csvList.outputGuestList(guests, retuals)
-        guard let textFile = data else { return }
-        do {
-            try textFile.write(to: path)
-            aLartCsvOutput(title: "CSVファイル出力", message: "ファイルアプリにCSVファイルを作成しました。")
-        } catch {
-            print("CSVファイル出力失敗")
-        }
-    }
-    
-    func animateView(_ viewToAnimate:UIView) {
-        UIView.animate(withDuration: 0.2, delay: 0, options: .curveEaseIn, animations: {
-            viewToAnimate.transform = CGAffineTransform(scaleX: 1.08, y: 1.08)
-        }) { (_) in
-            UIView.animate(withDuration: 0.4, delay: 0, usingSpringWithDamping: 0.3, initialSpringVelocity: 10, options: .curveEaseOut, animations: {
-                viewToAnimate.transform = .identity
-                
-            }, completion: nil)
-        }
-    }
-    
-    fileprivate func aLartCsvOutput(title: String, message: String) {
-        var alertController: UIAlertController!
-        alertController = UIAlertController(title: title,
-                                   message: message,
-                                   preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: "OK",
-                                       style: .default,
-                                       handler: nil))
-        present(alertController, animated: true)
-        print("CSVファイル出力成功")
-    }
-    
 }
 
 // MARK: - Extensions
@@ -177,7 +129,7 @@ extension GuestListViewController: SendRetualDelegate {
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         print("guest:\(guests.count)")
-                        self.guestListTableView.reloadGuestsData(guests: guests)
+                        self.reloadData(guests)
                     }
                 }
             }
@@ -187,7 +139,7 @@ extension GuestListViewController: SendRetualDelegate {
                     DispatchQueue.main.async {
                         // TabeleViewにguestsを渡す
                         print("guest:\(guests.count)")
-                        self.guestListTableView.reloadGuestsData(guests: guests)
+                        self.reloadData(guests)
                     }
                 }
             }
@@ -201,7 +153,6 @@ extension GuestListViewController: ChangeGuestsRankDelegate {
         let selectGuests = SelectGuests()
         var guests_temp = guests
         self.guests = selectGuests.sortGuests(guests: &guests_temp, selectRank: selectRank)
-        // TabeleViewにguestsを渡す
-        self.guestListTableView.reloadGuestsData(guests: guests_temp)
+        self.reloadData(guests_temp)
     }
 }
