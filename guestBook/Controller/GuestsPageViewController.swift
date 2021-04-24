@@ -46,7 +46,7 @@ class GuestsPageViewController: UIPageViewController {
         // 戻るボタンが押されたときに画像解析して保存する
         guestUpdateQueue.async {
             // 変更があったときに画像解析して保存する。
-            if self.updateGuestParam.count == 0 { return }
+            guard self.updateGuestParam.count > 0 else { return }
             self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[self.currentIndex])
         }
     }
@@ -85,7 +85,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
         print("viewControllerBefore")
         let prevIndex = ((viewController as? GuestViewController)?.index)! - 1
         // 1ページ目のときはページを戻す動作をしない
-        if currentIndex == 0 || prevIndex < 0 { return nil }
+        guard currentIndex != 0 && prevIndex >= 0 else { return nil }
         let guest = guests[prevIndex]
         let guestVC = GuestViewController(guest: guest, retuals: retuals, relations: relations, groups: groups)
         guestVC.index = prevIndex
@@ -97,10 +97,8 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
         print("viewControllerAfter")
         let nextIndex = ((viewController as? GuestViewController)?.index)! + 1
-        // 遷移前のページが初期状態の場合、ページをめくらない
-        if guests[currentIndex] == Guest("new", retuals, relations, groups)  {
-            return nil
-        }
+        // 遷移前のページが初期状態の場合（変更がない場合）、ページをめくらない
+        guard guests[currentIndex] != Guest("new", retuals, relations, groups) else { return nil }
         // guestの初期値をセット
         var guest = Guest("new", retuals, relations, groups)
         // 最後のページ以前でページが進められたときのguestをセット
@@ -117,7 +115,7 @@ extension GuestsPageViewController: UIPageViewControllerDataSource {
     }
     
     func updateGuestCardToCloud(guest: Guest, result: Dictionary<String, String>) {
-        guard guest == Guest("new", retuals, relations, groups) else { return() }
+        guard guest != Guest("new", retuals, relations, groups) else { return() }
         if guest.id == "new" {
             // Firestoreにデータを保存
             let documentRef = Guest.registGuest(guest, event.eventId, result)
@@ -144,7 +142,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
             // ページめくりが完了したときに画像解析して保存
             guestUpdateQueue.async {
                 // 変更があったときに画像解析して保存する。
-                if self.updateGuestParam.count == 0 { return }
+                guard self.updateGuestParam.count > 0 else { return }
                 self.analizeHandWriteAndUpdateGuestToCloud(guest: self.guests[updateIndex])
                 // 更新対象パラメータ初期化
                 self.updateGuestParam = Set<String>()
