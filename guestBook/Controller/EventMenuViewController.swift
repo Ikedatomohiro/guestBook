@@ -12,10 +12,9 @@ class EventMenuViewController: UIViewController {
     
     fileprivate let event: Event
     fileprivate var guests: [Guest]       = []
-    fileprivate let eventMenuList         = UIStackView()
-    fileprivate let showGuestCardButton   = UIButton()
-    fileprivate let showGuestDetailButton = UIButton()
-    fileprivate let showSettingButton     = UIButton()
+    fileprivate let moveGuestCardButton   = UIButton()
+    fileprivate let moveGuestListButton = UIButton()
+    fileprivate let moveSettingButton     = UIButton()
     fileprivate var retuals: [Retual]     = []
     fileprivate var relations: [Relation] = []
     fileprivate var groups: [Group]       = []
@@ -32,7 +31,9 @@ class EventMenuViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBase()
-        setupEventMenuList()
+        setupMoveGuestCardButton()
+        setupMoveGuestListButton()
+        setupMoveSettingButton()
         setBackButtonTitle() 
     }
     
@@ -46,37 +47,34 @@ class EventMenuViewController: UIViewController {
     fileprivate func setupBase() {
         navigationItem.title = event.eventName
         self.getRetualRelationGroupData()
-        self.view.backgroundColor = .red
+        self.view.backgroundColor = .white
     }
     
+    fileprivate func setupMoveGuestCardButton() {
+        view.addSubview(moveGuestCardButton)
+        moveGuestCardButton.setTitle("参加者入力", for: .normal)
+        moveGuestCardButton.backgroundColor = green
+        moveGuestCardButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 50, left: 0, bottom: 0, right: 0), size: .init(width: 150, height: 40))
+        moveGuestCardButton.layer.cornerRadius = 5
+        moveGuestCardButton.addTarget(self, action: #selector(showGuestCard), for: .touchUpInside)
+    }
     
-    fileprivate func setupEventMenuList() {
-        self.view.addSubview(eventMenuList)
-        eventMenuList.spacing = 10.0
-        eventMenuList.axis = .vertical
-        eventMenuList.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil)
-        
-        view.addSubview(showGuestCardButton)
-        showGuestCardButton.setTitle("参加者入力画面へ", for: .normal)
-        showGuestCardButton.backgroundColor = .systemGreen
-        showGuestCardButton.layer.cornerRadius = 5
-        eventMenuList.addArrangedSubview(showGuestCardButton)
-        showGuestCardButton.addTarget(self, action: #selector(showGuestCard), for: .touchUpInside)
-        
-        view.addSubview(showGuestDetailButton)
-        showGuestDetailButton.setTitle("参加者一覧", for: .normal)
-        showGuestDetailButton.backgroundColor = .systemBlue
-        showGuestDetailButton.layer.cornerRadius = 5
-        eventMenuList.addArrangedSubview(showGuestDetailButton)
-        showGuestDetailButton.addTarget(self, action: #selector(showGuestList), for: .touchUpInside)
-        
-        view.addSubview(showSettingButton)
-        showSettingButton.setTitle("設定", for: .normal)
-        showSettingButton.backgroundColor = .systemTeal
-        showSettingButton.layer.cornerRadius = 5
-        eventMenuList.addArrangedSubview(showSettingButton)
-        showSettingButton.addTarget(self, action: #selector(showSetting), for: .touchUpInside)
-        
+    fileprivate func setupMoveGuestListButton() {
+        view.addSubview(moveGuestListButton)
+        moveGuestListButton.setTitle("参加者一覧", for: .normal)
+        moveGuestListButton.backgroundColor = green
+        moveGuestListButton.anchor(top: moveGuestCardButton.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 150, height: 40))
+        moveGuestListButton.layer.cornerRadius = 5
+        moveGuestListButton.addTarget(self, action: #selector(showGuestList), for: .touchUpInside)
+    }
+    
+    fileprivate func setupMoveSettingButton() {
+        view.addSubview(moveSettingButton)
+        moveSettingButton.setTitle("設定", for: .normal)
+        moveSettingButton.backgroundColor = green
+        moveSettingButton.anchor(top: moveGuestListButton.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 0), size: .init(width: 150, height: 40))
+        moveSettingButton.layer.cornerRadius = 5
+        moveSettingButton.addTarget(self, action: #selector(showSetting), for: .touchUpInside)
     }
     
     @objc private func showGuestCard() {
@@ -130,7 +128,6 @@ class EventMenuViewController: UIViewController {
         return self.relations
     }
     
-    
     fileprivate func getGroups(eventId: String) -> [Group] {
         Group.collectionRef(eventId: eventId).order(by: "number").getDocuments { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
@@ -141,12 +138,10 @@ class EventMenuViewController: UIViewController {
         }
         return self.groups
     }
-
+    
     fileprivate func getRetualRelationGroupData() {
         self.retuals = getRetuals(eventId: event.eventId)
         self.relations = getRelations(eventId: event.eventId)
         self.groups = getGroups(eventId: event.eventId)
     }
-
-
 }
