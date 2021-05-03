@@ -24,7 +24,6 @@ class EventListViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-        _ = fetchData()
         view.backgroundColor = .white
         setupTitleLabel()
         setLogInButton()
@@ -33,17 +32,10 @@ class EventListViewController: UIViewController {
         setupEventNameTableView()
         fetchEventNameList()
         setBackButtonTitle()
-        
+        setupSettingImage()
     }
     
     //MARK:- Function
-    func fetchData() -> Bool {
-        
-        
-        
-        return true
-    }
-    
     func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.backgroundColor = .systemYellow
@@ -145,6 +137,23 @@ class EventListViewController: UIViewController {
             Group.registGroup(group: Group(name: group), eventId: eventId, number: number)
         }
     }
+    
+    fileprivate func setupSettingImage() {
+        let imageSize = CGSize(width: 30, height: 30)
+        let settingImage = #imageLiteral(resourceName: "menu.png").withRenderingMode(.automatic).reSizeImage(reSize: imageSize)
+        let menu = UIBarButtonItem(image: settingImage, style: .done, target: self, action: #selector(showSetting))
+        self.navigationItem.leftBarButtonItem = menu
+        self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 48, green: 48, blue: 48)
+    }
+    
+    @objc fileprivate func showSetting() {
+        
+
+
+
+
+    }
+
 }
 
 // MARK:- Extension

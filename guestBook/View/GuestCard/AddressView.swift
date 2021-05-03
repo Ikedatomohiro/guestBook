@@ -42,7 +42,6 @@ class AddressView: UIView {
         setupZipCodeCanvas(ImageData: guest.zipCodeImageData)
         setupTelNumberLabel(guest)
         setupTelNumberCanvas(ImageData: guest.telNumberImageData)
-        
     }
     
     // MARK:- address

@@ -59,6 +59,9 @@
 		E59D9F10254848F4000F7C45 /* guestBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */; };
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
 		E5A660562619A549000C43C7 /* GuestDetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A660552619A549000C43C7 /* GuestDetailTableView.swift */; };
+		E5A672DA263AF1A300F81300 /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A672D9263AF1A300F81300 /* setting.png */; };
+		E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A672DE263AF74D00F81300 /* UIImage.swift */; };
+		E5A67315263FC87300F81300 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A67314263FC87300F81300 /* menu.png */; };
 		E5AE163F25B2CC7F00DBAE33 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */; };
 		E5AE164425B2D3EF00DBAE33 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */; };
 		E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFCC8925AF04AF00E5274A /* AddressView.swift */; };
@@ -156,6 +159,9 @@
 		E59D9F11254848F4000F7C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 		E5A660552619A549000C43C7 /* GuestDetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailTableView.swift; sourceTree = "<group>"; };
+		E5A672D9263AF1A300F81300 /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
+		E5A672DE263AF74D00F81300 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
+		E5A67314263FC87300F81300 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		E5AFCC8925AF04AF00E5274A /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -338,6 +344,7 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E5A672D8263AF18500F81300 /* Images */,
 				E52AE902263508200001F372 /* EventMenu */,
 				E528D38325FF76B800736117 /* GuestDetail */,
 				E52A062025CAEA87007669CB /* GuestList */,
@@ -421,8 +428,18 @@
 				E573F42925504A2B0000C955 /* NSObject.swift */,
 				E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */,
 				E5296E8E26330DB90038646A /* UIView.swift */,
+				E5A672DE263AF74D00F81300 /* UIImage.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		E5A672D8263AF18500F81300 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				E5A672D9263AF1A300F81300 /* setting.png */,
+				E5A67314263FC87300F81300 /* menu.png */,
+			);
+			path = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -535,6 +552,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5A672DA263AF1A300F81300 /* setting.png in Resources */,
+				E5A67315263FC87300F81300 /* menu.png in Resources */,
 				E59D9EFA254848F3000F7C45 /* LaunchScreen.storyboard in Resources */,
 				E59D9EF7254848F3000F7C45 /* Assets.xcassets in Resources */,
 				E51FC57125C80169002F965E /* GoogleService-Info.plist in Resources */,
@@ -705,6 +724,7 @@
 				E5296E8F26330DB90038646A /* UIView.swift in Sources */,
 				E53B69FC25F504B90089102E /* Group.swift in Sources */,
 				E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */,
+				E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */,
 				E5A660562619A549000C43C7 /* GuestDetailTableView.swift in Sources */,
 				E52B1E4126020AEB0016E985 /* GuestsDetailPageViewController.swift in Sources */,
 				E5B3C9122552B27400509757 /* GuestsPageViewController.swift in Sources */,
