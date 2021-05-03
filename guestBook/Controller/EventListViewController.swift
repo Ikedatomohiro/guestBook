@@ -20,6 +20,7 @@ class EventListViewController: UIViewController {
     fileprivate let defaultRelations   = DefaultParam.relations
     fileprivate let defaultGroups      = DefaultParam.groups
     fileprivate var number: Int        = 0
+    fileprivate let menuVC = SideMenuViewController()
     
     // MARK: -
     override func viewDidLoad() {
@@ -147,17 +148,14 @@ class EventListViewController: UIViewController {
     }
     
     @objc fileprivate func showSetting() {
-        
-
-
-
-
+        view.addSubview(menuVC.view)
+        menuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+        menuVC.sendMenuBackgroundDidTapDelegate = self
     }
-
 }
 
 // MARK:- Extension
-extension EventListViewController:UITableViewDelegate {
+extension EventListViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let eventMenuVC = EventMenuViewController(event: events[indexPath.row])
         eventMenuVC.modalPresentationStyle = .fullScreen
@@ -165,7 +163,7 @@ extension EventListViewController:UITableViewDelegate {
     }
 }
 
-extension EventListViewController:UITableViewDataSource {
+extension EventListViewController: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -184,4 +182,12 @@ extension EventListViewController:UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 44
     }
+}
+
+extension EventListViewController: SendMenuBackgroundDidTapDelegate {
+    func backGroundDidTap() {
+        menuVC.view.removeFromSuperview()
+    }
+    
+    
 }
