@@ -36,14 +36,18 @@ class SideMenuViewController: UIViewController {
     }
     
     @objc func menuBackgroundDidTap(_ sender: UIGestureRecognizer) {
-        sendMenuBackgroundDidTapDelegate?.backGroundDidTap()
+        UIView.animate(withDuration: 0.3) {
+            self.menuListView.center.x -= screenSize.width / 4
+        } completion: { (Bool) in
+            self.sendMenuBackgroundDidTapDelegate?.backGroundDidTap()
+        }
     }
     
     fileprivate func setupMenuListView() {
         view.addSubview(menuListView)
         menuListView.anchor(top: self.view.topAnchor, leading: nil, bottom: self.view.bottomAnchor, trailing: backgroundView.leadingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -screenSize.width / 4), size: .init(width: screenSize.width / 4, height: .zero))
         menuListView.backgroundColor = .white
-        UIView.animate(withDuration: 0.5, animations: {
+        UIView.animate(withDuration: 0.2, animations: {
             self.menuListView.center.x += screenSize.width / 4
         }, completion: nil)
     }

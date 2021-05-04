@@ -21,6 +21,7 @@ class EventListViewController: UIViewController {
     fileprivate let defaultGroups      = DefaultParam.groups
     fileprivate var number: Int        = 0
     fileprivate let menuVC = SideMenuViewController()
+    fileprivate var sideMenuAppearance = false
     
     // MARK: -
     override func viewDidLoad() {
@@ -148,9 +149,19 @@ class EventListViewController: UIViewController {
     }
     
     @objc fileprivate func showSetting() {
-        view.addSubview(menuVC.view)
-        menuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-        menuVC.sendMenuBackgroundDidTapDelegate = self
+        if sideMenuAppearance == false {
+            view.addSubview(menuVC.view)
+            menuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+            menuVC.sendMenuBackgroundDidTapDelegate = self
+            sideMenuAppearance = true
+        } else {
+            UIView.animate(withDuration: 0.3) {
+                self.menuVC.menuListView.center.x -= screenSize.width / 4
+            } completion: { (Bool) in
+                self.menuVC.view.removeFromSuperview()
+                self.sideMenuAppearance = false
+            }
+        }
     }
 }
 
@@ -185,9 +196,8 @@ extension EventListViewController: UITableViewDataSource {
 }
 
 extension EventListViewController: SendMenuBackgroundDidTapDelegate {
+    // サイドメニューが表示されているときに背景をタップすると本の表示に戻る
     func backGroundDidTap() {
         menuVC.view.removeFromSuperview()
     }
-    
-    
 }
