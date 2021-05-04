@@ -143,12 +143,12 @@ class EventListViewController: UIViewController {
     fileprivate func setupSettingImage() {
         let imageSize = CGSize(width: 30, height: 30)
         let settingImage = #imageLiteral(resourceName: "menu.png").withRenderingMode(.automatic).reSizeImage(reSize: imageSize)
-        let menu = UIBarButtonItem(image: settingImage, style: .done, target: self, action: #selector(showSetting))
+        let menu = UIBarButtonItem(image: settingImage, style: .done, target: self, action: #selector(sideMenuToggle))
         self.navigationItem.leftBarButtonItem = menu
         self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 48, green: 48, blue: 48)
     }
     
-    @objc fileprivate func showSetting() {
+    @objc fileprivate func sideMenuToggle() {
         if sideMenuAppearance == false {
             view.addSubview(menuVC.view)
             menuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
@@ -157,6 +157,7 @@ class EventListViewController: UIViewController {
         } else {
             UIView.animate(withDuration: 0.3) {
                 self.menuVC.menuListView.center.x -= screenSize.width / 4
+                self.menuVC.backgroundView.alpha = 0
             } completion: { (Bool) in
                 self.menuVC.view.removeFromSuperview()
                 self.sideMenuAppearance = false
@@ -199,5 +200,6 @@ extension EventListViewController: SendMenuBackgroundDidTapDelegate {
     // サイドメニューが表示されているときに背景をタップすると本の表示に戻る
     func backGroundDidTap() {
         menuVC.view.removeFromSuperview()
+        sideMenuAppearance = false
     }
 }

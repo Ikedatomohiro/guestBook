@@ -30,7 +30,7 @@ class SideMenuViewController: UIViewController {
         view.addSubview(backgroundView)
         backgroundView.anchor(top: self.view.layoutMarginsGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
         backgroundView.backgroundColor = .black
-        backgroundView.alpha = 0.1
+        backgroundView.alpha = 0
         let gesture = UITapGestureRecognizer(target: self, action: #selector(menuBackgroundDidTap(_:)))
         backgroundView.addGestureRecognizer(gesture)
     }
@@ -38,6 +38,7 @@ class SideMenuViewController: UIViewController {
     @objc func menuBackgroundDidTap(_ sender: UIGestureRecognizer) {
         UIView.animate(withDuration: 0.3) {
             self.menuListView.center.x -= screenSize.width / 4
+            self.backgroundView.alpha = 0
         } completion: { (Bool) in
             self.sendMenuBackgroundDidTapDelegate?.backGroundDidTap()
         }
@@ -49,6 +50,7 @@ class SideMenuViewController: UIViewController {
         menuListView.backgroundColor = .white
         UIView.animate(withDuration: 0.2, animations: {
             self.menuListView.center.x += screenSize.width / 4
+            self.backgroundView.alpha = 0.1
         }, completion: nil)
     }
     
