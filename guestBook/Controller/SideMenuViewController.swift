@@ -80,7 +80,7 @@ extension SideMenuViewController: SideMenuItemDidTapDelegate {
         }
         VC.modalPresentationStyle = .custom
         VC.transitioningDelegate = self
-        present(VC, animated: true, completion: nil)
+        present(VC, animated: true)
     }
 }
 

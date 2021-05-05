@@ -168,6 +168,7 @@ extension GuestsPageViewController: UIPageViewControllerDelegate {
     }
 }
 
+// MARK:- Extensions
 extension GuestsPageViewController: GuestCardUpdateDelegate {
     func update(guest: Guest, updateGuestParam: Set<String>) {
         if let index = guests.firstIndex(where: {$0.id == guest.id}) {

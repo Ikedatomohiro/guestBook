@@ -22,7 +22,7 @@ class SideMenuPresentationController: UIPresentationController {
             return
         }
         overlayView.frame = containerView.bounds
-        overlayView.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(SideMenuPresentationController.overlayViewDidTouch(_:)))]
+        overlayView.gestureRecognizers = [UITapGestureRecognizer(target: self, action: #selector(overlayViewDidTouch(_:)))]
         overlayView.backgroundColor = .black
         overlayView.alpha = 0.0
         containerView.insertSubview(overlayView, at: 0)
@@ -47,7 +47,7 @@ class SideMenuPresentationController: UIPresentationController {
         }
     }
     
-    let margin = (x: CGFloat(30), y: CGFloat(220.0))
+    let margin = (x: CGFloat(screenSize.width / 3), y: CGFloat(100))
     // 子のコンテナサイズを返す
     override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
         return CGSize(width: parentSize.width - margin.x, height: parentSize.height - margin.y)
