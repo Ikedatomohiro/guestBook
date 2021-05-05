@@ -14,7 +14,7 @@ protocol SendMenuBackgroundDidTapDelegate: AnyObject {
 class SideMenuViewController: UIViewController {
     
     var backgroundView = UIView()
-    var menuListView = UIView()
+    lazy var menuListView = SideMenuView()
     weak var sendMenuBackgroundDidTapDelegate: SendMenuBackgroundDidTapDelegate?
     
     override func viewDidLoad() {
@@ -45,6 +45,7 @@ class SideMenuViewController: UIViewController {
     }
     
     fileprivate func setupMenuListView() {
+
         view.addSubview(menuListView)
         menuListView.anchor(top: self.view.topAnchor, leading: nil, bottom: self.view.bottomAnchor, trailing: backgroundView.leadingAnchor, padding: .init(top: 0, left: 0, bottom: 0, right: -screenSize.width / 4), size: .init(width: screenSize.width / 4, height: .zero))
         menuListView.backgroundColor = .white
@@ -53,9 +54,4 @@ class SideMenuViewController: UIViewController {
             self.backgroundView.alpha = 0.1
         }, completion: nil)
     }
-    
-    
-    
-    
 }
-

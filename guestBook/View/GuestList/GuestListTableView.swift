@@ -74,7 +74,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     // リスト高さ
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        screenSize.height / 15
+        return screenSize.height / 15
     }
     
     // ヘッダー
@@ -86,7 +86,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     // ヘッダー高さ
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        50
+        return 50
     }
 
 }
