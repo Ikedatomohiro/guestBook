@@ -7,6 +7,10 @@
 
 import UIKit
 
+protocol SideMenuItemDidTapDelegate: AnyObject {
+    func sideMenuItemDidTap(sideMenuItem: SideMenuView.SideMenuItem)
+}
+
 class SideMenuView: UIView {
     
     enum SideMenuItem: String {
@@ -17,17 +21,18 @@ class SideMenuView: UIView {
         
         static let items: [SideMenuItem] = [.setting, .privacyPolicy, .termsOfUse, .signOut]
         
-        var view: UIView {
+        var viewController: UIViewController? {
             switch self {
-            case .setting: return UIView()
-            case .privacyPolicy: return UIView()
-            case .termsOfUse: return UIView()
-            case .signOut: return UIView()
+            case .setting: return SettingViewController()
+            case .privacyPolicy: return PrivacyPolicyViewController()
+            case .termsOfUse: return TermsOfUseViewController()
+            case .signOut: return nil
             }
         }
     }
     
     let sideMenuTable = UITableView()
+    weak var sideMenuItemDidTapDelegate: SideMenuItemDidTapDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,6 +74,7 @@ extension SideMenuView: UITableViewDataSource {
 
 extension SideMenuView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print(SideMenuItem.items[indexPath.row])
+        tableView.deselectRow(at: indexPath, animated: true)
+        sideMenuItemDidTapDelegate?.sideMenuItemDidTap(sideMenuItem: SideMenuItem.items[indexPath.row])
     }
 }

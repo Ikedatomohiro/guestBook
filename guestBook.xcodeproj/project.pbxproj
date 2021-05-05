@@ -27,6 +27,9 @@
 		E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */; };
 		E52F6642260A0A4900D83DC8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F6641260A0A4900D83DC8 /* Common.swift */; };
 		E5377BA62642686100F42DDD /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */; };
+		E5377BAB2642999700F42DDD /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */; };
+		E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */; };
+		E5377BB52642BC2D00F42DDD /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -123,6 +126,9 @@
 		E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalizeHandWrite.swift; sourceTree = "<group>"; };
 		E52F6641260A0A4900D83DC8 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
+		E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresentationController.swift; sourceTree = "<group>"; };
+		E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
+		E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -328,8 +334,11 @@
 				E5B3C9112552B27400509757 /* GuestsPageViewController.swift */,
 				E57444DB25694D2E001D4774 /* GuestListViewController.swift */,
 				E577B759256BECA4007E6BFC /* LogInViewController.swift */,
+				E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */,
 				E577604825737D0600DD2F81 /* SettingViewController.swift */,
+				E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */,
 				E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */,
+				E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -744,6 +753,7 @@
 				E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */,
 				E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */,
 				E5A6733D263FCE6200F81300 /* SideMenuViewController.swift in Sources */,
+				E5377BB52642BC2D00F42DDD /* TermsOfUseViewController.swift in Sources */,
 				E5A660562619A549000C43C7 /* GuestDetailTableView.swift in Sources */,
 				E52B1E4126020AEB0016E985 /* GuestsDetailPageViewController.swift in Sources */,
 				E5B3C9122552B27400509757 /* GuestsPageViewController.swift in Sources */,
@@ -768,6 +778,7 @@
 				E51FC58525C8081E002F965E /* GuestListTableView.swift in Sources */,
 				E57444E125694EAE001D4774 /* GuestCell.swift in Sources */,
 				E5AE164425B2D3EF00DBAE33 /* DescriptionView.swift in Sources */,
+				E5377BAB2642999700F42DDD /* SideMenuPresentationController.swift in Sources */,
 				E53B69F725F4FEB40089102E /* Relation.swift in Sources */,
 				E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */,
 				E57384D525A74E9100AFA4B5 /* CompanyNameView.swift in Sources */,
@@ -777,6 +788,7 @@
 				E540761126075162007A9F28 /* HeadlineAndTextFieldView.swift in Sources */,
 				E586221125C17DA100291182 /* Constants.swift in Sources */,
 				E57078C025D68FB800EE5CFE /* Keys.swift in Sources */,
+				E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */,
 				E524B66325C6E3CE00497CD4 /* GuestControllAreaView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,

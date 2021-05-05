@@ -20,7 +20,7 @@ class EventListViewController: UIViewController {
     fileprivate let defaultRelations   = DefaultParam.relations
     fileprivate let defaultGroups      = DefaultParam.groups
     fileprivate var number: Int        = 0
-    fileprivate let menuVC = SideMenuViewController()
+    fileprivate let sideMenuVC = SideMenuViewController()
     fileprivate var sideMenuAppearance = false
     
     // MARK: -
@@ -150,16 +150,16 @@ class EventListViewController: UIViewController {
     
     @objc fileprivate func sideMenuToggle() {
         if sideMenuAppearance == false {
-            view.addSubview(menuVC.view)
-            menuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
-            menuVC.sendMenuBackgroundDidTapDelegate = self
+            view.addSubview(sideMenuVC.view)
+            sideMenuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
+            sideMenuVC.sendMenuBackgroundDidTapDelegate = self
             sideMenuAppearance = true
         } else {
             UIView.animate(withDuration: 0.3) {
-                self.menuVC.menuListView.center.x -= screenSize.width / 4
-                self.menuVC.backgroundView.alpha = 0
+                self.sideMenuVC.sideMenuView.center.x -= screenSize.width / 4
+                self.sideMenuVC.backgroundView.alpha = 0
             } completion: { (Bool) in
-                self.menuVC.view.removeFromSuperview()
+                self.sideMenuVC.view.removeFromSuperview()
                 self.sideMenuAppearance = false
             }
         }
@@ -198,8 +198,8 @@ extension EventListViewController: UITableViewDataSource {
 
 extension EventListViewController: SendMenuBackgroundDidTapDelegate {
     // サイドメニューが表示されているときに背景をタップすると本の表示に戻る
-    func backGroundDidTap() {
-        menuVC.view.removeFromSuperview()
+    func hideSideMenuView() {
+        sideMenuVC.view.removeFromSuperview()
         sideMenuAppearance = false
     }
 }
