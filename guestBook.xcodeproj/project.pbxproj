@@ -30,6 +30,7 @@
 		E5377BAB2642999700F42DDD /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */; };
 		E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */; };
 		E5377BB52642BC2D00F42DDD /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */; };
+		E5377BC82644371800F42DDD /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E5377BC72644371800F42DDD /* closeButton.png */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -129,6 +130,7 @@
 		E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresentationController.swift; sourceTree = "<group>"; };
 		E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
+		E5377BC72644371800F42DDD /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -453,8 +455,9 @@
 		E5A672D8263AF18500F81300 /* Images */ = {
 			isa = PBXGroup;
 			children = (
-				E5A672D9263AF1A300F81300 /* setting.png */,
+				E5377BC72644371800F42DDD /* closeButton.png */,
 				E5A67314263FC87300F81300 /* menu.png */,
+				E5A672D9263AF1A300F81300 /* setting.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -578,6 +581,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E5377BC82644371800F42DDD /* closeButton.png in Resources */,
 				E5A672DA263AF1A300F81300 /* setting.png in Resources */,
 				E5A67315263FC87300F81300 /* menu.png in Resources */,
 				E59D9EFA254848F3000F7C45 /* LaunchScreen.storyboard in Resources */,
