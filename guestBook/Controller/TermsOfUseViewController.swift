@@ -9,21 +9,22 @@ import UIKit
 
 class TermsOfUseViewController: UIViewController {
 
-    fileprivate let statusBar = UIView()
+    fileprivate let statusBar              = UIView()
     fileprivate let statusBarHeadlineLabel = UILabel()
-    fileprivate let closeButton = UIButton()
-    fileprivate var textView = UITextView()
-    
-    fileprivate var termsOfUseHeadline: String = ""
-    fileprivate var termsOfUseText = ""
+    fileprivate let closeButton            = UIButton()
+    fileprivate var textView               = UITextView()
+    fileprivate var termsOfUseHeadline     = ""
+    fileprivate var termsOfUseText         = ""
     lazy var termsOfUsePopupView = PopupTextView(headline: termsOfUseHeadline, text: termsOfUseText, frame: .zero)
-    
+    weak var sideMenuDelegate: SideMenuDelegate?
+
     override func viewDidLoad() {
         super.viewDidLoad()
         termsOfUseHeadline = "利用規約"
         setupText()
         self.view.addSubview(termsOfUsePopupView)
         termsOfUsePopupView.fillSuperview()
+        termsOfUsePopupView.sideMenuDelegate = self
     }
         
     func setupText() {
@@ -142,5 +143,12 @@ class TermsOfUseViewController: UIViewController {
 
         以上
         """
+    }
+}
+
+// MARK:- Extensions
+extension TermsOfUseViewController: SideMenuDelegate {
+    func hidePopup() {
+        sideMenuDelegate?.hidePopup()
     }
 }

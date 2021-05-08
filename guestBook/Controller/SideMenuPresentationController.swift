@@ -7,12 +7,8 @@
 
 import UIKit
 
-protocol SideMenuPresentationDelegate: AnyObject {
-    func hideModal()
-}
-
 class SideMenuPresentationController: UIPresentationController {
-    weak var sideMenuPresentationDelegate: SideMenuPresentationDelegate?
+    weak var sideMenuDelegate: SideMenuDelegate?
     // 呼び出し元のView Controller の上に重ねるオーバレイView
     var overlayView = UIView()
     
@@ -26,18 +22,18 @@ class SideMenuPresentationController: UIPresentationController {
         overlayView.backgroundColor = .black
         overlayView.alpha = 0.0
         containerView.insertSubview(overlayView, at: 0)
-        
-        // トランジションを実行
+        // バツボタンタップ検知のデリゲートをセット
         switch presentedViewController {
         case is PrivacyPolicyViewController:
             (presentedViewController as! PrivacyPolicyViewController).sideMenuDelegate = self
             break
+        case is TermsOfUseViewController:
+            (presentedViewController as! TermsOfUseViewController).sideMenuDelegate = self
+            break
         default:
             break
         }
-        if presentedViewController is PrivacyPolicyViewController {
-            
-        }
+        // トランジションを実行
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: {[weak self] context in
             self?.overlayView.alpha = 0.7
         }, completion:nil)
@@ -90,19 +86,14 @@ class SideMenuPresentationController: UIPresentationController {
     // overlayViewをタップした時に呼ばれる
     @objc func overlayViewDidTouch(_ sender: UITapGestureRecognizer) {
         presentedViewController.dismiss(animated: true, completion: nil)
-        sideMenuPresentationDelegate?.hideModal()
+        sideMenuDelegate?.hidePopup()
     }
 }
 
-// MARK:- Extentions
+// MARK:- Extensions
 extension SideMenuPresentationController: SideMenuDelegate {
-    func hideSideMenuView() {
-    }
-    
     func hidePopup() {
         presentedViewController.dismiss(animated: true, completion: nil)
-        sideMenuPresentationDelegate?.hideModal()
+        sideMenuDelegate?.hidePopup()
     }
-    
-    
 }

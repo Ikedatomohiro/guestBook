@@ -7,10 +7,6 @@
 
 import UIKit
 
-protocol SideMenuItemDidTapDelegate: AnyObject {
-    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem)
-}
-
 class SideMenuListView: UIView {
     
     enum SideMenuItem: String {
@@ -32,7 +28,7 @@ class SideMenuListView: UIView {
     }
     
     let sideMenuTable = UITableView()
-    weak var sideMenuItemDidTapDelegate: SideMenuItemDidTapDelegate?
+    weak var sideMenuDelegate: SideMenuDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -69,12 +65,11 @@ extension SideMenuListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return screenSize.height / 15
     }
-    
 }
 
 extension SideMenuListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        sideMenuItemDidTapDelegate?.sideMenuItemDidTap(sideMenuItem: SideMenuItem.items[indexPath.row])
+        sideMenuDelegate?.sideMenuItemDidTap(sideMenuItem: SideMenuItem.items[indexPath.row])
     }
 }

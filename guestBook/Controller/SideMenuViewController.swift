@@ -10,6 +10,14 @@ import UIKit
 protocol SideMenuDelegate: AnyObject {
     func hideSideMenuView()
     func hidePopup()
+    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem)
+}
+// functionのデフォルト動作を設定。今回は何もしない状態を設定。
+extension SideMenuDelegate {
+    func hideSideMenuView() {
+    }
+    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {
+    }
 }
 
 class SideMenuViewController: UIViewController {
@@ -37,10 +45,12 @@ class SideMenuViewController: UIViewController {
     }
     
     @objc func menuBackgroundDidTap(_ sender: UIGestureRecognizer) {
+        // サイドメニューを表示した状態で、サイドメニュー以外のエリアをタップしたときにサイドメニューをスライドアウトさせる
         UIView.animate(withDuration: 0.3) {
             self.sideMenuView.center.x -= screenSize.width / 4
             self.backgroundView.alpha = 0
         } completion: { (Bool) in
+            // サイドメニューを表示しているviewを削除
             self.sideMenuDelegate?.hideSideMenuView()
         }
     }
@@ -53,11 +63,7 @@ class SideMenuViewController: UIViewController {
             self.sideMenuView.center.x += screenSize.width / 4
             self.backgroundView.alpha = 0.1
         }, completion: nil)
-        sideMenuView.sideMenuItemDidTapDelegate = self
-    }
-    
-    fileprivate func hideModalView() {
-        sideMenuDelegate?.hideSideMenuView()
+        sideMenuView.sideMenuDelegate = self
     }
 }
 
@@ -65,12 +71,16 @@ class SideMenuViewController: UIViewController {
 extension SideMenuViewController: UIViewControllerTransitioningDelegate {
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         let sideMenuPC = SideMenuPresentationController(presentedViewController: presented, presenting: presenting)
-        sideMenuPC.modalBackGroundDidTapDelegate = self
+        sideMenuPC.sideMenuDelegate = self
         return sideMenuPC
     }
 }
 
-extension SideMenuViewController: SideMenuItemDidTapDelegate {
+extension SideMenuViewController: SideMenuDelegate {
+    func hidePopup() {
+        sideMenuDelegate?.hideSideMenuView()
+    }
+    
     func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {
         // サイドメニューを非表示にする
         UIView.animate(withDuration: 0.3) {
@@ -87,22 +97,4 @@ extension SideMenuViewController: SideMenuItemDidTapDelegate {
         VC.transitioningDelegate = self
         present(VC, animated: true)
     }
-}
-
-extension SideMenuViewController: SideMenuPresentationDelegate {
-    func hideModal() {
-        hideModalView()
-        //        sideMenuDelegate?.hideSideMenuView()
-    }
-}
-
-extension SideMenuViewController: SideMenuDelegate {
-    func hideSideMenuView() {
-    }
-    
-    func hidePopup() {
-        hideModalView()
-    }
-    
-    
 }

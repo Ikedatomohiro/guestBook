@@ -18,8 +18,8 @@ class EventMenuViewController: UIViewController {
     fileprivate var retuals: [Retual]     = []
     fileprivate var relations: [Relation] = []
     fileprivate var groups: [Group]       = []
-    let selectGuests = SelectGuests()
-    lazy var eventInfoAreaView     = EventInfoAreaView(event: event, guests: guests, frame: .zero)
+    let selectGuests                      = SelectGuests()
+    lazy var eventInfoAreaView            = EventInfoAreaView(event: event, guests: guests, frame: .zero)
     
     init(event: Event) {
         self.event = event
@@ -89,7 +89,6 @@ class EventMenuViewController: UIViewController {
         button.setTitle(text, for: .normal)
         button.backgroundColor = green
         button.titleLabel?.font = .systemFont(ofSize: 24)
-//        button.titleLabel?.adjustsFontSizeToFitWidth = true
         button.layer.cornerRadius = 5
     }
     

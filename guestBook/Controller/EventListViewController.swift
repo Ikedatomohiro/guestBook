@@ -14,13 +14,13 @@ class EventListViewController: UIViewController {
     fileprivate let createEventButton  = UIButton()
     fileprivate let db                 = Firestore.firestore()
     fileprivate let eventNameTextField = UITextField()
-    let eventNameTableView = UITableView()
+    let eventNameTableView             = UITableView()
     fileprivate var events             = [Event]()
     fileprivate let defaultRetuals     = DefaultParam.retuals
     fileprivate let defaultRelations   = DefaultParam.relations
     fileprivate let defaultGroups      = DefaultParam.groups
     fileprivate var number: Int        = 0
-    fileprivate let sideMenuVC = SideMenuViewController()
+    fileprivate let sideMenuVC         = SideMenuViewController()
     fileprivate var sideMenuAppearance = false
     
     // MARK: -
@@ -202,7 +202,7 @@ extension EventListViewController: SideMenuDelegate {
         sideMenuAppearance = false
     }
     
-    // サイドメニューが表示されているときに背景をタップすると本の表示に戻る
+    // サイドメニューが表示されているときに背景をタップすると元の表示に戻る
     func hideSideMenuView() {
         sideMenuVC.view.removeFromSuperview()
         sideMenuAppearance = false

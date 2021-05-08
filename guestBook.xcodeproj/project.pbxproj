@@ -364,13 +364,13 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E5A67341263FD86F00F81300 /* SideMenu */,
 				E5A672D8263AF18500F81300 /* Images */,
+				E52A061E25CAEA69007669CB /* EventList */,
 				E52AE902263508200001F372 /* EventMenu */,
+				E52A061F25CAEA74007669CB /* GuestCard */,
 				E528D38325FF76B800736117 /* GuestDetail */,
 				E52A062025CAEA87007669CB /* GuestList */,
-				E52A061F25CAEA74007669CB /* GuestCard */,
-				E52A061E25CAEA69007669CB /* EventList */,
+				E5A67341263FD86F00F81300 /* SideMenu */,
 			);
 			path = View;
 			sourceTree = "<group>";
