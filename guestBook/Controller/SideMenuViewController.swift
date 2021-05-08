@@ -7,15 +7,16 @@
 
 import UIKit
 
-protocol SendMenuBackgroundDidTapDelegate: AnyObject {
+protocol SideMenuDelegate: AnyObject {
     func hideSideMenuView()
+    func hidePopup()
 }
 
 class SideMenuViewController: UIViewController {
     
     var backgroundView = UIView()
-    lazy var sideMenuView = SideMenuView()
-    weak var sendMenuBackgroundDidTapDelegate: SendMenuBackgroundDidTapDelegate?
+    lazy var sideMenuView = SideMenuListView()
+    weak var sideMenuDelegate: SideMenuDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,7 +41,7 @@ class SideMenuViewController: UIViewController {
             self.sideMenuView.center.x -= screenSize.width / 4
             self.backgroundView.alpha = 0
         } completion: { (Bool) in
-            self.sendMenuBackgroundDidTapDelegate?.hideSideMenuView()
+            self.sideMenuDelegate?.hideSideMenuView()
         }
     }
     
@@ -54,6 +55,10 @@ class SideMenuViewController: UIViewController {
         }, completion: nil)
         sideMenuView.sideMenuItemDidTapDelegate = self
     }
+    
+    fileprivate func hideModalView() {
+        sideMenuDelegate?.hideSideMenuView()
+    }
 }
 
 // MARK:- Extensions
@@ -66,7 +71,7 @@ extension SideMenuViewController: UIViewControllerTransitioningDelegate {
 }
 
 extension SideMenuViewController: SideMenuItemDidTapDelegate {
-    func sideMenuItemDidTap(sideMenuItem: SideMenuView.SideMenuItem) {
+    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {
         // サイドメニューを非表示にする
         UIView.animate(withDuration: 0.3) {
             self.sideMenuView.center.x -= screenSize.width / 4
@@ -74,7 +79,7 @@ extension SideMenuViewController: SideMenuItemDidTapDelegate {
         }
         // モーダルのViewControllerを表示
         guard let VC = sideMenuItem.viewController else {
-            sendMenuBackgroundDidTapDelegate?.hideSideMenuView()
+            sideMenuDelegate?.hideSideMenuView()
             print("サインアウト")
             return
         }
@@ -84,8 +89,20 @@ extension SideMenuViewController: SideMenuItemDidTapDelegate {
     }
 }
 
-extension SideMenuViewController: ModalBackGroundDidTapDelegate {
+extension SideMenuViewController: SideMenuPresentationDelegate {
     func hideModal() {
-        sendMenuBackgroundDidTapDelegate?.hideSideMenuView()
+        hideModalView()
+        //        sideMenuDelegate?.hideSideMenuView()
     }
+}
+
+extension SideMenuViewController: SideMenuDelegate {
+    func hideSideMenuView() {
+    }
+    
+    func hidePopup() {
+        hideModalView()
+    }
+    
+    
 }

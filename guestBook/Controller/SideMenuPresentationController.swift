@@ -7,12 +7,12 @@
 
 import UIKit
 
-protocol ModalBackGroundDidTapDelegate: AnyObject {
+protocol SideMenuPresentationDelegate: AnyObject {
     func hideModal()
 }
 
 class SideMenuPresentationController: UIPresentationController {
-    weak var modalBackGroundDidTapDelegate: ModalBackGroundDidTapDelegate?
+    weak var sideMenuPresentationDelegate: SideMenuPresentationDelegate?
     // 呼び出し元のView Controller の上に重ねるオーバレイView
     var overlayView = UIView()
     
@@ -28,6 +28,16 @@ class SideMenuPresentationController: UIPresentationController {
         containerView.insertSubview(overlayView, at: 0)
         
         // トランジションを実行
+        switch presentedViewController {
+        case is PrivacyPolicyViewController:
+            (presentedViewController as! PrivacyPolicyViewController).sideMenuDelegate = self
+            break
+        default:
+            break
+        }
+        if presentedViewController is PrivacyPolicyViewController {
+            
+        }
         presentedViewController.transitionCoordinator?.animate(alongsideTransition: {[weak self] context in
             self?.overlayView.alpha = 0.7
         }, completion:nil)
@@ -80,6 +90,19 @@ class SideMenuPresentationController: UIPresentationController {
     // overlayViewをタップした時に呼ばれる
     @objc func overlayViewDidTouch(_ sender: UITapGestureRecognizer) {
         presentedViewController.dismiss(animated: true, completion: nil)
-        modalBackGroundDidTapDelegate?.hideModal()
+        sideMenuPresentationDelegate?.hideModal()
     }
+}
+
+// MARK:- Extentions
+extension SideMenuPresentationController: SideMenuDelegate {
+    func hideSideMenuView() {
+    }
+    
+    func hidePopup() {
+        presentedViewController.dismiss(animated: true, completion: nil)
+        sideMenuPresentationDelegate?.hideModal()
+    }
+    
+    
 }

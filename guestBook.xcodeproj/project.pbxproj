@@ -31,6 +31,7 @@
 		E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */; };
 		E5377BB52642BC2D00F42DDD /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */; };
 		E5377BC82644371800F42DDD /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E5377BC72644371800F42DDD /* closeButton.png */; };
+		E5377BD5264626CC00F42DDD /* PopupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BD4264626CC00F42DDD /* PopupTextView.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -68,7 +69,7 @@
 		E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A672DE263AF74D00F81300 /* UIImage.swift */; };
 		E5A67315263FC87300F81300 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A67314263FC87300F81300 /* menu.png */; };
 		E5A6733D263FCE6200F81300 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */; };
-		E5A6734926402B0C00F81300 /* SideMenuView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6734826402B0C00F81300 /* SideMenuView.swift */; };
+		E5A6734926402B0C00F81300 /* SideMenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6734826402B0C00F81300 /* SideMenuListView.swift */; };
 		E5AE163F25B2CC7F00DBAE33 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */; };
 		E5AE164425B2D3EF00DBAE33 /* DescriptionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */; };
 		E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AFCC8925AF04AF00E5274A /* AddressView.swift */; };
@@ -131,6 +132,7 @@
 		E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
 		E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		E5377BC72644371800F42DDD /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
+		E5377BD4264626CC00F42DDD /* PopupTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextView.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -175,7 +177,7 @@
 		E5A672DE263AF74D00F81300 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		E5A67314263FC87300F81300 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
 		E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
-		E5A6734826402B0C00F81300 /* SideMenuView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuView.swift; sourceTree = "<group>"; };
+		E5A6734826402B0C00F81300 /* SideMenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListView.swift; sourceTree = "<group>"; };
 		E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
 		E5AE164325B2D3EF00DBAE33 /* DescriptionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DescriptionView.swift; sourceTree = "<group>"; };
 		E5AFCC8925AF04AF00E5274A /* AddressView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressView.swift; sourceTree = "<group>"; };
@@ -465,8 +467,9 @@
 		E5A67341263FD86F00F81300 /* SideMenu */ = {
 			isa = PBXGroup;
 			children = (
-				E5A6734826402B0C00F81300 /* SideMenuView.swift */,
+				E5A6734826402B0C00F81300 /* SideMenuListView.swift */,
 				E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */,
+				E5377BD4264626CC00F42DDD /* PopupTextView.swift */,
 			);
 			path = SideMenu;
 			sourceTree = "<group>";
@@ -751,8 +754,9 @@
 				E59D9EF2254848F1000F7C45 /* EventListViewController.swift in Sources */,
 				E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */,
 				C52C25F1255B7DCA0037825B /* Guest.swift in Sources */,
+				E5377BD5264626CC00F42DDD /* PopupTextView.swift in Sources */,
 				E5296E8F26330DB90038646A /* UIView.swift in Sources */,
-				E5A6734926402B0C00F81300 /* SideMenuView.swift in Sources */,
+				E5A6734926402B0C00F81300 /* SideMenuListView.swift in Sources */,
 				E53B69FC25F504B90089102E /* Group.swift in Sources */,
 				E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */,
 				E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */,
