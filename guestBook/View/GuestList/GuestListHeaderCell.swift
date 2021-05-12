@@ -11,7 +11,7 @@ protocol SentGuestsRankDelegate: AnyObject {
     func sendGuestRank(selectRank: Dictionary<String, Bool?>)
 }
 
-class GuestListHeaderCell: UITableViewCell {
+class GuestListHeaderCell: UITableViewHeaderFooterView {
     
     fileprivate let numberLabel      = UILabel()
     let guestNameView                = UIView()
@@ -30,7 +30,7 @@ class GuestListHeaderCell: UITableViewCell {
     weak var sendGuestRank: SentGuestsRankDelegate?
     init(selectRank: Dictionary<String, Bool?>, style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.selectRank = selectRank
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        super.init(reuseIdentifier: reuseIdentifier)
         setup()
     }
     
@@ -48,7 +48,7 @@ class GuestListHeaderCell: UITableViewCell {
     }
     
     func setupBase() {
-        self.backgroundColor = .rgb(red: 150, green: 200, blue: 20)
+        self.contentView.backgroundColor = green
     }
     
     func setupNumberLabel() {
