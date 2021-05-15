@@ -32,6 +32,8 @@
 		E5377BB52642BC2D00F42DDD /* TermsOfUseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */; };
 		E5377BC82644371800F42DDD /* closeButton.png in Resources */ = {isa = PBXBuildFile; fileRef = E5377BC72644371800F42DDD /* closeButton.png */; };
 		E5377BD5264626CC00F42DDD /* PopupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BD4264626CC00F42DDD /* PopupTextView.swift */; };
+		E5377BE3264C238A00F42DDD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE2264C238A00F42DDD /* UIColor.swift */; };
+		E5377BE8264C262500F42DDD /* UITraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE7264C262500F42DDD /* UITraitCollection.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -133,6 +135,8 @@
 		E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsOfUseViewController.swift; sourceTree = "<group>"; };
 		E5377BC72644371800F42DDD /* closeButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = closeButton.png; sourceTree = "<group>"; };
 		E5377BD4264626CC00F42DDD /* PopupTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextView.swift; sourceTree = "<group>"; };
+		E5377BE2264C238A00F42DDD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E5377BE7264C262500F42DDD /* UITraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollection.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -450,6 +454,8 @@
 				E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */,
 				E5296E8E26330DB90038646A /* UIView.swift */,
 				E5A672DE263AF74D00F81300 /* UIImage.swift */,
+				E5377BE2264C238A00F42DDD /* UIColor.swift */,
+				E5377BE7264C262500F42DDD /* UITraitCollection.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -794,6 +800,7 @@
 				E5B5ADB825B3C8B0002E9384 /* RelationCollectionView.swift in Sources */,
 				E546E2CC262C1CA70088157D /* CsvList.swift in Sources */,
 				E540761126075162007A9F28 /* HeadlineAndTextFieldView.swift in Sources */,
+				E5377BE3264C238A00F42DDD /* UIColor.swift in Sources */,
 				E586221125C17DA100291182 /* Constants.swift in Sources */,
 				E57078C025D68FB800EE5CFE /* Keys.swift in Sources */,
 				E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */,
@@ -802,6 +809,7 @@
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
 				E52F6642260A0A4900D83DC8 /* Common.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
+				E5377BE8264C262500F42DDD /* UITraitCollection.swift in Sources */,
 				E5CB0E7225721A3E0087193F /* CheckBoxCell.swift in Sources */,
 				E5B5ADB325B3C885002E9384 /* GroupCollectionView.swift in Sources */,
 				E57384C525A7173F00AFA4B5 /* CardHeaderView.swift in Sources */,
