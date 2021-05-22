@@ -34,6 +34,7 @@
 		E5377BD5264626CC00F42DDD /* PopupTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BD4264626CC00F42DDD /* PopupTextView.swift */; };
 		E5377BE3264C238A00F42DDD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE2264C238A00F42DDD /* UIColor.swift */; };
 		E5377BE8264C262500F42DDD /* UITraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE7264C262500F42DDD /* UITraitCollection.swift */; };
+		E5377BF52659435800F42DDD /* menu_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5377BF42659435800F42DDD /* menu_dark.png */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -67,9 +68,9 @@
 		E59D9F10254848F4000F7C45 /* guestBookUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F0F254848F4000F7C45 /* guestBookUITests.swift */; };
 		E59D9F3125484DE4000F7C45 /* Anchor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E59D9F3025484DE4000F7C45 /* Anchor.swift */; };
 		E5A660562619A549000C43C7 /* GuestDetailTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A660552619A549000C43C7 /* GuestDetailTableView.swift */; };
-		E5A672DA263AF1A300F81300 /* setting.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A672D9263AF1A300F81300 /* setting.png */; };
+		E5A672DA263AF1A300F81300 /* setting_light.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A672D9263AF1A300F81300 /* setting_light.png */; };
 		E5A672DF263AF74D00F81300 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A672DE263AF74D00F81300 /* UIImage.swift */; };
-		E5A67315263FC87300F81300 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A67314263FC87300F81300 /* menu.png */; };
+		E5A67315263FC87300F81300 /* menu_light.png in Resources */ = {isa = PBXBuildFile; fileRef = E5A67314263FC87300F81300 /* menu_light.png */; };
 		E5A6733D263FCE6200F81300 /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */; };
 		E5A6734926402B0C00F81300 /* SideMenuListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5A6734826402B0C00F81300 /* SideMenuListView.swift */; };
 		E5AE163F25B2CC7F00DBAE33 /* Canvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */; };
@@ -137,6 +138,7 @@
 		E5377BD4264626CC00F42DDD /* PopupTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PopupTextView.swift; sourceTree = "<group>"; };
 		E5377BE2264C238A00F42DDD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E5377BE7264C262500F42DDD /* UITraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollection.swift; sourceTree = "<group>"; };
+		E5377BF42659435800F42DDD /* menu_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_dark.png; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -177,9 +179,9 @@
 		E59D9F11254848F4000F7C45 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E59D9F3025484DE4000F7C45 /* Anchor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Anchor.swift; sourceTree = "<group>"; };
 		E5A660552619A549000C43C7 /* GuestDetailTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailTableView.swift; sourceTree = "<group>"; };
-		E5A672D9263AF1A300F81300 /* setting.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting.png; sourceTree = "<group>"; };
+		E5A672D9263AF1A300F81300 /* setting_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = setting_light.png; sourceTree = "<group>"; };
 		E5A672DE263AF74D00F81300 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
-		E5A67314263FC87300F81300 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		E5A67314263FC87300F81300 /* menu_light.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_light.png; sourceTree = "<group>"; };
 		E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
 		E5A6734826402B0C00F81300 /* SideMenuListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuListView.swift; sourceTree = "<group>"; };
 		E5AE163E25B2CC7F00DBAE33 /* Canvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Canvas.swift; sourceTree = "<group>"; };
@@ -464,8 +466,9 @@
 			isa = PBXGroup;
 			children = (
 				E5377BC72644371800F42DDD /* closeButton.png */,
-				E5A67314263FC87300F81300 /* menu.png */,
-				E5A672D9263AF1A300F81300 /* setting.png */,
+				E5377BF42659435800F42DDD /* menu_dark.png */,
+				E5A67314263FC87300F81300 /* menu_light.png */,
+				E5A672D9263AF1A300F81300 /* setting_light.png */,
 			);
 			path = Images;
 			sourceTree = "<group>";
@@ -591,10 +594,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E5377BC82644371800F42DDD /* closeButton.png in Resources */,
-				E5A672DA263AF1A300F81300 /* setting.png in Resources */,
-				E5A67315263FC87300F81300 /* menu.png in Resources */,
+				E5A672DA263AF1A300F81300 /* setting_light.png in Resources */,
+				E5A67315263FC87300F81300 /* menu_light.png in Resources */,
 				E59D9EFA254848F3000F7C45 /* LaunchScreen.storyboard in Resources */,
 				E59D9EF7254848F3000F7C45 /* Assets.xcassets in Resources */,
+				E5377BF52659435800F42DDD /* menu_dark.png in Resources */,
 				E51FC57125C80169002F965E /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

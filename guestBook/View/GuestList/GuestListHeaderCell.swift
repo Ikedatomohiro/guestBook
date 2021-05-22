@@ -48,7 +48,7 @@ class GuestListHeaderCell: UITableViewHeaderFooterView {
     }
     
     func setupBase() {
-        self.contentView.backgroundColor = .dynamicColor(light: lightGreent, dark: .white)
+        self.contentView.backgroundColor = .dynamicColor(light: green, dark: .white)
     }
     
     func setupNumberLabel() {

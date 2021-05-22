@@ -23,4 +23,13 @@ extension UIImage {
         let reSize = CGSize(width: self.size.width * scaleSize, height: self.size.height * scaleSize)
         return reSizeImage(reSize: reSize)
     }
+    
+    public class func dynamicImage(light: UIImage, dark: UIImage) -> UIImage {
+        if UITraitCollection.isDarkMode {
+            return dark
+        }
+        return light
+    }
 }
+
+let settingImageIcon = UIImage.dynamicImage(light: #imageLiteral(resourceName: "menu_light.png"), dark: UIImage(named: "menu_dark")!)

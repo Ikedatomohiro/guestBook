@@ -26,7 +26,7 @@ class EventListViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        setupBase()
         setupTitleLabel()
         setLogInButton()
         setupCreateEventButton()
@@ -37,7 +37,10 @@ class EventListViewController: UIViewController {
         setupSettingImage()
     }
     
-    //MARK:- Function
+    fileprivate func setupBase() {
+        view.backgroundColor = dynamicColor
+    }
+    
     func setupTitleLabel() {
         view.addSubview(titleLabel)
         titleLabel.backgroundColor = .systemYellow
@@ -140,12 +143,14 @@ class EventListViewController: UIViewController {
         }
     }
     
+    // NavigationBarのアイコンセット
     fileprivate func setupSettingImage() {
         let imageSize = CGSize(width: 30, height: 30)
-        let settingImage = #imageLiteral(resourceName: "menu.png").withRenderingMode(.automatic).reSizeImage(reSize: imageSize)
+        let settingIcon = settingImageIcon
+        let settingImage = settingIcon.withRenderingMode(.automatic).reSizeImage(reSize: imageSize)
         let menu = UIBarButtonItem(image: settingImage, style: .done, target: self, action: #selector(sideMenuToggle))
         self.navigationItem.leftBarButtonItem = menu
-        self.navigationController?.navigationBar.tintColor = UIColor.rgb(red: 48, green: 48, blue: 48)
+        self.navigationController?.navigationBar.tintColor = UIColor.dynamicColor(light: .gray, dark: .white)
     }
     
     @objc fileprivate func sideMenuToggle() {
