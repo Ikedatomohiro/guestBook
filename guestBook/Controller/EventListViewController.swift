@@ -14,7 +14,7 @@ class EventListViewController: UIViewController {
     fileprivate let createEventButton  = UIButton()
     fileprivate let db                 = Firestore.firestore()
     fileprivate let eventNameTextField = UITextField()
-    let eventNameTableView             = UITableView()
+    lazy var eventListTableView        = EventListTableView(events: events, frame: .zero, style: .plain)
     fileprivate var events             = [Event]()
     fileprivate let defaultRetuals     = DefaultParam.retuals
     fileprivate let defaultRelations   = DefaultParam.relations
@@ -27,12 +27,12 @@ class EventListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupBase()
+        fetchEventList()
         setupTitleLabel()
         setLogInButton()
         setupCreateEventButton()
         setupEventNameTextFeild()
-        setupEventNameTableView()
-        fetchEventNameList()
+        setupEventListTableView()
         setBackButtonTitle()
         setupSettingImage()
     }
@@ -68,7 +68,7 @@ class EventListViewController: UIViewController {
             eventNameTextField.text = ""
         }
         // テーブル再読み込み
-        fetchEventNameList()
+        fetchEventList()
     }
     
     fileprivate func setupEventNameTextFeild() {
@@ -77,22 +77,21 @@ class EventListViewController: UIViewController {
         eventNameTextField.borderStyle = .bezel
     }
     
-    fileprivate func setupEventNameTableView() {
-        view.addSubview(eventNameTableView)
-        eventNameTableView.anchor(top: eventNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
-        eventNameTableView.delegate = self
-        eventNameTableView.dataSource = self
-        eventNameTableView.register(EventNameCell.self, forCellReuseIdentifier: EventNameCell.className)
+    fileprivate func setupEventListTableView() {
+        view.addSubview(eventListTableView)
+        eventListTableView.anchor(top: eventNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        eventListTableView.eventListTableViewDelegate = self
+        eventListTableView.register(EventListCell.self, forCellReuseIdentifier: EventListCell.className)
     }
     
     // Firestoreからイベント名リストを取得
-    fileprivate func fetchEventNameList() {
+    fileprivate func fetchEventList() {
         db.collection("events").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.events = documents.map{ (document) -> Event in
                 return Event(document: document)
             }
-            self.eventNameTableView.reloadData()
+            self.eventListTableView.reloadEventListData(events: self.events)
             if let error = error {
                 print(error)
                 return
@@ -169,35 +168,18 @@ class EventListViewController: UIViewController {
             }
         }
     }
-}
-
-// MARK:- Extension
-extension EventListViewController: UITableViewDelegate {
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let eventMenuVC = EventMenuViewController(event: events[indexPath.row])
+    
+    fileprivate func moveToEventMenu(event: Event) {
+        let eventMenuVC = EventMenuViewController(event: event)
         eventMenuVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(eventMenuVC, animated: true)
     }
 }
 
-extension EventListViewController: UITableViewDataSource {
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return events.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: EventNameCell.className) as? EventNameCell else { fatalError("improper UITableViewCell")}
-        cell.setupEventName(event: events[indexPath.row])
-        cell.selectionStyle = .none
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 44
+// MARK:- Extension
+extension EventListViewController: EventListTableViewDelegate {
+    func didSelectEvent(event: Event) {
+        moveToEventMenu(event: event)
     }
 }
 

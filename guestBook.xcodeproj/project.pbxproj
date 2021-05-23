@@ -35,6 +35,8 @@
 		E5377BE3264C238A00F42DDD /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE2264C238A00F42DDD /* UIColor.swift */; };
 		E5377BE8264C262500F42DDD /* UITraitCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BE7264C262500F42DDD /* UITraitCollection.swift */; };
 		E5377BF52659435800F42DDD /* menu_dark.png in Resources */ = {isa = PBXBuildFile; fileRef = E5377BF42659435800F42DDD /* menu_dark.png */; };
+		E5377BFD265A2D3A00F42DDD /* EventListTableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BFC265A2D3A00F42DDD /* EventListTableView.swift */; };
+		E5377C02265A2D8B00F42DDD /* EventListHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377C01265A2D8B00F42DDD /* EventListHeaderFooterView.swift */; };
 		E538FCEA25CC006900FA6AF2 /* EventMenuTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */; };
 		E538FCEF25CC049300FA6AF2 /* TestKeys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCEE25CC049300FA6AF2 /* TestKeys.swift */; };
 		E538FCF425CC32AD00FA6AF2 /* GuestsPageViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */; };
@@ -50,7 +52,7 @@
 		E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */; };
 		E57384D525A74E9100AFA4B5 /* CompanyNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */; };
 		E573F420254FD5630000C955 /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F41F254FD5630000C955 /* Event.swift */; };
-		E573F425255047330000C955 /* EventNameCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventNameCell.swift */; };
+		E573F425255047330000C955 /* EventListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F424255047330000C955 /* EventListCell.swift */; };
 		E573F42A25504A2B0000C955 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F42925504A2B0000C955 /* NSObject.swift */; };
 		E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444DB25694D2E001D4774 /* GuestListViewController.swift */; };
 		E57444E125694EAE001D4774 /* GuestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444E025694EAE001D4774 /* GuestCell.swift */; };
@@ -139,6 +141,8 @@
 		E5377BE2264C238A00F42DDD /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E5377BE7264C262500F42DDD /* UITraitCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITraitCollection.swift; sourceTree = "<group>"; };
 		E5377BF42659435800F42DDD /* menu_dark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu_dark.png; sourceTree = "<group>"; };
+		E5377BFC265A2D3A00F42DDD /* EventListTableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListTableView.swift; sourceTree = "<group>"; };
+		E5377C01265A2D8B00F42DDD /* EventListHeaderFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListHeaderFooterView.swift; sourceTree = "<group>"; };
 		E538FCE925CC006900FA6AF2 /* EventMenuTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventMenuTests.swift; sourceTree = "<group>"; };
 		E538FCEE25CC049300FA6AF2 /* TestKeys.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestKeys.swift; sourceTree = "<group>"; };
 		E538FCF325CC32AD00FA6AF2 /* GuestsPageViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestsPageViewTests.swift; sourceTree = "<group>"; };
@@ -154,7 +158,7 @@
 		E57384CF25A74ADF00AFA4B5 /* CardTitleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardTitleView.swift; sourceTree = "<group>"; };
 		E57384D425A74E9100AFA4B5 /* CompanyNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyNameView.swift; sourceTree = "<group>"; };
 		E573F41F254FD5630000C955 /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
-		E573F424255047330000C955 /* EventNameCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventNameCell.swift; sourceTree = "<group>"; };
+		E573F424255047330000C955 /* EventListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventListCell.swift; sourceTree = "<group>"; };
 		E573F42925504A2B0000C955 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		E57444DB25694D2E001D4774 /* GuestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewController.swift; sourceTree = "<group>"; };
 		E57444E025694EAE001D4774 /* GuestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCell.swift; sourceTree = "<group>"; };
@@ -271,7 +275,9 @@
 		E52A061E25CAEA69007669CB /* EventList */ = {
 			isa = PBXGroup;
 			children = (
-				E573F424255047330000C955 /* EventNameCell.swift */,
+				E573F424255047330000C955 /* EventListCell.swift */,
+				E5377C01265A2D8B00F42DDD /* EventListHeaderFooterView.swift */,
+				E5377BFC265A2D3A00F42DDD /* EventListTableView.swift */,
 			);
 			path = EventList;
 			sourceTree = "<group>";
@@ -777,7 +783,7 @@
 				E5B3C9122552B27400509757 /* GuestsPageViewController.swift in Sources */,
 				E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */,
 				E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */,
-				E573F425255047330000C955 /* EventNameCell.swift in Sources */,
+				E573F425255047330000C955 /* EventListCell.swift in Sources */,
 				E5377BA62642686100F42DDD /* SideMenuTableViewCell.swift in Sources */,
 				E52B1E4D260215D60016E985 /* TextCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
@@ -820,7 +826,9 @@
 				E573F420254FD5630000C955 /* Event.swift in Sources */,
 				E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */,
 				E5767DAC26036A5F004F80B0 /* GuestDetailViewCell.swift in Sources */,
+				E5377BFD265A2D3A00F42DDD /* EventListTableView.swift in Sources */,
 				E5B5ADC225B47289002E9384 /* SelectGroupView.swift in Sources */,
+				E5377C02265A2D8B00F42DDD /* EventListHeaderFooterView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

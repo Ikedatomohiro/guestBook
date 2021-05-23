@@ -7,7 +7,7 @@
 
 import UIKit
 
-class EventNameCell: UITableViewCell {
+class EventListCell: UITableViewCell {
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
