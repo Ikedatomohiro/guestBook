@@ -10,7 +10,7 @@ import XCTest
 @testable import guestBook
 class GuestListViewTests: XCTestCase {
     var selectRank: Dictionary<String, Bool?> = ["guestName": nil, "companyName": nil]
-    lazy var guestListHeaderCell = GuestListHeaderCell(selectRank: selectRank, style: .default, reuseIdentifier: .none)
+    lazy var guestListHeaderCell = GuestListHeaderFooterView(selectRank: selectRank, style: .default, reuseIdentifier: .none)
     var testButton = UIButton()
     
     

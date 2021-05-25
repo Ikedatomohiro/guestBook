@@ -79,7 +79,7 @@ extension GuestListTableView: UITableViewDataSource {
     
     // ヘッダー
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
-        let guestListHeader = GuestListHeaderCell(selectRank: selectRank, style: .default, reuseIdentifier: .none)
+        let guestListHeader = GuestListHeaderFooterView(selectRank: selectRank, style: .default, reuseIdentifier: .none)
         guestListHeader.sendGuestRank = self
         return guestListHeader
     }

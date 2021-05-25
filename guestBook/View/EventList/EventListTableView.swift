@@ -50,4 +50,15 @@ extension EventListTableView: UITableViewDataSource {
         cell.selectionStyle = .none
         return cell
     }
+    
+    // ヘッダー
+    func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
+        let eventListHeader = EventListHeaderFooterView()
+        eventListHeader.setup()
+        return eventListHeader
+    }
+    // ヘッダー高さ
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return 50
+    }
 }
