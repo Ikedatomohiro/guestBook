@@ -13,7 +13,7 @@ protocol TransitionGuestDetailDelegate: AnyObject {
 }
 
 protocol ChangeGuestsRankDelegate: AnyObject {
-    func changeGuestsRank(guests: [Guest], selectRank: Dictionary<String, Bool?>)
+    func changeGuestsRank(guests: [Guest], selectRank: Dictionary<String, Bool?>, sortColumn: Int)
 }
 
 class GuestListTableView: UITableView {
@@ -21,7 +21,7 @@ class GuestListTableView: UITableView {
     fileprivate var guests: [Guest]
     let retuals: [Retual]
     var selectRank: Dictionary<String, Bool?> = [:]
-
+    
     weak var transitionDelegate: TransitionGuestDetailDelegate?
     weak var changeGuestsRankDelegate: ChangeGuestsRankDelegate?
     
@@ -60,7 +60,7 @@ extension GuestListTableView: UITableViewDataSource {
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return guests.count
     }
@@ -88,12 +88,12 @@ extension GuestListTableView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 50
     }
-
+    
 }
 
 extension GuestListTableView: SentGuestsRankDelegate {
-    func sendGuestRank(selectRank: Dictionary<String, Bool?>) {
+    func sendGuestRank(selectRank: Dictionary<String, Bool?>, sortColumn: Int) {
         self.selectRank = selectRank
-        changeGuestsRankDelegate?.changeGuestsRank(guests: guests, selectRank: self.selectRank)
+        changeGuestsRankDelegate?.changeGuestsRank(guests: guests, selectRank: self.selectRank, sortColumn: sortColumn)
     }
 }

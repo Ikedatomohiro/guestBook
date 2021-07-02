@@ -31,7 +31,10 @@ struct GuestListView {
     static let retualWidth: CGFloat = screenSize.width / 5
 }
 
-
+struct Constants {
+    static let RankGuestName   = 1
+    static let RankCompaneName = 2
+}
 
 // MARK:- 初期データ
 struct DefaultParam {

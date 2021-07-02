@@ -70,16 +70,32 @@ class SelectGuests {
         }
     }
     
-    func sortGuests(guests: inout [Guest], selectRank: Dictionary<String, Bool?>) -> [Guest] {
-        if let guestRank = selectRank["guestName"] {
-            if guestRank! {
-                guests.sort(by: {$0.guestName < $1.guestName})
-            } else if !guestRank! {
-                guests.sort(by: {$0.guestName > $1.guestName})
+    func sortGuests(guests: inout [Guest], selectRank: Dictionary<String, Bool?>, sortColumn: Int) -> [Guest] {
+        var tempGuest = guests
+        if sortColumn == Constants.RankGuestName {
+            if let guestRank = selectRank["guestName"] {
+                if guestRank! {
+                    tempGuest.sort(by: {$0.guestName < $1.guestName})
+                } else if !guestRank! {
+                    tempGuest.sort(by: {$0.guestName > $1.guestName})
+                }
+            } else {
+                tempGuest.sort(by: {$0.createdAt < $1.createdAt})
             }
-        } else {
-            guests.sort(by: {$0.createdAt < $1.createdAt})
+            guests = tempGuest
+        } else if sortColumn == Constants.RankCompaneName {
+            if let guestRank = selectRank["companyName"] {
+                if guestRank! {
+                    tempGuest.sort(by: {$0.companyName < $1.companyName})
+                } else if !guestRank! {
+                    tempGuest.sort(by: {$0.companyName > $1.companyName})
+                }
+            } else {
+                tempGuest.sort(by: {$0.createdAt < $1.createdAt})
+            }
+            guests = tempGuest
         }
+        
         return guests
     }
     

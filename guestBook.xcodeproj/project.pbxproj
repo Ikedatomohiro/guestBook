@@ -25,7 +25,6 @@
 		E52B1E5226021F800016E985 /* GuestEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B1E5126021F800016E985 /* GuestEditViewController.swift */; };
 		E52C618925E7C6B4000A12C9 /* SelectGuests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618825E7C6B4000A12C9 /* SelectGuests.swift */; };
 		E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */; };
-		E52F6642260A0A4900D83DC8 /* Common.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52F6641260A0A4900D83DC8 /* Common.swift */; };
 		E5377BA62642686100F42DDD /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */; };
 		E5377BAB2642999700F42DDD /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */; };
 		E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */; };
@@ -131,7 +130,6 @@
 		E52B1E5126021F800016E985 /* GuestEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestEditViewController.swift; sourceTree = "<group>"; };
 		E52C618825E7C6B4000A12C9 /* SelectGuests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGuests.swift; sourceTree = "<group>"; };
 		E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalizeHandWrite.swift; sourceTree = "<group>"; };
-		E52F6641260A0A4900D83DC8 /* Common.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Common.swift; sourceTree = "<group>"; };
 		E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresentationController.swift; sourceTree = "<group>"; };
 		E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
@@ -325,7 +323,6 @@
 		E52F6640260A0A3100D83DC8 /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				E52F6641260A0A4900D83DC8 /* Common.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -817,7 +814,6 @@
 				E524B66325C6E3CE00497CD4 /* GuestControllAreaView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* LogInViewController.swift in Sources */,
-				E52F6642260A0A4900D83DC8 /* Common.swift in Sources */,
 				E59D9EF0254848F1000F7C45 /* SceneDelegate.swift in Sources */,
 				E5377BE8264C262500F42DDD /* UITraitCollection.swift in Sources */,
 				E5CB0E7225721A3E0087193F /* CheckBoxCell.swift in Sources */,

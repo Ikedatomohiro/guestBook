@@ -8,7 +8,7 @@
 import UIKit
 
 protocol SentGuestsRankDelegate: AnyObject {
-    func sendGuestRank(selectRank: Dictionary<String, Bool?>)
+    func sendGuestRank(selectRank: Dictionary<String, Bool?>, sortColumn: Int)
 }
 
 class GuestListHeaderFooterView: UITableViewHeaderFooterView {
@@ -97,7 +97,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
         setupCompanyNameRankLabel()
         setupcompanyNameTapArea()
     }
-
+    
     func setupCompanyNameLabel() {
         contentView.addSubview(companyNameLabel)
         companyNameLabel.anchor(top: topAnchor, leading: companyNameView.leadingAnchor, bottom: bottomAnchor, trailing: nil)
@@ -105,7 +105,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
         companyNameLabel.font = UIFont.boldSystemFont(ofSize: 20)
         companyNameLabel.text = "会社名"
     }
-
+    
     func setupCompanyNameRankLabel() {
         contentView.addSubview(companyNameRankLabel)
         companyNameRankLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil)
@@ -119,7 +119,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
         companyNameTapArea.tag = 2
         companyNameTapArea.addTarget(self, action: #selector(changeRank), for: .touchUpInside)
     }
-
+    
     func setupAddressLabel() {
         contentView.addSubview(addressLabel)
         addressLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: companyNameView.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.addressWidth, height: .zero))
@@ -127,7 +127,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
         addressLabel.font = UIFont.boldSystemFont(ofSize: 20)
         addressLabel.text = "御住所"
     }
-
+    
     func setupRetualLabel() {
         contentView.addSubview(retualLabel)
         retualLabel.anchor(top: layoutMarginsGuide.topAnchor, leading: addressLabel.trailingAnchor, bottom: layoutMarginsGuide.bottomAnchor, trailing: nil, size: .init(width: GuestListView.retualWidth, height: .zero))
@@ -139,7 +139,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
     // MARK:-
     @objc func changeRank(sender: UIButton) {
         // tag: 1 御芳名
-        if sender.tag == 1 {
+        if sender.tag == Constants.RankGuestName {
             if selectRank["guestName"] == nil {
                 selectRank["guestName"] = true
             } else if selectRank["guestName"] == true {
@@ -147,8 +147,8 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
             } else if selectRank["guestName"] == false {
                 selectRank["guestName"] = nil
             }
-        // tag: 2 会社名
-        } else if sender.tag == 2 {
+            // tag: 2 会社名
+        } else if sender.tag == Constants.RankCompaneName {
             if selectRank["companyName"] == nil {
                 selectRank["companyName"] = true
             } else if selectRank["companyName"] == true {
@@ -157,7 +157,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
                 selectRank["companyName"] = nil
             }
         }
-        sendGuestRank?.sendGuestRank(selectRank: selectRank)
+        sendGuestRank?.sendGuestRank(selectRank: selectRank, sortColumn: sender.tag)
     }
     
     func setRankLabel(rank: Bool?) -> String {
@@ -172,5 +172,3 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
         return rankString
     }
 }
-
-
