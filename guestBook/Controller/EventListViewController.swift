@@ -26,6 +26,8 @@ class EventListViewController: UIViewController {
     // MARK: -
     override func viewDidLoad() {
         super.viewDidLoad()
+        // 非表示にしたNavigationControllerを再度表示させる
+        self.navigationController?.setNavigationBarHidden(false, animated: true)
         setupBase()
         fetchEventList()
         setupTitleLabel()

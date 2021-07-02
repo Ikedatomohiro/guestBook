@@ -24,6 +24,8 @@ class SignInViewController: UIViewController {
         setupEmailSignInView()
         setupGoogleSignInButton()
         googleSignIn()
+        self.navigationController?.setNavigationBarHidden(true, animated: true)
+
     }
     
     fileprivate func setupEmailSignInView() {
@@ -68,7 +70,7 @@ class SignInViewController: UIViewController {
     fileprivate func setupGoogleSignInButton() {
         self.view.addSubview(googleSignInHeadlineLabel)
         googleSignInHeadlineLabel.text = "Googleアカウントでログイン"
-        googleSignInHeadlineLabel.anchor(top: emailSignUpButton.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 40, left: .zero, bottom: .zero, right: .zero))
+        googleSignInHeadlineLabel.anchor(top: emailSignUpButton.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 60, left: .zero, bottom: .zero, right: .zero))
         googleSignInHeadlineLabel.textAlignment = .center
         
         self.view.addSubview(googleLogInButton)
