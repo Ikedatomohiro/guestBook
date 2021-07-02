@@ -25,6 +25,7 @@ extension UIColor {
     static var tableViewHeaderColor = UIColor{_ in dynamicColor(light: UIColor.green, dark: UIColor.gray)}
     static var buttonColor = UIColor{_ in dynamicColor(light: green, dark: .blue)}
     static var textColor = UIColor{_ in dynamicColor(light: .black, dark: .white)}
+    static var placeHolderTextColor = UIColor{_ in dynamicColor(light: .gray, dark: .white)}
 }
 
 let dynamicColor = UIColor { (traitCollection: UITraitCollection) -> UIColor in

@@ -109,9 +109,9 @@ class EventListViewController: UIViewController {
     }
     
     @objc private func showLogInPage() {
-        let logInVC = LogInViewController()
-        logInVC.modalPresentationStyle = .fullScreen
-        self.navigationController?.pushViewController(logInVC, animated: true)
+        let signInVC = SignInViewController()
+        signInVC.modalPresentationStyle = .fullScreen
+        self.navigationController?.pushViewController(signInVC, animated: true)
     }
     
     // 戻るボタンの名称をセット
