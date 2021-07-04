@@ -24,6 +24,9 @@ class SignInViewController: UIViewController {
         setupEmailSignInView()
         setupGoogleSignInButton()
         googleSignIn()
+        if Auth.auth().currentUser != nil {
+            print(Auth.auth().currentUser?.uid)
+        }
 //        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
@@ -85,8 +88,8 @@ class SignInViewController: UIViewController {
             // The sign-in operation has to always be completed in the app.
             actionCodeSettings.handleCodeInApp = true
             actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-            actionCodeSettings.setAndroidPackageName("com.example.android",
-                                                     installIfNotAvailable: false, minimumVersion: "12")
+//            actionCodeSettings.setAndroidPackageName("com.example.android",
+//                                                     installIfNotAvailable: false, minimumVersion: "12")
             
             Auth.auth().sendSignInLink(toEmail:email ?? "",
                                        actionCodeSettings: actionCodeSettings) { error in
@@ -98,18 +101,20 @@ class SignInViewController: UIViewController {
                 // Save the email locally so you don't need to ask the user for it again
                 // if they open the link on the same device.
                 UserDefaults.standard.set(email, forKey: "Email")
+                print("\(String(describing: email))メール送信成功")
                 //                self.showMessagePrompt("Check your email for link")
                 // ...
             }
-            signInButtonPushed()
+            signInButtonTaped()
         } else {
             print("Email can't be empty")
         }
         
     }
     
-    fileprivate func signInButtonPushed() {
-        animateView(emailSignUpButton)
+    fileprivate func signInButtonTaped() {
+        emailSignUpButton.animateView(emailSignUpButton)
+//        animateView(emailSignUpButton)
         guard emailTextField.text != "" else { return }
         if let email = emailTextField.text {
             let dialog = UIAlertController(title: "\(email)にメールを送信しました。", message: "", preferredStyle: .alert)

@@ -31,7 +31,6 @@ class EventListViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         setupBase()
         fetchEventList()
-        setupTitleLabel()
         setLogInButton()
         setupCreateEventButton()
         setupEventNameTextFeild()
@@ -50,31 +49,27 @@ class EventListViewController: UIViewController {
         }
     }
     
-    func setupTitleLabel() {
-        view.addSubview(titleLabel)
-        titleLabel.backgroundColor = .systemYellow
-        titleLabel.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 0, left: 30, bottom: 0, right: 0))
-        titleLabel.text = "芳名帳アプリ"
-    }
-    
     func setupCreateEventButton() {
         view.addSubview(createEventButton)
-        createEventButton.anchor(top: titleLabel.layoutMarginsGuide.bottomAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 30), size: .init(width: 200, height: 50))
-        createEventButton.setTitle("イベント新規作成", for: UIControl.State.normal)
-        createEventButton.backgroundColor = .systemGray
+        createEventButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 30), size: .init(width: 200, height: 50))
+        createEventButton.setTitle("新規作成", for: UIControl.State.normal)
+        createEventButton.backgroundColor = green
         createEventButton.layer.cornerRadius = 5
         createEventButton.addTarget(self, action: #selector(createEvent), for: .touchUpInside)
     }
     
     @objc private func createEvent() {
+        createEventButton.animateView(createEventButton)
         let eventName = eventNameTextField.text
-        if eventName != nil {
+        if eventName != "" {
             let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName!])
             let eventId = docmentRef.documentID
             // 儀式、ご関係の初期値を登録
             registDefaultParam(eventId: eventId)
             // ログイン機能を実装したら"users"を挟む
             eventNameTextField.text = ""
+        } else {
+            print("eventName can't be empty")
         }
         // テーブル再読み込み
         fetchEventList()
