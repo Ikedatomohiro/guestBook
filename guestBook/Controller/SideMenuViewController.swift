@@ -6,17 +6,21 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 protocol SideMenuDelegate: AnyObject {
     func hideSideMenuView()
     func hidePopup()
     func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem)
+    func signOut()
 }
 // functionのデフォルト動作を設定。今回は何もしない状態を設定。
 extension SideMenuDelegate {
     func hideSideMenuView() {
     }
     func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {
+    }
+    func signOut() {
     }
 }
 
@@ -65,6 +69,24 @@ class SideMenuViewController: UIViewController {
         }, completion: nil)
         sideMenuView.sideMenuDelegate = self
     }
+    
+    func signOutApplicaition() {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
+        let dialog = UIAlertController(title: "サインアウトしました。", message: "", preferredStyle: .alert)
+        dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+        self.present(dialog, animated: true, completion: nil)
+//        let signInVC = SignInViewController()
+//        signInVC.modalPresentationStyle = .fullScreen
+//        self.navigationController?.pushViewController(signInVC, animated: true)
+
+        
+    }
+    
 }
 
 // MARK:- Extensions
@@ -90,11 +112,16 @@ extension SideMenuViewController: SideMenuDelegate {
         // モーダルのViewControllerを表示
         guard let VC = sideMenuItem.viewController else {
             sideMenuDelegate?.hideSideMenuView()
-            print("サインアウト")
+            print("サインアウトしました。")
             return
         }
         VC.modalPresentationStyle = .custom
         VC.transitioningDelegate = self
         present(VC, animated: true)
     }
+    
+    func signOut() {
+        signOutApplicaition()
+    }
 }
+

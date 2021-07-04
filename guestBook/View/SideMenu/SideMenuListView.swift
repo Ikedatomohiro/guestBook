@@ -49,6 +49,7 @@ class SideMenuListView: UIView {
     }
 }
 
+// MARK:- Extentions
 extension SideMenuListView: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return SideMenuItem.items.count
@@ -71,5 +72,8 @@ extension SideMenuListView: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         sideMenuDelegate?.sideMenuItemDidTap(sideMenuItem: SideMenuItem.items[indexPath.row])
+        if SideMenuItem.items[indexPath.row].viewController == nil {
+            sideMenuDelegate?.signOut()
+        }
     }
 }

@@ -24,7 +24,7 @@ class SignInViewController: UIViewController {
         setupEmailSignInView()
         setupGoogleSignInButton()
         googleSignIn()
-        self.navigationController?.setNavigationBarHidden(true, animated: true)
+//        self.navigationController?.setNavigationBarHidden(true, animated: true)
 
     }
     
@@ -66,7 +66,6 @@ class SignInViewController: UIViewController {
         }
     }
     
-    
     fileprivate func setupGoogleSignInButton() {
         self.view.addSubview(googleSignInHeadlineLabel)
         googleSignInHeadlineLabel.text = "Googleアカウントでログイン"
@@ -79,8 +78,6 @@ class SignInViewController: UIViewController {
     }
     
     @objc func emailSignUp() {
-        signInButtonPushed()
-        
         let email = self.emailTextField.text
         if email != "" {
             let actionCodeSettings = ActionCodeSettings()
@@ -104,7 +101,7 @@ class SignInViewController: UIViewController {
                 //                self.showMessagePrompt("Check your email for link")
                 // ...
             }
-            
+            signInButtonPushed()
         } else {
             print("Email can't be empty")
         }
@@ -120,7 +117,6 @@ class SignInViewController: UIViewController {
             self.present(dialog, animated: true, completion: nil)
         }
     }
-    
     
     fileprivate func googleSignIn() {
         GIDSignIn.sharedInstance()?.presentingViewController = self
@@ -152,4 +148,10 @@ extension SignInViewController: GIDSignInDelegate {
             }
         }
     }
+    
+    
+    
+    
+    
+    
 }

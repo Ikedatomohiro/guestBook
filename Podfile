@@ -11,6 +11,7 @@ target 'guestBook' do
 	pod 'FirebaseFirestoreSwift'
 	pod 'Firebase/Storage'
 	pod 'GoogleSignIn'
+        pod 'Firebase/Analytics'
 	pod 'Firebase/DynamicLinks'
 	pod 'Alamofire', '~> 5.2'
 #pod 'lottie-ios'

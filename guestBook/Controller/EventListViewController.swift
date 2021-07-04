@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseFirestore
+import FirebaseAuth
 
 class EventListViewController: UIViewController {
     let titleLabel         = UILabel()
@@ -37,10 +38,16 @@ class EventListViewController: UIViewController {
         setupEventListTableView()
         setBackButtonTitle()
         setupSettingImage()
+
     }
     
     fileprivate func setupBase() {
         view.backgroundColor = dynamicColor
+        if Auth.auth().currentUser != nil {
+            print("signed in")
+        } else {
+            print("サインインしてください。")
+        }
     }
     
     func setupTitleLabel() {
