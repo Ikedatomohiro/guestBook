@@ -31,13 +31,11 @@ class EventListViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
         setupBase()
         fetchEventList()
-        setLogInButton()
         setupCreateEventButton()
-        setupEventNameTextFeild()
         setupEventListTableView()
         setBackButtonTitle()
         setupSettingImage()
-
+        setLogInButton()
     }
     
     fileprivate func setupBase() {
@@ -51,28 +49,19 @@ class EventListViewController: UIViewController {
     
     func setupCreateEventButton() {
         view.addSubview(createEventButton)
-        createEventButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: nil, padding: .init(top: 20, left: 0, bottom: 0, right: 30), size: .init(width: 200, height: 50))
+        createEventButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 20, left: 0, bottom: 20, right: 10), size: .init(width: 100, height: 50))
         createEventButton.setTitle("新規作成", for: UIControl.State.normal)
         createEventButton.backgroundColor = green
         createEventButton.layer.cornerRadius = 5
-        createEventButton.addTarget(self, action: #selector(createEvent), for: .touchUpInside)
+        createEventButton.addTarget(self, action: #selector(createEventButtonDidTap), for: .touchUpInside)
     }
     
-    @objc private func createEvent() {
+    @objc private func createEventButtonDidTap() {
         createEventButton.animateView(createEventButton)
-        let eventName = eventNameTextField.text
-        if eventName != "" {
-            let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName!])
-            let eventId = docmentRef.documentID
-            // 儀式、ご関係の初期値を登録
-            registDefaultParam(eventId: eventId)
-            // ログイン機能を実装したら"users"を挟む
-            eventNameTextField.text = ""
-        } else {
-            print("eventName can't be empty")
-        }
-        // テーブル再読み込み
-        fetchEventList()
+        let VC = CreateEventViewController()
+        VC.modalPresentationStyle = .custom
+        VC.transitioningDelegate = self
+        self.present(VC, animated: true, completion: nil)
     }
     
     fileprivate func setupEventNameTextFeild() {
@@ -83,7 +72,7 @@ class EventListViewController: UIViewController {
     
     fileprivate func setupEventListTableView() {
         view.addSubview(eventListTableView)
-        eventListTableView.anchor(top: eventNameTextField.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor)
+        eventListTableView.anchor(top: createEventButton.bottomAnchor, leading: view.leadingAnchor, bottom: view.bottomAnchor, trailing: view.trailingAnchor, padding: .init(top: 20, left: .zero, bottom: .zero, right: .zero))
         eventListTableView.eventListTableViewDelegate = self
         eventListTableView.register(EventListCell.self, forCellReuseIdentifier: EventListCell.className)
     }
@@ -105,7 +94,7 @@ class EventListViewController: UIViewController {
     
     fileprivate func setLogInButton() {
         view.addSubview(logInButton)
-        logInButton.anchor(top: view.layoutMarginsGuide.topAnchor, leading: nil, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 20, bottom: 0, right: 0), size: .init(width: 200, height: 50))
+        logInButton.anchor(top: createEventButton.topAnchor, leading: nil, bottom: nil, trailing: createEventButton.leadingAnchor, size: .init(width: 200, height: 50))
         logInButton.setTitle("ログインする", for: UIControl.State.normal)
         logInButton.backgroundColor = .systemGreen
         logInButton.layer.cornerRadius = 5
@@ -197,5 +186,28 @@ extension EventListViewController: SideMenuDelegate {
     func hideSideMenuView() {
         sideMenuVC.view.removeFromSuperview()
         sideMenuAppearance = false
+    }
+}
+
+extension EventListViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        let createEventPC = CreateEventPresentationController(presentedViewController: presented, presenting: presenting)
+        createEventPC.createEventDelegate = self
+        return createEventPC
+    }
+}
+
+extension EventListViewController: CreateEventDelegate {
+    func createEvent(eventName: String) {
+        
+        let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName])
+        let eventId = docmentRef.documentID
+        // 儀式、ご関係の初期値を登録
+        registDefaultParam(eventId: eventId)
+        // ログイン機能を実装したら"users"を挟む
+        
+        
+        // テーブル再読み込み
+        fetchEventList()
     }
 }

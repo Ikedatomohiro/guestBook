@@ -47,8 +47,6 @@ class SignInViewController: UIViewController {
         emailTextField.layer.borderWidth = 1.0
         emailTextField.layer.cornerRadius = 5
         
-        
-        
         self.view.addSubview(emailSignUpButton)
         emailSignUpButton.anchor(top: emailTextField.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 30, left: screenSize.width / 2 - 100, bottom: .zero, right: screenSize.width / 2 - 100) , size: .init(width: .zero, height: 50))
         emailSignUpButton.setTitle("ログイン", for: .normal)
@@ -77,10 +75,10 @@ class SignInViewController: UIViewController {
         
         self.view.addSubview(googleLogInButton)
         googleLogInButton.anchor(top: googleSignInHeadlineLabel.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 30, left: screenSize.width / 2 - 100, bottom: .zero, right: screenSize.width / 2 - 100) , size: .init(width: .zero, height: 50))
-        
     }
     
     @objc func emailSignUp() {
+        emailSignUpButton.animateView(emailSignUpButton)
         let email = self.emailTextField.text
         if email != "" {
             let actionCodeSettings = ActionCodeSettings()
@@ -113,8 +111,6 @@ class SignInViewController: UIViewController {
     }
     
     fileprivate func signInButtonTaped() {
-        emailSignUpButton.animateView(emailSignUpButton)
-//        animateView(emailSignUpButton)
         guard emailTextField.text != "" else { return }
         if let email = emailTextField.text {
             let dialog = UIAlertController(title: "\(email)にメールを送信しました。", message: "", preferredStyle: .alert)

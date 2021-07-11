@@ -34,7 +34,6 @@ class PopupTextView: UIView {
         setupText()
     }
     
-    
     fileprivate func setupStatusBar() {
         setupStatusBarHeader()
         setupCloseButton()
@@ -77,6 +76,4 @@ class PopupTextView: UIView {
         textView.textColor = .black
         textView.text = text
     }
-    
-    
 }

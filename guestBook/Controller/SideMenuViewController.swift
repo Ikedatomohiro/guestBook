@@ -16,12 +16,9 @@ protocol SideMenuDelegate: AnyObject {
 }
 // functionのデフォルト動作を設定。今回は何もしない状態を設定。
 extension SideMenuDelegate {
-    func hideSideMenuView() {
-    }
-    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {
-    }
-    func signOut() {
-    }
+    func hideSideMenuView() {}
+    func sideMenuItemDidTap(sideMenuItem: SideMenuListView.SideMenuItem) {}
+    func signOut() {}
 }
 
 class SideMenuViewController: UIViewController {
@@ -32,14 +29,14 @@ class SideMenuViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupBackgrountView()
+        setupBackgroundView()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setupMenuListView()
     }
     
-    fileprivate func setupBackgrountView() {
+    fileprivate func setupBackgroundView() {
         view.addSubview(backgroundView)
         backgroundView.anchor(top: self.view.layoutMarginsGuide.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
         backgroundView.backgroundColor = .black
@@ -80,6 +77,7 @@ class SideMenuViewController: UIViewController {
         let dialog = UIAlertController(title: "サインアウトしました。", message: "", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(dialog, animated: true, completion: nil)
+        
 //        let signInVC = SignInViewController()
 //        signInVC.modalPresentationStyle = .fullScreen
 //        self.navigationController?.pushViewController(signInVC, animated: true)

@@ -57,6 +57,8 @@
 		E573F42A25504A2B0000C955 /* NSObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = E573F42925504A2B0000C955 /* NSObject.swift */; };
 		E57444DC25694D2E001D4774 /* GuestListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444DB25694D2E001D4774 /* GuestListViewController.swift */; };
 		E57444E125694EAE001D4774 /* GuestCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57444E025694EAE001D4774 /* GuestCell.swift */; };
+		E5766719269ADDE9001A6E6C /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */; };
+		E576671E269ADE6B001A6E6C /* CreateEventPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576671D269ADE6B001A6E6C /* CreateEventPresentationController.swift */; };
 		E5767DAC26036A5F004F80B0 /* GuestDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5767DAB26036A5F004F80B0 /* GuestDetailViewCell.swift */; };
 		E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577604825737D0600DD2F81 /* SettingViewController.swift */; };
 		E577B75A256BECA4007E6BFC /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577B759256BECA4007E6BFC /* SignInViewController.swift */; };
@@ -164,6 +166,8 @@
 		E573F42925504A2B0000C955 /* NSObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSObject.swift; sourceTree = "<group>"; };
 		E57444DB25694D2E001D4774 /* GuestListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewController.swift; sourceTree = "<group>"; };
 		E57444E025694EAE001D4774 /* GuestCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestCell.swift; sourceTree = "<group>"; };
+		E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
+		E576671D269ADE6B001A6E6C /* CreateEventPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPresentationController.swift; sourceTree = "<group>"; };
 		E5767DAB26036A5F004F80B0 /* GuestDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewCell.swift; sourceTree = "<group>"; };
 		E577604825737D0600DD2F81 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		E577B759256BECA4007E6BFC /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
@@ -350,6 +354,8 @@
 		E56E1853254D664200205FCE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				E576671D269ADE6B001A6E6C /* CreateEventPresentationController.swift */,
+				E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */,
 				E59D9EF1254848F1000F7C45 /* EventListViewController.swift */,
 				E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */,
 				C52C25EB255B7BCF0037825B /* GuestViewController.swift */,
@@ -783,6 +789,7 @@
 				C52C25F1255B7DCA0037825B /* Guest.swift in Sources */,
 				E5377BD5264626CC00F42DDD /* PopupTextView.swift in Sources */,
 				E5296E8F26330DB90038646A /* UIView.swift in Sources */,
+				E576671E269ADE6B001A6E6C /* CreateEventPresentationController.swift in Sources */,
 				E5A6734926402B0C00F81300 /* SideMenuListView.swift in Sources */,
 				E53B69FC25F504B90089102E /* Group.swift in Sources */,
 				E570A8CA25A5F8A1003C41BE /* GuestNameView.swift in Sources */,
@@ -793,6 +800,7 @@
 				E52B1E4126020AEB0016E985 /* GuestsDetailPageViewController.swift in Sources */,
 				E5B3C9122552B27400509757 /* GuestsPageViewController.swift in Sources */,
 				E57384D025A74ADF00AFA4B5 /* CardTitleView.swift in Sources */,
+				E5766719269ADDE9001A6E6C /* CreateEventViewController.swift in Sources */,
 				E5AFCC8A25AF04AF00E5274A /* AddressView.swift in Sources */,
 				E573F425255047330000C955 /* EventListCell.swift in Sources */,
 				E5377BA62642686100F42DDD /* SideMenuTableViewCell.swift in Sources */,
