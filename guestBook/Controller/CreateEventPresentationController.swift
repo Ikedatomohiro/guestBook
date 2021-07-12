@@ -46,7 +46,7 @@ class CreateEventPresentationController: UIPresentationController {
     let margin = (x: CGFloat(screenSize.width / 2), y: CGFloat(screenSize.height / 2))
     // 子のコンテナサイズを返す
     override func size(forChildContentContainer container: UIContentContainer, withParentContainerSize parentSize: CGSize) -> CGSize {
-        return CGSize(width: parentSize.width - margin.x, height: (parentSize.height - margin.y))
+        return CGSize(width: parentSize.width - margin.x, height: 230)
     }
     
     // 呼び出し先のView Controllerのframeを返す

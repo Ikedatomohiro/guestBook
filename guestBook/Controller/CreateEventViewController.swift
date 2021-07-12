@@ -61,9 +61,9 @@ class CreateEventViewController: UIViewController {
     
     fileprivate func setupCancelButton() {
         view.addSubview(cancelButton)
-        cancelButton.anchor(top: eventNameTextField.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 20, left: 100, bottom: .zero, right: .zero), size: .init(width: 100, height: .zero))
+        cancelButton.anchor(top: eventNameTextField.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: nil, padding: .init(top: 30, left: 100, bottom: .zero, right: .zero), size: .init(width: 100, height: .zero))
         cancelButton.setTitle("キャンセル", for: .normal)
-        cancelButton.backgroundColor = .systemPink
+        cancelButton.backgroundColor = .gray
         cancelButton.layer.cornerRadius = 5
         cancelButton.addTarget(self, action: #selector(cancelButtonDidTap), for: .touchUpInside)
         
@@ -71,7 +71,7 @@ class CreateEventViewController: UIViewController {
     
     fileprivate func setupCreateButton() {
         view.addSubview(createBUtton)
-        createBUtton.anchor(top: eventNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 20, left: .zero, bottom: .zero, right: 100), size: .init(width: 100, height: .zero))
+        createBUtton.anchor(top: eventNameTextField.bottomAnchor, leading: nil, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 30, left: .zero, bottom: .zero, right: 100), size: .init(width: 100, height: .zero))
         createBUtton.setTitle("作成する", for: .normal)
         createBUtton.backgroundColor = green
         createBUtton.layer.cornerRadius = 5
@@ -83,10 +83,15 @@ class CreateEventViewController: UIViewController {
     }
     
     @objc fileprivate func createButtonDidTap() {
-        createEventDelegate?.hidePopup()
+        createBUtton.animateView(createBUtton)
+        guard eventNameTextField.text != "" else {
+            print("eventName must be empty...")
+            return
+        }
         if let eventName = eventNameTextField.text {
             createEventDelegate?.sendEventName(eventName: eventName)
             eventNameTextField.text = ""
+            createEventDelegate?.hidePopup()
         }
     }
 }
