@@ -200,7 +200,8 @@ extension EventListViewController: UIViewControllerTransitioningDelegate {
 extension EventListViewController: CreateEventDelegate {
     func createEvent(eventName: String) {
         
-        let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName])
+//        let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName])
+        let docmentRef = Event.registEvent(eventName)
         let eventId = docmentRef.documentID
         // 儀式、ご関係の初期値を登録
         registDefaultParam(eventId: eventId)

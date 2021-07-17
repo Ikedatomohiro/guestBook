@@ -18,6 +18,7 @@ class EventListTableView: UITableView {
     init(events: [Event], frame: CGRect, style: UITableView.Style) {
         self.events = events
         super.init(frame: .zero, style: style)
+        self.tableFooterView = UIView()
         self.delegate = self
         self.dataSource = self
     }
