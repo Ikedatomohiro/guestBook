@@ -26,6 +26,7 @@
 		E52B1E5226021F800016E985 /* GuestEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52B1E5126021F800016E985 /* GuestEditViewController.swift */; };
 		E52C618925E7C6B4000A12C9 /* SelectGuests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618825E7C6B4000A12C9 /* SelectGuests.swift */; };
 		E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */; };
+		E52E959426A4700400F0BBCD /* EventSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52E959326A4700400F0BBCD /* EventSettingViewController.swift */; };
 		E5377BA62642686100F42DDD /* SideMenuTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */; };
 		E5377BAB2642999700F42DDD /* SideMenuPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */; };
 		E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */; };
@@ -60,7 +61,7 @@
 		E5766719269ADDE9001A6E6C /* CreateEventViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */; };
 		E576671E269ADE6B001A6E6C /* CreateEventPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E576671D269ADE6B001A6E6C /* CreateEventPresentationController.swift */; };
 		E5767DAC26036A5F004F80B0 /* GuestDetailViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E5767DAB26036A5F004F80B0 /* GuestDetailViewCell.swift */; };
-		E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577604825737D0600DD2F81 /* SettingViewController.swift */; };
+		E577604925737D0600DD2F81 /* UserSettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577604825737D0600DD2F81 /* UserSettingViewController.swift */; };
 		E577B75A256BECA4007E6BFC /* SignInViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E577B759256BECA4007E6BFC /* SignInViewController.swift */; };
 		E586221125C17DA100291182 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586221025C17DA100291182 /* Constants.swift */; };
 		E586221625C1810400291182 /* Retual.swift in Sources */ = {isa = PBXBuildFile; fileRef = E586221525C1810400291182 /* Retual.swift */; };
@@ -135,6 +136,7 @@
 		E52B1E5126021F800016E985 /* GuestEditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestEditViewController.swift; sourceTree = "<group>"; };
 		E52C618825E7C6B4000A12C9 /* SelectGuests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGuests.swift; sourceTree = "<group>"; };
 		E52C618D25E7C8F8000A12C9 /* AnalizeHandWrite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnalizeHandWrite.swift; sourceTree = "<group>"; };
+		E52E959326A4700400F0BBCD /* EventSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventSettingViewController.swift; sourceTree = "<group>"; };
 		E5377BA52642686100F42DDD /* SideMenuTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuTableViewCell.swift; sourceTree = "<group>"; };
 		E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SideMenuPresentationController.swift; sourceTree = "<group>"; };
 		E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyPolicyViewController.swift; sourceTree = "<group>"; };
@@ -169,7 +171,7 @@
 		E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventViewController.swift; sourceTree = "<group>"; };
 		E576671D269ADE6B001A6E6C /* CreateEventPresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateEventPresentationController.swift; sourceTree = "<group>"; };
 		E5767DAB26036A5F004F80B0 /* GuestDetailViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestDetailViewCell.swift; sourceTree = "<group>"; };
-		E577604825737D0600DD2F81 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		E577604825737D0600DD2F81 /* UserSettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserSettingViewController.swift; sourceTree = "<group>"; };
 		E577B759256BECA4007E6BFC /* SignInViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignInViewController.swift; sourceTree = "<group>"; };
 		E57C925125F3C3B400B7CC69 /* guestBook.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = guestBook.entitlements; sourceTree = "<group>"; };
 		E586221025C17DA100291182 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -358,6 +360,7 @@
 				E5766718269ADDE9001A6E6C /* CreateEventViewController.swift */,
 				E59D9EF1254848F1000F7C45 /* EventListViewController.swift */,
 				E5B3C9312552BA9D00509757 /* EventMenuViewController.swift */,
+				E52E959326A4700400F0BBCD /* EventSettingViewController.swift */,
 				C52C25EB255B7BCF0037825B /* GuestViewController.swift */,
 				E5B06533257C6D870010916C /* GuestDetailViewController.swift */,
 				E52B1E4026020AEB0016E985 /* GuestsDetailPageViewController.swift */,
@@ -365,11 +368,11 @@
 				E5B3C9112552B27400509757 /* GuestsPageViewController.swift */,
 				E57444DB25694D2E001D4774 /* GuestListViewController.swift */,
 				E5377BAF264299C900F42DDD /* PrivacyPolicyViewController.swift */,
-				E577604825737D0600DD2F81 /* SettingViewController.swift */,
 				E5377BAA2642999700F42DDD /* SideMenuPresentationController.swift */,
 				E5A6733C263FCE6200F81300 /* SideMenuViewController.swift */,
 				E577B759256BECA4007E6BFC /* SignInViewController.swift */,
 				E5377BB42642BC2D00F42DDD /* TermsOfUseViewController.swift */,
+				E577604825737D0600DD2F81 /* UserSettingViewController.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -784,6 +787,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E52E959426A4700400F0BBCD /* EventSettingViewController.swift in Sources */,
 				E59D9EF2254848F1000F7C45 /* EventListViewController.swift in Sources */,
 				E52C618E25E7C8F8000A12C9 /* AnalizeHandWrite.swift in Sources */,
 				C52C25F1255B7DCA0037825B /* Guest.swift in Sources */,
@@ -807,7 +811,7 @@
 				E52B1E4D260215D60016E985 /* TextCell.swift in Sources */,
 				E59D9EEE254848F1000F7C45 /* AppDelegate.swift in Sources */,
 				E52AE904263508380001F372 /* EventInfoAreaView.swift in Sources */,
-				E577604925737D0600DD2F81 /* SettingViewController.swift in Sources */,
+				E577604925737D0600DD2F81 /* UserSettingViewController.swift in Sources */,
 				E524B66E25C6EA6400497CD4 /* GuestListHeaderFooterView.swift in Sources */,
 				E5B5ADAD25B3C7D9002E9384 /* GroupListView.swift in Sources */,
 				E586221625C1810400291182 /* Retual.swift in Sources */,

@@ -19,7 +19,7 @@ class SideMenuListView: UIView {
         
         var viewController: UIViewController? {
             switch self {
-            case .setting: return SettingViewController()
+            case .setting: return UserSettingViewController()
             case .privacyPolicy: return PrivacyPolicyViewController()
             case .termsOfUse: return TermsOfUseViewController()
             case .signOut: return nil

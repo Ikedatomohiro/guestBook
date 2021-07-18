@@ -7,12 +7,12 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
+class UserSettingViewController: UIViewController {
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .blue
+        view.backgroundColor = .orange
         
         
         

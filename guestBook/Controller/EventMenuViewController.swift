@@ -105,7 +105,7 @@ class EventMenuViewController: UIViewController {
     }
     
     @objc private func showSetting() {
-        let settingVC = SettingViewController()
+        let settingVC = EventSettingViewController()
         settingVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
