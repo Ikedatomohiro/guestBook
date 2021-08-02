@@ -88,7 +88,18 @@ class SignInViewController: UIViewController {
             actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
 //            actionCodeSettings.setAndroidPackageName("com.example.android",
 //                                                     installIfNotAvailable: false, minimumVersion: "12")
+            // リンクURL
+            var components = URLComponents()
+            components.scheme = "https"
+            components.host = "guestbook.page.link"
+            let queryItemEmailName = "email"
+            let emailTypeQueryItem = URLQueryItem(name: queryItemEmailName, value: email)
+            components.queryItems = [emailTypeQueryItem]
+            guard let linkParameter = components.url else { return }
+            print("email:  \(linkParameter.absoluteString)")
+            actionCodeSettings.url = linkParameter
             
+            // ユーザーに認証リンクを送信
             Auth.auth().sendSignInLink(toEmail:email ?? "",
                                        actionCodeSettings: actionCodeSettings) { error in
                 if let error = error {
@@ -98,7 +109,7 @@ class SignInViewController: UIViewController {
                 // The link was successfully sent. Inform the user.
                 // Save the email locally so you don't need to ask the user for it again
                 // if they open the link on the same device.
-                UserDefaults.standard.set(email, forKey: "Email")
+                UserDefaults.standard.set(email, forKey: "email")
                 print("\(String(describing: email))メール送信成功")
                 //                self.showMessagePrompt("Check your email for link")
                 // ...

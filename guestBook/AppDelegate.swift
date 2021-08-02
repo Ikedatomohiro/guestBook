@@ -35,46 +35,5 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // If any sessions were discarded while the application was not running, this will be called shortly after application:didFinishLaunchingWithOptions.
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
-    
-// MARK:- DynamicLinkSignIn
-    func handleIncomingDynamicLink(_ dynamicLink: DynamicLink) {
-        guard let url = dynamicLink.url else {
-            print("That's weird. My dynamic link object has no url")
-            return
-        }
-        print("Your incoming link parameter is \(url.absoluteString)")
-    }
-
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
-        if let incomingURL = userActivity.webpageURL {
-            print("incoming URL is \(incomingURL)")
-            let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL) {
-                (dynamicLink, error) in
-                guard error == nil else {
-                    print("Found an error! \(error!.localizedDescription)")
-                    return
-                }
-                if let dynamicLink = dynamicLink {
-                    self.handleIncomingDynamicLink(dynamicLink)
-                }
-            }
-            if linkHandled {
-                return true
-            } else {
-                return false
-            }
-        }
-        return false
-    }
-    
-    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print("I hace recieved a URL through acustom scheme! \(url.absoluteString)")
-        if let dynamicLink = DynamicLinks.dynamicLinks().dynamicLink(fromUniversalLink: url) {
-            self.handleIncomingDynamicLink(dynamicLink)
-            return true
-        } else {
-            return false
-        }
-    }
 }
 

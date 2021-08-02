@@ -46,6 +46,7 @@
 		E53B69FC25F504B90089102E /* Group.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53B69FB25F504B90089102E /* Group.swift */; };
 		E540761126075162007A9F28 /* HeadlineAndTextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E540761026075162007A9F28 /* HeadlineAndTextFieldView.swift */; };
 		E543E15525E13086009C95D0 /* CloudVisionApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E543E15425E13086009C95D0 /* CloudVisionApiTest.swift */; };
+		E544125626A91AC20046C514 /* DeceasedNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E544125526A91AC20046C514 /* DeceasedNameView.swift */; };
 		E546E2CC262C1CA70088157D /* CsvList.swift in Sources */ = {isa = PBXBuildFile; fileRef = E546E2CB262C1CA70088157D /* CsvList.swift */; };
 		E57078C025D68FB800EE5CFE /* Keys.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078BF25D68FB800EE5CFE /* Keys.swift */; };
 		E57078D525D6CB4C00EE5CFE /* GuestListViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */; };
@@ -156,6 +157,7 @@
 		E53B69FB25F504B90089102E /* Group.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Group.swift; sourceTree = "<group>"; };
 		E540761026075162007A9F28 /* HeadlineAndTextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeadlineAndTextFieldView.swift; sourceTree = "<group>"; };
 		E543E15425E13086009C95D0 /* CloudVisionApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudVisionApiTest.swift; sourceTree = "<group>"; };
+		E544125526A91AC20046C514 /* DeceasedNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeceasedNameView.swift; sourceTree = "<group>"; };
 		E546E2CB262C1CA70088157D /* CsvList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CsvList.swift; sourceTree = "<group>"; };
 		E57078BF25D68FB800EE5CFE /* Keys.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Keys.swift; sourceTree = "<group>"; };
 		E57078D425D6CB4C00EE5CFE /* GuestListViewTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GuestListViewTest.swift; sourceTree = "<group>"; };
@@ -353,6 +355,14 @@
 			path = Components;
 			sourceTree = "<group>";
 		};
+		E544125426A91A930046C514 /* EventSetting */ = {
+			isa = PBXGroup;
+			children = (
+				E544125526A91AC20046C514 /* DeceasedNameView.swift */,
+			);
+			path = EventSetting;
+			sourceTree = "<group>";
+		};
 		E56E1853254D664200205FCE /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -394,6 +404,7 @@
 		E56E1855254D665D00205FCE /* View */ = {
 			isa = PBXGroup;
 			children = (
+				E544125426A91A930046C514 /* EventSetting */,
 				E52018EB268F1BD4008E2392 /* SignIn */,
 				E5A672D8263AF18500F81300 /* Images */,
 				E52A061E25CAEA69007669CB /* EventList */,
@@ -838,6 +849,7 @@
 				E586221125C17DA100291182 /* Constants.swift in Sources */,
 				E57078C025D68FB800EE5CFE /* Keys.swift in Sources */,
 				E5377BB0264299C900F42DDD /* PrivacyPolicyViewController.swift in Sources */,
+				E544125626A91AC20046C514 /* DeceasedNameView.swift in Sources */,
 				E524B66325C6E3CE00497CD4 /* GuestControllAreaView.swift in Sources */,
 				E5B06534257C6D870010916C /* GuestDetailViewController.swift in Sources */,
 				E577B75A256BECA4007E6BFC /* SignInViewController.swift in Sources */,

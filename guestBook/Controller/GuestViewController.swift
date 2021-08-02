@@ -72,6 +72,7 @@ class GuestViewController: UIViewController {
         setupAddressView()
         setupSelectRelationView()
         setupSelectGroupView()
+        setBackGroundFrameAnchor()
         setupDescriptionView()
         setupBackToMenuButton()
     }
@@ -112,9 +113,6 @@ class GuestViewController: UIViewController {
     
     fileprivate func setupBackgroundFrame() {
         view.addSubview(backGroundFrame)
-        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10))
-        backGroundFrame.accessibilityIdentifier = "backGroundFrame"
-        backGroundFrame.layer.borderWidth = 2.0
     }
     
     fileprivate func setupGuestNameView() {
@@ -155,11 +153,24 @@ class GuestViewController: UIViewController {
         selectGroupView.guestItemUpdateDelegate = self
     }
     
+    // ここでbackGroundFrameのanchorを書くといいのではないか
+    fileprivate func setBackGroundFrameAnchor() {
+        backGroundFrame.anchor(top: cardTitleView.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 0, left: 10, bottom: 0, right: 10))
+//        backGroundFrame.translatesAutoresizingMaskIntoConstraints = false
+//        backGroundFrame.topAnchor.constraint(equalTo: cardTitleView.bottomAnchor)
+//        backGroundFrame.topAnchor.constraint(lessThanOrEqualTo: view.layoutMarginsGuide.bottomAnchor).isActive = true
+        
+        
+        
+        backGroundFrame.accessibilityIdentifier = "backGroundFrame"
+        backGroundFrame.layer.borderWidth = 2.0
+    }
+    
     // 備考
     fileprivate func setupDescriptionView() {
         view.addSubview(descriptionView)
         descriptionView.setupView(guest: guest)
-        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: backGroundFrame.trailingAnchor, size: .init(width: .zero, height: screenSize.height / 6))
+        descriptionView.anchor(top: backGroundFrame.bottomAnchor, leading: backGroundFrame.leadingAnchor, bottom: view.layoutMarginsGuide.bottomAnchor, trailing: backGroundFrame.trailingAnchor)
         descriptionView.guestItemupdateDelegate = self
     }
     
