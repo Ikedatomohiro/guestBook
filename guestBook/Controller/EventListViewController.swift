@@ -9,6 +9,10 @@ import UIKit
 import FirebaseFirestore
 import FirebaseAuth
 
+protocol EventListViewControllerDelegate: AnyObject {
+    func moveTosignPage()
+}
+
 class EventListViewController: UIViewController {
     let titleLabel         = UILabel()
     fileprivate let logInButton        = UIButton()
@@ -23,6 +27,7 @@ class EventListViewController: UIViewController {
     fileprivate var number: Int        = 0
     fileprivate let sideMenuVC         = SideMenuViewController()
     fileprivate var sideMenuAppearance = false
+    weak var eventListViewContollerDelegate:EventListViewControllerDelegate?
     
     // MARK: -
     override func viewDidLoad() {
@@ -35,15 +40,15 @@ class EventListViewController: UIViewController {
         setupEventListTableView()
         setBackButtonTitle()
         setupSettingImage()
-        setLogInButton()
     }
     
     fileprivate func setupBase() {
         view.backgroundColor = dynamicColor
         if Auth.auth().currentUser != nil {
-            print("signed in")
+            print("signed in \(Auth.auth().currentUser?.uid)")
         } else {
             print("サインインしてください。")
+            moveToSignInPage()
         }
     }
     
@@ -92,16 +97,7 @@ class EventListViewController: UIViewController {
         }
     }
     
-    fileprivate func setLogInButton() {
-        view.addSubview(logInButton)
-        logInButton.anchor(top: createEventButton.topAnchor, leading: nil, bottom: nil, trailing: createEventButton.leadingAnchor, size: .init(width: 200, height: 50))
-        logInButton.setTitle("ログインする", for: UIControl.State.normal)
-        logInButton.backgroundColor = .systemGreen
-        logInButton.layer.cornerRadius = 5
-        logInButton.addTarget(self, action: #selector(showLogInPage), for: .touchUpInside)
-    }
-    
-    @objc private func showLogInPage() {
+    fileprivate func moveToSignInPage() {
         let signInVC = SignInViewController()
         signInVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(signInVC, animated: true)
@@ -109,6 +105,7 @@ class EventListViewController: UIViewController {
     
     // 戻るボタンの名称をセット
     fileprivate func setBackButtonTitle() {
+
         let backBarButtonItem = UIBarButtonItem()
         backBarButtonItem.title = "イベントリストに戻る"
         self.navigationItem.backBarButtonItem = backBarButtonItem
@@ -150,6 +147,7 @@ class EventListViewController: UIViewController {
             view.addSubview(sideMenuVC.view)
             sideMenuVC.view.anchor(top: self.view.topAnchor, leading: self.view.leadingAnchor, bottom: self.view.bottomAnchor, trailing: self.view.trailingAnchor)
             sideMenuVC.sideMenuDelegate = self
+            sideMenuVC.eventListViewControllerDelegate = self
             sideMenuAppearance = true
         } else {
             UIView.animate(withDuration: 0.3) {
@@ -187,6 +185,7 @@ extension EventListViewController: SideMenuDelegate {
         sideMenuVC.view.removeFromSuperview()
         sideMenuAppearance = false
     }
+    
 }
 
 extension EventListViewController: UIViewControllerTransitioningDelegate {
@@ -200,15 +199,19 @@ extension EventListViewController: UIViewControllerTransitioningDelegate {
 extension EventListViewController: CreateEventDelegate {
     func createEvent(eventName: String) {
         
-//        let docmentRef = db.collection("events").addDocument(data: ["eventName": eventName])
         let docmentRef = Event.registEvent(eventName)
         let eventId = docmentRef.documentID
         // 儀式、ご関係の初期値を登録
         registDefaultParam(eventId: eventId)
         // ログイン機能を実装したら"users"を挟む
         
-        
         // テーブル再読み込み
         fetchEventList()
+    }
+}
+
+extension EventListViewController: EventListViewControllerDelegate {
+    func moveTosignPage() {
+        self.moveToSignInPage()
     }
 }

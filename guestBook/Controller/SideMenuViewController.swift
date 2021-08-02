@@ -26,6 +26,7 @@ class SideMenuViewController: UIViewController {
     var backgroundView = UIView()
     lazy var sideMenuView = SideMenuListView()
     weak var sideMenuDelegate: SideMenuDelegate?
+    weak var eventListViewControllerDelegate: EventListViewControllerDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -77,14 +78,8 @@ class SideMenuViewController: UIViewController {
         let dialog = UIAlertController(title: "サインアウトしました。", message: "", preferredStyle: .alert)
         dialog.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         self.present(dialog, animated: true, completion: nil)
-        
-//        let signInVC = SignInViewController()
-//        signInVC.modalPresentationStyle = .fullScreen
-//        self.navigationController?.pushViewController(signInVC, animated: true)
-
-        
+        eventListViewControllerDelegate?.moveTosignPage()
     }
-    
 }
 
 // MARK:- Extensions
@@ -110,7 +105,8 @@ extension SideMenuViewController: SideMenuDelegate {
         // モーダルのViewControllerを表示
         guard let VC = sideMenuItem.viewController else {
             sideMenuDelegate?.hideSideMenuView()
-            print("サインアウトしました。")
+            print("サインアウト処理を行います。")
+            // ログインページに遷移
             return
         }
         VC.modalPresentationStyle = .custom

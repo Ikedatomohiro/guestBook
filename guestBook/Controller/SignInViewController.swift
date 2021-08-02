@@ -26,9 +26,9 @@ class SignInViewController: UIViewController {
         googleSignIn()
         if Auth.auth().currentUser != nil {
             print(Auth.auth().currentUser?.uid)
+        } else {
+            self.navigationController?.setNavigationBarHidden(true, animated: true)
         }
-//        self.navigationController?.setNavigationBarHidden(true, animated: true)
-
     }
     
     fileprivate func setupEmailSignInView() {
@@ -48,8 +48,8 @@ class SignInViewController: UIViewController {
         emailTextField.layer.cornerRadius = 5
         
         self.view.addSubview(emailSignUpButton)
-        emailSignUpButton.anchor(top: emailTextField.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 30, left: screenSize.width / 2 - 100, bottom: .zero, right: screenSize.width / 2 - 100) , size: .init(width: .zero, height: 50))
-        emailSignUpButton.setTitle("ログイン", for: .normal)
+        emailSignUpButton.anchor(top: emailTextField.bottomAnchor, leading: view.layoutMarginsGuide.leadingAnchor, bottom: nil, trailing: view.layoutMarginsGuide.trailingAnchor, padding: .init(top: 30, left: screenSize.width / 2 - 140, bottom: .zero, right: screenSize.width / 2 - 140) , size: .init(width: .zero, height: 50))
+        emailSignUpButton.setTitle("ログイン認証メールを送信", for: .normal)
         emailSignUpButton.backgroundColor = green
         emailSignUpButton.layer.cornerRadius = 5
         emailSignUpButton.addTarget(self, action: #selector(emailSignUp), for: .touchUpInside)
@@ -86,8 +86,7 @@ class SignInViewController: UIViewController {
             // The sign-in operation has to always be completed in the app.
             actionCodeSettings.handleCodeInApp = true
             actionCodeSettings.setIOSBundleID(Bundle.main.bundleIdentifier!)
-//            actionCodeSettings.setAndroidPackageName("com.example.android",
-//                                                     installIfNotAvailable: false, minimumVersion: "12")
+            
             // リンクURL
             var components = URLComponents()
             components.scheme = "https"
@@ -136,7 +135,6 @@ class SignInViewController: UIViewController {
     }
 }
 // MARK:- Extensions
-
 extension SignInViewController: GIDSignInDelegate {
     
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error!) {
@@ -157,13 +155,11 @@ extension SignInViewController: GIDSignInDelegate {
                 print(error.localizedDescription)
             } else {
                 print("Google SignIn Success!")
+                
+                let eventListVC = EventListViewController()
+                eventListVC.modalPresentationStyle = .fullScreen
+                self.navigationController?.pushViewController(eventListVC, animated: true)
             }
         }
     }
-    
-    
-    
-    
-    
-    
 }

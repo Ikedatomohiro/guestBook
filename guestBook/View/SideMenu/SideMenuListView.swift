@@ -57,7 +57,6 @@ extension SideMenuListView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = SideMenuTableViewCell()
-        //        cell.setupSideMenuCell(text: SideMenuItem.items[indexPath.row].headline)
         cell.textLabel?.text = SideMenuItem.items[indexPath.row].rawValue
         cell.selectionStyle = .none
         return cell

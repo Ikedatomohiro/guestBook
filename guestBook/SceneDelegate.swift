@@ -42,7 +42,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print(link)
                     print(email)
                     print(auth ?? "auth info is empty...")
-                    
                     return
                 }
                 print("メールリンクログイン成功")
