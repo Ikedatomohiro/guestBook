@@ -8,6 +8,8 @@
 import UIKit
 import FirebaseFirestore
 import FirebaseAuth
+import AdSupport
+import AppTrackingTransparency
 
 protocol EventListViewControllerDelegate: AnyObject {
     func moveTosignPage()
@@ -41,6 +43,11 @@ class EventListViewController: UIViewController {
         setupEventListTableView()
         setBackButtonTitle()
         setupSettingImage()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        showTrakkingMessage()
     }
     
     fileprivate func setupBase() {
@@ -167,6 +174,50 @@ class EventListViewController: UIViewController {
         let eventMenuVC = EventMenuViewController(event: event)
         eventMenuVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(eventMenuVC, animated: true)
+    }
+    
+    fileprivate func showTrakkingMessage() {
+        // アプリがトラッキングをしてもいいかアラートを出力
+        if #available(iOS 14, *) {
+            switch ATTrackingManager.trackingAuthorizationStatus {
+            case .authorized:
+                print("Allow Tracking")
+                print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier)")
+            case .denied:
+                print("拒否されています。")
+            case .restricted:
+                print("制限されています。")
+            case .notDetermined:
+                showRequestTrackingAuthorizationAlert()
+            @unknown default:
+                fatalError()
+            }
+        } else {// iOS14未満
+            if ASIdentifierManager.shared().isAdvertisingTrackingEnabled {
+                print("Allow Tracking")
+                print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier)")
+            } else {
+                print("制限されています。")
+            }
+        }
+    }
+    
+    ///Alert表示
+    private func showRequestTrackingAuthorizationAlert() {
+        if #available(iOS 14, *) {
+            ATTrackingManager.requestTrackingAuthorization(completionHandler: { status in
+                switch status {
+                case .authorized:
+                    print("許可されました。")
+                    //IDFA取得
+                    print("IDFA: \(ASIdentifierManager.shared().advertisingIdentifier)")
+                case .denied, .restricted, .notDetermined:
+                    print("拒否されました。")
+                @unknown default:
+                    fatalError()
+                }
+            })
+        }
     }
 }
 
