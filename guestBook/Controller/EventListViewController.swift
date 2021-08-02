@@ -14,7 +14,8 @@ protocol EventListViewControllerDelegate: AnyObject {
 }
 
 class EventListViewController: UIViewController {
-    let titleLabel         = UILabel()
+    fileprivate var uid                = ""
+    let titleLabel                     = UILabel()
     fileprivate let logInButton        = UIButton()
     fileprivate let createEventButton  = UIButton()
     fileprivate let db                 = Firestore.firestore()
@@ -45,7 +46,8 @@ class EventListViewController: UIViewController {
     fileprivate func setupBase() {
         view.backgroundColor = dynamicColor
         if Auth.auth().currentUser != nil {
-            print("signed in \(Auth.auth().currentUser?.uid)")
+            print("signed in \(String(describing: Auth.auth().currentUser?.uid))")
+            uid = Auth.auth().currentUser!.uid
         } else {
             print("サインインしてください。")
             moveToSignInPage()
@@ -84,7 +86,8 @@ class EventListViewController: UIViewController {
     
     // Firestoreからイベント名リストを取得
     fileprivate func fetchEventList() {
-        db.collection("events").getDocuments() { (querySnapshot, error) in
+        let uid = Auth.auth().currentUser!.uid
+        db.collection("events").whereField("uids", arrayContains: uid).getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.events = documents.map{ (document) -> Event in
                 return Event(document: document)
@@ -198,13 +201,10 @@ extension EventListViewController: UIViewControllerTransitioningDelegate {
 
 extension EventListViewController: CreateEventDelegate {
     func createEvent(eventName: String) {
-        
-        let docmentRef = Event.registEvent(eventName)
+        let docmentRef = Event.registEvent(eventName, uid)
         let eventId = docmentRef.documentID
         // 儀式、ご関係の初期値を登録
         registDefaultParam(eventId: eventId)
-        // ログイン機能を実装したら"users"を挟む
-        
         // テーブル再読み込み
         fetchEventList()
     }

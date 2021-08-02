@@ -47,7 +47,7 @@ extension EventListTableView: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: EventListCell.className) as? EventListCell else { fatalError("improper UITableViewCell")}
-        cell.setupEventName(event: events[indexPath.row])
+        cell.setupEventCell(events[indexPath.row])
         cell.selectionStyle = .none
         return cell
     }

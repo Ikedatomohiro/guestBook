@@ -9,11 +9,11 @@ import UIKit
 
 class GuestCell: UITableViewCell {
 
-    fileprivate var numberLabel    = UILabel()
-    fileprivate var guestNameLabel = UILabel()
+    fileprivate var numberLabel      = UILabel()
+    fileprivate var guestNameLabel   = UILabel()
     fileprivate var companyNameLabel = UILabel()
     fileprivate let addressLabel     = UILabel()
-    let retualAttendanceLabel = UILabel()
+    let retualAttendanceLabel        = UILabel()
 
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
