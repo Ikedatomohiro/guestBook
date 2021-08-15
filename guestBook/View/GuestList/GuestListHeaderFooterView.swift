@@ -28,6 +28,7 @@ class GuestListHeaderFooterView: UITableViewHeaderFooterView {
     var selectRank: Dictionary<String, Bool?> = ["guestName": nil, "companyName": nil]
     
     weak var sendGuestRank: SentGuestsRankDelegate?
+    
     init(selectRank: Dictionary<String, Bool?>, style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         self.selectRank = selectRank
         super.init(reuseIdentifier: reuseIdentifier)

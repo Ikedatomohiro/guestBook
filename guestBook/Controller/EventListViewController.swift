@@ -53,7 +53,7 @@ class EventListViewController: UIViewController {
     fileprivate func setupBase() {
         view.backgroundColor = dynamicColor
         if Auth.auth().currentUser != nil {
-            print("signed in \(String(describing: Auth.auth().currentUser?.uid))")
+            print("signed in \(String(describing: Auth.auth().currentUser!.uid))")
             uid = Auth.auth().currentUser!.uid
         } else {
             print("サインインしてください。")
@@ -253,7 +253,8 @@ extension EventListViewController: UIViewControllerTransitioningDelegate {
 extension EventListViewController: CreateEventDelegate {
     func createEvent(eventName: String) {
         let docmentRef = Event.registEvent(eventName, uid)
-        let eventId = docmentRef.documentID
+        guard let ref = docmentRef else { return }
+        let eventId = ref.documentID
         // 儀式、ご関係の初期値を登録
         registDefaultParam(eventId: eventId)
         // テーブル再読み込み

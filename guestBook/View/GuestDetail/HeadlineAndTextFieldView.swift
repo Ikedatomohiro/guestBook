@@ -39,7 +39,7 @@ class HeadlineAndTextFieldView: UIView {
     }
 
     // MARK:-
-    @objc func textFieldDidChange() {
+    @objc fileprivate func textFieldDidChange() {
         sendUpdateDataDelegate?.sendUpdateData(inputView: textField)
     }
 }

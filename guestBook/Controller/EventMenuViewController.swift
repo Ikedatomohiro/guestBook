@@ -105,7 +105,7 @@ class EventMenuViewController: UIViewController {
     }
     
     @objc private func showSetting() {
-        let settingVC = EventSettingViewController()
+        let settingVC = EventSettingViewController(event: event)
         settingVC.modalPresentationStyle = .fullScreen
         self.navigationController?.pushViewController(settingVC, animated: true)
     }
@@ -118,7 +118,7 @@ class EventMenuViewController: UIViewController {
     }
     
     fileprivate func getRetuals(eventId: String) -> [Retual] {
-        Retual.collectionRef(eventId: eventId).order(by:"number").getDocuments() { (querySnapshot, error) in
+        Retual.collectionRef(eventId: eventId).order(by: "number").getDocuments() { (querySnapshot, error) in
             guard let documents = querySnapshot?.documents else { return }
             self.retuals = documents.map({ (document) -> Retual in
                 let retual = Retual(docment: document)
